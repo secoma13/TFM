@@ -1,0 +1,25 @@
+% Archivo de estilo para makeindex
+% Guarda este archivo como "miestilo.ist"
+
+% Configuración de encabezados por letra (Ej: A, B, C...)
+heading_prefix "\\par\\vspace{12pt}\\noindent\\textbf{"
+heading_suffix "}\\par\\nopagebreak\\vspace{6pt}"
+
+% Espacio entre grupos de letras (Ej: entre el final de A y el inicio de B)
+group_skip "\\par\\vspace{6pt}"
+
+% Formato de las entradas del índice
+item_0 "\\par\\noindent "
+item_1 "\\subitem "
+item_2 "\\par \indent\\indent "
+
+% Separadores de página
+delim_0 ", "
+delim_1 ", "
+delim_2 ", "
+
+% Para que aparezcan las letras separadoras (A, B, C...)
+headings_flag 1
+
+% **** ESTAS LÍNEAS DEBEN ESTAR AUSENTES (COMENTADAS O ELIMINADAS) ****
+% preamble ""
