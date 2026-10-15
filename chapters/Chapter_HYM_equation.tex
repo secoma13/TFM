@@ -1,0 +1,245 @@
+\chapter{The hermitian Yang-Mills equation} \label{chapter_HYM_equation}
+The aim of this chapter is to study the hermitian Yang-Mills equation for connections on principal bundles over compact Kähler manifolds having compact connected structure groups. At the end of the chapter, we study the problems the equation has and how it should be modified when the structure group is not connected. Let \(K\) be a compact Lie group, and \(P_K \to M\) be a principal \(K\)-bundle. The \textit{hermitian Yang-Mills equation} is an equation \textit{for a connection} \(A\) on \(P_K\). The equation is given by 
+\begin{equation} \label{eq_HYM_ch_HYM}
+\Lambda_\omega F_A=-\ii c
+\end{equation}
+for some element \(c \in \ii\mathfrak{z}_K\) where \(\mathfrak{z}_K=\mathfrak{z}(\mathfrak{k})\) is the center of the Lie algebra of \(K\). 
+
+\begin{obs} \label{obs_HYM_center_Lie_algebra}
+    Observe that \(\Lambda_\omega F_A=-\ii c\) should be understood as an equality between smooth sections of the bundle \(P_K \times _K \mathfrak{k}\). Let us ignore, for the time being, the factor \(\ii\). The right-hand side then corresponds to a constant section \(m \mapsto [p, c]\) for \(\pi(p)=m\). One should check that this section is well-defined. Indeed, choose another representative \([p\cdot k, \Ad{k^{-1}}(c)]\). Since \(c \in \mathfrak{z}_K\) \textit{and \(K\) is connected}, \(\Ad{k}(c)=c\) for each \(k \in K\). It is very important to remark that this only holds for connected Lie groups. A quick proof is as follows:
+    \begin{align*}
+        \Ad{k}(c) =\left.  \frac{\diff}{\diff t}\right|_{t=0} L_k \circ R_{k^{-1}} \circ \exp(tc) = \left.  \frac{\diff}{\diff t}\right|_{t=0}  k \exp(tc)k^{-1}=\left.  \frac{\diff}{\diff t}\right|_{t=0} kk^{-1}\exp(tc)=c.
+    \end{align*}
+    This uses the fact that the exponential of a compact connected Lie group is surjective \parencite[Cor. 12.2.3]{hilgert2011structure} and the Baker-Campbell-Hausdorff formula.
+
+    Moreover, if equation \eqref{eq_Hermite_Yang_Mills} is satisfied, then the constant \(c\) is determined uniquely by the topology of the bundle. Uniqueness is not difficult to verify. Let \(\langle \cdot, \cdot \rangle\) be an \(\Ad{}\)-invariant positive definite inner product on \(\mathfrak{k}\) (the opposite of the Killing form for instance). Hence, let \(\corch{\zeta_1, \ldots, \zeta_r}\) be an orthonormal basis. \(-\ii c \in \mathfrak{k}\), hence \(-\ii c=\sum_{j=1}^r \langle-\ii c,\zeta_j\rangle \cdot \zeta_j \). Moreover, \(\langle \zeta_j, -\ii c \rangle=\langle\zeta_j, \Lambda_\omega F_A \rangle\) where this is an equality between smooth real-valued maps. Integrating over \(X\) with respect to the volume form \(\omega\), we get
+    \[
+    \int_X\langle\zeta_j, -\ii c\rangle \cdot \omega = \langle \zeta_j, -\ii c \rangle \cdot \mathrm{Vol}(X)=\int_X \langle \zeta_j , \Lambda_\omega F_A \rangle \cdot \omega = \int_X \langle \zeta_j, F_A \rangle  
+    \]
+    Using lemma \ref{lemma_wedge_omega} in the last identity and extending the inner product to differential forms the usual way. Then,
+    \begin{equation} \label{eq_unique_c}
+    -\ii c = \sum_{j=1}^r \left[\frac{1}{\mathrm{Vol}(X)} \cdot \int_X \langle \zeta_j,  F_A \rangle \right]\cdot \zeta_j.
+    \end{equation}
+    Hence, we have shown that the Chern connection may only satisfy \eqref{eq_Hermite_Yang_Mills} for a single value of \(c\). For a proof of the fact that \eqref{eq_unique_c} depends only on the topology of the manifold and the bundle, see \parencite[Prop. 3.4]{garcia2014connectedness} or \parencite[Remark 1.2]{alvarez2013coupled} and the references therein. 
+\end{obs}
+We will fix the \(\Ad{}\)-invariant positive definite inner product for the whole section. This induces a bilinear form on the space of sections of \(\mathrm{ad}(P_K)\). Indeed, given two sections \(\bm{\xi}, \bm{\zeta}\in \Gamma(X; \mathrm{ad}(P_K))\), we define \(\langle \bm{\xi}(x), \bm{\zeta}(x)\rangle :=\langle \xi, \zeta \rangle\) where \(\bm{\xi}(x)=[p, \xi], \bm{\zeta}(x)=[p, \zeta]\) and \(\pi(p)=x\). This is well-defined because taking another pair of representatives \([p\cdot g, \Ad{g^{-1}}\xi]\) and \([p\cdot g, \Ad{g^{-1}}\zeta]\), \(\Ad{}\)-invariance implies that \(\langle \Ad{g^{-1}}\xi, \Ad{g^{-1}}\zeta \rangle = \langle \xi, \zeta\rangle\). Moreover, this extends to \(\mathrm{ad}(P_G)\)-valued differential forms. More precisely, we define 
+    \[
+    \begin{array}{cccc}
+        \langle \cdot \wedge \cdot \rangle \colon & \Omega_\R^p(X; \mathrm{ad}(P_K)) \times \Omega_\R^q(X; \mathrm{ad}(P_K)) & \longrightarrow & \Omega_\R^{p+q}(X) \\ 
+    \end{array}
+    \]
+by extension of \(\langle \alpha \otimes \bm{\xi} \wedge \beta \otimes \bm{\zeta}\rangle = \langle \bm{\xi}, \bm{\zeta}\rangle \cdot \alpha \wedge \beta\). The same construction applies to \(\Omega_{\Ad{}, \text{ hor}}^1(P_K;\mathfrak{k})\). We may also endow \(\Gamma(X, \mathrm{ad}(P_K))\) with a Lie algebra structure as in remark \ref{obs_def_bracket_sections}, and extend it to differential forms by linear extension of \([\alpha \otimes \bm{\xi} \wedge \beta \otimes \bm{\zeta}]:=(\alpha \wedge \beta)\otimes [\bm{\xi}, \bm{\zeta}]\). Of course, everything works the same for complex Lie algebras and complex differential forms.
+
+We want to study the \textit{moduli space of solutions} of equation \eqref{obs_HYM_center_Lie_algebra}. As we will see, it is given by an infinite-dimensional symplectic reduction. To construct the moduli space rigorously, we need to see both, the space of connections and the gauge group of the bundle \(P_K\) as Banach manifolds. On their own, they are not Banach manifolds, but they can be completed using Sobolev norms. As we shall see, to consider the moduli space we need \(K\) to be a \textit{matrix} Lie group. 
+
+\section{Sobolev spaces and the gauge group} \label{section_Sobolev_spaces} 
+For this section, we follow the exposition in \parencite{wehrheim2004uhlenbeck} and \parencite{Rudolph_2017pug}. Let us consider a vector bundle \(E\) over a compact Kähler manifold \(M\), endowed with a positive-definite fiber metric \(\langle \cdot, \cdot \rangle\), that is, a positive-definite inner product on each fiber \(E_m\) such that for every pair of sections \(\psi, \phi\) of \(E\), the map \(\langle \psi, \phi \rangle \colon M \to \R\) is smooth. Fix a connection \(\nabla^E\) on \(E\), that is compatible with the fiber metric. By this we mean that \(\nabla^E \langle \phi, \psi \rangle = \langle \nabla^E \phi, \psi \rangle + \langle \phi, \nabla^E \psi \rangle\) for all sections \(\phi, \psi\). This connection induces a covariant derivative on all tensor bundles over \(M\) as we show below. 
+
+As we know, the connection \(\nabla^E\) defines a map \(\nabla^E\colon \Gamma(E) \to \Gamma(T^*M \otimes E)\). On the other hand, since \((M,g)\) is a riemannian manifold, \(TM\) is naturally endowed with the Levi-Civita connection \(\nabla^g\). This induces a connection on the dual bundle \(\nabla^{g*}\). The bundle \(T^*M \otimes E\) is therefore endowed with the connection \(\nabla^{g*} \otimes \nabla^E \colon \Gamma(T^*M \otimes E) \to \Gamma(T^*M \otimes T^*M \otimes E)\). Now, \(\otimes^2 T^*M \otimes E\) is endowed with a connection \(\nabla^{g*} \otimes \nabla^E\), and we may use it to define a connection on \(T^*M \otimes \parent{\otimes^2 T^*M} \otimes E \cong\otimes^3 T^*M \otimes E\), namely, we define the connection \(\nabla^{g*} \otimes \parent{\nabla^{g*} \otimes \nabla^E}\) (see section \ref{sec_induced_connections}). Iterating this process, we may define a connection on each \(\otimes^k T^*M\otimes E\) by 
+\[
+\nabla^{g*} \otimes \overset{k}{\cdots} \otimes \nabla^{g*} \otimes \nabla^E.
+\]
+Under some abuse of notation, we will denote by \(\nabla\) all the so-defined connections (including \(\nabla^E\)). Explicitly, if \(\alpha \in \Gamma(\otimes^k T^*M \otimes E)\), then \(\nabla \alpha \in \Gamma(\otimes^{k+1}T^*M \otimes E)\) is defined by \parencite[Eq. B2]{wehrheim2004uhlenbeck}
+\begin{align*}
+    \nabla \alpha(X_0, \ldots X_k)& =  \nabla^E_{X_0}(\alpha(X_1, \ldots X_k)) - \alpha(\nabla_{X_0}^g X_1, \ldots X_k) - \ldots - \alpha(X_1, \ldots \nabla_{X_0}^g X_k), 
+\end{align*}
+
+For \(k \in \N_{\geq 1}\) and any two sections \(\phi, \psi \in \Gamma(E)\), we define the \(L_k^2\) inner product
+\begin{equation} \label{prod_in_Gamma(E)}
+\langle \phi, \psi\rangle_k:= \int_M \bigg( \langle \phi, \psi \rangle + \langle \nabla \phi, \nabla \psi \rangle  + \ldots+ \langle \nabla^k \phi, \nabla^k \psi \rangle \bigg) \ \diff V_g.
+\end{equation}
+
+\begin{obs}
+    Each term in the sum inside the integral is a smooth function, so it makes sense to integrate them with respect to the volume form \(\diff V_g\), and the compactness of \(M\) ensures that the integral will be finite. As for the first claim, the symbol \(\langle \nabla^\ell \phi, \nabla^\ell\psi \rangle\) \textit{hides} the fact that we need to define an inner product on tensor products. First, the fact that \(g\) is non-degenerate (it is a riemannian metric) allows us to define an inner product of one-forms by \(\langle \alpha, \beta\rangle_g:=g\parent{\alpha^\#, \beta^\#}\), where \(\#\) is the \textit{sharp} isomorphism (see \parencite[Ch. 2]{lee_introRM}). On the other hand, whenever \(V_1, \ldots V_n\) are vector spaces endowed with inner products \(\langle\cdot, \cdot \rangle_i\), we may define an inner product by extending by linearity the following expression
+    \[
+    \langle v_1 \otimes v_2 \otimes \cdots \otimes v_n,  w_1 \otimes w_2 \otimes \cdots \otimes w_n \rangle = \langle v_1, w_1 \rangle_1 \cdot \langle v_2, w_2 \rangle_2 \cdots \langle v_n, w_n \rangle_n.
+    \]
+    This defines an inner product on each \(\otimes^k T^*M \otimes E\) (see \parencite[Lemma 1.7]{Rusman} for a very detailed proof that the previous expression defines an inner product).
+\end{obs}
+The map
+\[
+\begin{array}{ccc}
+    \Gamma(E) \times \Gamma(E) & \longrightarrow & \R \\
+    (\phi, \psi) & \mapsto & \langle \phi, \psi\rangle_k
+\end{array}
+\]
+defines an inner product on \(\Gamma(E)\). Of course, everything works out fine if we work with complex vector bundles and a hermitian fiber metric, in which case we can define a hermitian inner product on \(\Gamma(E)\). Since \(\Gamma(E)\) is a vector space with an inner product, we can always consider its Hilbert completion, which we shall denote \(L_k^2(M;E)\) or \(L_2^k(E)\). These spaces are called \textit{Sobolev spaces}\index{Sobolev space}.
+\begin{obs}
+    Recall that the topology of a Hilbert space is the metric topology with respect to the distance induced by the norm. The inner product we defined depends on \(g, \nabla\) and \(\langle\cdot, \cdot \rangle\). However, different choices of these parameters lead to equivalent norms \parencite[page 418]{Rudolph_2017pug}. This means that, as a topological space, \(L^2_k(M;E)\) is well-defined and independent of any choice of these parameters.
+\end{obs}
+Elements of a Hilbert completion are, formally, equivalence classes of Cauchy sequences. The following lemma provides a more tangible way of looking at these spaces.
+
+\Lemma{\textbf{Sobolev}}{Let \(E \to M\) be a vector bundle over a compact smooth manifold, and let \(k,p \in \N_{\geq 0}\) be such that \(k> \dim M/2+p\). Then, there is a continuous embedding \(L_k^2(M;E) \hookrightarrow \mathscr{C}^p(M;E)\). \label{Sobolev_lemma} }
+\begin{proof}
+    See \parencite[Th. B.2]{wehrheim2004uhlenbeck}.
+\end{proof}
+ Here, \(\mathscr{C}^p(M;E)\) is endowed with the metric topology induced by the norm \(||\phi||_\infty:=\sup_{j \leq p} \big\{ \max_{p \in M}\ \langle \nabla^j \phi(p), \nabla^j \phi(p)\rangle \big\}. \) That is, Sobolev spaces of sections can be seen as spaces of usual sections but with the caveat that some regularity may be lost. 
+
+We present now a sketch of the construction that allows us to see \(\mathscr{G}\) as a Hilbert-Lie group. For the construction, we consider \(G\) a compact, connected, \textit{matrix Lie group}. That is, \(G \subset \mathfrak{gl}(n,\C)=\mathrm{M}_n(\C)\) for some \(n\in \N\). We suppose that \(M\) is a compact Kähler manifold. Consider the vector bundle \(E^n_\C:=P \times_G \mathfrak{gl}(n, \C)\) where \(G\) acts on \(\mathfrak{gl}(n, \C)\) by conjugation. We may see \(\mathrm{Ad}(P)\) as a subbundle of \(E^n_\C\), i.e. it is an embedded submanifold, and its projection is the restriction of the projection of \(E_\C^n\). Observe that \(\mathrm{Ad}(P)\) is also constructed using the action of \(G\) by conjugation. Using the riemannian metric and any hermitian fiber metric on \(E_\C^n\) (those always exist, and they can be constructed through a partition of unity argument, see \parencite[Page 196]{lee_introCM}), we can consider \(\Gamma(M; \mathrm{Ad}(P))\subset \Gamma(M; E^n_\C)\subset L_k^2(M; E_\C^n)\). We define \(\mathscr{G}_k:=\overline{\Gamma(M;\mathrm{Ad}(P))}\), i.e. the closure of \(\Gamma(M;\mathrm{Ad}(P))\) in \(L_k^2(M;E_\C^n)\) with respect to the Sobolev topology of the latter. If we choose \(k \in \N_{\geq 0}\) satisfying \(k>\dim M/2+1\), then elements of \(\mathscr{G}_k\) can be seen as \(\mathscr{C}^2\) sections of the bundle \(\mathrm{Ad}(P)\). Hence, \(\mathscr{G}_k\) has a natural group structure where the group operation is defined pointwise. Actually, \(L_k^2(M; E_\C^n)\) has a natural product structure. This product, call it \(m\colon L_k^2(M; E_\C^n) \times L_k^2(M; E_\C^n) \to L_k^2(M; E_\C^n) \) is bilinear and continuous (see \parencite[Eq. 2.2]{mitter1981bundle}). Hence, \(m(\overline{\Gamma(M; \mathrm{Ad}(P))\times \Gamma (M; \mathrm{Ad}(P))})\subset \overline{\Gamma(M; \mathrm{Ad}(P))}\), and \(\mathscr{G}_k\) is closed under products. 
+
+
+\Theorem{}{Let \(P(M,G)\) be a principal \(G\)-bundle over a compact manifold, where \(G\) is a compact, connected, matrix Lie group. Then, for \(k>\dim M/2+1\), \(\mathscr{G}_k\) is a Hilbert-Lie group whose Lie algebra is \(\mathrm{Lie}(\mathscr{G}_k)\cong L^2_k(M;\mathrm{ad}(P))\), and whose exponential map is given by
+\[
+\exp_{\mathscr{G}_k}(\bm{\xi})(p) = \big[p,\exp_G(\hat\xi(p))\big], \hspace{1 cm} \bm{\xi} \in \mathrm{Lie}(\mathscr{G}_k), \  p \in M
+\]
+}
+\begin{proof}
+    See \parencite{mitter1981bundle}.
+\end{proof}
+
+\begin{obs} \label{obs_def_bracket_sections}
+    \(\Gamma(M; \mathrm{ad}(P))\) is a Lie algebra endowed with the pointwise Lie bracket it gets from \(\mathfrak{g}\). Given \(\bm{\xi}, \bm{\zeta}\in \Gamma(M; \mathrm{ad}(P_G))\) we define \([\bm{\xi}, \bm{\zeta}]\) as the section 
+    \[
+   [\bm{\xi}, \bm{\zeta}](m):= \big[\ [p, \xi], [p, \zeta] \ \big ]=[p, [\xi, \zeta]\ ] \hspace{1 cm} \text{where } \bm{\xi}(m)=[p, \xi], \bm{\zeta}(m)=[p, \zeta].
+    \]
+    This is well-defined independently of the chosen representatives because \(\Ad{g}\) is a Lie algebra isomorphism for all \(g \in G\).
+\end{obs}
+
+Observe that the smooth gauge group \(\Gamma(M;\mathrm{Ad}(P))\) can be seen as a subgroup of \(\mathscr{G}_k\) for each \(k\). Moreover, since the exponential map is smooth, it maps \(\Gamma(M; \mathrm{ad}(P))\) to \(\mathscr{G}\), hence the former may be seen as the Lie algebra of \(\mathscr{G}\). It is quite common in the literature to omit the Sobolev completions and directly state that \(\Gamma(M; \mathrm{ad}(P))\) is the Lie algebra of \(G\). 
+
+\section{The moduli space of solutions and the moment map picture}\label{section_moment_map_picture}
+In this section we will lay the foundations of the moment map picture of the Hitchin-Kobayashi correspondence. We will specify how the various spaces involved have to be completed with suitable Sobolev norms to actually get infinite-dimensional manifolds. Our main references for this section are \parencite{mitter1981bundle}, \parencite{trautwein2015surveygitpictureyangmills}, \parencite{BrongersMST}, \parencite{LarsMartin_Notes_HK} and \parencite{Rudolph_2017pug}. Before diving into the constructions, let us state a lemma we will use and which motivates the definition of curvature for elements in the Sobolev completion of the space of connections.
+
+\Lemma{}{Let \(P(M,G)\) be a smooth principal bundle, and let \(A\) be a connection. Let \(\alpha \in \Omega^1_\R(M; \mathrm{ad}(P_G))\). Then \label{lemma_F_A_plus_alpha}
+\begin{equation} \label{eq_def_F_A_plus_alpha}
+F_{A+\alpha}=F_A+\diff_A \alpha + \frac{1}{2}\cdot [\alpha \wedge \alpha]
+\end{equation}
+}
+\begin{proof}
+    Let \(\hat{\alpha}:=\Upsilon^{-1}(\alpha)\in \Omega_{\text{Ad, hor}}^1(P; \mathfrak{g})\). By \(A+\alpha\) we mean the connection one-form \(A+\hat{\alpha}\). We apply \(\Upsilon\) to equation \eqref{eq_rel_curvature}. Then,
+    \begin{align*}
+        F_{A+\alpha} & = \Upsilon\parent{\Diff_AA + \Diff_A \hat{\alpha} + \frac{1}{2}\cdot [\hat{\alpha} \wedge \hat{\alpha}]} = F_A+ \Upsilon(\Diff_A \hat{\alpha})+ \frac{1}{2}\cdot \Upsilon([\hat{\alpha} \wedge  \hat{\alpha}]) \\
+        &= F_A + \diff_A \Upsilon(\hat{\alpha}) + \frac{1}{2}\cdot [\Upsilon(\hat{\alpha}) \wedge \Upsilon(\hat{\alpha})].
+    \end{align*}
+    It remains to check that \(\Upsilon([\hat{\alpha}, \hat{\alpha}])=[\Upsilon(\hat{\alpha}), \Upsilon(\hat{\alpha})]\). To do so, let us unveil the different definitions. Let \(\alpha=\alpha^j \otimes \bm{\xi}_j\) for \(\alpha^j \in \Omega_\R^1(M)\) and \(\bm{\xi}_j \in \Gamma(M; \mathrm{ad}(P_G))\). A simple calculation shows that \(\Upsilon^{-1}(\alpha)=\pi^* \alpha^j \otimes \hat{\xi}_j\), where \(\hat{\xi}_j:=\Upsilon^{-1}(\bm{\xi}_j)\colon P \to \mathfrak{g}\) is \(G\)-equivariant (see \parencite[Remark 1.2.13]{Rudolph_2017pug}). Then, letting \(p \in P\), \(v_1, v_2 \in T_pP\)
+    \begin{align*}
+        \big(\Upsilon([\hat{\alpha}\wedge \hat{\alpha}])\big)_{\pi(p)}(\diff_p\pi(v_1), \diff_p\pi(v_2)) & = q_p \big((\pi^*(\alpha^j \wedge \alpha ^\ell))_{p}(v_1, v_2) \cdot [\hat{\xi}_j(p), \hat{\xi}_\ell(p)]\big) \\
+        &=\big[p,(\pi^*(\alpha^j \wedge \alpha ^\ell))_{p}(v_1, v_2) \cdot [\hat{\xi}_j(p), \hat{\xi}_\ell(p)]  \big]
+    \end{align*}
+    Whereas
+    \begin{align*}
+        [\Upsilon(\hat{\alpha}) \wedge \Upsilon(\hat{\alpha})]_{\pi(p)}(\diff_p\pi(v_1), \diff_p\pi(v_2)) &= [\alpha^j \otimes \xi_j \wedge \alpha^\ell \otimes \xi_\ell]_{\pi(p)}(\diff_p\pi(v_1), \diff_p\pi(v_2)) \\
+        & = (\alpha^j \wedge \alpha^\ell)_{\pi(p)}(\diff_p\pi(v_1), \diff_p\pi(v_2))\cdot [p, \xi_j(\pi(p)), \xi_{\ell}(\pi(p))].
+    \end{align*}
+    And these coincide due to the way the Lie bracket on \(\Gamma(X; \mathrm{ad}(P))\) is defined (cf. remark \ref{obs_def_bracket_sections}) and the way that \(\Upsilon\) acts on sections of \(\mathrm{ad}(P_G)\) (cf. section \ref{section_connections_associated_bundles}).
+\end{proof}
+
+Consider now a compact Lie group \(K\) and a principal \(K\)-bundle \(P_K\) over a compact Kähler manifold \(M\). From section \ref{section_curvature_connection} and remark \ref{remark_connections_affine_adP}, we know that \(\mathscr{A}(P_K)\) is an affine space modelled on \(\Omega^1_\R(X; P_K \times _K \mathfrak{k})\). We consider \(L_k^2(X; T^*M \otimes \mathrm{ad}(P_K))\) its Sobolev completion with respect to the connection \(\nabla_A\) that any connection \(A\in \mathscr{A}(P_K)\) induces on the associated bundle \(\mathrm{ad}(P_K)\) and the dual of the Levi-Civita connection (see section \ref{section_Sobolev_spaces}). Since \(\mathscr{A}(P_K)\) is an affine space, we can fix an element \(A_0\in \mathscr{A}\). We define the space of \(L_2^k\)-connections by 
+\[
+\mathscr{A}_k(P_K):=\corch{A_0+\alpha : \alpha \in L_k^2(T^*M \otimes \mathrm{ad}(P_K))}.
+\]
+This is again an affine space, and the set is independent of the smooth connection \(A_0\) we use to define it. In fact, since \(\bm{\Omega}^1_k(M;\mathrm{ad}(P_K)):=L_k^2(M;T^*M \otimes \mathrm{ad}(P_K))\) is a Hilbert space by construction, this endows \(\mathscr{A}_k(P_K)\) with the structure of a Banach manifold. Indeed, charts are given by \(\alpha \mapsto \alpha + A\) for some smooth connection \(A\), and the transition maps are given by \(\alpha \mapsto \alpha + (A_0-A_1)\) for two smooth connections \(A_0, A_1 \in \mathscr{A}(P_K)\). This is clearly a smooth map in the sense of Banach manifolds. Finally, choosing \(k\) sufficiently large, in particular, \(k>\dim_\R M /2+1\), it follows that \(\mathscr{A}_k(P_K)\) is embedded in the set of \(\mathscr{C}^1\) connections (connection one-forms of class \(\mathscr{C}^1\) instead of smooth, see lemma \ref{Sobolev_lemma}). One should remark that for affine spaces, the tangent space in the sense of section \ref{section_tangent_space_Banach} coincides with the model vector space (more precisely, they are isomorphic). When working with elements of \(\mathscr{A}_k(P_K)\) that are not necessarily smooth connections, we still want to speak about their curvature. This is done by \textit{defining} \(F_{A+\alpha}\) using \eqref{eq_def_F_A_plus_alpha}. 
+
+When \(K\) is a compact \textit{connected, matrix} Lie group, then \(\mathscr{G}_k:=\overline{\Gamma(X; \mathrm{ad}(P_K))}\) is a Hilbert Lie group. Choose \(k+1\) to endow the gauge group with a smooth structure. Then, the action by pullback 
+\begin{equation} \label{eq_def_action_Phi}
+    \Phi: \mathscr{G}_{k+1} \times \mathscr{A}_k \longrightarrow  \mathscr{A}_k, \ \  (A, \phi) \mapsto (\phi^{-1})^*A 
+\end{equation}
+is smooth in the sense of Banach manifolds \parencite[Prop. 3.12]{mitter1981bundle}. See equation \eqref{eq_explicit_action_gauge_group} for an explicit expression of the action. To set some notation, given \(\phi \in \mathscr{G}_{k+1}\), we will write \(\tau\colon P \to G\) the map corresponding to \(\phi\) by the isomorphism of theorem \ref{equivalences_gauge_group}. Observe that the construction of that theorem is still well-defined if we restrict the regularity of our maps. Observe as well that we consider the pullback with respect to the inverse to get a left-action. Had we not used the inverse, we would have obtained a right action. This is not particularly relevant, but we define a left action to be coherent with the discussions of chapters \ref{chapter_kempf_Ness} and \ref{Chapter_inf_dim_sympl_red}. To be very explicit, elements of \(\mathscr{G}_k\) can be viewed as \(\mathscr{C}^{2}\) sections of the bundle \(\mathrm{Ad}(P_K)\). The group isomorphisms of theorem \ref{equivalences_gauge_group} hold if we consider maps of lower regularity. Under these isomorphisms, every element of \(\mathscr{G}_k\) corresponds to a \(\mathscr{C}^{2}\) automorphism of \(P_K\) covering the identity, which can be used to define the pullback. 
+
+Back to \(\mathscr{A}_k\), this Hilbert manifold is in fact symplectic. To endow it with a symplectic structure, we define 
+\begin{equation} \label{eq_def_sympl_form_connections}
+\Omega_A(\alpha, \beta):=\int_X \Lambda_\omega\langle \alpha \wedge \beta \rangle \ \diff V_g = \int_X \langle \alpha \wedge \beta \rangle \wedge \frac{\omega^{n-1}}{(n-1)!} \hspace{0.8 cm} \alpha, \beta \in T_A \mathscr{A}_k = \bm{\Omega}^1_k(M; \mathrm{ad}(P_K))
+\end{equation}
+where the second expression follows from \ref{lemma_wedge_omega}. \(\langle \cdot \wedge \cdot \rangle\) is defined as in remark \ref{obs_def_bracket_sections}. Here \(\langle \cdot, \cdot \rangle\) is an \(\Ad{}\)-invariant inner product on \(\mathfrak{k}\), which always exists because \(K\) is compact (this is done by averaging any positive define inner product on \(\mathfrak{k}\) by means of the Haar measure, see \parencite[Lemma 10.4.14]{hilgert2011structure}).
+
+\begin{obs}
+    It is true, and we shall assume it henceforth, that almost every property of differential forms holds when we restrict ourselves to differential forms with reduced regularity. For example, in \parencite{SergeLang}, the theory of differential forms is constructed without requiring smoothness.
+\end{obs}
+
+For the remainder of the section we will need to use the symbol \(\diff_A\) to mean the exterior differential in the sense of Banach manifolds evaluated at a point \(A \in \mathscr{A}_k\). To avoid confusions with the connection induced by \(A\) on the associated bundle, we shall use boldface d's for the exterior differential, that is \(\mathbf{d}_A\).
+
+\Lemma{}{Let \(K\) be a compact Lie group, and \(P(M,K)\) a principal \(K\)-bundle over a compact Kähler manifold, and consider the Sobolev completion of its space of connections \(\mathscr{A}_k:=\mathscr{A}_k(P_K)\) for \(k>\dim_\R M/2+1\). Then, the form \(\Omega\) defined by \eqref{eq_def_sympl_form_connections} is symplectic. Moreover, the \(\mathscr{G}_{k+1}\)-action is symplectic.}
+\begin{proof}
+    For each \(A \in \mathscr{A}\), \(\Omega_A\) is clearly bilinear and skew-symmetric. \(\bm{\diff} \Omega=0\) follows from the fact that \(\Omega\) does not depend on the point (see proposition \ref{def_ext_differential}). Since this is the first time we encounter the exterior differential applied to an infinite-dimensional form, let us be more explicit. First, for a two-form, the definition given in \eqref{def_ext_differential} reads
+    \begin{align*}
+        \bm{\diff} \Omega(X_1, X_2, X_3)  = & X_1(\Omega(X_2, X_3)) - X_2(\Omega(X_1, X_3))+X_3(\Omega(X_1, X_2)) - \Omega([X_1, X_2], X_3) \\
+        & \ + \Omega([X_1, X_3], X_2) - \Omega([X_2, X_3], X_1).
+    \end{align*}    
+    Since \(\Omega\) does not depend on the point we evaluate it at, this expression depends only on the values of the vector fields at a point. Since all the tangent spaces can be canonically identified with \(\bm{\Omega}_k^1(M; \mathrm{ad}(P_K))\) we can calculate the right-hand side using constant vector fields. Their commutator is then zero (the proof given \parencite[Prop. 2.6]{LarsMartin_Notes_HK} can be adapted to this case). Hence, it suffices to show that each of the first three summands vanishes. To do so, consider \(\alpha, \beta ,\vartheta \in \bm{\Omega}_k^1(M; \mathrm{ad}(P_K))\), which we will see as constant vector fields. Observe that we may interpret \(\Omega(\alpha, \beta)\) as a map \(\mathscr{A} \to \R\). We then consider the vector field defined by assigning \(\vartheta\) to every point, which we still denote \(\vartheta\). To apply the comments on remark \ref{obs_vector_fields_and_differentials_inf_dim}, we identify it with the map that to any \(A \in \mathscr{A}\) assigns the equivalence class of the curve \(t \mapsto A+t \cdot \vartheta\). Hence, at any point \(A \in \mathscr{A}\), we have
+    \[
+    \big(\vartheta(\Omega(\alpha, \beta))\big)_A=\mathbf{d}_A \big(\Omega(\alpha, \beta)\big)([t \mapsto A+ t\vartheta])=\bigdt \Omega_{A+t\vartheta}(\alpha, \beta)=0
+    \] 
+    the latter being zero because the map \(\Omega(\alpha, \beta)\colon \mathscr{A}\to \R\) is constant. Finally, to check non-degeneracy, let \(\alpha \in \bm{\Omega}^1_k(M;\mathrm{ad}(P_K))\). Observe that the assignment 
+    \[
+    (\alpha, \beta):=\int_M \langle \alpha \wedge \star \beta \rangle \hspace{1 cm} \alpha, \beta \in \bm{\Omega}^1_k(M; \mathrm{ad}(P_K))
+    \]
+    defines an inner product on \(\bm{\Omega}^1_k(M; \mathrm{ad}(P_G))\) (see the comment below \eqref{eq_Hodge_inner_prod_def_2}). Now, for a fixed \(\alpha\), let \(\beta:=\Lambda_\omega^{n-1} \star\alpha\). We have,
+    \begin{align*}
+        \int_M \langle \alpha \wedge \Lambda_\omega^{n-1} \star \alpha \rangle \wedge \omega^{n-1} & = \int_M \langle \alpha \wedge  L_\omega ^{n-1} \Lambda_\omega^{n-1} \star \alpha \rangle = \int_M \langle L_\omega ^{n-1} \Lambda_\omega^{n-1} \star \alpha \wedge \star \star \alpha \rangle \\
+        & = (L_\omega^{n-1} \Lambda_\omega^{n-1} \star \alpha , \star \alpha) = (\Lambda_\omega^{n-1} \star\alpha,\Lambda_\omega^{n-1} \star\alpha)^2>0  
+    \end{align*}
+    and we conclude that the latter is positive using that \(\Lambda_\omega^{n-1} \star\alpha=\star \  L_\omega^{n-1} \alpha\) and \(L_\omega^{n-1}\) is injective \parencite[Lemma 9.39]{lee_introCM}. Finally, the \(\mathscr{G}_{k+1}\) action is symplectic. Let \(\phi(p)=p\cdot \tau(p)\), and consider \(\Phi_\phi\colon \mathscr{A}_k \to \mathscr{A}_k, A \mapsto (\phi^{-1})^*A\). Let \(\alpha \in \bm{\Omega}^1_k(M; \mathrm{ad}(P_K))\). We have (see \eqref{eq_def_action_connection_gauge_group})
+    \[
+    \mathbf{d}_A \Phi_\phi(\alpha)=\left. \frac{\diff}{\diff t}\right|_{t=0} (\phi^{-1})^*(A+t\alpha)=\left. \frac{\diff}{\diff t}\right|_{t=0} \bigg( \Ad{\tau}(A+t \alpha) + (\tau^{-1})^*\theta \bigg) = \Ad{\tau} (\alpha).
+    \]
+    Finally, 
+    \[(\Phi_\phi^* \Omega)_A(\alpha, \beta)=\Omega_{\phi^*A}(\mathbf{d}_A \Phi_\phi(\alpha), \mathbf{d}_A \Phi_\phi(\beta))=\Omega_{\phi^*A}(\Ad{\tau}(\alpha), \Ad{\tau}(\beta))=\Omega_A(\alpha, \beta)
+    \] 
+    using the fact that \(\langle \cdot, \cdot \rangle\) is \(\mathrm{Ad}\)-invariant, and the adjoint action applies to the ``section of \(\mathrm{ad}(P_K)\)'' part of the differential form.
+\end{proof}
+Once shown that the action is symplectic, let us see that it is Hamiltonian. To do so, we define \(\mu \colon \mathscr{A}_k \to \mathrm{Lie}(\mathscr{G}_{k+1})^*\) by 
+\begin{equation} \label{eq_def_moment_map}
+ (\mu (A), \bm{\xi} ) :=\int_M \langle \bm{\xi}, (\Lambda_\omega F_A + \ii c) \rangle \  \frac{\omega^n}{n!} \hspace{1 cm} A \in \mathscr{A}_k, \ \bm{\xi}\in \mathrm{Lie}(\mathscr{G}_{k+1})=L^2_{k+1}(X; \mathrm{ad}(P_K)).
+\end{equation}
+Here, the symbol \((\cdot, \cdot) \) is the pairing between \(\mathrm{Lie}(\mathscr{G}_{k+1})\) and its dual as in \eqref{eq_def_pairing_lie_alg}.
+
+\Lemma{}{Let \(P(M,K)\) be a principal bundle over a compact Kähler manifold \(M\). The map \(\mu\) defined by \eqref{eq_def_moment_map} is a moment map for the action defined by \eqref{eq_def_action_Phi}.}
+\begin{proof}
+    For each \(A \in \mathscr{A}_k\) it is obvious that \(\mu(A)\) is linear. Moreover, \(F_{\phi^*A}=\Ad{\tau^{-1}}\circ F_A\) (see \parencite[Page 462]{Rudolph_2017pug}). Hence,
+    \begin{align*}
+        (\mu(\phi^*A), \bm{\xi})  & = \int_M \langle \bm{\xi}, (\Lambda_\omega F_{(\phi^{-1})^*A}+\ii c) \rangle \ \diff V_g = \int_M \langle \bm{\xi}, \Ad{\tau}(\Lambda_\omega F_A+ \ii c) \rangle \ \diff V_g \\
+        & = \int_M \langle \Ad{\tau^{-1}} (\bm{\xi}), \Lambda_\omega F_A +\ii c \rangle \ \diff V_g = \langle \mu(A), \Ad{\tau^{-1}}(\bm{\xi}) \rangle 
+    \end{align*}
+    Finally, given \(\bm{\xi}\in \mathrm{Lie}(\mathscr{G}_{k+1})\), the infinitesimal action is \(X_{\bm{\xi}, A}:=\diff/\diff t|_{t=0} \ \exp_{\mathscr{G}_{k+1}}(t \bm{\xi})\cdot A=-\diff_A \bm{\xi}\), where \(\diff_A\) is connection that \(A\) induces in the associated bundle \(\mathrm{ad}(P_K)\). Here, we identify \(\exp_{\mathscr{G}_{k+1}}(t \bm{\xi})\) with a gauge transformation by means of theorem \ref{equivalences_gauge_group}. For a proof of that claim, see \parencite[Lemma 2.2]{trautwein2015surveygitpictureyangmills}. Let us check that \(\mathbf{d} \mu^{\bm \xi}=i_{X_{\bm{\xi}}}\Omega\). To do so, we use the expression for \(F_{A+\alpha}\) given in lemma \ref{lemma_F_A_plus_alpha}. Now, 
+    \begin{align*}
+    \mathbf{d}_A \  \mu^{\bm{\xi}}(\alpha) & = \left. \frac{\diff }{\diff t} \right|_{t=0} \int_M \langle \bm{\xi}, (\Lambda_\omega F_{A+t \alpha}+\ii c) \rangle \ \diff V_g = \bigdt\int_M \bigg\langle \bm{\xi},  \Lambda_\omega F_A + t \Lambda_\omega  \diff_A \alpha +\frac{t^2}{2} \Lambda_\omega[\alpha \wedge \alpha ] \bigg\rangle \ \frac{\omega^n}{n!}   \\
+    & = \int_M \langle \bm{\xi}, \Lambda_\omega \diff_A \alpha \rangle \cdot \frac{\omega^n}{n!} \overset{{\color{red}(1)}}{=}\int_M \langle \bm{\xi} \wedge \diff_A \alpha \rangle \wedge \frac{\omega^{n-1}}{(n-1)!} \overset{{\color{red}(2)}}{=} \int_M \langle -\diff_A \xi \wedge  \alpha \rangle \wedge \frac{\omega^{n-1}}{(n-1)!} \\
+    & = i_{X_{\bm{\xi}, A}} \Omega_A(\alpha).
+    \end{align*}
+    Hence, \(\mathbf{d} \mu^{\bm{}\xi}=i_{X_{\bm{\xi}}} \Omega\). In \({\color{red}(1)}\) we used lemma \ref{lemma_wedge_omega} and in \(\color{red}(2)\) we used Stokes' theorem combined with the fact that 
+    \[
+    \diff \parent{\langle \bm{\xi} \wedge  \alpha \rangle \wedge \omega^{n-1}}=\langle \diff _A \bm{\xi} \wedge  \alpha \rangle \wedge \omega^{n-1} + \langle \bm{\xi}\wedge  \diff_A \alpha \rangle  \wedge \omega^{n-1}.
+    \]
+    Indeed, \(\diff \parent{\langle \bm{\xi} \wedge \alpha \rangle \wedge \omega^{n-1}}=\diff \big(\langle \bm{\xi} \wedge \alpha \rangle\big) \wedge \omega^{n-1}+\langle \bm{\xi} \wedge \alpha \rangle\wedge \diff \omega^{n-1}\), the latter being zero because \(\omega\) is closed. For the former, one can show that \(\diff \langle \bm{\xi}, \alpha \rangle = \langle \diff_A \bm{\xi} \wedge \alpha \rangle  + \langle \bm{\xi} , \diff_A \alpha \rangle\). To do this, first observe that a straightforward computation shows that \(\langle \Upsilon^{-1}(\alpha) \wedge \Upsilon^{-1}(\beta)\rangle = \pi^*\langle \alpha \wedge \beta \rangle\) for all \(\mathrm{ad}(P_K)\)-valued differential forms \(\alpha\) and \(\beta\). Let \(\tilde{\alpha}:=\Upsilon^{-1}(\alpha)\) and \(\hat{\xi}:=\Upsilon^{-1}(\bm{\xi})\). Then,
+    \begin{align*}
+        \pi^* \langle\xi \wedge  \diff_A \alpha \rangle & = \langle\hat{\xi} \wedge \Diff_A \tilde{\alpha} \rangle=\langle \hat{\xi}\wedge (\diff \tilde{\alpha}+[A, \tilde{\alpha} ])  \rangle=\diff \langle \hat{\xi} \wedge \tilde{\alpha}\rangle- \langle\diff \hat{\xi}\wedge  \tilde{\alpha}\rangle + \langle  \hat{\xi}\wedge [A \wedge \tilde{\alpha}] \rangle \\
+        & \overset{{\color{red}(3)}}{=} \pi^*\diff \langle\xi \wedge  \alpha \rangle - \langle (\diff \hat\xi + [A, \hat{\xi}]) \wedge \tilde{\alpha}\rangle = \pi^* \diff \langle\xi \wedge  \alpha  \rangle -\langle  \Diff_A \hat{\xi} \wedge \tilde{\alpha}  \rangle \\
+        & = \pi^*\big(\diff \langle \xi \wedge \alpha \rangle -\langle\diff_A \xi \wedge \alpha  \rangle\big).
+    \end{align*}
+    In \(\color{red}(3)\) we used the invariance of the product (see the proof of lemma \ref{lemma_antidominant_character}). The equality holds when removing the pullbacks because \(\pi\) is a surjective smooth submersion (cf. lemma \ref{lemma_null_pullback}).
+    %%%%%%%%%%%%%% IMPORTANTE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%% IMPORTANTE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % si acabo haciendo la prueba de que la acctión infinitesimal es -\diff_A, hay que tener en cuenta que se está utilizando el isomorfismo upsilon en la prueba que cito pero sin decirlo explícitamente 
+\end{proof}
+Observe that, by construction, \(\mu^{-1}(0)\) is precisely the set of connections in \(\mathscr{A}_k(P_K)\) that satisfy the hermitian Yang-Mills equation.
+\begin{obs} \label{obs_mu_lie_sin_dual}
+    The map 
+    \[
+    \begin{array}{ccc}
+        \mathrm{Lie}(\mathscr{G}_{k+1}) & \longrightarrow & \mathrm{Lie}(\mathscr{G}_{k+1})^* \\
+        \bm{\xi} & \mapsto & \int_M \langle \bm{\xi}, \cdot \rangle \ \diff V_g
+    \end{array}
+    \]
+    is a vector space isomorphism. This justifies the fact that one commonly finds in the literature the statement that the moment map is given by \(\mu \colon \mathscr{A}_{k} \to \mathrm{Lie}(\mathscr{G}_{k+1}), A \mapsto \Lambda_\omega F_A+\ii c\). When writing this, we are seeing the moment map under that isomorphism.
+\end{obs}
+
+Once everything is set up, the \textit{moduli space of hermitian Yang-Mills connections} on \(P_K\) is given by the symplectic reduction 
+\[
+\mathcal{M}_{\mathrm{HYM}}:=\mu^{-1}(0)/\mathscr{G}_{k+1}.
+\]
+We will assume that \(\mu\) satisfies the slice condition, that \(0\) is a weak regular value, and that the action of \(\mathscr{G}_{k+1}\) on \(\mu^{-1}(0)\) is proper without further comments. Then, theorem \ref{th_banach_sympl_red} applies, and \(\mathcal{M}_{\mathrm{HYM}}\) has the structure of a symplectic manifold. There is one last thing that we should make clear before stating that \(\mathcal{M}_{\mathrm{HYM}}\) is the moduli space of solutions of equation \eqref{eq_HYM_ch_HYM}. Observe that upon completing the spaces with respect to a Sobolev norm we are adding non-smooth connections and gauge transformations and, in principle, it could happen that we add orbits not corresponding to any smooth solution. This does not happen. One may show, using analytical techniques, that every orbit in \(\mathcal{M}_{\mathrm{HYM}}\) contains a smooth connection \(A\) solving equation \eqref{eq_HYM_ch_HYM}.
+
+% We may consider \(\mathscr{A}^{(1,1)}_k(P_G)\) the subset of connections of type \((1,1)\). This will not be, in general, an infinite-dimensional smooth manifold: it may have singularities. However, outside its singularity set (which under some abuse of notation we will denote by \(\mathscr{A}^{(1,1)}_k(P_G)\) as well), it is a symplectic manifold with the restriction of \(\Omega\) as a symplectic form. The restriction of the \(\mathscr{G}_{k+1}\) action is Hamiltonian for the restriction of the moment map \(\hat{\mu}\), and each connection orbit contains a smooth one. Hence, the moduli space of Hermite-Einstein-Yang-Mills connections on \(P_G\) can be identified with the symplectic quotient: \(\hat{\mu}^{-1}(0)/\mathscr{G}\). To be sure that we ``do not add any new points'' in the quotient, one must show that each \(\mathscr{G}\)-orbit contains a smooth connection. From the Banach manifold version of the Marsden-Meyer-Weinstein theorem (theorem \ref{th_banach_sympl_red}) it follows that the moduli space of hermitian Yang-Mills connections is a symplectic manifold. This, together with the Kempf-Ness theorem motivates the Hitchin-Kobayashi correspondence. \textbf{(10)}.
+\section{Hermitian Yang-Mills equation for non-connected groups} \label{section_HYM_eq_non_connected}
+If we remove the connectedness hypothesis of \(K\), equation \eqref{eq_HYM_ch_HYM} no longer makes sense because we will not have, in general, a constant section equal to \(c\). We reformulate the equation as follows. Let \(\hat{K}\) be a possible non-connected compact Lie group, \(K\) its identity component, and let \(P_{\hat{K}}\to M\) be a principal \(\hat{K}\)-bundle over a compact Kähler manifold. Let \(\mathfrak{z}_K\) be the Lie algebra of the center of \(K\), \(Z(K)\) (equivalently, \(\mathfrak{z}_K=\mathfrak{z}(\mathfrak{k})\) is the center of the Lie algebra). This Lie algebra is invariant under the adjoint action of \(\hat{K}\), but this action is usually \textit{not trivial}. A connection \(A\) satisfies the \textit{\(a\)-hermitian Yang-Mills equation} for some \(a \in \Gamma(X; P_{\hat{K}} \times_{\hat{K}}\ii \mathfrak{z}_K)\) if \(\diff_A a=0\) and 
+\begin{equation} \label{eq_HYM_non_connected_ch_HYM}
+\Lambda_\omega F_A=-\ii a.
+\end{equation}
+
+\begin{obs} 
+        When \(K\) is connected (that is \(\hat{K}=K\)), equation \eqref{eq_HYM_non_connected_ch_HYM} reduces to the connected version of the hermitian Yang-Mills equation \eqref{eq_HYM_ch_HYM}. Indeed, the adjoint action of a connected Lie group on the center of its Lie algebra is trivial. Therefore, \(P_{\hat{K}}\times_{\hat{K}}\ii \mathfrak{z}_K=X \times \ii\mathfrak{z}_K\) is a trivial bundle. Hence, sections of this bundle can be identified with smooth maps \(X \to \ii\mathfrak{z}_K\). From section \ref{section_connections_associated_bundles}, to \(a\colon X \to \ii \mathfrak{z}_K\) we assign a \(K\)-equivariant (invariant actually, because the \(K\)-action on \(\ii \mathfrak{z}_K\) is trivial) map \(\tilde{a}(p):=\Upsilon^{-1}(a)(p)=a(\pi(p))\). Hence, \(\diff_A a=\Upsilon(\Diff_A \tilde{a})=0\), and since \(\Upsilon\) is a vector space isomorphism, we have \(\Diff_A\tilde{a}=(\diff\tilde{a})^H=0\). However, \(\diff \tilde{a}=(\diff \tilde{a})^H\). To see this, it suffices to check that \(\diff \tilde{a}\) vanishes when acting on vertical vectors. Indeed, given a vertical vector \(X_{\xi, p}\) for \(\xi \in \mathfrak{k}, p \in P\), we have
+        \[
+        \diff_p \tilde{a}(X_{\xi, p})=\diff_p(a \circ \pi)(\diff_e\phi^{(p)}(\xi))=\diff_e(a\circ \pi \circ \phi^{(p)})(\xi)=0
+        \]
+        because \(\pi\circ \phi^{(p)}\) is a constant map identically equal to \(p\). Hence, \(\diff \tilde{a}=0\), and this implies that \(\tilde{a}\) is constant. By construction, \(a\) must also be constant. Hence, if \(K\) is connected, we recover \(\Lambda_\omega F_A=-\ii a\) for \(a \in \ii \mathfrak{z}_K=\ii \mathfrak{z}(\mathfrak{k})\).
+\end{obs}

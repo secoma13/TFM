@@ -1,0 +1,126 @@
+\chapter{Infinite-dimensional symplectic reduction} \label{Chapter_inf_dim_sympl_red}
+The aim of this chapter is to give a Banach manifold version of symplectic reduction (theorem \ref{Th_Marsden_Meyer_Weinstein}), for the action of a Banach-Lie group on a Banach manifold. We refer the reader to appendix \ref{appendix_Banach_manifolds} for the relevant notions concerning infinite-dimensional Banach manifolds. The chapter starts with the (straightforward) generalization of symplectic manifolds to infinite dimensions. Once this is done, we can give the definition of moment map, and state the reduction theorem for Banach manifolds. As we shall see, the proof does not really change much from the classical theorem, aside from the fact that we no longer have a quotient manifold theorem, and that has to be addressed by requiring additional properties to moment maps. However, if we assume that we can define quotients, and they are Banach manifolds, the proof is quite similar to the finite-dimensional case. In fact, the original article by Marsden and Weinstein \parencite{MARSDEN1974121} gives a proof of theorem \ref{Th_Marsden_Meyer_Weinstein} in the context of Banach manifolds. A very thorough exposition of the theorem can be found in \parencite{Gianetto}. These results will be used in chapter \ref{chapter_HYM_equation}, as they provide a rigorous framework for the moment map picture of the Hitchin-Kobayashi correspondence. 
+
+Given a skew-symmetric bilinear form on a vector space \(\Omega\), we define \(\Omega^\flat\colon V \to V^*, v \mapsto \Omega(v, \cdot)\). The definition of an infinite-dimensional symplectic manifold is quite similar to the finite-dimensional one except for the fact that we no longer ask the symplectic form \(\Omega^\flat_m\) to define an isomorphism \(T_m\mathcal{M}\cong T_m\mathcal{M}^*\), we just ask it to be injective. Observe that in the finite-dimensional setting this already implies that \(\Omega^\flat_m\) is an isomorphism because \(T_m\mathcal{M}\) and its dual are vector spaces of the same finite dimension.
+
+\Definition{\textbf{Banach symplectic manifold}}{Let \(\mathcal{M}\) be a Banach manifold, we say that a pair \((\mathcal{M}, \Omega)\) is a \textit{Banach symplectic manifold}\index{Banach!symplectic manifold} if \(\Omega\) is a closed two-form satisfying:
+\begin{enumerate}
+    \item For each \(m \in \mathcal{M}\), \(\Omega_m \colon T_m\mathcal{M} \times T_m\mathcal{M} \to \R\) is continuous.
+    \item For each \(m \in \mathcal{M}\), \(\Omega_m\) is non-degenerate, that is, if \(u \in T_m\mathcal{M}\) and \(\Omega_m(u,v)=0\) for all \(v \in T_m\mathcal{M}\), then \(u=0\).
+\end{enumerate}
+We say that \(\Omega\) is a symplectic form.
+}
+The notions of symplectomorphism, Hamiltonian action of a Banach-Lie group on a Banach manifold and moment map are defined just as in the finite-dimensional case (see section \ref{sec_symplectic_reduction}). Observe that given a Banach-Lie group \(G\) and \(\xi \in \mathrm{Lie}(G)\), the infinitesimal action, i.e. the vector field \(X_{\xi}\) can be defined just as in \eqref{def_hat_X} because Banach-Lie groups have an exponential map. The first major difference with respect to the finite setting is the fact that we do not have a direct generalization of the quotient manifold theorem. What ends up working is to ask more conditions to the moment map. Before dwelling on the problem of the lack of a quotient manifold theorem, let us consider the quotient \(\mu^{-1}(0)/G\). The fact that \(\mu\) is \(G\)-equivariant means that \(\mu^{-1}(0)\) is invariant under the \(G\)-action (same justification as \eqref{eq_mu_invariant_G_action}). Hence, \(G\) acts on \(\mu^{-1}(0)\), and the \textit{reduced space} \(\mathcal{M}_{\mathrm{red}}:=\mu^{-1}(0)/G\) is well-defined as a topological space. In the classical theorem, one could show that \(0\) was always a regular value of \(\mu\), and this implied that \(\mu^{-1}(0)\) was an embedded submanifold of the original manifold. Since we may not have that condition, we have to impose it on \(\mu\). This motivates the following definition.
+
+\Definition{}{Let \(G\) be a Banach-Lie group acting symplectically on a Banach manifold \(\mathcal{M}\), and let \(\mu \colon \mathcal{M} \to \mathfrak{g}^*\) be a moment map for the action.
+\begin{enumerate}
+    \item We say that \(0 \in \mathrm{Lie}(G)^*\) is a \textit{weakly regular value} of \(\mu\) if \(\mu^{-1}(0)\) is an embedded submanifold of \(\mathcal{M}\) and \(T_m \ \mu^{-1}(0)=\ker \diff_m \mu\) for each \(m \in \mu^{-1}(0)\).
+    \item We say that \(\mu\) \textit{satisfies the slice condition} if the action of \(G\) on \(\mathcal{M}\) is free, and for every \(m \in \mu^{-1}(0)\) there is a submanifold \(S_m \subset \mu^{-1}(0)\), called a \textit{slice} such that 
+    \[
+    T_m \ \mu^{-1}(0)=T_mS_m\oplus T_m (G\cdot m).
+    \]
+\end{enumerate}
+}
+Aside from the motivation we just gave for the definition of a weakly regular value, the condition \(T_m\ \mu^{-1}(0)=\ker \diff_m \mu\) is always satisfied for a moment map in the classical sense. Moreover, if \(\mu\) is a submersion at \(0\), then \(0\) is a weakly regular value (see \parencite[Th. 3.5.4]{alma994602424702061}), but not every weakly regular value is also regular. It remains to somehow motivate the slice condition. This is precisely what will be the substitute of the quotient manifold theorem. Indeed, \parencite[Sec. 3.5]{alma994602424702061} gives a detailed exposition of the theory of quotient Banach manifolds. Under the hypothesis of the existence of a slice, we may use it to get local coordinates around every point (see the proof of \parencite[Th. 3.5.25 and Lemma 3.5.26]{alma994602424702061}). 
+
+Moreover, observe that if \(\phi\colon G \times \mathcal{M} \to \mathcal{M}\) is the action, then \(\phi^{(m)}\colon G \to \mathcal{M}\) is an embedding for each \(m \in \mathcal{M}\), and if \(m \in \mu^{-1}(0)\), then \(G\cdot m \subset \mu^{-1}(0)\) is an embedded submanifold. If the slice condition is satisfied, we have \( T_m \ \mu^{-1}(0)=T_mS_m\oplus T_m (G\cdot m)\), hence \(T_m\ \mu^{-1}(0)/T_m(G \cdot m)\cong T_mS_m\). Moreover, for each sufficiently small slice \parencite[Th. 3.5.25 and Lemma 3.5.26]{alma994602424702061} state that the map \(\varphi\colon S_m \to \mathcal{M}_{\mathrm{red}}, p \mapsto \pi(p)\) (\(\pi\colon \mu^{-1}(0)\to \mathcal{M}_{\mathrm{red}}\) being the quotient map) is a diffeomorphism onto its image, therefore \(T_mS_m \cong T_{\pi(m)} \mathcal{M}_{\mathrm{red}}\). Putting everything together, we get:
+\begin{equation} \label{eq_tangent_to_reduced_M}
+   T_{\pi(m)} \mathcal{M}_{\mathrm{red}} \cong T_m  \ \mu^{-1}(0)/T_m(G \cdot m), 
+\end{equation}
+where the isomorphism is given by the first isomorphism theorem. Indeed, \(\ker \diff_m \pi=T_m(G\cdot m)\), hence we get an isomorphism \(\overline{\diff_m \pi}\colon T_m \ \mu^{-1}(0)/T_m(G \cdot m)\to T_{\pi(m)}\mathcal{M}_{\mathrm{red}}\). 
+
+Observe as well that the fact that \(\phi^{(m)}\) is an embedding means that \(T_{m}(G \cdot m)=\diff_e\phi^{(m)}(\mathrm{Lie}(G))\), thus, by equation \eqref{def_hat_X}
+\begin{equation} \label{eq_tang_orbit}
+T_m(G \cdot m)=\corch{X_{\xi, m}: \xi \in \mathrm{Lie}(G)}.
+\end{equation}
+
+\begin{obs}
+    Recall that the Hausdorff condition is something imposed to manifolds to avoid pathological situations, but it is not implied by the condition of being locally euclidean. When the action is proper, we have a topological group acting continuously and properly on a topological space. It is a standard result (see for example \parencite[Prop. 21.4]{lee_introSM}) that under those assumptions the quotient space is Hausdorff.
+\end{obs}
+
+We can now state the reduction theorem for Banach manifolds.
+
+\Theorem{\textbf{Banach symplectic reduction}}{Let \(\mathcal{M}\) be a symplectic manifold endowed with a symplectic form \(\Omega\), and a smooth, symplectic, left action of a Banach-Lie group \(G\). Suppose that \(\mu\colon \mathcal{M} \to \mathrm{Lie}(G)^*\) is a moment map for which \(0\) is a weakly regular value, and satisfying the slice condition. Then, \(\mathcal{M}_{\mathrm{red}}:=\mu^{-1}(0)/G\) has the structure of a symplectic (possibly non-Hausdorff) Banach manifold, which is endowed with a symplectic form \(\Omega_{\mathrm{red}}\) and satisfying
+\[
+\pi^* \Omega_{\mathrm{red}}=i^*\Omega
+\]
+where \(i \colon \mu^{-1}(0) \hookrightarrow \mathcal{M}\) is the inclusion and \(\pi\colon \mu^{-1}(0) \to \mathcal{M}_{\mathrm{red}}\) the natural projection. Moreover, if the restricted action of \(G\) on \(\mu^{-1}(0)\) is proper, then \(\mathcal{M}_{\mathrm{red}}\) is Hausdorff.  \label{th_banach_sympl_red}
+}
+
+Before giving the proof, let us state and prove some lemmas we will need. Recall that, given a skew-symmetric bilinear map \(\Omega\colon \mathbf{E} \times \mathbf{E} \to \R\) such that \(\Omega(u,v)=0\) for all \(v \in \mathbf{E}\) implies \(u=0\), (that is, \(\ker \Omega^\flat=\corch{0}\)) we say that it is non-degenerate. 
+
+\Lemma{}{Let \((\mathbf{E}, ||\cdot ||_{\mathbf{E}})\) be a Banach space and let \(\Omega\colon \mathbf{E} \times \mathbf{E} \to \R\) be a skew-symmetric, non-degenerate, continuous bilinear map. Consider, for each \(v \in \mathbf{E}\) the maps \(p_v \colon \mathbf{E} \to \R, u \mapsto |\Omega(u,v)|\). Then, \(\corch{p_v}_{v \in \mathbf{E}}\) is a family of seminorms with respect to which \(\mathbf{E}\) becomes a Hausdorff locally convex TVS. Moreover, given a linear map \(\alpha\colon \mathbf{E} \to\R\) continuous with respect to the locally convex topology, there exists \(v \in \mathbf{E}\) such that \(\alpha(u)=\Omega(u,v)\) for all \(u \in \mathbf{E}\). \label{lemma_banach_sympl_red}}
+\begin{proof}
+    The fact that \(\corch{p_v}_{v \in \mathbf{E}}\) is a family of seminorms on \(\mathbf{E}\) follows immediately from the fact that \(\Omega\) is bilinear. Moreover, non-degeneracy of \(\Omega\) implies that if \(p_v(u)=0\) for all \(v\in \mathbf{E}\), then \(u=0\). Endow \(\mathbf{E}\) with the initial topology with respect to the natural projections \(q_i\colon \mathbf{E}\to \mathbf{E}/p_i^{-1}(0)\). This turns \(\mathbf{E}\) into a Hausdorff TVS. 
+
+    For the second statement, let \(\alpha\colon \mathbf{E} \to \R\) be continuous with respect to the TVS topology we just defined. It is a general fact of locally convex vector spaces that a linear map \(\alpha \colon \mathbf{E} \to \R\) is continuous if and only if there are seminorms \(\corch{p_{i_1}, \ldots p_{i_n}}\) and a constant \(C>0\) such that \(|\alpha(v)| \leq C \cdot \max_{1 \leq j \leq n} \corch{p_{i_j}(v)}\) (see \parencite[Lemma 1.4.2 and Lemma 3.4.2]{Andreas}). Back to our setting, this means that there exist \(v_1, \ldots v_n \in \mathbf{E}\) and a constant \(C>0\) such that 
+    \[
+    |\alpha(v)| \leq C \cdot  \max_{1 \leq j \leq n} \corch{p_{v_j}(v)}=C \cdot \max_{1 \leq j \leq n} \corch{\ |\Omega(v_j, v)|\ }.
+    \]
+    Observe that \(\alpha\) vanishes on \(F=\bigcap_{j=1}^n\ker \Omega^\flat(v_j).\) Moreover, since each \(\Omega^\flat(v_j)\) is continuous in the norm topology, \(F\) is closed with respect to the norm-topology and its codimension (the dimension of the quotient \(\mathbf{E}/F\)) is at most \(n\). Choose any algebraic complement \(W\) of \(F\) in \(\mathbf{E}\). That is, as vector spaces, \(W \oplus F=\mathbf{E}\). Since \(W \cong \mathbf{E}/F\), it must be finite dimensional, hence closed in \(\mathbf{E}\) with respect to the Banach topology. This means that \(W^*\) is also finite-dimensional, and spanned by \(\Omega^\flat(v_1)|_W, \ldots, \Omega^\flat(v_n)|_W\). Then \(\alpha |_W \in W^*\) can be written as \(\alpha|_W=\sum_{i=1}^n \lambda_i \cdot \Omega^\flat(v_i)|_W\) for some real coefficients \(\lambda_i\). Since in \(F\) both sides are identically \(0\), this linear combination can be extended to all of \(\mathbf{E}\), thus
+    \[
+    \alpha = \sum_{i=1}^n \lambda_i \cdot \Omega^\flat(v_i)= \Omega^\flat\parent{\sum_{i=1}^n \lambda_i \cdot v_i}=\Omega^\flat(v),
+    \]
+    where we defined \(v=\sum_{i=1}^n \lambda_i \cdot v_i\). This proves the result.
+\end{proof}
+
+\Lemma{}{Let \((\mathbf{E}, ||\cdot ||_{\mathbf{E}})\) be a Banach space, and let \(\Omega\colon \mathbf{E} \times \mathbf{E} \to \R\) be a skew-symmetric, non-degenerate, continuous bilinear map. For any closed subspace \(Y \subset \mathbf{E}\), define the \(\Omega\)-\textit{orthogonal complement}\index{\(\Omega\)-orthogonal complement} of \(Y\) by
+\[
+Y^\Omega:=\corch{v \in \mathbf{E}: \Omega(u,v)=0 \ \ \text{for all} \ \ u \in Y}.
+\]
+Then, \(\parent{Y^\Omega}^\Omega=Y\). \label{lemma_Y_Omega_Omega}
+}
+\begin{proof}
+    The inclusion \(Y \subset (Y^\Omega)^\Omega\) follows directly from the definition. For the reverse inclusion, let \(v \notin Y\). By a standard consequence of the Hahn-Banach theorem for locally convex TVS, there exists \(\alpha \colon E \to \R\) (continuous with respect to the locally convex topology) such that \(\alpha|_Y\equiv0\) and \(\alpha(v) \neq 0\). By the previous lemma, there is an element \(z \in E\) such that \(\alpha(u)=\Omega(u,z)\). This means that \(\Omega(v,z)=\alpha(v) \neq 0\). However, \(z \in Y^\Omega\) because for every \(y \in Y\), \(0=\alpha(y)=\Omega(y,z)=0\). Therefore, \(v \notin (Y^\Omega)^\Omega\).
+\end{proof}
+
+\Lemma{}{Let \(\mathcal{M}\) and \(\mathcal{N}\) be Banach manifolds, and let \(f\colon \mathcal{M} \to \mathcal{N}\) be a surjective smooth submersion. Let \(\alpha \in \Omega^k_\R(\mathcal{N})\). If \(f^*\alpha=0\), then \(\alpha=0\). \label{lemma_null_pullback}
+}
+\begin{proof}
+    \(\alpha=0\) if and only if it vanishes when applied to any set of tangent vectors at any point. Let \(n \in N\) and \(m \in M\) such that \(f(m)=n\). Choose any vectors \(v_1, \ldots v_k \in T_n\mathcal{N}\), and \(w_1, \ldots w_k \in T_m\mathcal{M}\) such that \(\diff_mf(w_j)=v_j\). Then:
+    \[
+    \alpha_n(v_1, \ldots v_k)=\alpha_{f(m)}(\diff_mf(w_1), \ldots \diff_mf(w_k))=(f^*\alpha)_m(w_1, \ldots w_k)=0.
+    \]
+\end{proof}
+
+\Lemma{}{Let \(\mu\) be a moment map on a Banach manifold \(\mathcal{M}\) for the left smooth action of a Banach-Lie group \(G\). Then, for each \(m \in \mu^{-1}(0)\), we have \((T_m\ \mu^{-1}(0))^{\Omega_m}=T_m(G \cdot m)\) and \(T_m \ \mu^{-1}(0)=\parent{T_m (G \cdot m)}^{\Omega_m}\). \label{lemma_Omegap_ortho}}
+\begin{proof}
+    By lemma \ref{lemma_Y_Omega_Omega} it suffices to check the second identity. Let \(u \in T_m \mathcal{M}\) be such that \(\Omega_m(X_{\xi, m}, u)=0\) \(X_{\xi, m} \in T_m(G  \cdot m)\) (see \eqref{eq_tang_orbit}), and let us see that \(u\in T_m \ \mu^{-1}(0)\). Observe that
+    \[
+    \Omega(X_{\xi, m}, u)=\parent{i_{X_\xi}\Omega}_m(u)=\diff_m \mu^\xi(u)=(\diff _m \mu (u), \xi)
+    \]
+    the latter being zero for all \(\xi \in \mathrm{Lie}(G)\) if and only if \(u\in \ker \diff_m\mu=T_m \ \mu^{-1}(0)\).
+\end{proof}
+
+\begin{proof}[\textit{Proof of theorem} \ref{th_banach_sympl_red}]
+    We are now ready to prove the Banach manifold version of the symplectic reduction theorem. First, observe that the fact that \(\mathcal{M}_{\mathrm{red}}\) is a Banach manifold (Hausdorff if \(G\) acts properly on \(\mu^{-1}(0)\)) is taken care of by the slice condition, so we just need to concern ourselves with obtaining the symplectic form.
+
+    The requirement that \(\pi\) be a smooth surjective submersion defines \(\Omega_{\mathrm{red}}\) uniquely. Firstly, by \eqref{eq_tangent_to_reduced_M}  there is an isomorphism \(T_{\pi(m)}\mathcal{M}_{\mathrm{red}} \cong T_m (\mu^{-1}(0))/T_m(G \cdot m)\) for all \(m \in \mu^{-1}(0)\). Let us denote equivalence classes using brackets \([\ \cdot \ ]\). Define, pointwise
+    \[
+    \parent{\Omega_{\mathrm{red}}}_{\pi(m)}([u], [v]):=\Omega_m(u,v) \hspace{1 cm} u,v \in T_m\ \mu^{-1}(0).
+    \]
+    Let us check that the previous definition does not depend on the representatives chosen. To this end, let \([v]=[v']\) and \([u]=[u']\), where all vectors are elements of \(T_m \ \mu^{-1}(0)\). Explicitly, by \eqref{eq_tang_orbit}, this means that there exist \(\xi, \zeta \in \mathrm{Lie}(G)\) such that \(u'=u+X_{\xi, m}\) and \(v'=v+X_{\zeta, m}\). Then
+    \begin{align*}
+        \Omega_m(u', v') & = \Omega_m(u+X_{\xi, m}, v+X_{\zeta, m}) = \Omega_m(u,v) + \Omega_m(u, X_{\zeta, m}) + \Omega_m(X_{\xi, m}, v) + \Omega_m(X_{\xi, m}, X_{\zeta, m}) \\
+        & = \Omega_m(u,v),
+    \end{align*}
+    where we used that \(\Omega_m(X_{\xi, m}, X_{\zeta,m}) = \Omega_m(u, X_{\zeta, m})=\Omega_p(X_{\xi, m}, v)=0\) because, by lemma \ref{lemma_Omegap_ortho} \(T_m \ \mu^{-1}(0)\) is the \(\Omega_m\)-orthogonal complement of \(T_m(G \cdot m)\). Observe that \(T_m(G \cdot m) \subset T_m \ \mu^{-1}(0)=\parent{T_m (G \cdot m)}^{\Omega_m}\) so elements of \(T_m(G \cdot m)\) are \(\Omega_m\)-orthogonal to each other. Let us now see that the definition is also independent of the point \(m\) chosen to define \(\Omega_m\). Suppose that \(\pi(m)=\pi(m')\). Since \(\pi\) is the natural projection induced by the action \(\phi\colon G \times \mu^{-1}(0) \to \mu^{-1}(0)\), there is some \(g \in G\) such that \(\phi_g(m)=m'\). Now, since \(\pi(m)=\pi(m')\), we obviously have \(T_{\pi(m)}\mathcal{M}_{\mathrm{red}}=T_{\pi(m')}\mathcal{M}_{\mathrm{red}}\), but then, the isomorphism \eqref{eq_tangent_to_reduced_M} applies for both \(m\) and \(m'\). We get that given \(u \in T_m \ \mu^{-1}(0)\) and \(u'\in T_{m'} \ \mu^{-1}(0)\), \([u]\) and \([u']\) correspond to the same element in \(T_{\pi(m)}\mathcal{M}_{\mathrm{red}}\) if and only if \(\diff_m\pi(u)=\diff_{m'} \pi(u')\) where \(m'=\phi_g(m)\) (see the comments below equation \eqref{eq_tangent_to_reduced_M}). 
+    Then, since the action is symplectic
+    \begin{align*}
+        (\Omega_{\mathrm{red}})_{\pi(m')}\big([\diff_m \phi_g(u)], [\diff_m \phi_g(v)]\big) & = \Omega_{m'}(\diff_m \phi_g(u),\diff_m\phi_g(v))=\Omega_{\phi_g(m)}(\diff_m \phi (u), \diff_m\phi(v))\\
+        &=\parent{\phi_g^*\Omega}_m(u,v) = \Omega_m(u,v)  = (\Omega_{\mathrm{red}})_{\pi(m)}([u], [v]),
+    \end{align*}
+    where we used the fact that \(\diff_{m'} \pi\parent{\diff_m\phi_g(u)}=\diff_m(\pi \circ \phi_g)(u)=\diff_m\pi(u)\) to deduce that \([u]\) and \([\diff_m\phi_g(u)]\) represent the same element in \(T_{\pi(m)}\mathcal{M}_{\mathrm{red}}\). 
+    
+    This means that \(\Omega_{\mathrm{red}}\) is well-defined. It is smooth because the definition implies that \(\pi^*\Omega_{\mathrm{red}}=i^*\Omega\), and the right-hand side is smooth. Moreover, it is closed because \(\diff\) commutes with pullbacks
+    \[
+    \pi^*(\diff \Omega_{\mathrm{red}})=\diff\parent{\pi^*\Omega_\mathrm{red}}=\diff\parent{i^*\Omega}=i^*\parent{\diff \Omega}=0,
+    \]
+    and \(\pi\) is a surjective smooth submersion, so we may apply lemma \ref{lemma_null_pullback}. It remains to show that \(\Omega\) is non-degenerate. This is a linear issue, so choose \(m \in \mu^{-1}(0)\), and suppose that there is some \([u]\in T_{\pi(m)} \mathcal{M}_{\mathrm{red}}\) such that for every \([v]\in T_{\pi(m)}\mathcal{M}\) we have \((\Omega_{\mathrm{red}})_{\pi(m)}([u], [v])=0\), let us see that \([u]=[0]\). The definition of \(\Omega_{\mathrm{red}}\) allows us to translate this problem to one on \(T_m \ \mu^{-1}(0)\). That is, given \(u \in T_m\mu^{-1}(0)\) such that for every \(v \in T_m\ \mu^{-1}(0)\) we have \(\Omega_m(u,v)=0\), we have to show that \(u \in T_m(G \cdot m)\). Let us apply lemma \ref{lemma_banach_sympl_red}. Take \(T_m\mathcal{M}\) as the Banach space (the linear isomorphisms of lemma \ref{Lemma_tang_space_to_Banach_manifold} can be used to endow \(T_m\mathcal{M}\) with different but equivalent norms), and take \(T_m(G \cdot m)\) as the closed subspace. Now, lemma \ref{lemma_Y_Omega_Omega} implies that 
+    \begin{align*}
+    T_m(G\cdot m)&=\parent{(T_m(G \cdot m))^{\Omega_m}}^{\Omega_m}=(T_m \ \mu^{-1}(0))^{\Omega_m}\\
+    &=\corch{u \in T_m\mathcal{M}: \Omega_m(u,v)=0 \ \ \text{ for all }\ \ v \in T_m \ \mu^{-1}(0)},
+    \end{align*}
+    which is what we wanted to show.
+\end{proof}
+

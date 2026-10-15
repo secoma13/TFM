@@ -1,0 +1,192 @@
+\chapter{Finite-dimensional symplectic reduction and the Kempf-Ness theorem} \label{chapter_kempf_Ness}
+The aim of this chapter is to provide a very brief account of the Kempf-Ness theorem. The motivation behind including this chapter is the fact that the Hitchin-Kobayashi correspondence, treated in chapter \ref{chapter_HK_correspondence} can be seen as an infinite-dimensional version of this theorem. It is important to remark that all the results of chapter \ref{chapter_HK_correspondence} can be stated and proved without ever mentioning moment maps. However, the framework of moment maps and symplectic reduction proves to be very useful, because, together with the results we are about to expose in this chapter, it motivates the correspondence, and hints at many correct results. 
+
+In this chapter we will assume basic knowledge of symplectic geometry, Lie theory, and elementary projective algebraic geometry. We will recall some basic concepts, but most results here will be stated without proof. Good references on these topics are \parencite{da2001lectures}, \parencite{hoskins} and \parencite{hilgert2011structure}. To fix some notation, we will use \(e_G\) for the unit element of a group \(G\).
+
+
+\section{Symplectic geometry}
+
+Recall that a symplectic manifold is a (necessarily even-dimensional) smooth manifold \(M\) endowed with a symplectic form \(\omega\), i.e. a closed two-form such that \(\omega_p\colon T_pM \times T_pM \to \R\) is skew-symmetric and non-degenerate. A symplectomorphism between symplectic manifolds is a diffeomorphism \(\phi\colon (M_1, \omega_1) \to (M_2, \omega_2)\) satisfying \(\phi^*\omega_2=\omega_1\).
+
+\begin{example} \label{ex_Fubini_Study}
+    A non-trivial example of a symplectic manifold is the complex projective space \(\CP^n\). One way to endow it with a symplectic structure is theorem \ref{Th_Marsden_Meyer_Weinstein} below. Another option is to do it directly by defining a symplectic form. This is called the \textit{Fubini-Study form} (see \parencite[Ex. 8.14]{lee_introCM}). Consider the holomorphic coordinates of \(\CP^n \) given by the affine open covering \(\corch{U_i}_{i=0}^n\), where \(U_i=\corch{[z_0:z_1:\ldots :z_n]: z_i \neq 0}\). Recall that we have holomorphic coordinates 
+    \[
+    \varphi_i\colon U_i \to \C^n, [z_0:\ldots :z_i: \ldots z_n] \mapsto \parent{\frac{z_0}{z_i}, \ldots \frac{\hat{z_i}}{z_i}, \ldots \frac{z_n}{z_i}},
+    \]
+    where the hat means that the corresponding term is missing. Writing \(w^j\) for the projection of \(\varphi_i\) onto the \(j\)-th coordinate, the coordinate expression of the Fubini-Study form in \(U_i\) is
+    \begin{equation} \label{def_Fubini_Study}
+    \omega_{\mathrm{FS}}=\sum_{j,k=1}^n \parent{\frac{\delta_{jk} \cdot (1+||w||^2)-\bar{w}^j \cdot w^k}{(1+||w||^2)^2}} \cdot \diff w^j \wedge \diff \bar{w}^k .
+    \end{equation}
+    In particular, for any embedded submanifold \(X \subset \CP^n\), the pullback through the inclusion \(\imath \colon X \hookrightarrow \CP^n\) induces a closed two-form \(\imath^*\omega\in \Omega_\R^2(X)\) which turns out to be symplectic. The latter is not true in general: not every embedded submanifold of a symplectic manifold is symplectic, but it is true in this case because \(\CP^n\) is actually Kähler (see appendix \ref{appendix_Kahler}).
+\end{example}
+
+\subsection{Symplectic reduction} \label{sec_symplectic_reduction}
+Symplectic reduction is a technique whose origin lies in the formalization of mechanics in the context of symplectic geometry. Briefly, when a Lie group acts on a symplectic manifold, and the action is \textit{Hamiltonian} (see definition \ref{def_hamiltonian_action} below), then, symplectic reduction provides a way to obtain, from \((M, \omega)\), another symplectic manifold whose dimension is \(\dim M-2\cdot \dim G\). That is, we obtain a symplectic manifold whose dimension is smaller than that of \(M\).    
+
+Let \(G\) be a Lie group, and \(M\) be a smooth manifold, and suppose that \(G\) acts on \(M\) on the left (right actions are handled analogously). We say that the action is \textit{smooth}\index{action!smooth} if the map \(\phi\colon G \times M \to M, (g,m) \mapsto g \cdot m\) is smooth. Equivalently, the action is smooth if for every \(g \in G\), the map \(\phi_g\colon M \to M, m \mapsto g \cdot m\) is smooth. Moreover, we say that the action is \textit{proper}\index{action!proper} if the map \(G \times M \to M \times M, (g,m)\mapsto (g\cdot m, m)\) is a proper map. As we will work extensively with actions of Lie groups on smooth manifolds, let us fix some notation. When a Lie group acts on a smooth manifold, we will denote, unless otherwise stated, the action map by \(\phi(g,m)\) or simply \(g \cdot m\) for left actions (for right actions we will use \(p \cdot m\)). We will also denote \(\phi_g\colon M \to M, m \mapsto \phi(g,m)\) for \(g \in G\), and \(\phi^{(m)}\colon G \to M, g \mapsto \phi(g,m)\) for \(m \in M\). Both of them are smooth under the assumption that the action is smooth. The following result is standard in the theory of smooth manifolds, but we will use it extensively.
+
+\Theorem{\textbf{Quotient manifold theorem}}{Let \(G\) be a Lie group acting smoothly, freely and properly on a smooth manifold \(M\). Then, the orbit space \(M/G\) is a topological manifold of dimension equal to \(\dim M - \dim G\). Moreover, it admits a unique smooth structure such that the topological quotient map \(q\colon M \to M/G\) is a surjective smooth submersion. \label{quot_manifold_theorem}}
+\begin{proof}
+    See \parencite[Th. 21.10]{lee_introSM}.
+\end{proof}
+
+Hamiltonian actions are those admitting moment maps. Let us recall some facts from Lie group theory that are needed to define moment maps. Let \(G\) be a Lie group with Lie algebra \(\mathfrak{g}\). Recall that the \textit{adjoint representation}\index{Representation!adjoint} is the Lie group representation \(G \to \mathrm{GL}(\mathfrak{g})\) given by \(\Ad{g}:=(C_g)_*\), where \(C_g\colon G \to G, h \mapsto ghg^{-1}\) is the conjugation map\index{Conjugation map}. That is, for each \(\xi \in \mathfrak{g}\) \(\Ad{g}\xi\in \mathfrak{g}\) is the unique vector field \(C_g\)-related to \(\xi\). If we identify the Lie algebra with \(T_eG\), then \(\Ad{g}=\diff_e C_g\). On the other hand, let 
+\begin{equation} \label{eq_def_pairing_lie_alg}
+\begin{array}{cccc}
+    (\cdot, \cdot)\colon & \mathfrak{g}^* \times \mathfrak{g} & \longrightarrow & \R \\
+    & (\varphi, \xi) & \mapsto & \varphi(\xi)
+\end{array}
+\end{equation}
+be the pairing induced by the dual (as a vector space) of the Lie algebra. We define the \textit{coadjoint representation}\index{Representation!coadjoint} \(\mathrm{Ad}^*\colon G \to \mathrm{GL}(\mathfrak{g}^*), g \mapsto \Ad{g}^*\), where \(\Ad{g}^*\) is given by 
+\[
+(\Ad{g}^*(\varphi), \xi):=(\varphi, \Ad{g^{-1}}(\xi)).
+\]
+The definition using \(\Ad{g^{-1}}\) instead of \(\Ad{g}\) ensures that we actually get a representation. 
+
+Finally, let us introduce some notation:
+\begin{enumerate}
+    \item Consider a Lie group \(G\) that acts smoothly on a smooth manifold \(M\) on the left. Let \(\xi \in \mathfrak{g}\). We define the \textit{infinitesimal generator of the one-parameter subgroup}\label{infinitesimal generator} \(\exp(t\xi)\), also called the \textit{fundamental vector field} generated by \(\xi \in \mathfrak{g}\) as the vector field
+    \begin{equation} \label{def_hat_X}
+    X_{\xi, m}:=\left. \frac{\diff}{\diff t} \right|_{t=0}\exp(t\xi)\cdot m = \diff _ e\phi^{(m)}(\xi).
+    \end{equation}
+    For a right action the definition is analogous. We also say that the vector \(X_{\xi, m}\) is the infinitesimal action of \(\xi\) on \(m\).
+    \item Let \(\mu\colon M \to \mathfrak{g}^*\) be a smooth map. For each \(\xi \in \mathfrak{g}\), we set \(\mu^\xi\colon M \to \R, m \mapsto (\mu(m), \xi)\).
+    \item When a Lie group \(G\) acts on a symplectic manifold \((M, \omega)\), we say that the action is symplectic, or that \(G\) \textit{acts by symplectomorphisms}, if \(\phi_g\) is a symplectomorphism for every \(g \in G\).
+\end{enumerate}
+
+\Definition{}{Let \((M, \omega)\) be a symplectic manifold, and let \(G\) be a Lie group that acts smoothly, freely and properly by symplectomorphisms on \(M\). The action is said to be \textit{Hamiltonian}\index{Hamiltonian action} if there exists a smooth map, called \textit{moment map}\index{Moment map} \(\mu\colon M \to \mathfrak{g}^*\) satisfying: \newline \label{def_hamiltonian_action} 
+
+\begin{minipage}{0.72\textwidth}
+\begin{enumerate}
+    \item \(\diff \mu^\xi=i_{X_\xi} \omega\) for all \(\xi \in \mathfrak{g}\),
+    \item \(\mu\) is equivariant with respect to the action and coadjoint representation. That is, for every \(g \in G\), we have \(\mu \circ \phi_g=\Ad g^*\circ \mu\).
+\end{enumerate}
+\end{minipage}
+\begin{minipage}{0.27\textwidth}
+        \centering
+        \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+            M \arrow[r, "{\displaystyle \phi_g}"] \arrow[d, "{\displaystyle \mu}", ']  \& M \arrow[d, "{\displaystyle \mu}"]  \\
+            \mathfrak{g}^*  \arrow[r, "\mathrm{Ad}_g^*"] \& \mathfrak{g}^*   
+        \end{tikzcd}
+\end{minipage} \newline
+       
+The quadruple \((M, \omega, G, \mu)\) is called a \textit{Hamiltonian space} or \textit{Hamiltonian \(G\)-space}\index{Hamiltonian space}.
+}
+
+The first condition of the definition is equivalent to \(  ( \diff_m\mu(v), \xi)=\omega_p(X_{\xi, m}, v)\) for all \(m \in M\), \(v \in T_mM\) and \(\xi \in \mathfrak{g}\). Moment maps may or may not exist for a symplectic action. However, if they exist, they are unique up to a \(\mathfrak{g}^*\) constant factor.    
+
+We are finally ready to state the main result in the theory of finite-dimensional symplectic reduction.
+
+\Theorem{\textbf{Marsden-Weinstein}}{
+    Let \((M, \omega, G, \mu)\) be a Hamiltonian \(G\)-space. Then, \(M_{\mathrm{red}}:=\mu^{-1}(0)/G\) is a symplectic manifold, whose symplectic form \(\omega_{\mathrm{red}}\) satisfies
+    \[
+    i^*\omega=q^*\omega_{\mathrm{red}},
+    \]
+    where \(i\colon \mu^{-1}(0) \hookrightarrow M\) is the inclusion, and \(q\colon \mu^{-1}(0)\to \mu^{-1}(0)/G\) the quotient map. \label{Th_Marsden_Meyer_Weinstein}
+}
+We will not give a detailed proof here because chapter \ref{Chapter_inf_dim_sympl_red} gives a proof of the theorem for Banach manifolds, which can be easily adapted (in fact, simplified) to the finite-dimensional case. A direct proof for the finite-dimensional case can be found in \parencite[Part IX]{da2001lectures}, however, it is worth making some comments on the result. Firstly, \(\mu^{-1}(0)\) is stable under the \(G\)-action. That is, if \(m \in \mu^{-1}(0)\), then \(G \cdot m \in \mu^{-1}(0)\). Indeed, 
+\begin{equation} \label{eq_mu_invariant_G_action}
+\mu(g \cdot m)=\Ad{g}^* \circ \mu(m)=\Ad{g}^*(0)=0.
+\end{equation}
+Moreover, \(0 \in \mathfrak{g}^*\) is a regular value of the smooth map \(\mu\), which shows that \(\mu^{-1}(0) \subset M\) is an embedded submanifold. It can be shown that \(\dim \mu^{-1}(0)=\dim M - \dim G\), and \(T_m\ \mu^{-1}(0)=\ker (\diff_m\mu) \subset T_mM\). What is more, \(G \cdot m\) is an embedded submanifold of \(\mu^{-1}(0)\) for all \(m \in \mu^{-1}(0)\), and the tangent spaces of all the manifolds involved relate as follows:
+\[
+T_{q(m)} M_{\mathrm{red}} \cong T_m\ \mu^{-1}(0)/T_m(G \cdot m).
+\]
+
+\section{Geometric invariant theory}
+The Kempf-Ness theorem relates GIT (geometric invariant theory) to symplectic geometry; two branches of geometry that seem completely unrelated at first glance, but end up being intertwined. GIT is the theory developed by David Mumford in his book \parencite{mumford1994geometric} which basically provides the framework needed to define quotients in algebraic geometry. We will not follow his approach, because he develops his theory in the language of schemes, and that is a level of generality far beyond what we need. A good reference for GIT that requires less abstraction is \parencite{hoskins}. We will follow this source, and especially \parencite{szekelyhidi2014introduction}. Our objective for this section is to give a brief account of projective GIT theory that requires minimal previous knowledge.
+
+As the discussion in \parencite{hoskins} illustrates, orbit spaces do not behave well in algebraic geometry, and one must look for an alternative notion of quotient. This is done as explained below. First, recall from basic projective algebraic geometry that we define a projective variety as the zero set of a family of homogeneous polynomials, i.e. \(X=V(F_1, \ldots F_r) \subset \CP^{n}\) where \(F_i\in \C[X_0, \ldots X_n]\) is homogeneous. If we ask \(X\) to be irreducible, then \(I(X):=\corch{F \in \C[X_0, \ldots X_n]: F(x)=0 \ \ \forall \ x \in X}\) is prime. Then, we define the \textit{homogeneous coordinate ring}
+\[
+R(X):=\C[X_0, \ldots X_n]/I(X),
+\]
+which is a graded ring whose grading is given by degree. Every finitely generated graded \(\C\)-algebra that can be generated by elements of degree one gives rise to a projective variety as follows: first, choose such a set of generators \(r_0, \ldots r_n\in R\), and consider the \(\C\)-algebra homomorphism given by \(\varphi\colon \C[X_0, \ldots X_n]\to R, X_i \to r_i\). Let \(I:=\ker \varphi\). Then, by the first isomorphism theorem we have \(R\cong \C[X_0, \ldots X_n]/I\), and we define \(\mathrm{Proj}(R):=V(I)=\corch{x\in \CP^n: F(x)=0 \ \ \forall \ F \in I}\). This is a projective variety. The choice of generators is irrelevant as different choices yield isomorphic varieties. 
+
+Consider now a complex reductive group \(G\) (we refer the reader to appendix \ref{appendix_lie} for the relevant notions), and suppose that \(G\) acts on a projective variety \(X\) through a representation \(\rho\colon G \to \mathrm{GL}(n+1, \C)\). Formally, the action is given by \(g\cdot [v]:=[\rho(g)(v)]\) where \([\cdot]\) denotes the equivalence class in complex projective space, and in a way such that \([v]\in X\) implies \(g\cdot[v]\in X\). Equivalently, \(G\) acts through a representation in the affine cone associated to \(X\). We call these actions \textit{linear}. This induces an action of \(G\) on \(\C[X_0, \ldots X_n]\) given by
+\[
+G \times \C[X_0, \ldots X_n] \longrightarrow \C[X_0, \ldots X_n], \ g\cdot (F(X)) \to F(\rho(g^{-1})\cdot (X)).
+\]
+By a theorem of Nagata \parencite{nagata1963invariants}, the ring  \(R(X)^G:=\corch{F\in \C[X_0, \ldots X_n]: g\cdot F=F } \) is finitely generated, and one may show that there is an algebra 
+\[
+\tilde{R}(X)^G=\bigoplus_{k \ge 0} R(X)^G_{dk}
+\]
+for some \(d \geq 0\) that is generated by elements of degree \(d\). Changing the grading to make degree \(d\) the new degree one, \(\tilde{R}(X)^G\) is generated by degree one elements. Here, \(R(X)^G_k\) is the degree \(k\) piece defined by the grading.
+
+\Definition{\textbf{Projective GIT quotient}}{Let \(G\) be a complex reductive group that acts linearly on a projective variety \(X \subset \CP^n\). The GIT quotient is the projective variety \(X/\!\!/G:=\Proj\parent{\tilde{R}(X)^G}\).}
+
+The double bar notation is used to emphasize that this is generally not a usual quotient in the sense of equivalence classes for an action. Right now it is quite unclear why we choose to name this a quotient, or what the geometric meaning of this set is, so we will try to answer those questions. To answer the first one, choose \(F_0, \ldots F_n\) degree one generators of \(\tilde{R}(X)^G\), and define a ``map''
+\begin{equation} \label{eq_def_quot_proj}
+\varphi\colon X \dashrightarrow \CP^n, \ x \mapsto [F_0(x): \ldots : F_n(x)].
+\end{equation}
+This is well-defined only at points \(x \in X\) that do not annihilate all generators, i.e. if there is at least one element in \(\tilde{R}(X)^G\) that does not vanish on \(x\). The fact that it is well-defined follows from the fact that all the polynomials have the same degree.  Observe that the image of \(\varphi\) is precisely \(X/\!\!/G\). This follows from the definition of \(\Proj\) and the fact that 
+\[
+\Proj \parent{\tilde{R}(X)^G}=\corch{x \in \CP^n: Q(x)=0 \ \ \forall \ Q \ \ \text{such that} \ \  Q(F_0, \ldots F_n)=0}.
+\]
+
+\Definition{}{Let \(G\) be a complex reductive group that acts linearly on a complex projective variety \(X \subset \CP^n\). \label{def_stability_fin_dim_KempfNess}
+\begin{enumerate}
+    \item A point \(x \in X\) is \textit{semistable} if there is \(F \in \tilde{R}(X)^G\) such that \(F(x)\neq 0\). 
+    \item A point \(x \in X\) is \textit{stable} if the orbit \(G\cdot x\) is closed in \(X^{ss}\) and the stabilizer \(G_x\) is finite. 
+    \item A point \(x \in X\) is \textit{polystable} if the orbit \(G \cdot x\) is closed in \(X^{ss}\). 
+\end{enumerate}
+Otherwise, we say that \(x\) is \textit{unstable}. The sets of stable, semistable and polystable points are denoted, respectively, \(X^s, X^{ss}\) and \(X^{ps}\).
+}
+
+\begin{obs} \(\hspace{1 pt}\)
+\begin{enumerate}
+    \item The quotient \(X /\!\!/G\) parametrizes orbits for which there is at least one non-vanishing element of \(\tilde{R}(X)^G\). That is, \(\varphi\) is well-defined in \(X^{ss}\).
+    \item \(\varphi\) identifies orbits that cannot be distinguished by elements of \(\tilde{R}(X)^G\). Observe in \eqref{eq_def_quot_proj} that \(\varphi\) maps points in the same orbit to the same point, but it may map points in different orbits to the same orbit as well.
+    \item \(X^s\) and \(X^{ss}\) are open subsets of \(X\).
+    \item The quotient \(X /\!\!/G\) is the quotient (in the sense of equivalence classes) of \(X^{ss}\) by the equivalence relation that identifies \(x_1\) and \(x_2\) if and only if \(\overline{G \cdot x_1}\cap \overline{G\cdot x_2} \cap X^{ss}\neq \emptyset\). More rigorously, the latter is equivalent to \(\varphi(x_1)=\varphi(x_2)\), see \parencite[Th. 4.11]{hoskins}.
+    \item The restriction of the action to \(X^s\) yields what is called a \textit{geometric quotient}, i.e. a quotient that is indeed a set of equivalence classes.
+\end{enumerate}
+\end{obs}
+
+Finally, \parencite[Lemma 4.16]{hoskins} states that for every \(x \in X^{ss}\), the set \(\overline{G\cdot x}\) contains a unique polystable orbit. This result, together with point 4 above implies that the quotient \(X /\!\!/G\) can be thought of as parametrizing polystable orbits. That is, there is a bijection \(X /\!\!/G \leftrightarrow X^{ps}/G\), the latter being the usual set of equivalence classes. This uses the fact that the preimage of any point through \(\varphi\) contains a unique closed orbit \parencite[Cor. 2.39]{hoskins}.
+
+\subsection{The Kempf-Ness theorem}
+We refer the reader to appendix \ref{appendix_lie} for the basics of complex Lie groups and complexifications of real compact Lie groups. As we recall in the appendix, complex reductive Lie groups are characterized precisely by the fact that they are complexifications of compact real Lie groups. 
+
+We have defined a projective variety $X \subset \CP^n$ as the zero set of a collection of homogeneous polynomials. Observe that $\CP^n$ is also a complex manifold (in the sense of complex differential geometry), and we may ask if projective varieties can be equipped with a complex smooth structure such that they become embedded complex submanifolds of $\CP^n$. It turns out that for this to be true, we have to impose some extra conditions on the polynomials defining $X$. If $X=V(I)$, where $I=(F_1, \ldots F_r)$ is a radical ideal, and \(\operatorname{Jac}(F_1, \ldots F_r)(z)\) has constant rank for every $z \in X$, then it is a complex manifold. Observe that this condition is well-defined and does not depend on the representative we choose for $z$. Indeed, choosing another representative \(\lambda z\) yields a matrix obtained from the Jacobian by multiplying each row by a power of \(\lambda\), which does not change the rank. We may then show that if $s=\mathrm{rank}(\operatorname{Jac}(F_1, \ldots F_r))$, and $d:=n-s$, then $X$ is a complex manifold of complex dimension $\mathrm{dim}_\C(X)=d$ (see \parencite[Prop. 5.42]{munoz2020geometry}). 
+
+Suppose now that \(\mathrm{U}(n+1)\) acts on \(\CP^{n}\) through 
+\[
+\mathrm{U}(n+1) \times \CP^n \to \CP^n, (A, [z]) \mapsto [A\cdot z].
+\]
+One can then show that, with respect to the Fubini-Study form, the action is symplectic, and in fact Hamiltonian. The moment map is given by \(\tilde\mu \colon \CP^n \to \mathfrak{u}(n+1)^*, [z] \mapsto \tilde{\mu}([z]) \) and
+\begin{equation} \label{eq_mu_tilde}
+    ( \tilde\mu([z]), A) :=\frac{\mathrm{Tr}(z^* \cdot A \cdot z)}{2 \ii \cdot (z^* \cdot z)} \hspace{1 cm} \text{for} \hspace{1 cm} A \in \mathfrak{u}(n+1),
+\end{equation}
+where \(z^*\) is the transpose conjugate \parencite[Ex. 8.10]{hoskins}. 
+
+More generally, consider a reductive complex group \(G=K^\C\) for some maximal compact subgroup (those are not unique but are conjugate to each other). Suppose that $G$ acts on a smooth projective variety $X \subset \CP^n$ via a representation $\rho \colon G \to \mathrm{GL}(n+1,\C)$. Restricting the action, there is also an action of \(K\) on \(\CP^n\). We want to relate the GIT quotient with the symplectic quotient given by the Marsden-Weinstein theorem. Thus, we take a smooth complex variety \(X \subset \CP^n\), which is also a complex manifold, and therefore a symplectic manifold (the symplectic form is the pullback of the Fubini-Study form, see the comments in example \ref{def_Fubini_Study}). On the one hand, we may form the GIT quotient \(X /\!\!/G\), and on the other hand, if the restricted action of \(K\) was symplectic, we could consider the symplectic quotient. Using Weyl's unitary trick, we may choose coordinates appropriately, such that the representation is unitary \(\rho \colon K \to \mathrm{U}(n+1)\) (see \parencite[Th. 12.3.9]{hilgert2011structure}). In that case, the action of \(G\) on both \(X\) and \(\CP^n\) is symplectic, and actually Hamiltonian. A moment map may be given as follows: consider \(\diff_{e_K}\rho\colon \mathfrak{k}\to \mathfrak{u}(n+1)\). The dual map is \((\diff_{e_K}\rho)^*\colon \mathfrak{u}(n+1)^* \to \mathfrak{k}^*\). Hence, we can define \(\mu:=(\diff_{e_K}\rho)^*\circ \tilde{\mu}\), where \(\tilde{\mu}\) is given in \eqref{eq_mu_tilde}. Explicitly,
+\[
+(\mu([z]), B) :=\frac{\mathrm{Tr}(z^* \cdot \diff_{e_K}\rho(B)\cdot z)}{2\ii \ (z^* \cdot z)}.
+\]
+
+Now that both the symplectic and the GIT quotients make sense, their relation is given by the Kempf-Ness theorem.
+\Theorem{\textbf{Kempf-Ness}}{\label{th_kempf_Ness}
+    Let $G=K^\C$ be a complex reductive group acting linearly on a smooth complex projective variety, $X \subset \CP^n$. Suppose that one maximal compact subgroup \(K\) is connected (hence all of them are) and acts symplectically on $X$, and let $\mu\colon X \to \mathfrak{k}^*$ be the associated moment map. Then
+    \begin{enumerate}
+        \item $G\cdot \mu^{-1}(0)=X^{ps}$.
+        \item If $x \in X$ is polystable, then its orbit $G \cdot x$ meets $\mu^{-1}(0)$ in a single \(K\)-orbit, i.e. \(G \cdot x \cap \mu^{-1}(0)\) is contained in a single $K$-orbit.
+        \item $x \in X$ is semistable if and only if its orbit's closure $\overline{G \cdot x}$ meets $\mu^{-1}(0)$.
+    \end{enumerate}}
+\begin{proof}
+    See \parencite[Th. 10.3]{hoskins}
+\end{proof}
+
+\begin{corollary}
+    Under the previous hypothesis, the inclusion $\mu^{-1}(0) \subset X^{ps}$ induces a homeomorphism
+    \[
+    \mu^{-1}(0)/K \to X /\!\!/ G.
+    \]
+\end{corollary}
+To be more explicit, the previous corollary should be interpreted as follows: \(X /\!\!/ G\) is in bijection with \(X^{ps}/G\). \(X^{ps}\) carries the subspace topology it inherits from \(\CP^n\) and the quotient is endowed with the usual quotient topology. It is with respect to this topology that we have a homeomorphism.
+\begin{proof}
+    Observe that \(\mu^{-1}(0) \subset G\cdot \mu^{-1}(0)\subset X^{ps}\) by part 1 of theorem \ref{th_kempf_Ness}. Moreover, \(\mu^{-1}(0)\subset X\) is a closed subset of a compact set, hence compact, and so is \(\mu^{-1}(0)/K\). Furthermore, the composition \(\mu^{-1}(0) \hookrightarrow X^{ps} \to X^{ps}/G\) is continuous, and it is the map sending each \(x\in \mu^{-1}(0)\) to the corresponding \(G\)-orbit. By point 2 of theorem \ref{th_kempf_Ness}, for each \(x\in X^{ps}\), \(G\cdot x \cap \mu^{-1}(0)\) in a single \(K\)-orbit, so the composition factors through the quotient \(\mu^{-1}(0)/K\). By points 1 and 2 the map is bijective. We thus have a continuous bijection from a compact space to a Hausdorff topological space. It is therefore a homeomorphism. The fact that \(X^{ps}/G \leftrightarrow X /\!\!/ G\) is not obvious, but it is a consequence of the way that GIT is constructed. 
+    % por si me hace falta en el futuro: realmente lo que pruebas es que el cociente GIT X//G es separado como esquema, y mediante el GAGA de Serre, eso se traduce en que, visto con la topología analítica, sea un espacio de Hausdorff.
+\end{proof}
+
+
+

@@ -1,0 +1,457 @@
+\chapter{Some Lie theory} \label{appendix_lie}
+We devote this appendix to giving a brief exposition of some aspects of Lie theory that we will need for the development of the main text. First, we give the definition of a complex Lie group, and we recall the notion of a complexification of a Lie group. We then give a brief introduction to parabolic subgroups and subalgebras (they will be essential to define the notion of stability of a principal bundle). The appendix ends by introducing some tools from the theory of non-connected Lie groups and the way these can be applied to bundle theory. We assume basic familiarity with the theory of Lie groups. The main references we used are \parencite{hilgert2011structure} for basic Lie theory, and \parencite{barajas2023non} for everything related to twisted equivariant bundles. Even though in other chapters we have used Greek letters \(\xi, \zeta\) to name elements of the Lie algebra of a Lie group, we will use in this appendix the more standard notation of roman capital letters \(X, Y\). We will write \(e_G\) for the unit element of the group \(G\). We will, however, use the notation \(1\) for the trivial group.
+
+\section{Complex Lie groups} \label{section_complex_lie_group}
+Unsurprisingly, complex Lie groups are defined as follows:
+
+\Definition{\textbf{Complex Lie group}}{A \textit{complex Lie group}\index{Lie group!complex} is a complex manifold \(G\) which is endowed with a group structure such that the product \(G \times G \to G, (g,h) \mapsto g \cdot h\) and inversion \(G \to G, g \mapsto g^{-1}\) maps are holomorphic.\label{def_complex_Lie_group}}
+Clearly, every complex Lie group is a (real) Lie group in the usual sense. Observe that \(G\) being a complex manifold, it is endowed with an almost complex structure \(J_G\). This induces a linear almost complex structure on its tangent spaces, in particular on \(T_eG\) (considering \(T_eG\) as the tangent space of the underlying smooth manifold). Since \(T_eG \cong \mathfrak{g}\), the Lie algebra is endowed with a complex structure \(J_\mathfrak{g}\), i.e. \(\mathfrak{g}\) has the structure of a complex vector space with the product by complex scalars defined by \((a+\ii b)\cdot X:=a\cdot X+ b \cdot J_\mathfrak{g}(X)\). In fact, \(\mathfrak{g}\) is a complex Lie algebra (equipped with the Lie bracket it gets from the smooth Lie group structure of \(G\)) \parencite[Page 55]{knapp2013lie}. This amounts to checking that 
+\begin{equation} \label{eq_comp_lie_algebra}
+J_\mathfrak{g}[X,Y]=[J_{\mathfrak{g}}X, Y]=[X,J_\mathfrak{g}Y] \hspace{1 cm} X,Y \in \mathfrak{g}.
+\end{equation}
+Of course, there is an underlying real Lie algebra, which we shall denote \(\mathfrak{g}^\R\). 
+
+An important remark is the fact that the adjoint representation \(\mathrm{Ad}\colon G \to \mathrm{Aut}(\mathfrak{g})\) is holomorphic. A thorough treatment of complex Lie groups is given in \parencite{Lee_2002_complex_Lie}. Moreover, complex Lie groups come equipped with an exponential map, which is simply the exponential map they have as real Lie groups. It turns out that the exponential of a complex Lie group is a holomorphic map. Some examples of complex Lie groups are \(\mathrm{GL}(n, \C)\) and \(\mathrm{SL}(n, \C)\).
+
+Every Lie algebra \(\mathfrak{g}\) can be complexified. This is done by setting \(\mathfrak{g}^\C:=\mathfrak{g} \otimes_\R \C\cong \mathfrak{g} \oplus \ii \mathfrak{g}\) and extending the Lie bracket by \([X \otimes \alpha, Y \otimes \beta]:=\alpha \beta \cdot [X,Y]\) for \(\alpha, \beta \in \C\) and \(X,Y \in \mathfrak{g}\). Actually, complexifications can be extended to Lie groups, although the definition is not as straightforward.
+
+\Definition{\textbf{Complexification of a Lie group}}{ Let $K$ be a real Lie group. A \textit{complexification} of $K$ is a complex Lie group, denoted $K^\C$, together with an injective Lie group homomorphism (a smooth group homomorphism) $\imath\colon K \to K^\C$ satisfying the following universal property: \label{th_complexification_Lie_group} \newline
+
+\begin{minipage}{0.65 \textwidth}
+     For every complex Lie group $H$, and every (real) Lie group homomorphism $\rho\colon K \to H$, there exists a unique holomorphic Lie group homomorphism $\rho_\C\colon K^\C \to H$ such that $\rho=\rho_\C \circ \imath$. That is, the diagram is commutative
+\end{minipage}
+\begin{minipage}{0.3 \textwidth}
+        \begin{center}
+    \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+        K \arrow[d, "{\displaystyle \imath}", '] \arrow[r, "{\displaystyle \rho}"] \& H \\
+        K^\C \arrow[ur, "{\displaystyle \rho_\C}", '] \& 
+    \end{tikzcd}
+    \end{center}
+\end{minipage}}
+The previous definition is given in terms of a universal property, which automatically means that, if such a complexification exists, it is unique up to isomorphism \parencite[Remark 15.1.3]{hilgert2011structure}. With some work, one can show that every real Lie group admits a complexification \parencite[Th. 15.1.4]{hilgert2011structure}. 
+
+When \(K\) is compact, the Lie algebra of the complexification is the complexification of the Lie algebra of \(K\). That is, let \(G:=K^\C\) with Lie algebra \(\mathfrak{g}\), and let \(\mathfrak{k}\) be the Lie algebra of \(K\). Then, \(\mathfrak{g}=\mathfrak{k}^\C\cong \mathfrak{k}\oplus \ii \mathfrak{k}\) (we should actually write \(\mathfrak{g}^\R=\mathfrak{k}\oplus \ii \mathfrak{k}\), see section \ref{section_complexification}). In fact, the case in which \(K\) is compact is the most interesting: under those assumptions, the inclusion is injective, and \(\imath(K)\subset K^\C\) is a maximal compact subgroup of \(K^\C\) \parencite[Prop. 15.2.1]{hilgert2011structure}. In particular, \(\imath(K) \subset G\) is closed, so it is a real Lie subgroup of \(G\). In general, one has \(\dim _\R G=2\cdot \dim K\) (see \parencite[Prop. 15.2.1]{hilgert2011structure}). As an example, \(\mathrm{U}(n)\) is a compact real Lie group whose complexification is \(\mathrm{GL}(n,\C)\).    
+
+Finally, there is a quotient manifold theorem for holomorphic actions on complex manifolds, which we state here for convenience.
+
+\Theorem{\textbf{Complex quotient manifold theorem}}{Let \(G\) be a complex Lie group and let \(M\) be a complex manifold. Suppose that there is a free and proper holomorphic action on \(M\). Then, the quotient space \(M/G\) has a unique complex manifold structure such that the natural projection \(\pi \colon M \to M/G\) is a holomorphic submersion. \label{quot_man_th_complex}}
+\begin{proof}
+    See \parencite[Prop. 2.1.13]{huybrechts2005complex} or \parencite[Lemma 3.2.6]{Heinzner_Huckleberry_Mathematical}.
+\end{proof}
+
+\begin{obs}
+    For real Lie groups, the closed subgroup theorem \parencite[Th. 9.3.7]{hilgert2011structure} states that whenever \(H\) is a closed subgroup of a Lie group \(G\), then, it is an embedded Lie subgroup of \(G\). By an embedded Lie subgroup, we mean a subgroup that is also an embedded submanifold of \(G\) and whose Lie group structure is given by restricting the group operations in \(G\). For complex Lie groups, this is no longer true, we may have closed subgroups of a complex Lie group that are embedded \textit{real} Lie groups, but not complex Lie groups. However, if \(H \leq G\) is a closed subgroup, and \(\mathfrak{h}\) is a complex Lie subalgebra (i.e. it is \(J_{\mathfrak{g}}\)-invariant), then it is a complex Lie subgroup. That is, a complex Lie group that is an embedded complex submanifold and whose group operations are obtained by restricting those of \(G\). See \parencite[Ch. IX, Example 2.1]{KobayashiNomizu1969Vol2}.
+\end{obs}
+
+
+A very important class of complex Lie groups is the class of linearly reductive groups. 
+
+\Definition{\textbf{Linearly reductive complex Lie group}}{A complex Lie group \(G\) is \textit{(linearly) reductive}\index{Lie group!reductive} if it is the complexification of a real compact Lie group.}
+
+We will often call linearly reductive Lie groups just reductive Lie groups. This is not standard, as some authors reserve reductive for a more general type of group, but since we will only refer to linearly reductive groups, no confusion will arise. This definition works regardless of connectedness assumptions, for instance \(\mathrm{O}(n)^\C=\mathrm{O}(n,\C)\) and \(\mathrm{SO}(n)^\C=\mathrm{SO}(n,\C)\) are reductive, but only the latter is connected. Moreover, complex reductive Lie groups (with finitely many connected components) are characterized by the fact that they admit faithful holomorphic finite-dimensional representations, and they are all completely reducible \parencite[Th. 15.3.11]{hilgert2011structure}. This fact can be used to endow every reductive complex Lie group with the structure of an algebraic group \parencite[III. 8]{bröcker2003representations}.
+
+\section{Parabolic subgroups}
+This section discusses parabolic subgroups of Lie groups. This type of group will be essential to define polystability on principal bundles. We assume that the reader is familiar with root systems. A good reference is \parencite[Ch. 6]{hilgert2011structure}. 
+
+Let \(\mathfrak{g}\) be a complex semisimple Lie algebra, \(\mathfrak{h}\) a Cartan subalgebra, and denote by \(\lambda\in \mathfrak{h}^*\) the roots, \(\Delta:=\Delta(\mathfrak{g}, \mathfrak{h})\) the set of all roots, and \(\mathfrak{g}_\lambda\) the root spaces. Under these hypotheses, we have a \textit{root space decomposition} \(\mathfrak{g}=\mathfrak{h} \oplus (\oplus_{\lambda \neq 0}\ \mathfrak{g}_\lambda)\). If \(\mathfrak{g}\) is not semisimple, but reductive (i.e. for each ideal \(\mathfrak{a} \subset \mathfrak{g}\), there is another ideal \(\mathfrak{b}\) such that \(\mathfrak{g}=\mathfrak{a}\oplus \mathfrak{b}\)), then \(\mathfrak{g}=\zenterg\oplus [\mathfrak{g}, \mathfrak{g}]\), where \(\zenterg\) is the center of the Lie algebra, and \([\mathfrak{g}, \mathfrak{g}]\) is semisimple \parencite[Lemma 5.7.2]{hilgert2011structure}. Then, the root space decomposition reads 
+\[
+\mathfrak{g}=\zenterg \oplus [\mathfrak{g}, \mathfrak{g}]=\zenterg \oplus \mathfrak{h} \oplus \parent{\bigoplus_{\lambda \neq 0} \mathfrak{g}_\lambda}.
+\]
+
+\subsection{Parabolic subalgebras} \label{section_parabolic_subalgebras}
+Let \(\mathfrak{g}\) be a complex semisimple Lie algebra and \(\mathfrak{h}\) a Cartan subalgebra. Fixing a basis or set of simple roots, it makes sense to speak about the set of positive roots, which we shall denote \(\Delta^+\). In that situation, we say that a \textit{Borel subalgebra}\index{Borel subalgebra} is a subalgebra:
+\begin{equation} \label{eq_def_borel_subalgebra}
+\mathfrak{b}:=\mathfrak{h} \oplus \parent{\bigoplus _{\alpha \in \Delta^+}\mathfrak{g}_\alpha}.
+\end{equation}
+Observe that \(\mathfrak{b}\) is indeed a subalgebra. This follows from two facts. First, for a complex semisimple Lie algebra, if \(\alpha, \beta\) are two positive roots (or zero), then \([\mathfrak{g}_\alpha, \mathfrak{g}_\beta] \subset \mathfrak{g}_{\alpha+\beta}\), and \(\alpha+ \beta \in \Delta^+\) \parencite[Lemma 6.3.5]{hilgert2011structure} and \(\mathfrak{h}=\mathfrak{g}_0\). Note that Borel subalgebras are not unique; they depend on the chosen basis.
+
+\Definition{\textbf{Parabolic subalgebra}}{Let \(\mathfrak{g}\) be a complex semisimple Lie algebra. A \textit{parabolic subalgebra}\index{Parabolic!subalgebra} is a Lie subalgebra \(\mathfrak{p}\) of \(\mathfrak{g}\) containing a Borel subalgebra.}
+All the parabolic subalgebras containing \(\mathfrak{b}\) (defined as in \eqref{eq_def_borel_subalgebra}) are given by
+\begin{equation} \label{eq_def_parabolic_subalgebra}
+\mathfrak{p}=\mathfrak{h} \oplus \parent{\bigoplus_{\lambda \in \Gamma}\mathfrak{g}_\lambda},
+\end{equation}
+for some \(\Delta^+\subset \Gamma \subset \Delta\). More precisely, let \(\Pi\) be a basis of the root system. For every subset \(\Pi'\subset \Pi\), define 
+\begin{equation} \label{def_set_gamma}
+\Gamma:=\Delta^+ \cup \corch{\alpha \in \Delta\cap \mathrm{span}(\Pi')}.
+\end{equation}
+Then, there is a one-to-one correspondence between all parabolic subalgebras containing \(\mathfrak{b}\) and sets \(\Gamma\) defined as above, which associates to each set \(\Gamma\) the algebra \eqref{eq_def_parabolic_subalgebra} \parencite[Prop. 5.90]{knapp2013lie}. 
+
+Let \(-\Gamma\) be the set of opposites of elements in \(\Gamma\). Observe that the second set in \eqref{def_set_gamma} is closed under taking opposites. Each parabolic subalgebra admits a decomposition \(\mathfrak{p}=\mathfrak{l} \oplus \mathfrak{u}\) where
+\begin{equation} \label{eq_def_levi_factor}
+\mathfrak{l}:= \mathfrak{h} \oplus \parent{\bigoplus_{\lambda \in \Gamma \cap -\Gamma} \mathfrak{g}_\lambda} \hspace{1 cm} \text{and} \hspace{1 cm} \mathfrak{u}:= \bigoplus_{\lambda \in \Gamma \cap (\Gamma \setminus - \Gamma)} \mathfrak{g}_\lambda.
+\end{equation}
+\(\mathfrak{u}\) is called the \textit{nilpotent radical}, and \(\mathfrak{l}\) is called the \textit{Levi factor}. \(\mathfrak{u}\) is an ideal, and a nilpotent Lie algebra, and \(\mathfrak{l}\) is a reductive Lie algebra \parencite[Cor. 5.94]{knapp2013lie}.
+
+\begin{obs}
+    When the Lie algebra \(\mathfrak{g}\) is not semisimple, the definition is generalized as follows: consider the decomposition \(\mathfrak{g}=\zenterg\oplus [\mathfrak{g}, \mathfrak{g}]\). \([\mathfrak{g}, \mathfrak{g}]\) is semisimple, so the previous discussion applies. Then, parabolic subalgebras are
+    \[
+    \mathfrak{p}=\zenterg \oplus \mathfrak{h} \oplus \parent{\bigoplus_{\lambda \in \Gamma} \mathfrak{g}_\lambda},
+    \]
+    for subsets \(\Gamma\) defined as above. The center is included in the Levi factor \(\mathfrak{l}:=\zenterg \oplus \mathfrak{h} \oplus \parent{\oplus_{\lambda \in \Gamma \cap -\Gamma} \mathfrak{g}_\lambda}\).
+\end{obs}
+
+Observe that both parabolic and Borel subalgebras are complex subalgebras. We are now ready to define parabolic subgroups.
+
+\subsection{Definition and first properties of parabolic subgroups} 
+
+\Definition{\textbf{Parabolic subgroups}}{Let \(G\) be a connected complex reductive Lie group. A \textit{Borel subgroup} of \(G\) is any connected complex embedded Lie subgroup \(B\) whose Lie algebra is a Borel subalgebra. A \textit{parabolic subgroup} \(P\) is any connected subgroup of \(G\) whose Lie algebra is parabolic.}
+
+If we fix a parabolic subalgebra \(\mathfrak{p}\) and consider the Lie subgroup \(P\) such that \(\mathfrak{p}\) is its Lie algebra, then, any other parabolic subgroup is obtained from this one by conjugation. Observe that parabolic subgroups are complex closed subgroups of \(G\), hence embedded Lie subgroups because their Lie algebras are complex subalgebras of \(\mathfrak{g}\). Equivalently, parabolic subgroups are precisely those containing a Borel subgroup. A very useful characterization of parabolic subgroups is given by the following result:
+
+\Theorem{}{Let \(G\) be a connected complex reductive Lie group. A subgroup \(P \subset G\) is parabolic if and only if the quotient space \(G/P\) is compact. \label{th_characterization_parabolic}}
+\begin{proof}
+    See \parencite[Sec. 29.3]{humphreys1975linear}
+\end{proof}
+
+Every parabolic subgroup \(P\) of a connected complex reductive Lie group \(G\) can be written as \(P=LU\) where \(L\) and \(U\) are the connected Lie groups whose Lie algebras are given by \(\mathfrak{l}\) and \(\mathfrak{u}\) in \eqref{eq_def_levi_factor} respectively. \(L\) is called the \textit{Levi subgroup} and \(U\) the \textit{unipotent radical}. \(U\) is a normal subgroup of \(P\), see \parencite[Page 316]{bump2013lie} and \parencite[Sec. 2.1]{garcia2009hitchin}. 
+
+% When \(K \subset \mathrm{U}(n)\) is compact, we know that \(G:=K^\C\subset \mathrm{GL}(n, \C)\) and parabolic subgroups of \(G^\C\) are parametrized by elements of \(\mathfrak{k}\). More precisely, let \(\mathscr{M}:=G/K\). By the quotient manifold theorem (theorem \ref{quot_manifold_theorem}) this is a smooth manifold. If \(O:=[eK]\) is the equivalence class of the identity element of \(G\), then 
+% \[
+% T_OG/K \cong \mathfrak{g}/\mathfrak{k}.
+% \] 
+% Observe, however that \(G=K^\C\) is a complex Lie group, whose Lie algebra is \(\mathfrak{g}  \cong \mathfrak{k}\oplus \ii \mathfrak{k}\). Therefore, \(\mathfrak{g}/\mathfrak{k}\cong \ii \mathfrak{k}\) as real vector spaces. It turns out that \(\ii \mathfrak{k}\) (or \(\mathfrak{k}\), this depends on conventions) parametrizes parabolic subgroups of \(G\). {\color{red} aquí hay cosas que no cuadran ? } \\
+
+% To see how this ``parametrization'' works, we follow \parencite{georgoulas2021moment}. Any non-zero element \(Y \in \mathfrak{g}\) is called a \textit{toral generator} if it is semisimple and has purely imaginary eigenvalues. Equivalently, the subset \(T_Y:=\overline{\corch{\exp(tY):t\in \R}}\) is a torus in \(G\). The set of all toral generators is given by 
+% \[
+% \mathscr{T}^c:=\Ad{}(G)(\mathfrak{g}\setminus \corch{0}).
+% \]
+% We have the following lemma.
+
+% \Lemma{}{For each \(Y\in \mathscr{T}^c\), the set
+% \[
+% P(Y):=\corch{p \in G: \lim_{t \to \infty} \exp(\ii t Y)g \exp(-\ii t Y) \ \ \text{exists in} \  \ G}
+% \]
+% is a parabolic subgroup of \(G\) whose Lie algebra is
+% \[
+% \mathfrak{p}(Y):=\corch{X \in \mathfrak{g} : \lim_{t \to \infty} \exp(\ii t Y)X \exp(-\ii t Y) \ \ \text{exists in} \  \ \mathfrak{g}}
+% \]
+% }
+% \begin{proof}
+%     {\color{red}??????????}
+% \end{proof}
+
+Moreover, parabolic subgroups of a complex reductive Lie group \(G\) are parametrized precisely by elements of the Lie algebra \(\ii\mathfrak{k}\). The precise statement is as follows:
+
+\Proposition{}{Let \(G=K^\C\) be a complex reductive Lie group, and \(\mathfrak{g}=\mathfrak{k}\oplus \ii \mathfrak{k}\) its Lie algebra. For any \(\zeta \in \ii \mathfrak{k}\), define 
+\begin{align*}
+P_\zeta:=&\corch{g \in G: \exp(t\zeta)\ g \ \exp(-t \zeta) \ \text{ is bounded as }\ t \to \infty } 
+&L_\zeta:=&\corch{g \in G: \Ad{g}(\zeta)=\zeta} \\
+\mathfrak{p}_\zeta :=&\corch{\xi \in \mathfrak{g}: \Ad{\exp(t\zeta)}(\xi) \ \text{is bounded as}  \ t \to \infty} 
+&\mathfrak{l}_\zeta :=&\corch{\xi \in \mathfrak{g}: [\xi, \zeta]=0}.
+\end{align*}
+Then \(P_\zeta\) and \(L_\zeta\) are connected, closed complex Lie subgroups of \(G\) whose Lie algebras are \(\mathfrak{p}_\zeta\) and \(\mathfrak{l}_\zeta\) respectively.  Moreover, \(\mathfrak{p}_\zeta\) is parabolic (in the sense of \eqref{eq_def_parabolic_subalgebra}) so \(P_\zeta\) is a parabolic subgroup, and \(L_\zeta\) is reductive. \label{prop_charact_parabolic_subgroups}
+}
+\begin{proof}
+    See \parencite[Lemma 2.5]{garcia2009hitchin} and \parencite[Lemma 2.12]{trautwein2015surveygitpictureyangmills}.
+\end{proof}
+
+\(L_\zeta\) is what we call a \textit{Levi subgroup of} \(P_\zeta\). Its Lie algebra \(\mathfrak{l}_\zeta\), is a Levi factor in the sense of \eqref{eq_def_levi_factor} (see \parencite[Lemma 2.14]{trautwein2015surveygitpictureyangmills}). 
+
+\begin{obs}
+    Since \(\mathfrak{g}\) is a finite-dimensional vector space, and all norms on finite-dimensional vector spaces are equivalent, the notion of being bounded is well-defined. Now, for the definition of \(P_\zeta\), observe that there is no natural notion of boundedness on \(G\). We say that the map \(t \mapsto g(t):=\exp(t\zeta)\cdot g \cdot \exp(-t\zeta)\) is bounded if the limit when \(t \to \infty\) exists, that is, if there is some \(h\in \hat{G}\) such that for every neighborhood \(\mathcal{U}\) of \(h\) there exists some \(M>0\) such that for \(t>M\), \(g(t)\in \mathcal{U}\).
+\end{obs}
+
+We conclude the section by drawing attention to the fact that, in general, parabolic subgroups \textit{are not} normal subgroups.
+
+\subsection{Examples}
+Let us conclude by giving some examples of parabolic subgroups. Let \(K=\mathrm{U}(n)\) (which is compact \parencite[Lemma 2.1.4]{hilgert2011structure}), and \(G=\mathrm{GL}(n, \C)\) its complexification. Even though proposition \ref{prop_charact_parabolic_subgroups} characterizes all parabolic subgroups of \(G\), it is always instructive to look at a concrete example. To describe these parabolic subgroups, we briefly introduce the concept of flag. Given a complex vector space, say \(\C^n\) for concreteness, a \textit{(partial) flag}\index{Flag} is a chain of vector subspaces \(0 \subsetneq V_1 \subsetneq V_2 \subsetneq \ldots \subsetneq V_r=\C^n\). Then, one may show that every parabolic subgroup \(P \subset G\) is the stabilizer of a partial flag \parencite[Sec. 21.3 Cor. B]{humphreys1975linear}. That is, \(p\cdot V_i=V_i\) for each \(1 \le i \leq r\) and \(p\in P\). Hence, up to an adequate choice of a basis (that is, up to conjugation) all parabolic subgroups of \(G\) are given by
+\[
+P=\left\lbrace
+\begin{pmatrix}
+    A_{11} & A_{12} & \ldots & A_{1k} \\
+    0 & A_{22} & \ldots & A_{2k} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \ldots & A_{kk} 
+\end{pmatrix} :  A_{ii}\in \mathrm{GL}(n_i, \C), A_{jk} \in \mathrm{M}_{n_i \times n_j}(\C)
+\right\rbrace
+\]
+where \(n_1=\dim V_1\), and \(n_i=\dim V_i-\dim V_{i-1}\) for \(i \geq 2\). 
+
+% To look at an even simpler example, if we consider a partial flag \(0\subsetneq \mathrm{span}_\C\corch{e_1,\ldots e_\ell} \subsetneq \C^n\) for some \(\ell <n\), the parabolic subgroup that stabilizes it is
+% \[
+% P=\left\lbrace 
+% \begin{pmatrix}
+%     A & U \\
+%     0 & B
+% \end{pmatrix} : {A \in \mathrm{GL}(\ell , \C), B\in \mathrm{GL}(n-\ell, \C), \atop U \in \mathrm{M}_{\ell \times (n-\ell)}(\C)}
+% \right\rbrace = \underbrace{\left\lbrace \begin{pmatrix}
+%     \mathrm{I}_\ell & U \\
+%     0 & \mathrm{I}_{n-\ell}
+% \end{pmatrix} \right\rbrace}_{\mathcal{R}_U(P)} \rtimes \underbrace{\left\lbrace \begin{pmatrix}
+%     A & 0 \\
+%     0 & B
+% \end{pmatrix} \right\rbrace }_L.
+% \]
+% Where the right-hand side gives the decomposition in terms of the unipotent radical and the Levi subgroup.
+
+\section{Non-connected Lie groups} \label{appendix_non_connected_lie_groups}
+Many important results in the theory of Lie groups rely heavily on connectedness to work. There are, however, some ways to deal with non-connected groups, which constitutes the content of this section. References for this section are \parencite[Ch. 18]{hilgert2011structure} and especially \parencite{barajas2023non}. In fact, later sections are a summary of the key results of the latter. Our main setting will be the following: consider a non-connected Lie group \(\hat{G}\) with finitely many connected components, and let \(G\) be the connected component containing the identity (identity component, from now on). Let \(\Gamma=\hat{G}/G\). Since the connected component of the identity is always a normal closed subgroup \parencite[Prop. 7.15]{lee_introSM}, the quotient has a natural Lie group structure \parencite[Th. 21.26]{lee_introSM}. This is the group of connected components of \(\hat{G}\), and it fits in an exact sequence of Lie groups
+\begin{equation} \label{eq_sequence_Lie_groups}
+1 \to G \hookrightarrow \hat{G} \twoheadrightarrow \Gamma=\hat{G}/G \to 1,
+\end{equation}
+The fact that \(\Gamma\) is the group of connected components of \(\hat{G}\) follows from the fact that each \(L_g\) is a diffeomorphism. Hence, \(L_g(G)=gG\) is a connected component of \(\hat{G}\) for each \(g\in G\). Since \(gG=\tilde{g}G\) if and only if \(g\tilde{g}^{-1}\in G\), the latter being the relation defining \(\Gamma\). Thus, it follows that \(gG=\tilde{g}G\) if and only if \(g\) and \(\tilde{g}\) are in the same connected component of \(\hat{G}\). Since \(G \triangleleft \hat{G}\), for each \(\hat{g} \in \hat{G}\), \(C_{\hat{g}}\) (recall that \(C_{\hat{g}}(h)=\hat{g}h\hat{g}^{-1}\)) restricts to a Lie group isomorphism of \(G\). This defines the \textit{characteristic homomorphism} \(\bar{\theta}\colon \Gamma \to \mathrm{Out}(G)\). More precisely, first, for any Lie group, define \(\mathrm{Aut}(G)\) to be the group of Lie group isomorphisms, and \(\mathrm{Int}(G):=\corch{C_g:g \in G}\). Then \(\mathrm{Int}(G) \triangleleft \mathrm{Aut}(G)\), and we may consider \(\mathrm{Out}(G):=\mathrm{Aut}(G)/\mathrm{Int}(G)\). The characteristic homomorphism is defined as follows: 
+\begin{equation} \label{eq_def_bartheta}
+\begin{array}{cccc}
+    \bar{\theta}\colon & \Gamma & \longrightarrow & \mathrm{Out}(G) \\
+     & \gamma = \hat{g} G & \mapsto & [C_{\hat{g}}],
+\end{array}
+\end{equation}
+where \([\cdot]\) denotes the equivalence class in \(\mathrm{Out}(G)\). Observe that for \(\hat{g}\in \hat{G}\setminus G\), \(C_{\hat{g}}\notin \mathrm{Int}(G)\). 
+
+\Lemma{}{Let \(\hat{G}\) be a non-connected Lie group and consider an exact sequence as in \eqref{eq_sequence_Lie_groups}. Then, the map \(\bar{\theta}\) defined by \eqref{eq_def_bartheta} is well-defined.}
+\begin{proof}
+    Let \(\hat{g}_1G=\hat{g_2} G\). Then, \(\hat{g}_1^{-1} \hat{g}_2 \in G\). The result follows from \(\parent{C_{\hat{g}_1}}^{-1}\circ C_{\hat{g}_2}=C_{\parent{\hat{g}_1}^{-1} \hat{g}_2}\in \mathrm{Int}(G)\).
+\end{proof}
+\noindent
+\begin{minipage}{0.75\textwidth}
+   We will assume for now that \(\bar{\theta}\) admits a lift \(\theta\colon \Gamma \to \mathrm{Aut}(G)\) such that the diagram is commutative (\(\bar{q}\) denotes the quotient map). We will write \(\theta_\gamma=\theta(\gamma)\) and \(\theta_\gamma(g)=g^\gamma\).
+\end{minipage}
+\begin{minipage}{0.24\textwidth}
+    \begin{center}
+    \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+            \Gamma  \arrow[r, "{\displaystyle \theta}"] \arrow[rd, "{\displaystyle \bar{\theta} \hspace{4 pt}}", ']  \& \mathrm{Aut}(G) \arrow[d, "{\displaystyle \bar{q}}", ] \\
+            \& \mathrm{Out}(G). 
+        \end{tikzcd}
+\end{center}
+\end{minipage}
+The lift \(\theta\), together with an element \(c \in Z^2_\theta(\Gamma, Z(G))\) will give us another way to look at \(\hat{G}\). \(c\) is what we call a two-cocycle, that is, a map \(c\colon \Gamma \times \Gamma \to Z(G)\) satisfying
+\begin{equation} \label{def_cocycle_cond}
+c(\gamma_1, \gamma_2)^{\gamma_0}c(\gamma_0, \gamma_1 \gamma_2)=c(\gamma_0, \gamma_1)c(\gamma_0\gamma_1, \gamma_2), \hspace{1 cm} \gamma_0, \gamma_1, \gamma_2 \in \Gamma
+\end{equation}
+and \(c(e_\Gamma, \gamma)=c(\gamma, e_\Gamma)=e_G\) for all \(\gamma \in \Gamma\). This condition comes from closedness in group cohomology (see \parencite[Appendix 18.3]{hilgert2011structure} for details). 
+
+\Definition{}{Let \(G, \theta\) and \(c \in Z_\theta^2(\Gamma, Z(G))\) be as above, we define the group \(G \times_{(\theta, c)} \Gamma\), whose underlying set is \(G \times \Gamma\), and whose group operation is given by 
+\[
+(g_1, \gamma_1)\ (g_2, \gamma_2):=(g_1 g_2^{\gamma_1} \ c(\gamma_1, \gamma_2), \gamma_1\gamma_2).
+\]
+}
+A direct computation shows that it is indeed a group (associativity follows from \eqref{def_cocycle_cond} and the fact that \(c\) is \(Z(G)\)-valued) whose unit element is \((e_G, e_\Gamma)\), and such that the inverse of \((g, \gamma)\) is given by \(((g^{-1}\ c(\gamma, \gamma^{-1})^{-1})^{\gamma^{-1}} , \gamma^{-1})\) \parencite[Lemma 18.1.9]{hilgert2011structure}. Observe that \(c\equiv 1\) implies \(G\times_{(\theta, c)}\Gamma=G \rtimes_\theta \Gamma\). This group fits in an exact sequence
+\[
+1 \to G \xrightarrow{f} G \times_{(\theta, c)} \Gamma \xrightarrow{k} \Gamma \to 1,
+\]
+where \(f(g)=(g, e_\Gamma)\) and \(k(g,\gamma)=\gamma\). Equipped with the product structure we just defined, one may show that \(G \times_{(\theta, c)}\Gamma\) is a Lie group. Indeed, \(G \times \Gamma\) is a smooth manifold endowed with the product manifold structure (\(\Gamma\) is discrete hence a zero dimensional manifold, and \(\theta\) and \(c\) are smooth). For adequate choices of \(c\) and \(\theta\), we actually have \(G \times_{(\theta, c)} \Gamma \cong \hat{G}\). To construct such an isomorphism, we start by choosing a section \(s\colon \Gamma \to \hat{G}\) (i.e. \(q \circ s=\mathrm{id}_\Gamma\)) that is \textit{normalized}, meaning that the composition of the conjugation map \(\hat{G} \to \mathrm{Aut}(G)\) with \(s\) is equal to \(\theta\). In particular, \(s(e_\Gamma)=e_{\hat{G}}\). In other words \(\theta_\gamma(g)=s(\gamma)\ g \ s(\gamma)^{-1}\) for all \(\gamma \in \Gamma, g \in G\). The section can always be chosen like that because for each \(\gamma \in \Gamma\), conjugation, seen as a map \(q^{-1}(\gamma) \to \mathrm{Aut}(G)\) has as its image the whole class of \(\bar{\theta}(\gamma)\). In that case, we can \textit{define} the cocycle \(c\) by the relation 
+\[
+ c(\gamma_1, \gamma_2)= s(\gamma_1) \ s(\gamma_2) \ s(\gamma_1 \gamma_2)^{-1}.
+\]
+Hence, \(c\) measures the failure of \(s\) to be a group homomorphism. This obviously satisfies \(c(e_\Gamma, \gamma)=c(\gamma, e_\Gamma)=e_G\). A direct calculation shows that \(c\) satisfies \eqref{def_cocycle_cond}. Moreover, it is \(Z(G)\)-valued:
+\begin{align*}
+    g \ c(\gamma_1, \gamma_2) \ g^{-1} & = s(\gamma_1) \ s(\gamma_1)^{-1} g\  s(\gamma_1) \ s(\gamma_2) \ s(\gamma_1 \gamma_2)^{-1} g^{-1} s(\gamma_1 \gamma_2) \ s(\gamma_1 \gamma_2)^{-1} \\
+    & = s(\gamma_1) \ \theta_{\gamma_1^{-1}}(g)\  s(\gamma_2) \  \theta_{(\gamma_1 \gamma_2)^{-1}}(g^{-1})\  s(\gamma_1 \gamma_2)^{-1} \\
+    & = s(\gamma_1) \ s(\gamma_2) \ \theta_{\gamma_2^{-1}}(\theta_{\gamma_1^{-1}}(g)) \theta_{(\gamma_1 \gamma_2)^{-1}}(g^{-1})\  s(\gamma_1 \gamma_2)^{-1}\\&=c(\gamma_1, \gamma_2).
+\end{align*}
+Then, the map 
+\begin{equation} \label{eq_def_isomorp}
+\Phi\colon G \times_{(\theta, c)} \Gamma \longrightarrow \hat{G}, (g, \gamma) \mapsto g\ s(\gamma) 
+\end{equation}
+is a Lie group isomorphism \parencite[Remark 18.1.8]{hilgert2011structure}. 
+
+% \begin{obs}
+%     Observe that we can define \(\hat{\Gamma}_{\theta, c}:=Z(G)\times_{(\theta, c)} \Gamma \subset \hat{G}\) by restriction of the group operations, and it is a group. We then get an extension \(1 \to Z(G) \to \hat{\Gamma}_{\theta, c} \to \Gamma \to 1\).
+% \end{obs}
+
+For what is to come, we fix \(\hat{G}\) a complex reductive Lie group, and \(\hat{K} \subset \hat{G}\) a maximal compact Lie subgroup. By a theorem of Mostow \(\Gamma\cong\hat{K}/K\), where \(K:=\hat{K} \cap G\) is the identity component of \(\hat{K}\), and it is a maximal compact subgroup of \(G\) (see \parencite[Th. 3.1]{mostow1955self}). Since every compact manifold has finitely many connected components, \(\Gamma\) is finite. Moreover, observe that the previous reasoning holds for any extension of Lie groups, for instance \(1 \to K \to \hat{K}\to \Gamma \to 1\). Given \(\bar{\theta}\colon \Gamma \to \mathrm{Out}(K)\), by the results in \parencite[See Ch I, Sec 2]{de1956groupes}, there is a lift \(\theta\colon \Gamma \to \mathrm{Aut}(K)\). More explicitly, that theorem states that letting \(K\subset G\) be a maximal compact subgroup, then the short exact subsequence
+\[
+1 \to \mathrm{Int}(K) \to \mathrm{Aut}(K) \to \mathrm{Out}(K) \to 1
+\]
+splits. Hence, the composition of \(\bar{\theta}\colon \Gamma \to \mathrm{Out}(K)\) with a left splitting \(\mathrm{Out}(K) \to \mathrm{Aut}(K)\) yields a lift of \(\theta\). Using the universal property of complexifications, we may obtain a lift of \(\bar\theta\colon \Gamma\to \mathrm{Out}(G)\). By the universal property of complexification, we may see it as \(\theta\colon \Gamma \to \mathrm{Aut}(G)\). Moreover, again by the universal property of complexifications, \(Z(K)\subset Z(G)\) so any cocycle in \(K\) can be seen as a cocycle in \(G\). Then, upon fixing a normalized section, the Lie group isomorphism \(\hat{G} \cong G \times_{(\theta, c)} \Gamma\) restricts to an isomorphism \(\hat{K}\cong K \times_{(\theta, c)}\Gamma\) if we see \(K \times_{(\theta, c)}\Gamma\) as a subgroup of \(G \times_{(\theta, c)}\Gamma\) \parencite[Prop. 2.2]{barajas2023non}. In particular, \(K \subset G\) is \(\Gamma\)-invariant because the lift \(\theta\) comes from a lift of the homomorphism \(\Gamma \to \mathrm{Out}(K)\).
+
+\begin{obs} \label{k_connected_kc_G}
+    Let \(\hat{G}\) be a complex reductive Lie group as before, which is a complexification of a maximal compact subgroup \(\hat{K}\), and let \(G\) be the identity component of \(\hat{G}\) and \(K:=\hat{K}\cap G\). First, since the connected component of the identity is always closed \parencite[Lemma 7.11 and Prop. 7.15]{lee_introCM}, and \(\hat{K}\) is compact, it follows that \(K\) is compact. Moreover, from the universal property of complexifications, \(K^\C \cong G\), and \(G\) is diffeomorphic to \(K \times \mathfrak{k}\) \parencite[Prop. 15.2.1-(c)]{hilgert2011structure}. Since \(G\) is connected, \(K\) must be connected as well.
+\end{obs}
+
+\subsection{Twisted equivariant actions}
+This section is devoted to introducing what we will call \textit{twisted equivariant actions}. As we shall see, introducing this concept will allow us to obtain principal bundles with connected structure group out of principal bundles with non-connected structure group. Our main reference is \parencite{barajas2023non}. The lift \(\theta\) induces left actions of \(\Gamma\) on \(G\) and \(\mathfrak{g}\) given by 
+\begin{equation} \label{eq_Gamma_action_G}
+\Gamma \times G \longrightarrow G, (\gamma,g) \mapsto \theta_{\gamma}(g), \hspace{1 cm} \Gamma \times \mathfrak{g} \to \mathfrak{g}, (Y, \gamma) \mapsto \diff_e\theta_{\gamma}(Y).
+\end{equation}
+
+\Definition{}{Let \(M\) be an \(\mathcal{S}\)-manifold. A \textit{\((\theta, c)\)-twisted left (resp. right) \((G,\Gamma)\)-action}\index{Twisted equivariant!action} is a pair given by:
+\begin{enumerate}
+    \item a left (resp. right) \(G\)-action by \(\mathcal{S}\)-isomorphisms,
+    \item an \(\mathcal{S}\)-isomorphism \(\Gamma \times M \to M, (\gamma, m) \mapsto \gamma \cdot m \) satisfying (for a left action),
+    \begin{align}
+        e_\Gamma\cdot m & =  m & \forall \ \  m \in M, \label{eq_left_twisted_action3} \\
+        \gamma\cdot (g\cdot m) & = g^\gamma \cdot (\gamma\cdot m) & \forall \ \  m \in M, \gamma \in \Gamma, g \in G, \label{eq_left_twisted_action1} \\
+        \gamma_1\cdot(\gamma_2\cdot m) & = c(\gamma_1, \gamma_2)\cdot ((\gamma_1\gamma_2)\cdot m)  & \forall \ \ m \in M, \gamma_1, \gamma_2 \in \Gamma .\label{eq_left_twisted_action2}
+    \end{align}
+\end{enumerate}
+We also say that \(M\) is a \((\theta, c)\)\textit{twisted \((G, \Gamma)\)-manifold}\index{Twisted equivariant!manifold}.
+}
+For a right action, \eqref{eq_left_twisted_action3} is swapped for \(m\cdot e_\Gamma=m\),  \eqref{eq_left_twisted_action1} and \eqref{eq_left_twisted_action2} for the following
+\begin{align}
+    (m\cdot g^\gamma)\cdot \gamma &= (m \cdot \gamma)\cdot g \hspace{1 cm} \forall \ \ m \in M, \gamma \in \Gamma,  g \in G, \label{eq_right_twisted_action1} \\ 
+    (m\cdot \gamma_1)\cdot \gamma_2 &= (m\cdot c(\gamma_1, \gamma_2))\cdot (\gamma_1 \gamma _2) \hspace{1 cm} m \in M, \gamma_1, \gamma_2 \in \Gamma.  \label{eq_right_twisted_action2}
+\end{align}
+
+If \(G=Z(G)\) is abelian, we simply speak of a \((\theta, c)\)\textit{-twisted \(\Gamma\)-action}. Given two \(\mathcal{S}\)-manifolds endowed with \((\theta,c)\)-twisted \((G, \Gamma)\)-equivariant left actions, \(M\) and \(N\), an \(\mathcal{S}\)-map \(f\colon M \to N\) is called \textit{\((\theta, c)\)-twisted \((G, \Gamma)\)-equivariant} if it satisfies 
+\begin{equation} \label{eq_def_twisted_equiv_map}
+f(g \cdot m) = g\cdot f(m) \hspace{0.5 cm} \text{and} \hspace{0.5 cm} f(\gamma \cdot m)=\gamma \cdot f(m) \hspace{1 cm} \forall \ \ m \in M, \gamma \in \Gamma.
+\end{equation}
+When the data \((\theta, c)\) and \((G, \Gamma)\) are clear from the context, we will speak directly of twisted equivariant actions and manifolds. 
+
+Since \(\hat{G}\cong G\times_{(\theta, c)}\Gamma\), one may think that \(\hat{G}\) actions and twisted actions are related. Indeed:
+
+\Proposition{}{Let \(\hat{G}=G \times_{(\theta, c)}\Gamma\). There is a bijective correspondence between \(\hat{G}\)-actions on an \(\mathcal{S}\)-manifold and \((\theta,c)\)-twisted \((G, \Gamma)\)-actions given as follows: \label{prop_equivalence_actions}
+\begin{enumerate}
+    \item Given a \(\hat{G}\)-action on \(M\), we define the \(G\)-action by restriction and \(\gamma\cdot m:=(e_G, \gamma)\cdot m\) (cf. \eqref{eq_def_isomorp}).
+    \item Given a \((\theta,c)\)-twisted \((G, \Gamma)\)-action, we define \((g, \gamma)\cdot m= g\cdot (\gamma\cdot m)\) for a right action, and \(m\cdot (g, \gamma)=(m\cdot g)\cdot \gamma\).
+\end{enumerate}
+Moreover, a map \(f\colon M \to N\) between sets with \((\theta,c)\)-twisted \((G, \Gamma)\)-actions is \((\theta,c)\)-twisted \((G, \Gamma)\)-equivariant if and only if it is \(\hat{G}\)-equivariant under the previous correspondence.
+}
+\begin{proof}
+    See \parencite[Prop. 2.7 and Prop. 2.12]{barajas2023non}, the proof is just a sequence of lengthy computations. 
+\end{proof}
+
+\begin{obs}  
+    In our discussion, the lift \(\theta\) has been fixed, but it may not be unique. The choice of lift, however, does not matter in the end. Without further detail, different choices lead to equivalent categories. We refer the reader to \parencite[Sec. 4]{barajas2023non} for details.
+\end{obs}
+
+\subsection{Twisted equivariant bundles}
+Twisted equivariant actions allow us to define analogues to principal bundles, where instead of a regular action we now have a \((\theta,c)\)-twisted \((G, \Gamma)\)-equivariant action. Chapter \ref{chapter_principal_bundles} contains the basic features of principal bundles needed to understand this section. If \(M\) is an \(\mathcal{S}\)-manifold endowed with a left \(\Gamma\)-action by \(\mathcal{S}\)-isomorphisms, we will say that it is a \((\mathcal{S},\Gamma)\)-manifold.
+
+Both general fiber bundles and principal bundles admit generalizations to twisted equivariant actions.
+
+\Definition{\textbf{Twisted equivariant fiber bundles}}{Let \(M\) be an \((\mathcal{S},\Gamma)\)-manifold. A \textit{\((\theta,c)\)-twisted \(\Gamma\)-equivariant bundle}\index{Twisted equivariant!fiber bundle} is an \(\mathcal{S}\)-fiber bundle \(F \to M\) endowed with a \((\theta,c)\)-twisted action of \(\Gamma\) on \(F\) such that \(Z(G)\) acts fiberwise (i.e. for \(z \in Z(G), f \in \pi^{-1}(m)\), we have \(z\cdot f\in \pi^{-1}(m)\)) and \(\pi\colon F \to M\) is \(\Gamma\)-equivariant, that is \(\pi(\gamma \cdot f)=\gamma \cdot \pi(f)\) for a left action, and \(\pi(f\cdot \gamma)=\pi(f)\cdot \gamma\) for a right action. \label{def_twisted_equivariant_fiber_bundle}}
+
+We can then define \textit{twisted \(\Gamma\)-equivariant sections}\index{Section!\(\Gamma\)-equivariant} \(s\colon M \to F\) as usual sections satisfying the \(\Gamma\)-equivariance condition: \(s(m\cdot \gamma)=s(m)\cdot \gamma\) for a right action and \(s(\gamma\cdot m)=\gamma\cdot s(m)\) for a left action. Observe that this is well-defined thanks to equivariance of the projection \(\pi\). 
+% Moreover, there is a \((\theta,c)\)-twisted \((Z(G), \Gamma)\)-action of \(Z(G)\times_{(\theta, c)}\Gamma\) on \(\Gamma(M;F)\). If the twisted equivariant action on \(F\) is on the right, this is given by \((s\cdot \gamma)(m):=s(m\cdot \gamma^{-1})\cdot \gamma\) and \((s\cdot z)(m)=s(m)\cdot z\) for \(\gamma \in \Gamma, z \in Z(G)\). Then, \(s\) is an equivariant section if and only if it is \(\Gamma\)\textit{-invariant}\index{Section!\(\Gamma\)-invariant}. Hence, we will use \(\Gamma\)-equivariant and \(\Gamma\)-invariant interchangeably {\color{red} creo que lo usáis así en los artículos aunque no está dicho explícitamente}. 
+
+\Definition{\textbf{Twisted equivariant principal \(G\)-bundles}}{Let \(M\) be an \((\mathcal{S},\Gamma)\)-manifold. A \textit{\((\theta,c)\)-twisted \(\Gamma\)-equivariant principal \(G\)-bundle}\index{Twisted equivariant!principal bundle} is a right \((\theta,c)\)-twisted equivariant bundle \(P \to M\) with a right \(G\)-action such that \label{def_twisted_equivariant_principal_bundles}
+\begin{enumerate}
+    \item The \(G\) and \(\Gamma\) actions make \(P\) into a \((\theta,c)\)-twisted \((G, \Gamma)\)-manifold.
+    \item The right \(G\)-action makes \(P\to M\) into an \(\mathcal{S}\)-principal \(G\)-bundle.
+\end{enumerate}
+}
+As usual, if we work with holomorphic bundles, both the Lie group and the base manifold must be complex. Let us remark that, in the previous definition, the \(G\)-action restricts to an action of \(Z(G)\) that is the same as the one induced by the twisted equivariant \(\Gamma\)-action. Observe that by proposition \ref{prop_equivalence_actions}, \(P\) may be seen as a manifold endowed with a \(\hat{G}\)-action.
+
+\begin{obs}
+    Just to be very clear, a twisted principal \(G\)-bundle is a \(G\)-bundle endowed with a right \(\Gamma\)-action, such that the projection map is \(\Gamma\)-equivariant, and the following relations hold
+    \begin{equation} \label{eq_twisted_principal_bundles}
+        (p\cdot g^\gamma)\cdot \gamma = (p\cdot \gamma)\cdot g \hspace{1.5 cm} (p\cdot \gamma_1)\cdot \gamma_2  = (p\cdot c(\gamma_1, \gamma_2))\cdot (\gamma_1\gamma_2)
+    \end{equation}
+    for all \(p \in P, g \in G, \gamma \in \Gamma\). These are just \eqref{eq_right_twisted_action1} and \eqref{eq_right_twisted_action2} applied to our particular situation.
+\end{obs}
+
+\noindent
+\begin{minipage}[c]{0.79 \textwidth}
+    The notion of morphism has to be modified as well. Given two twisted \(\Gamma\)-equivariant principal bundles with the same structure group \(G\), say \(P\) and \(P'\), over two \(\Gamma\)-manifolds \(M\) and \(N\), a \textit{morphism} \(\vartheta\colon P \to P'\) is a twisted equivariant \(\mathcal{S}\)-morphism such that the induced \(\mathcal{S}\)-morphism \(\vartheta'\colon M \to N\) is \(\Gamma\)-equivariant. That is \(\vartheta(p \cdot \gamma)=\vartheta(p)\cdot \gamma\), \(\vartheta(p\cdot g)=\vartheta(p)\cdot g\) and \(\vartheta'(m\cdot \gamma)=\vartheta'(m)\cdot \gamma\). By proposition \ref{prop_equivalence_actions}, we may equivalently ask \(\vartheta\) to be \(\hat{G}\)-equivariant.
+\end{minipage}
+\hfill %
+\begin{minipage}[c]{0.20 \textwidth}
+    \centering
+    \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+            P \arrow[r, "{\displaystyle \vartheta}"] \arrow[d, "{\displaystyle \pi}",']\& P' \arrow[d, "{\displaystyle \pi'}"] \\
+            M \arrow[r, "{\displaystyle \vartheta'}"]\& N
+        \end{tikzcd}
+\end{minipage}
+    
+
+Pullbacks under \(\Gamma\)-equivariant maps behave well: if \(P \to Y\) is a twisted equivariant principal \(G\)-bundle, and \(\varphi\colon X \to Y\) is a \(\Gamma\)-equivariant \(\mathcal{S}\)-morphism between \(\Gamma\)-manifolds, then \(\varphi^*P\to X\) defined as in \eqref{eq_def_pullback} has a natural structure of twisted equivariant principal \(G\)-bundle. The \(\Gamma\) action on \(\varphi^*P\) is defined component-wise, i.e. \((n,p)\cdot \gamma=(n\cdot \gamma, p\cdot \gamma)\).      
+
+Finally, something unexpected happens when we try to apply this construction to associated bundles: the twisting disappears and we get a ``genuine'' \(\Gamma\)-equivariant bundle, i.e. a fiber bundle with a \(\Gamma\)-action over a \(\Gamma\)-manifold such that the projection is \(\Gamma\)-invariant. Observe that \((\theta,c)\)-twisted \(\Gamma\)-equivariant fiber bundles are \textit{not} \(\Gamma\)-equivariant bundles precisely because the twisted \(\Gamma\)-action is \textit{not} an action in the usual sense. This result is based on the following proposition (we state it in general terms).
+
+\Proposition{}{Let \(1 \to G \xrightarrow{i} \hat{G} \xrightarrow{\pi} \Gamma \to 1\) be a \(\mathcal{S}\)-Lie group extension, and suppose that there is a free and proper \(\mathcal{S}\)-action of \(\hat{G}\) on an \(\mathcal{S}\)-manifold \(M\). Then, there is an \(\mathcal{S}\)-action of \(\Gamma\) on \(M/G\) and the quotient map \(\hat{\pi}\colon M\to M/G\) is equivariant for the homomorphism \(q\colon\hat{G}\to \Gamma\). \label{prop_gamma_Action_Y} }
+\begin{proof}
+    Consider right actions and define \([m]\cdot \gamma:=[m\cdot \hat{g}]\) for any \(\hat{g}\in \hat{\pi}^{-1}(\gamma)\). Choosing \(\hat{g}_1, \hat{g}_2 \in \pi^{-1}(\gamma)\), we have \(\hat{g}_2^{-1} \hat{g}_1\in \ker\pi = i(G)\) so \([m\cdot \hat{g}_1]=[m\cdot \hat{g}_2\hat{g}_2^{-1}\hat{g}_1]=[m\cdot \hat{g}_2]\), so the action does not depend on the representative of \(\gamma\) we choose. Similarly, \([m]\cdot \gamma=[m\cdot g]\cdot \gamma\) for \(g\in G\) because \(i(G) \triangleleft \hat{G}\). Indeed, \([m\cdot \hat{g}]=[m\cdot g \cdot \hat{g}]\) because \(g\hat{g}=\hat{g}g'\) for some \(g'\in i(G)\). Finally, \(\pi\colon M \to M/G\) is equivariant by definition of the action.
+\end{proof}
+
+If \(\hat{G}=G \times_{(\theta, c)}\Gamma\), and we have a \((\theta,c)\)-twisted \((G, \Gamma)\)-action on \(M\), then we also have a \(\hat{G}\) action on \(M\) (see proposition \ref{prop_equivalence_actions}). The previous proposition applies and yields a \(\Gamma\)-action on \(M/G\).
+
+\Proposition{}{Let \(F\) be a \((\theta,c)\)-twisted right \((G, \Gamma)\)-manifold and \(\pi\colon P(M,G) \to M\) be a \((\theta, c)\)-twisted \(\Gamma\)-equivariant principal \(G\)-bundle over a \(\Gamma\)-manifold \(M\). Then, the associated bundle \(P \times_G F\) is a \(\Gamma\)-equivariant fiber bundle with the action \([p,f]\cdot \gamma=[p\cdot \gamma, f\cdot \gamma]\). That is, a fiber bundle with a \(\Gamma\)-action such that the projection is \(\Gamma\)-equivariant. \label{prop_gamma_equivariant_bundles}}
+\begin{proof}
+    Endow \(P \times F\) with the component-wise \((\theta,c)\)-twisted \((G, \Gamma)\)-action obtained from that of \(P\) and \(G\) and apply proposition \ref{prop_gamma_Action_Y} to the induced \(\hat{G}=G\times_{(\theta,c)}\Gamma\)-action. It follows that \([p,f]\cdot \gamma=[p\cdot \gamma, f\cdot \gamma]\) is a right \(\Gamma\)-action, and the projection is equivariant by definition (cf. definition \ref{def_twisted_equivariant_fiber_bundle} and section \ref{section_associated_bundles}).
+\end{proof}
+
+\begin{obs} \label{obs_right_left_twisted_actions}
+    If \(F\) had been a \((\theta,c)\)-twisted \textit{left} \((G, \Gamma)\)-manifold, we would have needed to modify the left twisted equivariant action to obtain a right twisted equivariant action. This is done by setting \(f\cdot g:=g^{-1}\cdot f\) and \(f\cdot \gamma:=c(\gamma^{-1}, \gamma)^{-1}\cdot (\gamma^{-1}\cdot f)\).
+\end{obs}
+
+\subsection{Reductions of the structure group on twisted equivariant bundles}
+The aim of this section is to adapt the notion of reduction of the structure group to twisted equivariant principal bundles. More precisely, we want to see how reductions of the structure group of a twisted equivariant principal \(G\)-bundle may be endowed with a twisted equivariant structure. Under our usual situation \eqref{eq_sequence_Lie_groups}, let \(H \subset G\) be a closed Lie subgroup, and suppose that it is invariant under the  left \(\Gamma\)-action induced by \(\theta\), i.e. \(\gamma\cdot H=H\) for all \(\gamma\in \Gamma\). 
+
+\Proposition{}{Let \(H \subset G\) be a \(\Gamma\)-invariant closed Lie subgroup. The action \(G \times G/H \to G/H, (g, g'H)\mapsto gg'H\), and the map \(\Gamma \times G/H \to G/H, (\gamma, gH)\mapsto \theta_\gamma(g) \cdot H\) define a \(\theta\)-twisted left \((G, \Gamma)\)-action on \(G/H\).\label{prop_GquotH_Gamma_action}}
+\begin{proof}
+    Let \(g,g'\in G\) and \(\gamma, \gamma'\in \Gamma\). We have \(\gamma\cdot (g'g H)=\theta_\gamma(g')\cdot (\theta_{\gamma}(g) H)=(g')^\gamma\cdot (\gamma \cdot gH)\), and trivially \(\gamma\gamma'\cdot (gH)=(\theta_{\gamma}\circ  \theta_{\gamma'}(g)) H=\gamma \cdot (\gamma' \cdot gH)\).
+\end{proof}
+The previous proposition can be phrased by saying that there is an action of \(G \rtimes_\theta \Gamma\) on \(G/H\). If \(\hat{G}=G \times_{(\theta, c)}\Gamma\) and the cocycle \(c\) takes values in \(Z(H)\) (this happens if we choose \(H=K\) when the lift \(\theta\) is obtained from a lift on \(K\)), and we define \(\hat{H}\cong H \times_{(\theta, c)} \Gamma\) then \(G/H \cong \hat{G}/\hat{H}\) (the isomorphism is given by \(gH \to g\hat{H}\)). On \(\hat{G}/\hat{H}\) we have a natural \(\hat{G}\)- action. Under the isomorphism, this induces a \(\hat{G}\)-action on \(G/H\), and by proposition \ref{prop_equivalence_actions}, this is equivalent to a \((\theta, c)\)-twisted \((G, \Gamma)\)-action on \(G/H\). Now, proposition \ref{prop_gamma_equivariant_bundles} together with remark \ref{obs_right_left_twisted_actions} implies that \(P(G/H)\) is a \(\Gamma\)-equivariant fiber bundle. Then, there is a true action of \(\Gamma\) on \(\Gamma(M; P(G/H))\) given by \((\gamma\cdot \sigma)(m):=\sigma(m\cdot \gamma^{-1})\cdot \gamma\). This is \(\Gamma\)-equivariant with respect to the \(\Gamma\) actions on \(M\) and \(P(G/H)\) if and only if \(\sigma\) is \(\Gamma\)-invariant for this action. Moreover, the \(\hat{G}\)-action coincides with that of \(G \rtimes_\theta \Gamma\) when we identify the two groups as sets by means of the bijection given by \(\hat{G}\cong G \times_{(\theta, c)}\Gamma\).
+
+\Proposition{}{Let \(H \subset G\) be a \(\Gamma\)-invariant embedded \(\mathcal{S}\)-subgroup, and \(P(M,G)\) a \((\theta,c)\)-twisted \(\Gamma\)-equivariant principal \(G\)-bundle over a \(\Gamma\)-manifold \(M\). Let \(\sigma \in \Gamma(M;P(G/H))\) be a reduction of the structure group. The bundle \(P_\sigma\subset P\) is \(\Gamma\)-invariant if and only if \(\sigma\) is \(\Gamma\)-equivariant. If any of these two equivalent conditions is met, then \(P_\sigma\) has a unique structure of \((\theta,c)\)-twisted \(\Gamma\)-equivariant principal \(H\)-bundle. \label{prop_Gamma_inv_red_struc_group} }
+\begin{proof}
+    See \parencite[Prop 3.21]{barajas2023non} and the surrounding comments.
+    % We already know that \(P_\sigma\) is a principal \(H\)-bundle. Recall that reductions of the structure group to \(H\) are given by sections of the associated bundle \(P(G/H)\), and given such a section \(\sigma\), we may see \(P_\sigma\) as an \(H\)-invariant subbundle of \(P\). Moreover, these sections can be identified with \(G\)-equivariant maps \(s\colon P\to G/H\) (the comments around \eqref{eq_bijec_G_eqiva_sections} apply). Carefully following the isomorphisms of remark \ref{obs_red_struc_group} and \eqref{eq_bijec_G_eqiva_sections}, we see that to a section \(\sigma\in \Gamma(M;P(G/H))\) we assign a \(G\)-equivariant map \(s\colon P \to G/H, p \mapsto g^{-1}H\) if and only if \(p \in P_\sigma \cdot g\). Now, from the definition of twisted equivariant action \eqref{eq_right_twisted_action1}, we have 
+    % \[
+    % p\cdot \gamma\in (P_\sigma\cdot  g)\cdot \gamma = (P_\sigma \cdot \gamma)\cdot \theta_\gamma(p)^{-1}.
+    % \]
+    % Hence, if \(s\) is \(\Gamma\)-equivariant, we find \(s(p\cdot \gamma)=s(p)\cdot \gamma = \theta_{\gamma^{-1}}(g)\cdot H\), so \(P_\sigma\cdot \gamma=P_\sigma\). Conversely, if \(P_\sigma\) is \(\Gamma\)-invariant, then \(P_\sigma\cdot \gamma=P_\sigma\), hence \(p\cdot \gamma\in P_\sigma \cdot \theta_{\gamma^{-1}}(g)\), and \(s(g\cdot \gamma)=\theta_{\gamma}(g)^{-1}\cdot H\). Moreover, \(\Gamma\)-equivariance of \(\sigma\) is equivalent to \(\Gamma\)-equivariance of the associated \(G\)-equivariant map \(s\colon P\to G/H\), hence equivalent to \(\Gamma\)-invariance of \(P_\sigma\subset P\). Finally, if \(P_\sigma\) is \(\Gamma\)-invariant, then the restricton of the \((\theta,c)\)-twisted \(\Gamma\)-equivariant action on \(P\) results a twisted equivariant action on \(P_\sigma\).
+\end{proof}
+
+\subsection{Twisted equivariant bundles and coverings}
+We present here the most important result proven in \parencite{barajas2023non}. Plainly stated, it says that whenever we have a non-connected complex reductive Lie group \(\hat{G}\), and a principal \(\hat{{G}}\)-bundle \(P_{\hat{G}}\) over an \(\mathcal{S}\)-manifold \(X\), we may find a covering \(Y \to X\), whose deck group is \(\Gamma=\hat{{G}}/G\), and a twisted equivariant principal bundle \(P_G \to Y\). That is, at the expense of working on a covering \(Y\) of our original manifold, and acquiring a ``twisting'', we may get a principal bundle whose structure group is connected out of one whose structure group is non-connected. 
+
+Fix a connected \(\mathcal{S}\)-manifold \(Y\) endowed with an \(\mathcal{S},\Gamma\)-action \(\Gamma \to \mathrm{Aut}(Y)\), and let \(P(Y,G)\to Y\) be a \((\theta, c)\)-twisted equivariant principal \(G\)-bundle. By remark \ref{action_principal_G_bundle}, \(P/G \cong Y\), and the \(G\)-action on \(P\) induces a \(\Gamma\)-action on \(Y\) (see proposition \ref{prop_gamma_Action_Y}). Assuming this \(\Gamma\)-action to be free and proper, \(P \to X:=Y/\Gamma\) is a principal \(\hat{G}\)-bundle \parencite[Sec. 4.1]{barajas2023non}. In that case, \(X:=Y/\Gamma\) has unique \(\mathcal{S}\)-structure such that \(q\colon Y \to X\) is an \(\mathcal{S}\)-covering map \parencite[Th. 21.13]{lee_introSM}.
+
+Thus, fix an \((\mathcal{S},\Gamma)\)-covering \(Y \to X\) (that is, a covering whose deck group is \(\mathrm{Deck}_q(Y)=\Gamma\)), and suppose that \(\Gamma\) acts on \(Y\) on the right. We define two categories \(\mathcal{C}_1\) and \(\mathcal{C}_2\) as follows.
+\begin{enumerate}
+    \item \(\mathcal{C}_1\) is the category whose
+    \begin{itemize}
+        \item \textbf{objects} are principal \(\hat{G}\)-bundles \(P\) over \(X\) such that there is an isomorphism \(P/G\cong Y\) covering the identity on \(X\) (see diagram \ref{diag_c1}) and whose
+        \item \textbf{morphisms} are morphisms of principal \(\hat{G}\)-bundles.
+    \end{itemize}
+    \item \(\mathcal{C}_2\) is the category whose
+    \begin{itemize}
+        \item \textbf{objects} are \((\theta, c)\)-twisted \(\Gamma\)-equivariant principal \(G\)-bundles \(P \to Y\) such that the twisted \(\Gamma\)-action descends to the action of \(\Gamma\) as covering transformations of the fixed \(\Gamma\)-covering \(P/G\cong Y\to X\) (see diagram \ref{diag_c22}, \(\gamma\) means the map induced by the \(\Gamma\) (twisted) action) and whose
+        \item \textbf{morphisms} are \((\theta,c)\)-twisted \((G, \Gamma)\)-equivariant maps \(\phi\colon P \to P'\) such that the diagram \ref{diag_c2} commutes and the induced map \(\bar{\phi}\colon Y \to Y\) is a covering map that belongs to \(Z(\Gamma)\subset \Gamma=\mathrm{Deck}_q(Y)\).
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \renewcommand\figurename{Diagram}
+    \centering
+    % Left Subfigure
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+             P/G \arrow[d, "{\displaystyle \hat{\pi}}",'] \arrow[r, "{\displaystyle \phi}"] \& Y \arrow[d, "{\displaystyle q}"]\\
+                X \arrow[r, "{\displaystyle \mathrm{id}_X}"] \& X=Y/\Gamma
+        \end{tikzcd}
+        \caption{Objects on \(\mathcal{C}_1\).}
+        \label{diag_c1}
+    \end{subfigure}%
+        \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+             P \arrow[d, "{\displaystyle \pi}",'] \arrow[r, "{\displaystyle \gamma}"] \& P \arrow[d, "{\displaystyle \pi}"]\\
+            Y \arrow[r, "{\displaystyle \gamma}"] \& Y
+        \end{tikzcd}
+        \caption{Objects on \(\mathcal{C}_2\).}
+        \label{diag_c22}
+    \end{subfigure}%
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+                P \arrow[d, "{\displaystyle \pi}",'] \arrow[r, "{\displaystyle \phi}"] \& P' \arrow[d, "{\displaystyle \pi'}"]\\
+                Y \arrow[r, "{\displaystyle \bar{\phi}}"] \& Y
+            \end{tikzcd}
+        \caption{Morphisms in \(\mathcal{C}_2\).}
+        \label{diag_c2}
+    \end{subfigure}
+    \caption{Diagrams for the equivalence of categories.}
+    %\label{fig:main_figure}
+\end{figure}
+In diagram \ref{diag_c1}, \(\hat{\pi}\) is the \(\mathcal{S}\)-morphism defined by \(\hat{\pi}([p])=\pi(p)\) where \([\cdot]\) is the equivalence class for the relation obtained from the quotient by \(G\), and \(q\) is the quotient map for \(Y \to Y/\Gamma\). Then, the key theorem is the following.
+
+\Theorem{}{There is an isomorphism of categories between \(\mathcal{C}_1\) and \(\mathcal{C}_2\). \label{th_equivalence_categories}}
+\begin{proof}
+    See \parencite[Sec. 4.1]{barajas2023non}.
+\end{proof}
+
+\begin{obs} \label{obs_equivalence_categories}
+    In practice, one usually wants to use this result as follows: let \((X, \omega_X)\) be a compact Kähler manifold, and let \(P_{\hat{G}} \to X\) be a principal \(\hat{G}\)-bundle. We define \(Y:=P_{\hat{G}}/G\). Then, we have a \(\Gamma\)-action on \(Y\) induced by the \(\hat{G}\)-action, and \(p\colon Y \to X\) is a holomorphic covering (recall that \(\Gamma\) is finite). We endow \(Y\) with a Kähler structure via pullback \(\omega_Y:=p^*\omega_X\). Observe that \(Y\) is compact because it is a general fact that finite-sheeted coverings of compact spaces are compact \parencite[Page 341]{munkres2000topology}.  Observe that \(Y\) is endowed with a natural \(\Gamma\)-action (see proposition \ref{prop_gamma_Action_Y}). Then, the \((\theta,c)\)-twisted \(\Gamma\) principal \(G\)-bundle over \(Y\) is \(P_{\hat{G}}\to Y\). It is common to write this new bundle as \(P_G \to Y\) even though as sets, and as manifolds, \(P_G=P_{\hat{G}}\). What we get is a \textit{Galois covering} \(Y \to X\) with Galois group \(\Gamma\), i.e. \(\Gamma\) acts on \(Y\) by deck transformations, and \(Y/\Gamma\) is isomorphic to \(X\).
+\end{obs}
+
+\subsection{Parabolic subgroups of non-connected groups}
+For non-connected groups \(\hat{G}\), we want to extend the definition of parabolic subgroup to allow for non-connected parabolic subgroups. By theorem \ref{th_characterization_parabolic}, a reasonable definition is as follows: we say that a closed subgroup \(\hat{P}\) of a complex reductive group \(\hat{G}\) is \textit{parabolic} if \(\hat{G}/\hat{P}\) is compact. \(\hat{P}\) is a parabolic subgroup of \(\hat{G}\) if and only if \(P:=\hat{P}\cap G\) is a parabolic subgroup of \(G\). We will work in the context of an extension of Lie groups given as in \eqref{eq_sequence_Lie_groups}. For a non-connected Lie group \(\hat{G}\), and any element \(\zeta \in \ii \mathfrak{k}\), we define \(\hat{P}_\zeta, \hat{L}_\zeta, \mathfrak{p}_\zeta\) and \(\mathfrak{l}_\zeta\) by the same expressions given in proposition \ref{prop_charact_parabolic_subgroups}, but allowing \(g \in \hat{G}\) for the groups. Then, each \(\hat{P}_\zeta\) is a parabolic subgroup whose Levi subgroup is \(\hat{L}_\zeta\), and their respective Lie algebras are \(\mathfrak{p}_\zeta\) and \(\mathfrak{l}_\zeta\). Moreover, if we define \(P_\zeta\subset G\) as in \ref{prop_charact_parabolic_subgroups}, then \(P_\zeta\) is the identity component of \(\hat{P}_\zeta\). 
+
+% Observe that \(\Gamma\) acts on \(G, K\) and their respective Lie algebras through the lift \(\theta\) and its differential (recall ). This allows us to define \(\mathfrak{k}^\Gamma:=\corch{\zeta \in \mathfrak{k}: \zeta \cdot \gamma =\zeta \ \ \forall \ \gamma \in \Gamma}\) the subspace of invariant vectors under the action of \(\Gamma\).
+
+

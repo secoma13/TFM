@@ -1,0 +1,314 @@
+\chapter{Vector bundles and complex manifolds} \label{appendix_Kahler}
+This appendix gives a summary of the theory of complex and Kähler manifolds, as well as the theory of smooth and holomorphic vector bundles. We refer the reader to the books \parencite{lee_introCM} and \parencite{huybrechts2005complex} and \parencite[Ch. 10]{lee_introSM} for proofs. We also introduce complex differential forms, and bundle-valued differential forms. Let us set the notations \(\ii:=\sqrt{-1}\) and \(\Omega_\R^p(M)\) for the \(\mathscr{C}^\infty(M;\R)\)-module of differential \(p\)-forms on a smooth manifold \(M\). Finally, whenever we have a product of spaces \(A \times B\) we will write \(\pi_A\colon A \times B \to A\) for the projection.
+
+\section{Complex manifolds} \label{section_complex_manifolds}
+Let \(W \subset \C^n\) be open and \(f\colon W \to \C^m\) a continuous map defined on \(W\). If, for each \(p \in W\), the following limit exists
+\begin{equation} \label{lim_derpar}
+\derpar{f}{z^j}:=\lim_{h \to 0} \frac{f(p^1, \ldots , p^j+h, \ldots, p^n)-f(p^1, \ldots, p^n)}{h}
+\end{equation}
+then we say that \(f\) is holomorphic in \(W\). The Cauchy-Riemann equations still give a characterization of holomorphicity (but now they have to be satisfied for all coordinates). We define \(\partial_{z^j}:= \partial/\partial z^j:=1/2\cdot (\partial_{x^j}-\ii \partial_{y^j})\) and \(\partial_{\bar{z}^j}:= \partial/\partial \bar{z}^j:=1/2\cdot (\partial_{x^j}+\ii \partial_{y^j})\). Observe that \(\partial_{z^j}f=\partial_{x^j}f=-\ii \partial_{y^j}f\) which coincides with the limit in equation \eqref{lim_derpar} when calculated at a point where \(f\) is holomorphic. We will use, when needed, the identification \(\R^{2n} \equiv \C^n\) via \((x^1, y^1, \ldots , x^n, y^n) \leftrightarrow (x^1+\ii y^1, \ldots, x^n+\ii y^n)\), and we set \(z^j:=x^j + \ii y^j\). The definition of a complex manifold is the obvious modification of the definition of a smooth manifold:
+
+\Definition{}{A \textit{complex manifold} \(M\) is a second countable Hausdorff topological space, endowed with a complex atlas, that is, a family \(\mathscr{A}\) of pairs (complex charts) \((U, \varphi)\) where each \(U \subset M\) is open, the open sets cover \(M\), \(\varphi \colon U \to \C^n\) is a homeomorphism, and whenever \((U, \varphi), (V, \psi) \in \mathscr{A}\) satisfy, \(U \cap V \neq \emptyset\) the maps,
+\[
+\psi \circ \varphi^{-1}\colon \varphi(U \cap V) \to \psi(U \cap V) \hspace{1 cm}
+\varphi \circ \psi^{-1} \colon \psi(U \cap V) \to \varphi(U \cap V) 
+\]
+are holomorphic.
+}
+Then, a map between complex manifolds \(f\colon M \to N\) is holomorphic, if its \textit{localization}\index{Localization} is holomorphic, that is, for all charts \((U, \varphi)\) and \((V, \psi)\) of \(M\) and \(N\) respectively, the map \(\psi \circ f \circ \varphi^{-1}\) is holomorphic. A holomorphic bijective map whose inverse is also holomorphic is called a \textit{biholomorphism}\index{Biholomorphism}. Whenever \(M\) is a complex manifold, \(\mathcal{O}(U)\) denotes the ring of all holomorphic functions on the open set \(U\). Observe that all complex manifolds are even-dimensional when considered as real manifolds. Moreover, one may show that complex manifolds are always orientable (see \parencite[Prop. 1.49]{lee_introCM} for a proof). The concepts of \textit{submersion, immersion} and \textit{embedding} admit direct generalizations to complex manifolds: a holomorphic map is said to have either of these properties if it has them when considered as a smooth map between the smooth underlying manifolds.
+
+\section{Vector bundles}
+We will use both smooth and holomorphic vector bundles, but given how similar these concepts are, we will introduce them simultaneously. To do so, we shall mimic the notation used in \parencite{garcia2007differential}. We will use the symbol \(\mathcal{S}\) to denote either smooth or holomorphic functions, sections, maps, etc. For example, \(\mathcal{S}(M)\) denotes either the set of smooth functions on a manifold, \(\mathscr{C}^\infty(M;\K)\) (\(\K=\R\) or \(\C\), depending on the context), or the set of holomorphic functions on a complex manifold, \(\mathcal{O}(M)\). Similarly, an \(\mathcal{S}\)-manifold is either a smooth manifold, or a holomorphic one, an \(\mathcal{S}\)-morphism between \(\mathcal{S}\)-manifolds is either a smooth map, or a holomorphic one, and an \(\mathcal{S}\)-isomorphism is either a diffeomorphism or a biholomorphism.
+
+\Definition{\textbf{Vector bundle}}{Let \(M\) be an \(\mathcal{S}\)-manifold. A real (or complex) \(\mathcal{S}\)-vector bundle of rank \(k\) over \(M\) is another \(\mathcal{S}\)-manifold, \(E\), together with a surjective \(\mathcal{S}\)-morphism \(\pi\colon E \to M\) satisfying the following conditions: \label{def_vector_bundle}
+\begin{enumerate}
+    \item For each \(p \in M\), \(E_p:=\pi^{-1}(p)\) is a \(k\)-dimensional real (or complex) vector space.
+    \item For each \(p \in M\) there is an open neighborhood \(U\) of \(p\), and an \(\mathcal{S}\)-isomorphism \(\Phi\colon \pi^{-1}(U)\to U \times \R^k\) (or \(\Phi\colon \pi^{-1}(U)\to U \times \C^k\)), called a \textit{local trivialization}, satisfying the following conditions:
+    \begin{enumerate}
+        \item \(\pi_U \circ \Phi=\pi\), where \(\pi_U \colon U \times \R^k \to U\) is the usual projection;
+        \item \(\Phi|_{E_q}\colon E_q \to \corch{q} \times \R^k\) (or \(\Phi|_{E_q}\colon E_q \to \corch{q} \times \C^k\)) is a linear isomorphism.
+    \end{enumerate} \index{Vector bundle} \index{Local!trivialization}
+\end{enumerate}
+}
+The space \(M\) is often called the \textit{base space}, and \(E\) is called the \textit{total space}. The map \(\pi\colon E \to M\) is called the \textit{projection}. Let us make clear that the field may still be \(\C\) even when we consider smooth not holomorphic bundles.   
+
+It is often the case that we want to elevate some linear constructions to vector bundles. To name a few examples, we want to have tensor products, direct sums and quotients of vector bundles, by which we mean vector bundles whose fiber at each point is a tensor product, direct sum or quotient of fibers. The set on which we define those structures is the disjoint union of the fibers. For example, given two vector bundles \(E, F\) over the same base manifold \(M\), we define the tensor product bundle 
+\[
+E\otimes F:=\bigsqcup_{m \in M} E_m \otimes F_m.
+\]
+Thus far, we only have a set; we need a topology, a manifold structure and a vector bundle structure. These can be obtained for all the usual algebraic constructions, and we shall assume this without further comment throughout the text. We refer the reader to \parencite[Lemma 10.6]{lee_introSM} for a way to rigorously endow these sets with bundle structures. 
+
+\begin{example} \label{ex_vector_bundle_constructions}
+    Some algebraic constructions that can be elevated to vector bundles are:
+    \begin{enumerate}
+    \item The tensor product of bundles as constructed above. It can be extended to more than two bundles. 
+    \item Given a vector bundle \(E\), we can construct its \textit{dual bundle} as the bundle whose fiber at each point \(m \in M\) is the dual \(E_m^* \) of \(E_m\).
+    \item Given two vector bundles \(E\) and \(F\) one may construct their \textit{Whitney sum}\index{Vector bundle!Whitney sum}, i.e. the vector bundle \(E \oplus F\) whose fiber at each point \(p \in M\) is \(E_p \oplus F_p\). See \parencite[Example 10.7]{lee_introSM} for an explicit construction.
+    \end{enumerate}
+\end{example}
+There is a natural notion of subbundle.
+
+\Definition{\textbf{Subbundle}}{Let \(\pi\colon E \to M\) be an \(\mathcal{S}\)-bundle over an \(\mathcal{S}\)-manifold \(M\). An \(\mathcal{S}\)-subbundle is an embedded submanifold \(D \subset E\) such that \(D_p:=D \cap E_p\) is a vector subspace of \(E_p\) for each \(p \in M\), all of them of the same dimension, together with the restriction \(\pi|_D\colon D \to M\), such that \(\pi|_D\colon D \to M\) is a vector bundle.}
+
+In the usual tangent bundle, vector fields are thought of as maps sending each point to a vector and varying smoothly. More formally, they are sections of \(TM\). The analogous concept for vector bundles is that of a section.
+
+\Definition{\textbf{Section}}{Let \(\pi\colon E \to M\)be an \(\mathcal{S}\)-bundle. A \textit{global section} of \(E\) is a continuous map \(\sigma\colon M \to E\) such that \(\pi \circ \sigma = \mathrm{id}_M\). A local section is a continuous map defined on an open set \(U \subset M\), \(\sigma \colon U \to E\) such that \(\pi \circ \sigma =\mathrm{id}_U\). \(\mathcal{S}\)-sections are sections that are \(\mathcal{S}\)-morphisms. \index{Section of a vector bundle}}
+We will write \(\sigma_p\) or \(\sigma(p)\) interchangeably for the value of the section at a point \(p\). We will denote by \(\Gamma(M;E)\) and \(\Gamma(U;E)\) the sets of global and local smooth sections on a smooth manifold, and \(\mathcal{O}(U;E)\) and \(\mathcal{O}(M;E)\) the corresponding sets for holomorphic sections. Observe that \(\Gamma(M;E)\) (the same applies to holomorphic sections) is a \(\K\)-vector space under pointwise addition and scalar multiplication. In fact, it is an \(\mathcal{S}(M)\)-module where the product of a function \(f \in \mathcal{S}(M)\) and an \(\mathcal{S}\)-section is defined pointwise. A \textit{local frame} on an open set \(U\) is a set of sections \(\corch{s_1, \ldots, s_r}\) such that \(\corch{s_1(p), \ldots, s_r(p)}\) is a basis of \(E_p\) for each \(p \in U\).
+
+\section{The complexified Tangent and Cotangent Bundles} \label{section_complexified_bundles}
+Observe that under the identification \(\R^{2n} \equiv \C^n\), every complex manifold is a smooth manifold. Hence, it makes sense to speak about vector fields and covector fields (one-forms) on any complex manifold. However, we would like to extend those definitions to complex vector fields and one-forms (we will introduce higher-order complex differential forms later on).
+
+\subsection{Complexification of real vector spaces} \label{section_complexification}
+Firstly, given a real vector space \(V\), we may always consider its \textit{complexification}\index{Complexification!of a vector space}, which is the complex vector space \(V_\C:=V \otimes_\R \C\). Its elements can always be written as \(u\otimes 1+ v \otimes \ii\), and we shall omit the tensor product and simply write \(u+ \ii v \in V_\C\). Every \(\R\)-linear map \(f\colon V \to W\) defines a \(\C\)-linear map \(f_\C\colon V_\C \to W_\C\) (which we will usually denote \(f\) as well) by linear extension of \(f_\C(u \otimes \alpha):=f(u) \otimes \alpha\) for \(\alpha \in \C\). Complexifications are endowed with natural conjugation maps \(\overline{u+ \ii v}:=u-\ii v\). This allows us to speak about real vectors, which are those \(w \in V_\C\) for which \(\overline{w}=w\). Observe that if we set \((V_\C)^\R\) the underlying real subspace, then \((V_\C)^\R\neq V\) (for example, \(\R_\C\cong \C\), but \(\C^\R\cong \R^2\)). Moreover, one has \((V_\C)^\R=V\oplus \ii V\). We usually write \(V_\C=V \oplus \ii V\) making some abuse of notation, but the right-hand side is not a direct sum decomposition of the left-hand side as complex vector spaces.
+
+\subsection{Complexification of real vector bundles}
+Given a real vector bundle \(E\) over a smooth manifold \(M\), the \textit{complexification} \(E_\C:=E \otimes \C\) of \(E\) is the vector bundle whose fiber at each point is the complexification of \(E_p\). This produces a complex (in general smooth) vector bundle over \(M\) (see \parencite[Ch. 1]{lee_introCM} for a more explicit construction). In particular, the \textit{complexified tangent and cotangent bundles} are the complexifications of \(TM\) and \(T^*M\) which we denote \(T_\C M\) and \(T_\C^* M\) respectively. Complex vector and covector fields are just sections of these bundles. Observe that \(T_\C M\) can be interpreted as a very natural object. Recall from basic differential geometry that for a smooth manifold, \(T_pM\) is the vector space of derivations acting on (germs of) smooth real-valued maps. Then, there is a complex vector space isomorphism between \(T_pM \otimes_\R \C\) and the space of \(\C\)-linear derivations acting on germs of complex-valued smooth maps. What that means for practical purposes is that, given \(Z=X+\ii Y \in \Gamma(M; T_\C M)\) and \(f=u+\ii v \in \mathscr{C}^\infty(M;\C)\), we have 
+\[
+Z(f)=\parent{X(u)-Y(v)} + \ii \parent{Y(u)+X(v)}.
+\]
+We can define a Lie bracket on \(\Gamma(M; T_\C M)\) by complex-linear extension of the original Lie bracket on \(TM\) which turns \((\Gamma(M; T_\C M), [\cdot, \cdot])\) into a Lie algebra. Similarly, elements of \(\Gamma(M; T_\C^*M)\) are called complex one-forms. Since \(V_\C^*\) is naturally isomorphic to \((V^*)_\C\) (see \parencite[Lemma 1.2.6]{huybrechts2005complex}), for each \(p \in M\), we have that the fiber of \(T_\C^*M\) at \(p\), \(T_p^*M \otimes _\R \C\) is naturally isomorphic to \((T_pM \otimes_\R  \C)^*\). In the language of vector bundles, this means that \(T_\C^* M \cong \mathrm{Hom}_\C(T_\C M, \C)\). Then, the action of a complex one-form \(\alpha + \ii \beta\) on a complex vector field \(X + \ii Y\) is just given by \((\alpha + \ii \beta)(X+\ii Y)=(\alpha(X)-\beta(Y))+\ii (\alpha(Y)+\beta(X))\). Any \(f \in \mathscr{C}^\infty(M;\C)\) now defines a complex one-form \(\diff f:=\diff u + \ii \diff v\) (we will generalize the exterior differential when we introduce higher order complex differential forms). Finally, given a smooth map between complex manifolds \(F\colon M \to N\), we can extend its differential \(\diff_m F\) to a map \((T_mM)_\C \to (T_{F(m)}N)_\C\) by complexifying it.
+
+\section{Almost complex structures} \label{appendix_almost_complex_structure}
+Let \(V\) be a real vector space. An endomorphism \(J\colon V \to V\) is called an \textit{almost complex structure}\index{Almost complex structure} if \(J^2:= J \circ J=-\mathrm{id}_V\). Almost complex structures receive their name because, when they exist, they endow \(V\) with the structure of a complex vector space. Indeed, for \(a+\ii b \in \C\) and \(v \in V\) their product can be defined as \((a+ \ii b)*v:=a \cdot  v+ b\cdot  J(v)\). As seen in proposition \ref{almost_compl_decom} below, only even-dimensional real vector spaces can have almost complex structures. 
+
+Given a real vector space endowed with an almost complex structure, the fact that \(J^2=-\mathrm{id}_V\) means that \(J\) has no real eigenvalues. If we extend \(J\) to the complexified space, then the only possible eigenvalues of \(J\) are \(\ii\) and \(-\ii\). If we use the symbol \(J\) acting on vectors of a complexified vector space, we will always understand that we are working with the complexified map.
+
+\Proposition{}{Let \(J\) be a complex structure on a real finite-dimensional vector space \(V\). Then \(V_\C\) has a complete eigenspace decomposition \(V_\C=V^{(1,0)}\oplus V^{(0,1)}\), where \(V^{(1,0)}\) is the \(\ii\)-eigenspace and \(V^{(0,1)}\) is the \((-\ii)\)-eigenspace. Moreover, the decomposition is given, for \(w \in V_\C\) by 
+\[
+w^{(1,0)}=\frac{1}{2}\cdot \parent{w-\ii J(w)} \hspace{1 cm}
+w^{(0,1)}=\frac{1}{2}\cdot (w+\ii J(w)).
+\]
+Furthermore, \(\dim_\C V^{(1,0)}=\dim_\C V^{(0,1)}\), and therefore, \(\dim_\C V_\C=\dim_\R V\) is even.  \label{almost_compl_decom}   
+}
+\begin{proof}
+    See \parencite[Prop. 1.52]{lee_introCM}. 
+\end{proof}
+
+\begin{obs}
+    Let \(V\) be an even-dimensional real vector space endowed with an almost complex structure \(J_V\). We have seen that this induces on \(V\) the structure of a complex vector space. On the other hand, the complexification \(V_\C\) induces another linear complex structure on \(V\). \textit{These structures are not the same!} Indeed, \(\dim_\C V_\C=\dim_\R V=2\cdot \dim_\C(V,J_V)\). Another way of seeing this is that for \(v\in V^{(0,1)}\), \(J_V(v)\) and \(\ii v\) are opposites, even though both of them can be thought of as ``multiplying by the imaginary unit''.
+\end{obs}
+
+These constructions can be applied to vector bundles. Given a real vector bundle \(E\) over a smooth manifold, a vector bundle endomorphism \(J \colon E \to E\) is an \textit{almost complex structure} if \(J^2=-\mathrm{id}_E\). Every complex manifold admits a complex structure on \(TM\), which is given, in terms of any holomorphic coordinate system \((z^1=x^1+\ii y^1, \ldots z^n=x^n+\ii y^n)\) by equation \(J(\partial_{x^j})=\partial_{y^j}\) and \(J(\partial_{y^j})=-\partial_{x^j}\) (see \parencite[Prop. 1.55]{lee_introCM}). In that case, \(J\) induces a decomposition in the fibers of \(T_\C M\) as in proposition \ref{almost_compl_decom}. This can be elevated to a vector bundle decomposition: indeed, for every complex manifold there is a Whitney sum decomposition
+\begin{equation} \label{decomp_T_CM}
+T_\C M= T^{(1,0)}M \oplus T^{(0,1)}M,
+\end{equation}
+where the fibers at each point of \( T^{(1,0)}M\) and \(T^{(0,1)}M\) are the \(\ii\) and \((-\ii)\)-eigenspaces of \(J\) at each point. Moreover, local frames for those complex smooth subbundles are \(\corch{\partial_{z^1}, \ldots \partial_{z^n}}\) and \(\corch{\partial_{\bar{z}^1}, \ldots \partial_{\bar{z}^n}}\) respectively (we define them as in section \ref{section_complex_manifolds}). The canonical almost complex structures on complex manifolds characterize holomorphicity of smooth maps as follows.
+
+\Theorem{}{Let \(M, N\) be two complex manifolds, and let \(J_M\) and \(J_N\) be their canonical almost complex structures. Let \(F\colon M \to N\) be a smooth map. Then, \(F\) is holomorphic if and only if \(\diff F \circ J_M=J_N \circ \diff F\). \label{th_caracterization_holomoprh_J}}
+\begin{proof}
+    See \parencite[Prop. 1.55]{lee_introCM}.
+\end{proof}
+
+We have said that every complex manifold admits an almost complex structure, but the converse is false in general. There are even-dimensional manifolds that admit an almost complex structure, but not the structure of a complex manifold. Those almost complex structures that are actually induced by a complex manifold structure are called \textit{integrable}. A very deep result, called the \textit{Newlander-Nirenberg theorem} states that an almost complex structure is integrable if and only if the distribution \(T^{(0,1)}M\) is integrable, i.e. \([T^{(0,1)}M, T^{(0,1)}M]\subset T^{(0,1)}M\).
+
+\section{The Dolbeault complex} \label{sec_Dolbeault_complex}
+An almost complex structure \(J\) on a vector space \(V\) induces an almost complex structure on its dual by \(\big[J(f)\big](v):=f(J(v))\), which induces a natural decomposition on \(V^*_\C=(V^*)^{(1,0)} \oplus (V^*)^{(0,1)}\) and there are isomorphisms \((V^*)^{(1,0)} \cong \parent{V^{(1,0)}}^*\) and \((V^*)^{(0,1)} \cong \parent{V^{(0,1)}}^*\). This decomposition carries over to the complexified cotangent bundle, and yields \(T_\C^*M =(T^*M)^{(1,0)} \oplus (T^*M)^{(0,1)} \cong (T^{(1,0)}M)^* \oplus (T^{(0,1)}M)^*\). Moreover, local frames for \((T^*M)^{(1,0)}\) and \((T^*M)^{(0,1)}\) are given by \(\corch{\diff z^1, \ldots \diff z^n}\) and \(\corch{\diff \bar{z}^1, \ldots \diff \bar{z}^n}\) respectively. We have defined \(\diff z^j:=\diff x^j + \ii \diff y^j\) and \(\diff \bar{z}^j:=\diff x^j -\ii \diff y^j\).
+
+Let \(M\) be a complex manifold, we define 
+\[
+{\bigwedge}^{(p,q)}_\C M:=\parent{{\bigwedge}^p (T^{(1,0)}M)^*} \otimes_\C \parent{{\bigwedge}^q (T^{(0,1)} M)^*} \hspace{0.75 cm} \text{and} \hspace{0.75 cm} {\bigwedge}^k_\C M:={\bigwedge}^k T^*_\C M.
+\]
+A \textit{complex \((p,q)\)-differential form} is a section of this complex vector bundle. We will denote \(\Omega_\C^{(p,q)}(M):=\Gamma(M; \bigwedge^{(p,q)}_\C M)\). Moreover, each \(\bigwedge^{(p,q)}_\C M\) can be seen in a canonical way as a vector subbundle of \(\bigwedge^{p+q} T^*_\C M \) by extending by linearity the map \(\alpha \otimes \beta \mapsto \alpha \wedge \beta\). What is more, we actually have a vector bundle Whitney sum decomposition \({\bigwedge}^k_\C M= \oplus_{p+q=k} \parent{{\bigwedge}^{(p,q)}_\C M}\). It carries over to a Whitney sum decomposition of the spaces of complex differential forms 
+\[
+\Omega_\C^k(M)=\bigoplus_{p+q=k} \Omega_\C^{(p,q)}(M).
+\]
+There is another canonical isomorphism \({\bigwedge}^k_\C M \cong ({\bigwedge}^k T^*M) \otimes_\R \C\), which means that every complex \(k\)-form can be seen as a sum \(\alpha + \ii \beta\), where \(\alpha, \beta \in \Omega_\R^k(M)\). In particular, this means that there is a conjugation map in the space of complex differential forms, which is given by \(\overline{\alpha + \ii \beta}:=\alpha - \ii \beta\). Finally, we also have \(\Omega_\C^k(M)=\Omega_\R^k(M) \otimes _\R \C\). 
+
+Observe that every vector space can be embedded into its complexification as a real vector subspace \(V \hookrightarrow V_\C, v \mapsto v \otimes 1\). In particular, we may see \(\bigwedge^k T^*M\) as a real subbundle of \(\bigwedge^k T_\C^* M =\bigwedge^k_\C M\). This means that we can see \(\Omega_\R^k(M)\) as a real vector subspace of \(\Omega_\C^k(M)\) by simply extending real forms to complex vectors by complex bilinearity.
+\begin{obs} \label{charac_pq_forms}
+    When \(M\) is a complex manifold, we have holomorphic coordinates \((z^1, \ldots z^n)\) the local coframes \(\corch{\diff z^1, \ldots, \diff z^n}\) and \(\corch{\diff \bar{z}^1, \ldots, \diff \bar{z}^n}\) are available. More importantly, \((p,q)\)-forms are characterized by the fact that they can be written as sums of the following terms
+    \begin{equation} \label{coordinates_complex_diff_form}
+    \omega =  f \cdot \diff z^{i_1} \wedge \ldots \wedge \diff z^{i_p} \wedge \diff \bar{z}^{j_1} \wedge \ldots \wedge \diff \bar{z}^{j_q}, 
+    \end{equation}
+    for some \(f \in \mathscr{C}^\infty(M;\C)\).
+\end{obs}
+
+\subsection{Bundle-Valued forms} \label{section_bundle_valued_p_forms}
+Let \(M\) be a smooth manifold, and let \(E\to M\) be a smooth real vector bundle. A \textit{real \(E\)-valued \(p\)-form} is a section of the real vector bundle \(\bigwedge^p T^*M \otimes E\). We define 
+\[
+\Omega^p_\R(M;E):=\Gamma\parent{M;{\bigwedge}^pT^*M\otimes E}
+\] 
+the space of all \(E\)-valued \(p\)-forms defined on \(M\). Similarly, if \(E\) is a smooth complex vector bundle, we define a \textit{complex \(E\)-valued \(k\)-form} as a section of the bundle \(\bigwedge^k_\C M \otimes E\), and a \textit{complex \(E\)-valued \((p,q)\)-form} as a section of the bundle \(\bigwedge_\C^{(p,q)}M \otimes E\). We define 
+\[
+\Omega^k_\C(M;E):=\Gamma \parent{M; {\bigwedge}^k_\C M \otimes E} \hspace{1 cm} \text{and} \hspace{1 cm}
+\Omega^{(p,q)}_\C(M;E):=\Gamma \parent{M;{\bigwedge}^{(p,q)}_\C M \otimes E}
+\]
+Observe that an element \(\sigma \in \Omega_\C^{k}(M;E)\) is a sum of elements \(\omega \otimes \psi\), where \(\omega \in \Omega_\C^{k}(M)\) and \(\psi \in \Gamma(U;E)\). The Dolbeault direct sum decomposition of the space of complex \(k\)-forms implies that \(\omega\) can be uniquely decomposed as a sum of \((p,q)\)-forms satisfying \(k=p+q\). This then implies that any \(E\)-valued \(k\)-form can be uniquely decomposed as a sum of \(E\)-valued \((p,q)\)-forms. In conclusion, we have the following Whitney sum decomposition
+\begin{equation} \label{eq_decomp_E_forms}
+\Omega^k_\C(M; E)=\bigoplus_{p+q=k} \Omega_\C^{(p,q)}(M;E).
+\end{equation}
+By convention, we set \(\Omega_\C^0(M;E):=\Gamma(M;E)\).
+
+\section{Connections on vector bundles} \label{section_connections_vector_bundles}
+Let us briefly sketch the notion of a connection on a vector bundle and some of its properties. The notion of a connection itself is familiar from riemannian geometry, and the definition can be adapted to abstract vector bundles with minor modifications. We will consider the case of complex vector bundles, but everything applies to real vector bundles (we do not consider the complexified tangent and cotangent bundles in that case).
+
+% \Definition{}{Let \(\pi \colon E \to M\) be a smooth complex vector bundle of rank \(r\) over a smooth manifold \(M\). A \textit{connection}\index{Connection!on a vector bundle} on \(E\) is a map \label{def_connection}
+% \[
+% \begin{array}{cccc}
+%     \nabla \colon & \Gamma(T_\C M) \times \Gamma(E) & \longrightarrow & \Gamma(E) \\
+%     &\ \ \ \ \ \ \ \ (X, \sigma) & \mapsto & \nabla_X \sigma  
+% \end{array}
+% \]
+% satisfying the following properties:
+% \begin{enumerate}
+%     \item \(\nabla\) is \(\mathscr{C}^\infty(M, \C)\)-linear on its first component.
+%     \item For every \(f \in \mathscr{C}^\infty(M;\C)\), and \(\sigma \in \Gamma(E)\),
+%     \[
+%     \nabla_X (f \cdot \sigma) = X(f) \cdot \sigma + f \cdot \nabla_X \sigma.
+%     \]
+% \end{enumerate} 
+% }
+% The expression \(\nabla_X \sigma\) is usually called the \textit{covariant derivative of \(\sigma\) in the direction of \(X\)}\index{Covariant derivative}. One can show that \((\nabla_X \sigma)_p\) for \(p \in M\) depends only on the value of \(X\) at \(p\) and the value of \(\sigma\) in an arbitrarily small neighborhood of \(p\), so for any open subset \(U \subset M\), restriction of the connection defines a connection on the restriction of the bundle \(E|_U\) (which is a smooth manifold of its own). See \parencite[Prop. 4.3]{lee_introRM} for a proof for connections on the real tangent bundle of a manifold, which applies almost verbatim to this case. \\
+
+% Sometimes, one is given the following definition of a connection:
+
+\Definition{}{Let \(\pi \colon E \to M\) be a complex vector bundle, a \textit{connection} on \(E\) is a \(\C\)-linear map \(\nabla\colon \Gamma(E) \to \Gamma(T^*_\C M \otimes E)\) such that for every \(f \in \mathscr{C}^\infty(M;\C)\), \(\sigma \in \Gamma(E)\), we have \label{def_tot_cov_der}
+\begin{equation} \label{def_connection_eq}
+\nabla (f \cdot \sigma)=\diff f \otimes \sigma+f \cdot \nabla \sigma
+\end{equation}
+}
+Moreover, observe that \(\Omega_\C^1(M;E) \cong \Gamma(\bigwedge ^1T^*_\C M \otimes E)=\Gamma(T^*_\C M \otimes E)\), hence a connection is a map \(\nabla \colon \Omega_\C^0(M;E) \to \Omega_\C^1(M;E)\) satisfying the ``Leibniz rule'' of definition \ref{def_tot_cov_der}. 
+
+% \begin{obs}[\textbf{Coordinate expression of connections}] \label{coordinate_exp_connection}
+%     Consider a local frame \((s_1, \ldots s_r)\) of a complex vector bundle \(E\) defined on some open set \(U \subset M\). For each \(1 \leq j \leq r\), \(\nabla s_j \in \Omega_\C^1(U;E)\), and hence it may be written as
+%     \begin{equation} \label{def_connection_1_form}
+%     \nabla s_j = \omega^i_j \otimes s_i
+%     \end{equation}
+%     for some \(\omega^i_j \in \Omega_\C^1(M)\) that are called \textit{connection one-forms}. If we consider a section \(\xi=\xi^j\cdot  s_j \in \Gamma(E)\), then the coordinate expression of its image is
+%     \[
+%     \nabla \xi = \nabla(\xi^j s_j) = \diff \xi^j \otimes s_j + \xi^j \cdot  \nabla s_j = \parent{\diff \xi^k + \xi^j \cdot \omega^k_j} \otimes s_k.
+%     \]
+% \end{obs}
+
+The operator \(\nabla\) sometimes needs to be extended to act on higher-dimensional differential forms. Some references still call this operator \(\nabla\), but to make the distinction clear (for example, \parencite{kobayashi_complex_vector_bundles}), we will use the symbol \(\diff_\nabla\).
+
+\Theorem{\textbf{The Exterior Covariant Derivative}}{Let \(M\) be a complex manifold, and let \(\pi\colon E \to M\) be a smooth complex vector bundle over \(M\). Let \(\nabla\) be a connection on \(E\). Then, there are unique operators called \textit{exterior covariant derivatives}\index{Covariant derivatives!exterior} \(\diff_\nabla \colon \Omega_\C^q(M;E) \to \Omega_{\C}^{q+1}(M;E)\) for each \(q \geq 0\), satisfying: \label{Th_ext_cov_der}
+\begin{enumerate}
+    \item For every \(\sigma \in \Gamma(E)=\Omega_\C^0(M;E)\), \(\diff_\nabla \sigma=\nabla \sigma\).
+    \item For every \(\alpha \in \Omega_\C^q(M)\) and \(\beta \in \Omega_\C^p(M;E)\), 
+    \[
+    \diff_\nabla (\alpha \wedge \beta)= \diff \alpha \wedge \beta + (-1)^q \alpha \wedge \diff_\nabla \beta.
+    \]
+\end{enumerate}
+}
+\begin{proof}
+    We define \(\diff_\nabla\sigma=\nabla \sigma\) for every \(\sigma \in \Gamma(E)\) and for higher-degree forms, we consider \((s_1, \ldots, s_r)\)  a local frame, and let \(\alpha \in \Omega_\C^q(M;E)\) whose local expression is given by \(\alpha = \alpha ^j \otimes s_j\). We define \(\diff_\nabla \alpha:=\diff \alpha^j \otimes s_j + (-1)^q \alpha ^j \wedge \diff_\nabla s_j \). One then checks that this is well-defined and independent of the local frame. See \parencite[Prop. 7.11]{lee_introCM} for details.
+\end{proof}
+
+\subsection{Induced connections} \label{sec_induced_connections}
+Connections on vector bundles give rise to connections in other vector bundles, provided these are constructed using the ones we originally had. We will be concerned with two cases:
+\begin{enumerate}
+    \item Let \(E\) and \(F\) be two vector bundles over a smooth manifold, endowed with connections \(\nabla^E\) and \(\nabla^F\). Then, we may define a connection on \(E \otimes F\) by extending by linearity the following expression
+    \begin{equation} \label{def_connection_product}
+    \parent{\nabla^E \otimes \nabla^F}(\xi \otimes \eta)=\nabla^E \xi \otimes \eta + \xi \otimes \nabla^F \eta,
+    \end{equation}
+    as a direct computation shows.
+    \item Let \(\nabla\) be a connection on \(E\), then, it induces a connection on \(E^*\) as follows. There is a unique connection \(\nabla^*\) on \(E^*\) such that for every \(t \in \Gamma(E^*)\), and \(\xi \in \Gamma(E)\), 
+    \begin{equation} \label{def_connection_dual}
+        \big[\nabla^*(t) \big](\xi) = \diff (t (\xi)) - t(\nabla \xi),
+    \end{equation}
+    where \(t(\alpha \otimes s):=t(s) \cdot \alpha\). 
+\end{enumerate}
+
+Sometimes, complex vector bundles are endowed with some extra structure.
+
+\Definition{\textbf{Hermitian fiber metric}}{Let \(\pi \colon E \to M\) be a smooth complex vector bundle over a smooth manifold \(M\). A \textit{hermitian fiber metric}\index{Hermitian!fiber metric} \(h\) is an assignment of a hermitian inner product \(h_x\) to each fiber \(E_x\) and such that for every pair of local smooth sections \(\sigma, \tau \in \Gamma(U;E)\), the map \(U \to \C, x \mapsto h_x(\sigma_x, \tau_x)\) is smooth. A vector bundle that is endowed with a hermitian fiber metric is called a \textit{hermitian vector bundle}\index{Hermitian!vector bundle} \label{def_hermitian_fiber_metric}}
+
+
+\section{Kähler manifolds}
+Let \(M\) be a complex manifold, and recall that its canonical almost complex structure \(J\) induces a complex vector bundle structure on \(TM\). Let us denote \(T_JM\) the resulting complex vector bundle. Observe that every hermitian fiber metric on \(T_JM\) defines a riemannian metric \(g:=\mathrm{Re}(h)\). Something slightly less obvious is the fact that \(\omega=-\mathrm{Im}(h)\) is a real form of type \((1,1)\), that is, \(\omega \in \Omega_\R^2(M) \cap \Omega_\C^{(1,1)}(M)\) \parencite[Lemma 8.2]{lee_introCM}.    
+
+A \textit{hermitian metric}\index{Hermitian!metric} on a complex manifold \(M\) is a riemannian metric \(g\) for which \(J\) is orthogonal, i.e. \(g(JX, JY)=g(X,Y)\). Then, we can \textit{define} \(\omega(\cdot, \cdot):=g(J\cdot, \cdot)\), and \(h:=g-\ii \omega\), and it turns out that \(h\) is a hermitian fiber metric as defined above. Under these assumptions, we call \(\omega\) the \textit{fundamental two-form}\index{Fundamental!2-form} of \(h\). The forms \(\omega\) and \(g\) are uniquely determined by each other. Indeed, \(\omega(\cdot, \cdot)=g(J \cdot, \cdot)\) and \(g(\cdot, \cdot)=\omega(\cdot, J \cdot)\) (see \parencite[lemma 8.3 and lemma 8.7]{lee_introCM}). 
+
+A \((1,1)\)-form \(\omega\) on a complex manifold \(M\) is said to be \textit{positive}\index{Positive!\((1,1)\)-form} if \(\omega_p(v,J_pv)>0\) for every \(v \in T_pM \setminus \corch{0}\) and \(p \in M\). Given a complex manifold \(M\) endowed with a two-form \(\omega\), if we define \(g(\cdot, \cdot):=\omega(\cdot, J \cdot)\), then \(g\) is a hermitian form whose fundamental form is \(\omega\) if and only if \(\omega\) is a positive \((1,1)\)-form (see \parencite[Prop. 8.9]{lee_introCM})
+
+\Definition{\textbf{Kähler manifold}}{Let \(M\) be a complex manifold, and \(g\) be a hermitian metric on \(M\). We say that \(g\) is a \textit{Kähler metric}\index{Kähler!metric} if its fundamental two-form \(\omega\) is closed. In that case, we say that \(M\) is a Kähler manifold.}
+
+Observe that every Kähler manifold is a symplectic manifold, the fundamental form being its symplectic form. Indeed, \(\omega_p\) defines an injective map \(\omega_p^\flat\colon T_pM \to T_p^*M, v \mapsto \omega(v, \cdot)\) because if \(\omega_p^\flat(v)=0\), then \(\omega_p(v,Jv)=0\), so \(v=0\).
+
+\begin{example}
+    Some examples are \(\CP^n\) and all Riemann surfaces (complex manifolds of complex dimension equal to 1). Indeed, one simply fixes a hermitian metric \(g\) (this can be done by \parencite[Lemma 8.5]{lee_introCM}), and then defines \(\omega(\cdot, \cdot)=g(\cdot, J \cdot)\). This is a positive form of type \((1,1)\) \parencite[Prop. 8.9]{lee_introCM}, and it is closed because every two-form is closed on a Riemann surface (its dimension as a smooth manifold is \(2\)).
+\end{example}
+
+\section{Hodge Theory}
+\subsection{The Hodge inner product}
+The aim of this section is to define a hermitian inner product on the set of differential forms on a complex manifold. This can be used to define the Lefschetz operator and its dual, which is the operator appearing on the hermitian Yang-Mills equation. Let \((M,g)\) be an \(n\)-dimensional compact, oriented riemannian manifold. The riemannian metric can be complexified by extending it by complex bilinearity so that it acts on the complexified tangent bundle \(T_\C M\). We can use the musical isomorphism \(\sharp\colon T_\C^*M \to T_\C M\) to induce a hermitian fiber metric on \(\Omega_\C^1(M)\), which is given as follows:
+\begin{equation} \label{eq_def_hodge_pointwise_inner_prod}
+\langle \alpha, \beta \rangle :=g\parent{\alpha^\sharp, \overline{\beta^\sharp}}.
+\end{equation}
+Firstly, we will extend this inner product to higher order forms. For smooth complex-valued functions, we simply define \(\langle f,h \rangle := f\cdot \overline{h}\). For higher degree forms, consider any local orthonormal frame \(\corch{\varepsilon^1, \ldots \varepsilon^n}\) for the hermitian fiber metric \eqref{eq_def_hodge_pointwise_inner_prod}. The hermitian inner product on \(\bigwedge_\C^k M\) is defined such that \(\corch{\varepsilon^{i_1} \wedge \ldots \wedge \varepsilon^{i_k}: i_1 < \ldots < i_k}\) is orthonormal. More precisely, there is a unique hermitian fiber product on \(\bigwedge^k_\C M\) which satisfies
+\[
+\langle \alpha_1 \wedge \ldots \wedge \alpha_k, \ \beta_1 \wedge \ldots \wedge \beta_k \rangle =\det \parent{(\langle \alpha_i, \beta_j \rangle)_{1 \leq i,j \leq k}},
+\]
+for any locally defined one-forms \parencite[Lemma 9.1]{lee_introCM}. When \(M\) is compact, this yields an inner product on \(\Omega_\C^k(M)\) given as follows:
+\begin{equation} \label{eq_global_Hodge_inner_prod}
+    (\alpha, \beta):=\int_M \langle \alpha, \beta \rangle \ \diff V_g, \hspace{1 cm} \alpha, \beta \in \Omega_\C^k(M).
+\end{equation} 
+Compactness of \(M\) ensures the convergence of the integral above. Equation \eqref{eq_global_Hodge_inner_prod} defines a hermitian product on the complex vector space of complex \(k\)-forms. This is called the \textit{(global) Hodge inner product}\index{Hodge! inner product} or \(L_2\) product. The symbol \(\diff V_g\) in equation \eqref{eq_global_Hodge_inner_prod} denotes the riemannian volume on \(M\). For a Kähler manifold, \(\diff V_g=\omega^n/n!\), and the orientation with respect to which we integrate is determined by \(\omega\) \parencite[Lemma 8.17]{lee_introCM}.
+
+\subsection{The Hodge star operator}
+Let \(M\) be a compact complex manifold. The Hodge star operator is a vector bundle isomorphism taking \(k\)-forms to \((n-k)\)-forms. Just as the Hodge inner product, the construction does not use anything particular to vector bundles: it is purely linear, and everything can be done in euclidean vector spaces with a fixed orientation. 
+
+\Proposition{}{Let \(M\) be an oriented Kähler \(n\)-dimensional manifold. Then, there is a unique smooth vector bundle isomorphism
+\[
+\star\colon {\bigwedge}^{(p,q)}_\C M \longrightarrow {\bigwedge}^{(n-p, n-q)}_\C M,
+\]
+called the \textit{Hodge star operator}\index{Hodge!star operator} satisfying, for every \(\alpha, \beta \in \bigwedge^k_\C M\), the following relation
+\begin{equation} \label{eq_Hodge_star_operator}
+    \alpha \wedge \star  \overline{\beta}=\langle \alpha, \beta \rangle \ \diff V_g.
+\end{equation}
+}
+\begin{proof}
+    See \parencite[Prop. 9.8]{lee_introCM} and \parencite[Lemma 9.23-(b)]{lee_introCM}.  .
+\end{proof}
+
+Moreover, the star operator satisfies \parencite[Prop. 9.8]{lee_introCM}:
+\begin{align*}
+    \overline{\star \  \alpha} = \star \ \overline{\alpha} & &  \star \star \ \alpha  = (-1)^{k\cdot (N-k)} \alpha & & \langle \star \ \alpha, \star \ \beta \rangle & = \langle \alpha, \beta \rangle.
+\end{align*}
+{\parskip = 0pt
+The global inner product can be equivalently written as
+\begin{equation} \label{eq_Hodge_inner_prod_def_2}
+    (\alpha, \beta)=\int_M \alpha \wedge \star \overline{\beta}. 
+\end{equation}
+\begin{obs}
+    Everything we have done can be done on riemannian manifolds without requiring complexification of the cotangent bundle. In that case, the pointwise inner product is defined directly on \(T^*M\) by \(\langle\alpha, \beta\rangle:=g(\alpha^\sharp, \beta^\sharp)\) (no conjugation), the Hodge star operator satisfies \(\alpha \wedge \star \beta = \langle \alpha, \beta \rangle \cdot \diff V_g\), and the global inner product can be defined as \((\alpha, \beta)=\int_M \alpha \wedge \star \beta\).
+\end{obs}
+
+With these definitions in mind, given a Kähler manifold \((M, \omega)\) we define the \textit{Lefschetz operator}\index{Lefschetz operator} as \(L_\omega \colon \Omega_\C^{(p,q)}(M) \to \Omega_\C^{(p+1,q+1)}(M), \alpha \mapsto \omega \wedge \alpha\). There is a unique operator, called the \textit{dual Lefschetz operator} or the \textit{contraction with the Kähler form}, denoted \(\Lambda_\omega\) or \(L_\omega^\star\), which is defined by the property 
+\[
+\langle L_\omega \alpha, \beta \rangle  = \langle \alpha, \Lambda_\omega\beta \rangle  \hspace{1 cm} \alpha \in \Omega_\C^q(M), \beta \in \Omega_\C^{q+2}(M).
+\]
+Explicitly, we have \(\Lambda_\omega = \star^{-1} \circ L_\omega \circ \star\) (see \parencite[Lemma 1.2.23]{huybrechts2005complex}). Finally, these operators can be extended to bundle valued forms \parencite{huybrechts2005complex}. Consider a complex vector bundle \(E \to M\), and define \(L_\omega \otimes \mathrm{id}_E\) and \(\Lambda_\omega \otimes \mathrm{id}_E\) on the spaces \(\bigwedge^{(p,q)}M\). That is, these maps are the complex-bilinear extension of 
+\[
+\parent{L_\omega \otimes \mathrm{id}_E}(\alpha \otimes \xi) = \parent{L_\omega \alpha} \otimes \xi \hspace{2 cm} \parent{\Lambda_\omega \otimes \mathrm{id}_E}(\beta \otimes \eta) = \parent{\Lambda_\omega \beta} \otimes \eta.
+\]
+
+\begin{obs} \label{obs_hodgestar_equal_lambda}
+    For two-forms on a Riemann surface \(X\), one has \(\star \alpha = \Lambda_\omega \alpha\). This follows from the fact that \(\star \omega=1\) (see \parencite[6.2.1]{munoz2020geometry} and recall that \(\diff V_g=\omega\) for Riemann surfaces), so for \(f \in \mathscr{C}^\infty(X;\C), \alpha \in \Omega^2_\C(X)\)
+    \[
+    \langle L_\omega f, \alpha\rangle = \langle f \cdot \omega, \alpha\rangle = f\cdot \langle \star 1, \star \star \alpha \rangle = f\cdot \langle 1, \star\alpha \rangle  =  f\cdot \overline{\star \alpha}=\langle f, \star \alpha \rangle.
+    \]
+\end{obs}
+
+Finally, a lemma we will need.
+
+\Lemma{}{Let \(M\) be a Kähler manifold of complex dimension \(n\) and \(\alpha \in \Omega_\C^{2}(M)\). Then, \label{lemma_wedge_omega}
+\[
+\Lambda_\omega \alpha \cdot \omega^n = n\cdot L_\omega^{n-1}\alpha.
+\] 
+}
+\begin{proof}
+    From \parencite[Lemma 9.39]{lee_introCM} we know that \([L_\omega, \Lambda_\omega]=(k-n)\cdot \mathrm{id}\) acting on \(k\)-forms, where \([\cdot, \cdot]\) is the commutator of operators. Inductively, one shows, \([L_\omega^p, \Lambda_\omega]\alpha=p\cdot(k-n+p-1) \cdot L_\omega ^{p-1}\alpha\) for each \(k\)-form \(\alpha\). Indeed, \(p=1\) is the lemma. For the inductive step (we do not write the \(k\)-form)
+    \begin{align*}
+        [L_\omega^p, \Lambda_\omega] & = L_\omega^p\Lambda_\omega-\Lambda_\omega L_\omega^p =  L_\omega^p \Lambda_\omega-\Lambda_\omega L_\omega L_\omega^{p-1} \overset{{\color{red}(1)}}{=} L_\omega^p \Lambda_\omega-(L_\omega \Lambda_\omega-(k+2(p-1)-n)\cdot \mathrm{id})L_\omega^{p-1} \\
+        & = L_\omega (L_\omega^{p-1}\Lambda_\omega-\Lambda_\omega L_\omega^{p-1})+(k+2(p-1)-n) \cdot L_\omega^{p-1} \\
+        & = (p-1)\cdot (k-n+p-2) L_\omega^{p-1} + (k+2(p-1)-n) L_\omega^{p-1} \\
+        & = p\cdot (k-n+p-1) L_\omega^{p-1}
+    \end{align*}
+    In {\color{red}\((1)\)} we used that \(\Lambda_\omega L_\omega\) now acts on a \(k+2(p-1)\)-form because it acts on \(L_\omega \alpha\). Once this formula has been proven, we apply it to a two-form and \(p=n\). Thus, \([L_\omega^n, \Lambda_\omega]\alpha=n\cdot L_\omega^{n-1}\alpha\). Hence (observe that \(\omega^n\wedge \alpha=0\) because it is a form whose degree is higher than the (real) dimension of the manifold)
+    \[
+    L_\omega^n \Lambda_\omega\alpha -\Lambda_\omega L_\omega^n \alpha= \omega^n \wedge \Lambda_\omega \alpha = \Lambda_\omega \alpha \cdot \omega^n = n \cdot \omega^{n-1} \wedge  \alpha.
+    \]
+\end{proof}
+}

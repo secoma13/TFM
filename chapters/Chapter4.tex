@@ -1,0 +1,598 @@
+\chapter{The basics of infinite-dimensional manifolds} \label{chapter_inf_dim_sympl_red}
+\section{Banach manifolds}
+When working with finite-dimensional manifolds, we sometimes have to work with some spaces that look locally like infinite-dimensional vector spaces. Since the key idea of smooth manifolds is to consider sets that locally look like \(\R^n\) or \(\C^n\), it seems reasonable to try to generalize the definition of manifold to an infinite-dimensional setting. There are several ways of doing that, depending on the level of generality we want to achieve. We shall only consider the case of Banach manifolds, which essentially, are manifolds that locally look like a Banach space. \\
+
+The definition of smooth manifold not only requires the manifold to be covered by open sets homeomorphic to open sets of \(\R^n\); it also requires the transition maps to be smooth whenever two open sets overlap. Therefore, if we want to replicate this notion in a Banach space, we need a notion of smoothness, and even before that, we need a notion of derivative. Let \(E,F\) be two Banach spaces, we write \(\mathcal{L}(E,F)\) for the Banach space of linear maps defined from \(E\) to \(F\), which is a Banach space when endowed with the operator norm.
+
+\Definition{\textbf{Fréchet derivative}}{Let \((E, ||\cdot ||_E), (F, ||\cdot||_F)\) be two Banach spaces, \(U \subset E\) an open set, and \(f\colon U \to F\) a continuous map. We say that \(f\) is \textit{Fréchet differentiable}\index{Fréchet differentiable map} at \(x \in U\) if there is a linear map \(Df(x)\in \mathcal{L}(E,F)\) such that
+\[
+\lim_{h\to 0} \frac{||f(x+h)-f(x)-Df(x)(h)||_F}{||h||_E}=0.
+\]
+}
+Observe that this definition is just the direct generalization to a Banach space of the usual differential of a map; that is, a continuous map is Fréchet differentiable if it admits a linear approximation that "approximates the value of \(f\) faster that the norm". Observe that if \(f\) is Fréchet differentiable at every point \(x \in U\), then we may define a map \(Df\colon U \to \mathcal{L}(E,F)\). If this map is continuous, we say that \(f\) is a Fréchet-\(\mathscr{C}^1\) map. We now have a continuous map \(Df\colon U \to F'\), where \(F'=\mathcal{L}(E,F)\), so we may ask whether this new map is Fréchet differentiable. If it is, we define \(D^2f:=D(Df)\), and if this new map is continuous, we say that \(f\) is a Fréchet-\(\mathscr{C}^2\) map. Inductively, we define \(D^kf:=D^{k-1}(Df), \ k \in \N\), and we sat that \(f\) is Fréchet-smooth or a Fréchet-\(\mathscr{C}^\infty\) map if it is a Fréchet-\(\mathscr{C}^k\) map for every \(k \in \N\). Whenever it is clear from the context that we refer to Fréchet regularity, we will omit the word Fréchet. 
+
+\begin{obs}
+    \(\hspace{1 pt}\)
+    \begin{enumerate}
+        \item If a Fréchet derivative exists, then it is unique. Indeed, if a map \(f\colon U \subset E \to F\)had two different Fréchet derivatives at a given point \(x \in U\), \(A\) and \(B\), then, the definition of limit implies that for every \(\varepsilon>0\) there is some \(\delta>0\) such that if \(||h||_E<\delta\), then 
+        \[
+        ||f(x+h)-f(x)-A(h)||_F \leq \varepsilon \cdot ||h||_E \hspace{0.75 cm} \text{and} \hspace{0.75 cm}
+        ||f(x+h)-f(x)-B(h)||_F \leq \varepsilon \cdot ||h||_E.
+        \]
+        Hence, for \(||h||_E < \delta\) such that both of the coniditions above hold,
+        \begin{align*}
+            ||(A-B)(h)||_F & \leq ||f(x+h)-f(x)-A(h)||_F + ||f(x+h)-f(x)-B(h)||_F \leq 2 \varepsilon \cdot ||h||_E.
+        \end{align*}
+        By linearity, we find that \(||(A-B)(h)||_F/||h||_E\) for every \(h \in E\), hence \(||A-B||\) is arbitrarily small, and thus, \(A=B\).
+        \item Observe that if \(f\) was already a linear map, then \(f=Df(x)(\cdot)\), that is \(f(h)=Df(x)(h)\) for every \(h \in E\).
+        \item If \(f\colon U \to F\) is a \(\mathscr{C}^k\) map, then the differentials are maps \(Df\colon U \to \mathcal{L}(E, F)\), \(D^2f\colon U \to \mathcal{L}^2(E, F):=\mathcal{L}(E, \mathcal{L}(E,F))\), and inductively
+        \[
+        D^kf\colon U \to \mathcal{L}^k(E,F):=\mathcal{L}(E, \mathcal{L}^{k-1}(E,F)).
+        \]
+        \item There is a more intuitive way to visualize the spaces \(\mathcal{L}^k(E,F)\). First, observe that if we define \(\mathcal{L}(E, \overset{(r)}{\ldots}, E; F)\) as the set of multilinear maps \(E \times \overset{(r)}{\cdots} \times E \to F\), then we may define an operator norm by taking the infimum of the real numbers \(K\) satisfying \(||T(x_1, \ldots x_r)|| \leq K ||x_1|| \cdot ||x_2|| \cdots ||x_r||\). This endows \(\mathcal{L}(E, \overset{(r)}{\ldots}, E; F)\) with a normed-space structure, which is Banach if \(F\) is (this analogous to the case of \(\mathcal{L}(E,F)\) studied in every functional analysis course). Then, there is an isometry \(\mathcal{L}(E, \overset{(r)}{\ldots}, E; F) \cong \mathcal{L}^r(E,F)\)
+        \item Observe that when \(E\) and \(F\) happen to be \(\R^n\), then our new definitions are the usual definitions from analysis. Indeed, in that case, we have \(Df\colon U \to \mathcal{L}(\R^n, \R^n)\cong \mathrm{M}_n(\R)\), and \(Df\) is just the usual Jacobian matrix. Applying succesively the definition of Fréchet derivative, we simply get that \(f\) should admit derivatives of higher orders. 
+    \end{enumerate}
+\end{obs}
+
+\Definition{\textbf{Banach manifold}}{Let \(X\) be a Hausdorff topological space. A \(\mathscr{C}^k\) \textit{atlas}\index{Atlas!infinite dimensional} on \(X\) is a collection of triplets \(\corch{(U_\alpha, \varphi_\alpha, B_\alpha)}_{\alpha \in A}\), where each \(U_\alpha\) is an open set, \(B_\alpha\) is a Banach space, and \(\varphi_\alpha\colon U_\alpha \to B_\alpha\) is a continuous map satisfying:
+\begin{enumerate}
+    \item \(\corch{U_\alpha}_{\alpha \in A}\) is an open covering of \(X\)
+    \item Each \(\varphi_\alpha\colon U_\alpha \to \varphi_\alpha(U_\alpha) \subset  B_\alpha\) is a homeomorphism onto its image, which is open
+    \item If \(U_\alpha \cap U_\beta \neq \emptyset\), then
+    \[
+    \varphi_\alpha \circ \varphi_\beta^{-1}\colon \varphi_\beta(U_\alpha \cap U_\beta)\to \varphi_\alpha(U_\alpha \cap U_\beta)
+    \]
+    is a Fréchet \(\mathscr{C}^k\) map.
+\end{enumerate}
+}
+Observe that we do not require the Banach spaces that model the manifold locally to be the same. However, whenever \(U_\alpha \cap U_\beta \neq \emptyset\), it follows from the definition that \(B_\alpha\) and \(B_\beta\) are isomorphic (indeed, \(D(\varphi_\alpha \circ \varphi_\beta^{-1})\) is a linear isomorphism between them). When all the spaces are the same (call it \(B\)), we say that \(X\) is a \textit{\(B\)-manifold}. It is not hard to show that every connected component of an infinite-dimensional manifold is a \(B\)-manifold. Finally, usual finite-dimensional smooth manifolds are a particular case of Banach manifolds; they are \(\R^n\)-manifolds. As in the finite-dimensional case, every atlas is contained within a maximal one. Obvious modifications to the previous definition allow us to define \textit{Hilbert manifolds} and \textit{locally convex manifolds} for manifolds that are locally modelled on those spaces. Observe that Hilbert manifolds are just a special case of Banach manifolds, but this is not the case for locally convex manifolds beacuse we do not have norms to define Fréchet derivatives there. 
+
+\begin{obs}
+    Manifolds defined on locally convex spaces are quite important, as there are examples of locally convex manifolds that do not admit a Banach manifold structure. The most representative example is the group of diffeomorphisms of a smooth (finite-dimensional) manifold \(\mathrm{Diff}(M)\) (see \parencite{Schmeding_2022}). 
+\end{obs}
+
+Smooth maps are defined analogously: if \(M\) and \(N\) are two Banach manifolds, and \(f \colon M \to N\) is a map, we say that it is smooth if whenever \((U, \psi)\) and \((V, \psi)\) are smooth charts satisfying \(f(U) \subset V\), then the \textit{localization of \(f\)}\index{Localization of a map} defined by 
+\[
+\psi^{-1}\circ f \circ \varphi\colon \varphi(U) \to \psi(V) 
+\]
+is a \(\mathscr{C}^\infty\) map (in the Fréchet sense). \(\mathscr{C}^k\) maps are maps whose localizations are of class \(\mathscr{C}^k\). We will work with smooth manifolds, but observe that it makes perfect sense to speak of \(\mathscr{C}^k\)-maps on a smooth manifold.
+
+\subsection{The tangent space to a Banach manifold}
+In the category of finite dimensional smooth manifolds, the tangent space to a manifold at a point can be defined in several equivalent ways. For instance, two of the most common ways of defining it are 
+\begin{itemize}
+    \item as the space of derivations acting on germs of functions at that point, and
+    \item as the set of equivalence classes of curves passing through that point.
+\end{itemize}
+In the infinite-dimensional setting, these two definitions are no longer equivalent, and the definition chosen is the second one. With this idea in mind, let \(I \subset \R\) be an interval, and \(X\) be a Banach manifold, a smooth curve is a smooth map \(\alpha \colon I \to X\). Let \(\alpha\colon I \to X\) and \(\beta \colon I' \to X\) be two smooth curves satisfying \(\alpha(0)=\beta(0)=x \in X\). We say that they are \textit{equivalent}\index{Curves!equivalent} if there is a chart \((U, \psi, B)\) such that \((\psi \circ \alpha)'(0)=(\psi \circ \beta)'(0)\), were we defined
+\[
+(\psi \circ \alpha)'(t)=[D(\psi \circ \alpha)(t)](1).
+\]
+Observe that the right-hand-side makes sense; \(D(\psi \circ \alpha)(t) \in \mathcal{L}(\R, B)\), so when evaluating at \(1\), the result is a vector in \(B\). This defines an equivalence relation on the set of all smooth curves passing through \(x\) at $t=0$. A \textit{tangent vector}\index{Tangent!vector} is thus an equivalence relation of curves. We denote it by \([\alpha, x]\), or simply \([\alpha]\) if the point is clear from the context. The set of all tangent vectors is called the \textit{tangent space}\index{Tangent!space} of \(X\) at \(x\), and denoted \(T_xX\) as usual. This is indeed a vector space. To endow it with a linear structure, we can use any chart \((U, \phi, B)\), which defines a bijection \(\bar \phi\colon  T_xX \to B, [\alpha] \mapsto (\phi \circ \alpha)'(0)\), whose inverse is given by \(B \to T_xX,v \mapsto [\phi^{-1}(\phi(x)+t\cdot v)]\) (observe that this defines a curve). Let us show this claims.
+
+\Lemma{}{Let \(X\) be an infinite-dimensional Banach manifold. \label{Lemma_tang_space_to_Banach_manifold}
+\begin{enumerate}
+    \item Let \(\phi\colon X \to B\) be a chart around \(x \in X\), and set \(p_x:=\phi(x)\). Then, the following maps are inverses
+    \[
+    \begin{array}{cccc}
+        \bar{\phi}\colon & T_xX & \longrightarrow & B \\
+        & [\alpha] & \mapsto & (\phi \circ \alpha)'(0)
+    \end{array}
+    \hspace{2 cm}
+    \begin{array}{cccc}
+        \bar{\phi}^{-1} \colon & B & \longrightarrow & T_xX \\
+        & v & \mapsto & \phi^{-1}(p_x+tv).
+    \end{array}
+    \]
+    \item For all charts \(\phi, \psi\) around \(x\), we have \(\bar{\psi} \circ \bar{\phi}^{-1}=D(\psi \circ \phi^{-1})(p_x)\).
+    \item \(T_xX\) admits a unique Banach space structure making each \(\bar\phi\) into a Banach space isometry.
+\end{enumerate}
+}
+\begin{proof}
+    {\color{red} Probar}
+\end{proof}
+
+\begin{obs}
+    As happens in the finite-dimensional case, if \(B\) is a Banach space, then \(\mathrm{id}_B\colon B \to B\) defines a chart, and \(\overline{\mathrm{id}_B}\) allows us to identify \(B\) and \(T_bB\) for every \(b \in B\). In particular, if \(B=\R\) we define \(\frac{\diff}{\diff t}|_{t}:=(\overline{\mathrm{id}_\R})^{-1}(1)\in T_t\R\).
+\end{obs}
+We can then define the differential of a smooth map; if \(f \colon X \to Y\) is a smooth map between smooth Banach manifolds, then we define \(\diff_xf\colon T_xX\to T_{f(x)}Y, [\alpha, x] \mapsto [f \circ \alpha, f(x)]\). This map is linear. Using the identification above, the differential of a map whose codomain is a Banach space is a linear map of the tangent space taking values on the same Banach space. \\
+
+Many of the usual constructions of finite-dimensional manifold theory carry to the Banach manifold setting. Firstly, the tangent bundle associated to a Banach manifold is defined as usual:
+\[
+TX:=\bigsqcup_{x\in X} T_xX,
+\]
+and it is a Banach manifold, endowed with a smooth projection \(\pi([\alpha, x])=x\), whose Banach manifold structure is obtained by requiring that for every chart \((U, \phi, B)\), the map \((\pi^{-1}(U), \Phi)\) is a diffeomorphism, where \(\Phi\colon \pi^{-1}(U)\to \phi(U) \times B, u \mapsto(\pi(u), \bar\phi(u))\). These maps define an atlas (see \parencite[Sec. 1.1.5]{Schmeding_2022}). Now, vector fields are defined as smooth sections of \(TM\). We use the same notation as in the finite-dimensional case or the vector space of all vector field \(\mathfrak{X}(X)\).
+
+\begin{obs}
+    We still want to have vector fields acting on smooth real valued functions to provide a Lie algebra structure on \(\mathfrak{X}(X)\). This requires a few comments.
+    \begin{enumerate}
+        \item Let \(f \colon X \to \R\) be a smooth map, then, \(\diff_xf([\alpha, x]) = [f \circ \alpha, f(x)] \in T_{f(x)}\R \cong \R\) where the last isomorphism is given by \(\overline{\mathrm{id}_\R}\). Thus, to see it as a real number, we understand \(\diff_xf([\alpha, x]):=\overline{\mathrm{id}_\R}([f\circ \alpha, f(x)])=(f \circ \alpha)'(0)\), seeing this last expression as the derivative at \(0\) of a smooth real function. That is, we essentially recover the standard finite-dimensional result: the differential of a smooth map acting on a vector is the derivative at \(0\) of \(f \circ \alpha\) where \(\alpha\) is a smooth curve satisfying \(\alpha(0)=0\) and \(\alpha'(0)\) is the vector.
+        \item A vector field does induce a derivation on the algebra of smooth real-valued functions, which is given by \(X(f)(x):=\diff_xf(X_x)\). 
+    \end{enumerate}
+\end{obs}
+
+Defining the Lie bracket of vector fields is somewhat more involved in the infinite-dimensional setting. The usual definition of \([X,Y]\) as the vector field whose action on smooth maps is 
+\[
+[X,Y](f)=X(Y(f))-Y(X(f))
+\]
+no longer works, because even though the previous expression gives a well-defined map, provided that \(X(f)\colon M \to \R\) (see proposition \ref{prop_vectorf_inf_dim} bellow) is a well-defined smooth map, it is not obvious that the map \(X(Y(f))-Y(X(f))\) is generated by a vector field. It is true, nonetheless, as the next proposition shows
+
+\Proposition{}{Let \(M\) be a Banach manifold. \label{prop_vectorf_inf_dim}
+\begin{enumerate}
+    \item Let \(f\) be a smooth map defined on an open set \(U \subset M\), and let \(X \in \mathfrak{X}(M)\). Then, there exists a unique smooth map \(X(f)\colon U \to \R\) satisfying \(X(f)(x)=\diff_xf(X_x)\).
+    \item Let \(X,Y \in \mathfrak{X}(M)\). There exists a unique vector field \([X,Y] \in \mathfrak{X}(M)\) satisfying
+    \[
+    [X,Y](f)=X(Y(f))-Y(X(f))
+    \]
+    for every \(f \in \mathscr{C}^\infty(M)\).
+\end{enumerate}
+}
+\begin{proof}
+    See \parencite[Prop. V-1.1 and Prop V-1.3]{SergeLang}.
+\end{proof}
+The vector field \([X,Y]\) is called the \textit{Lie bracket} of \(X\) and \(Y\). Is is bilinear, antisymmetric, and satisfies the Jacobi identity, and hence defines a Lie algebra structure on \(\mathfrak{X}(M)\) (see \parencite[Cor. 1.4]{SergeLang}). \\
+
+To finish our brief overview on Banach manifolds, we are going to make some comments on the inverse and implicit function theorems. These theorems admit generalizations to Banach manifolds because there are inverse and implicit function theorems for Banach spaces. If we take those for granted, the fact that these theorems apply in Banach manifolds is obvious, because both are local statements, and taking coordinates we can always work in a Banach space. Proofs of these results can be found in \parencite{SergeLang}. 
+
+\Theorem{\textbf{Inverse mapping theorem}}{Let \(E, F\) be two Banach spaces, and let \(1 \leq p \leq \infty\), and let \(f\colon E \to F\) be a \(\mathscr{C}^p(U)\)-map, where \(U \subset E\) is an open neighborhood of a point \(a \in E\). Suppose that \(Df(a)\) is an invertible linear map. Then, there are open neighborhoods \(U' \subset U\) of \(a\), and \(V \subset F\) of \(f(a)\) such that \(f|_{U'}\colon U' \to V\) is invertible, and \(f^{-1} \in \mathscr{C}^p(V)\).}
+
+Before giving the statement of the implicit function theorem, we need the notion of a partial derivative. Let \(f\colon E \times F \to G\) be a map between Banach spaces. \(f\) is differentiable at a point \((a,b) \in E \times F\) if and only there exist linear maps \(A \in \mathcal{L}(E, G)\) and \(B \in \mathcal{L}(F,G)\) such that 
+\[
+\lim_{(x,y) \to (0,0)} \frac{||f(a+x, b+y)- f(a,b)- A(x)-B(y)||_G}{||x||_E + ||y||_F}=0.
+\]
+In that case, we denote \(A=D_1f(a,b)\) and \(B=D_2f(a,b)\).
+
+\Theorem{\textbf{Implicit function theorem}}{Let \(E,F,G\) be Banach spaces, and \(U \subset E, V \subset F\) be open sets. Let \(1 \leq p \leq \infty\), and let \(f\colon U \times V \to G\) be a \(\mathscr{C}^p\)map. Let \((a,b) \in U \times V\) be such that \(D_2f(a,b)\colon F \to G\) is a linear isomorphism. Then, there is an open neighborhood \(U_0\) of \(a\), and a \(\mathscr{C}^p\) map \(g\colon U_0 \to V\) such that \(g(a)=b\), and \(f(x,y)=0\) if and only if \(y=g(x)\) for \(x \in U_0, y \in V\). }
+
+Another theorem that generalizes to the Banach setting is the immersion theorem.
+
+\Theorem{\textbf{Local immersion}}{Let \(E, F\) be Banach spaces, \(U \subset E\) an open set and \(f\colon U \subset E \to F\) a \(\mathscr{C}^p(U)\) function, where \(1 \leq p \leq \infty\). Let \(a \in U\), and suppose that \(Df(a)\) is an isomorphism into its image, which is a complemented closed subspace of \(F\) (that is, there is a closed subspace of \(F\), call it \(N\) such that \(F=\mathrm{Im}(Df(a)) \oplus N\)). Then, there is an open set \(U' \subset U\) containing \(a\) such that \(f|_{U'} \colon U' \to f(U')\) is a homeomorphism. \label{Local_immersion_Banach_Spaces}}
+\begin{proof}
+    The actual statement is more general. A proof of this result can be found in \parencite[2.5.12]{abraham1993manifolds}.
+\end{proof}
+
+% As for differential forms, since the tangent spaces are no longer finite-dimensional, there is no isomorphism between \(\bigwedge^k T_xX\) and the set of multilinear alternating maps from \(T_xX\) to \(\R\). We want to consider differential forms as multilinear maps on \(T_xX\) that vary smoothly with the point, and therefore we define \(\mathrm{L}_{\mathrm{Alt}}^r(TX)\) the vector bundle over \(X\) whose fibers are the Banach spaces of multilinear alternating maps from \(T_xX\) to \(\R\). A differential form on \(X\) is defined as a section of this bundle. We keep the usual notation \(\Omega^p_\R(X)\) for \(p\)-forms. \\
+
+% Finally, let us define the exterior differential. For a function \(f \colon X \to \R\), we define \(\diff f(X):=X(f)\) for any smooth vector field \(X\). More generally:
+
+% \Proposition{\textbf{Exterior differential}}{Let \(X\) be a Banach manifold, and \(\omega \in \Omega^p_\R(X)\). Then, there is a unique \(p+1\)-form on \(X\) such that for all smooth vector fields \(X_1, \ldots X_{p+1}\in \mathfrak{X}(X)\), 
+% \begin{equation} \nonumber
+%     \begin{split}
+%         \diff\omega(X_1, \ldots X_{p+1})& = \sum_{i=0}^p (-1)^i \omega(X_1, \ldots \hat{X}_i, \ldots ,X_{p+1})\\
+%         &+\sum_{i<j}(-1)^{i+j} \omega([X_i, X_j], X_1, \ldots \hat{X}_i, \ldots \hat{X}_j, \ldots X_{p+1}).
+%     \end{split}
+% \end{equation}
+% }
+% \begin{proof}
+%     See \parencite[Prop. E.3]{Schmeding_2022}.
+% \end{proof}
+% Since we no longer have usual coordinates, we cannot just define \(\diff \omega\) on a coordinate domain by the usual formula and then check that the definition does not depend on the choice of coordinates, as one usually does.
+
+\subsection{Banach Lie groups}
+Unsurprisingly, a \textit{Banach-Lie group}\index{Banach-Lie group} is defined as a group that has the structure of a Banach manifold, and such that the product and inversion maps are smooth, and a \textit{Hilbert-Lie group}\index{Hilbert-Lie group} is defined analogously. In this setting, right and left-translations \(L_g\) and \(R_g\) are diffeomorphisms, just as in the finite-dimensional case. The Lie algebra is also defined quite similarly to the finite-dimensional case. Firstly, to vector fields \(X \in \mathfrak{X}(M), Y \in \mathfrak{X}(N)\) are \(f\)-\textit{related} (where \(f\colon M \to N\) is a smooth map) if \(\diff_xf(X_x)=Y_{f(x)}\) for all \(x \in \). We thus say that a vector field \(X \in \mathfrak{X}(G)\) is \textit{left-invariant} if it is \(L_g\)-related to itself. The \textit{Lie algebra} of \(G\), \(\mathrm{Lie}(G)\) is the set of all left invariant vector fields on \(G\) (we will keep the notation \(\mathfrak{g}\) for the Lie algebra of finite-dimensional Lie groups).
+
+\Lemma{}{Let \(G\) be a Banach-Lie group. Then, \(\mathrm{Lie}(G)\) is a Lie subalgebra of \(\mathfrak{X}(G)\).}
+ \begin{proof}
+    It is obvious that \(\mathrm{Lie}(G)\) is a vector space, so we need only check that it is closed under the Lie bracket operation, but this follows from the fact that if \(X_i\) and \(Y_i\) are \(f\)-related, \(i=1,2\), then \([X_1, X_2]\) and \([Y_1, Y_2]\) are \(f\)-related as well (see \parencite[Page 117]{SergeLang}).
+ \end{proof}
+
+ Observe that every left-invariant vector field is determined by its valued at the identity: \(X_{g}=\diff_e L_g(X_e)\), so we have a natural vector space isomorphism \(T_eG \cong \mathrm{Lie}(G)\). As we do in the finite-dimensional case, we may use this isomorphism to endow \(T_eG\) with a Lie algebra structure (see \parencite[Sec. 1.1.2]{Schmeding_2022}). \\
+
+ Finally, Banach-Lie groups have a well-defined exponential map. This is not true for Lie groups modelled on arbitrary locally convex spaces. The definition is almost identical to the finite-dimensional one. If \(\alpha\colon I \to M\) is a smooth curve, we define 
+ \begin{equation} \label{def_derivative_curve_Banach_manifold}
+ \dot{\alpha}(t):=\diff_t\alpha\parent{\left. \frac{\diff}{\diff t} \right|_{t}} \in T_{\alpha(t)}X.
+ \end{equation}
+ We say that a curve \(\alpha\) is an \textit{integral curve} of a vector field \(X\) if \(X_{\alpha(t)}=\dot{\alpha}(t)\) for every \(t \in I\). Given a Banach manifold, every vector field admits an integral curve defined on a maximal interval. The exponential map is just defined as
+ \[
+ \begin{array}{cccc}
+    \exp \colon & \mathrm{Lie}(G) & \longrightarrow & G \\
+    & X & \mapsto & \alpha(1)
+ \end{array}
+ \]
+ where \(\alpha\) is the unique integral curve of \(X\) satisfying \(\alpha(0)=e\). See \parencite{Dodson_Galanis_Vassiliou_2015} for more details.
+
+ \begin{obs}
+    Let \(G\) be a group that is endowed with the structure of a Banach manifold, and suppose that the product map \(G \times G \to G, (h,g) \mapsto h \cdot g\) is smooth. Then, \(G\) is automatically a Banach Lie group, i.e. there is no need to check that the inverse map is smooth as well. We may check this by defining a map \(F\colon G \times G \to G \times G, (g,h) \mapsto (g, gh)\). \(F\) is smooth and its differential at \((e,e)\) is 
+    \[
+    \begin{array}{cccc}
+    \diff_{(e,e)}F \colon & T_e G \times T_eG & \longrightarrow & T_eG \times T_eG\\
+    & (u,v) & \mapsto & (u, u+v).     
+    \end{array}
+    \]
+    Indeed, the differential may be calculated component-wise. For the second component, \(F_2:=\mathrm{pr}_2 \circ G\), observe that linearlity means that \(\diff_{(e,e)}F_2(u,v)=\diff_{(e,e)}F_2(u,0) + \diff_{(e,e)}F_2(0,v)\). Let us calculate, for instance, the first term. Let \(\varphi\colon (-\varepsilon, \varepsilon) \to G\) be a smooth curve satisfyng \(\varphi(0)=e\) and \(\varphi'(0)=X\). Then, \(\psi(t)=(\varphi(t), e)\) is a curve satisfying \(\psi(0)=(e,e)\) and \(\psi'(0)=(u,0)\). Therefore:
+    \[
+    \diff_{(e,e)}F_2(u,0)=\left.\frac{\diff}{\diff t}\right|_{t=0} (F_2 \circ \psi)(t) = \left.\frac{\diff}{\diff t}\right|_{t=0} \varphi(t)=\varphi'(0)=u.    \]
+    Therefore, \(\diff_{(e,e)}F\) is clearly a diffeomorphism, so by the inverse function theorem, \(F\) has a local inverse defined in a neighborhood \(W\times W\) of \((e,e)\) (we can shrink the neighborhood to get one that looks like that). Thus, for \(x \in G\) sufficiently close to \(e\), we have \(F^{-1}(g,e)=(g,g^{-1})\) is smooth, and so is \(g \mapsto (g,e) \mapsto F^{-1}(g,e)=(g,g^{-1}) \mapsto g^{-1}\) (call this map \(\zeta\)) (this is because \(F\) has a globally defined inverse given by \((g,k) \mapsto (g,g^{-1}k)\)). Finally, let \(\ell \in G\), then \(\ell\cdot W\) is a neighorhood of \(\ell\). \(R_{\ell^{-1}} |_W\circ \zeta \circ (L_{\ell^{-1}})|_W\) is smooth and sends \(\ell \cdot k \in W\) to \(k^{-1}\ell^{-1}\). Hence, the inverse is locally smooth, and hence smooth. \label{Lie_group_inverse_superfluous}
+ \end{obs}
+
+Finally, the adjoint and coadjoint actions of \(G\) on \(\mathfrak{g}\) and \(\mathfrak{g}^*\) admit direct generalizations to this context. To define \(\Ad{}\), simply observe that the map \(I_g:=L_{g^{-1}} \circ R_g\) is a diffeomorphism, hence we may just define \(\Ad{g}(X):=\diff_e I_g(X)\) for \(X \in \mathfrak{g}\) and \(g \in G\). Similarly, we can just define \(\Ad{}^*\) by setting 
+\[
+\langle \Ad{g}^* \xi, X\rangle :=\langle \xi, \Ad{g^{-1}}(X) \rangle.
+\]
+
+\section{The gauge group of a principal bundle as a Hilbert Lie group}
+
+To properly endow \(\mathcal{G}\) with the structure of a Hilbert-Lie group, we need some previous facts about Sobolev spaces. We are going to follow the construction in one of the original papers n the subject \parencite{mitter1981bundle}, together with some of the comments in \parencite{Rudolph_2017pug}. As an outline of the construction, using proposition \ref{equivalences_gauge_group}, we are going to identify \(\mathcal{G}\) with \(\Gamma(M; \mathrm{Ad}(P))\). To make the construction easier to handle, we will suppose that \(M\) is compact, and \(G\) is a compact, connected, matrix Lie group. Under those assumptions, \(\Gamma(M; \mathrm{Ad}(P))\) can be seen as a subset of the sections of a vector bundle. With the tool of Sobolev spaces that we will develop in the following section, we will be able to see the space of sections on a vector bundle as a Hilbert space. In particular, we can see \(\mathcal{G}\equiv \Gamma(M; \mathrm{Ad}(P))\) as a subset of a certain Hilbert space.
+
+\begin{obs}
+    Obviously, \(\mathcal{G}\) is a subgroup of \(\mathrm{Diff}(P)\), and \(\mathrm{Diff}(P)\) can be given an infinite-dimensional structure. However, it is usually not convenient to try to use that structure to see \(\mathcal{G}\) as a Lie group. Not only is this much more involved, but since \(\mathrm{Diff}(P)\) is not a Banach-Lie group, it does not endow \(\mathcal{G}\) with the structure of a Hilbert-Lie group.
+\end{obs}
+
+\subsection{Sobolev spaces}
+% We will need some basic facts about the theory of Sobolev spaces to make sense of the smooth structure of a gauge group, which we shall present without proofs. We may also not be completely rigorous, as a complete and rigorous construction of the spaces belongs to the realm of functional analysis and is not the purpose of this thesis. For more details, we refer to the reader to \parencite[Chapter 3]{adams2003sobolev}. Consider \(U \subset \R^n\) an open set. Let, \(m \in \N_{\geq 0}\), and \(1 \leq p \leq \infty\). We define, for any function \(f\colon U \to \R\) for which all the following derivatives make sense
+% \begin{equation} \nonumber
+%     \begin{split}
+%         ||f||_{m,p} & := \parent{\sum_{0 \leq |\nu| \leq m} \bigg(||D^\nu f||_p\bigg)^p}^{1/p} \\
+%         ||f||_{m, \infty} & :=\max_{0 \leq |\nu| \leq m} ||D^\nu f||_\infty,         
+%     \end{split}
+% \end{equation}
+
+% where \(||\cdot ||_p\) is the usual \(L^p(U)\)-norm, and 
+% \[
+% D^\nu f:=\derpar{^{|\nu|}f}{x^{\nu_1} \partial x^{\nu_2} \cdots \partial x^{\nu_n}}, \hspace{1 cm} |\nu|:=\nu_1 + \ldots + \nu_n.
+% \]
+% As the notation suggest, the previous maps \(||\cdot ||_{m, p}\) define norms on suitable spaces of functions. However, we want these spaces to be complete. Therefore, we do not simply define them as spaces of functions with appropriate regularity, say \(\mathscr{C}^m\), because these spaces would not be complete when equipped with the previous norms. To define the appropriate spaces, we need to introduce first the notion of weak derivatives. \\
+
+% Let \(L^1_{\mathrm{loc}}(U)\) be the set of \textit{locally integrable functions}\index{Locally integrable functions} defined on an open set \(U \subset \R^n\). That is, the set of (equivalence classes of) functions \(f\colon U \to \R\) such that \(\int_K |f|  < \infty\) for every compact set \(K \subset U\). Moreover, set \(\mathscr{C}^\infty_c(U)\) the set of compactly supported infinitely differentiable functions defined on \(U\). Equivalently, it is the set of (equivalence classes of functions) \(f \colon U \to \R\) such that \(\int_U f \cdot \varphi < \infty\) for each \textit{test function} \(\varphi \in \mathscr{C}_c^\infty(U)\).
+
+% \Definition{\textbf{Weak derivative}}{Let \(u,v \in L^1_{\mathrm{loc}}(U)\), and let \(\nu\) be a multi-index. We say that \(v\) is the \(\nu\)-th \textit{weak derivative}\index{Weak derivative} of \(u\) if
+% \[
+% \int_U u \cdot D^\nu\varphi = (-1)^{|\nu|} \int_U v \cdot \varphi
+% \]
+% for all \(\varphi \in \mathscr{C}^\infty_c(U)\).
+% }
+
+% We use the notation \(v:=D^\nu u\) even though \(v\) is not a derivative in the proper sense. It is a fact that weak derivatives are unique up to a zero measure set. When we work with spaces in which functions that coincide almost everywhere are identified, weak derivatives are well-defined elements of those sets. It is worth mentioning that if \(u\) was regular enough to have a derivative \(D^\nu u\) in the usual sense, then both definitions agree (see \parencite{adams2003sobolev}). Weak derivatives may or may not exist. Observe that we require \(u,v \in L^1_{\mathrm{loc}}(U)\) to make sure that the integrals in the previous definition make sense.
+
+% \Definition{\textbf{Sobolev spaces}}{Let \(m \in \N_{\geq 0}\) and \(1 \leq p \leq \infty\). We define 
+% \begin{enumerate}
+%     \item \(H^{m,p}(U)\) the completion of \(\corch{u \in \mathscr{C}^m(U): ||u||_{m,p} < \infty}\) with respect to the norm \(||\cdot ||_{m,p}\).
+%     \item \(W^{m,p}(U):=\corch{u \in L^p(U): D^\nu u \in L^p(U) \ \ \text{for} \ \ 0 \leq |\nu| \leq m}\).
+% \end{enumerate}
+% }
+
+% The previous spaces are called Sobolev spaces. Let us state some properties of these spaces whose proofs may be found in \parencite[Chapter 3]{adams2003sobolev}:
+
+% \begin{enumerate}
+%     \item There are continuous injections \(W^{m,p}(U) \to L^p(U)\).
+%     \item For all \(m \in \N_{\geq 0}, 1 \leq p \leq \infty\), \(W^{m,p}\) is a Banach space.
+%     \item \(W^{m,p}\) is separable if \(1 \leq p < \infty\). Moreover, \(W^{m,2(U)}\) is a Hilbert space with inner product
+%     \[
+%     \langle u, v \rangle_m:=\sum_{0 \leq |\nu| \leq m} (D^\nu u, D^\nu v)= \sum_{0 \leq |\nu| \leq m} \int_U D^\nu u (\bm x)  \cdot  \overline{D^\nu v(\bm x)} \ \  \diff \bm x.
+%     \]
+%     \item For \(1 \leq p < \infty\), we have \(H^{m,p}(U)=W^{m,p}(U)\).
+% \end{enumerate}
+
+% This defines a connection on the vector bundle \(T^*M \otimes E\) by linear extension of
+% \[
+% \hat\nabla (\omega\otimes s)= \nabla^g\omega \otimes s+ \omega \otimes \nabla s,
+% \]
+% where \(\omega \in \Gamma(T^*M)\) and \(\Gamma(E)\). We thus obtain a total derivative (\parencite[Prop. 4.17]{lee_introRM}), and therefore, \(\hat{\nabla}\) defines a map (which we will denote in the same way)
+% \[
+% \hat{\nabla} \colon \Gamma(M; \parent{\otimes_r T^*M} \otimes E ) \longrightarrow \Gamma(M; (\otimes_{r+1} T^*M) \otimes E).
+% \]
+% In particular, the iterative application of this operator \(\hat{\nabla}^k\) is well-defined.
+
+%----------------------------------------------------------------------------------------------------------------------------------------------
+
+% \begin{obs}
+%     Before going on, we need to make some comments on tensor products of normed spaces. Let \(V\) and \(W\) be finite-dimensional normed vector spaces. There exists a norm on \(V \otimes W\) satisfying
+%     \[
+%     ||v \otimes w || = ||v||_V \cdot ||w||_W.
+%     \]
+%     This norm is not necessarily unique, but since we are considering finite-dimensional vector spaces, it will not matter. Of course, this can be generalized to the tensor products of more spaces.
+% \end{obs}
+
+
+% The previous remark means that there is a natural norm of each fiber of \(\otimes_rT^*M \otimes E\), which is induced by the metric \(g\) (observe that \(g\) induces a metric \(T^*_pM\)) and the inner product on \(E\). Taking that into account, \(||\hat{\nabla}^ks(p)||\) is well-defined for any \(p \in M\) and any section \(s \in \Gamma(E)\). We may define
+% \[
+% ||s||_{p, m}=\int_M \parent{||s||^p+||\hat\nabla s ||^p+\ldots + ||\hat{\nabla}^m s||^p}^{1/p}  \diff V_g.
+% \]
+% Since everything we are integrating is smooth, and the manifold is compact, the previous integral is well-defined for every section \(s \in \Gamma(E)\). Moreover, \(||\cdot ||_{p,m}\) defines a norm in \(\Gamma(E)\) (observe that the sections of a vector bundle are a vector space (añadir observación donde me haga falta)). In general, \((\Gamma(E), ||\cdot ||_{p,m})\) will not be complete, so we define the Sobolev space \( \Gamma_{W_{p,m}}(M;E)\) as the completion of \(\Gamma(E)\) with respect to that norm.
+
+%\begin{obs}
+%    The above construction does not depend on the connection chosen on \(E\), or the metric on \(M\). Moreover, it is clear that it will not depend on the cross-norm chosen to endow the fibers \(\otimes_r T_p^*M \otimes E_p\) with an inner product because we are dealing with a finite-dimensional vector space and in that case, all norms are equivalent.
+%\end{obs} 
+
+%----------------------------------------------------------------------------------------------------------------------------------------------
+Usual Sobolev spaces, which are defined on open subsets of \(\R^n\) and for spaces of real-valued (equivalence classes of) functions, can be generalized to the setting of sections on a vector bundle. Let \(M\) be a compact manifold endowed with a riemannian metric \(g\). In particular, it has a volume element, which we shall denote \(\diff V_g\) (see \parencite[Chapter 2]{lee_introRM}). Let us consider a vector bundle \(E\), endowed with a positive-definite inner product \(\langle \cdot, \cdot \rangle\), which induces a norm. Fix a connection \(\nabla^E\) on \(E\), that is compatible with the fiber metric. This connection induces a covariant derivative in all tensor bundles over \(M\). This requires a few comments (we follow the exposition in \parencite{wehrheim2004uhlenbeck}). \\
+
+As we know, the connection \(\nabla^E\), defines a map \(\nabla^E\colon \Gamma(E) \to \Gamma(T^*M \otimes E)\). On the other hand, since \((M,g)\) is a riemannian metric, \(TM\) is naturally endowed with the Levi-Civita connection \(\nabla^g\). This induces a connection on the dual bundle \(\nabla^{g*}\) (see {\color{red} add reference}). The bundle \(T^*M \otimes E\) is therefore endowed with the connection \(\nabla^{g*} \otimes \nabla^E \colon \Gamma(T^*M \otimes E) \to \Gamma(T^*M \otimes T^*M \otimes E)\). Now, \(\otimes^2 T^*M \otimes E\) is endowed with a connection \(\nabla^{g*} \otimes \nabla^E\), and we may use it to define a connection on \(T^*M \otimes \parent{\otimes^2 T^*M} \otimes E \cong\otimes^3 T^*M \otimes E\), namely, we define the connection \(\nabla^{g*} \otimes \parent{\nabla^{g*} \otimes \nabla^E}\). Iterating this process, we may define a connection on each \(\otimes^k T^*M\otimes E\) by 
+\[
+\nabla^{g*} \otimes \overset{k}{\cdots} \otimes \nabla^{g*} \otimes \nabla^E.
+\]
+Making an abuse of notation, we will denote by \(\nabla\) all the so-defined connections (including \(\nabla^E\)). Explicitly, if \(\alpha \in \Gamma(\otimes^k T^*M \otimes E)\), then \(\nabla \alpha \in \Gamma(\otimes^{k+1}T^*M \otimes E)\) is defined by
+\begin{align*}
+    \nabla \alpha(X_0, \ldots X_k)& =  \nabla^E(\alpha(X_1, \ldots X_k)) - \alpha(\nabla_{X_0}^g X_1, \ldots X_k) - \ldots - \alpha(X_1, \ldots \nabla_{X_0}^g X_k), 
+\end{align*}
+
+For \(k \in \N_{\geq 1}\) and any two sections \(\phi, \psi \in \Gamma(E)\), we define
+\begin{equation} \label{prod_in_Gamma(E)}
+\langle \phi, \psi\rangle_k:= \int_M \bigg( \langle \phi, \psi \rangle + \langle \nabla \phi, \nabla \psi \rangle  + \ldots+ \langle \nabla^k \phi, \nabla^k \psi \rangle \bigg) \ \diff V_g.
+\end{equation}
+
+\begin{obs}
+    Each term in the sum inside the integral is a smooth function, so it makes sense to integrate it with respect to the volume form \(\diff V_g\), and the compactness of \(M\) ensures that the integral will be finite. As for the first claim, the symbol \(\langle \nabla^\ell \phi, \nabla^\ell\psi \rangle\) \textit{hides} the fact that we need to define an inner product on tensor products. First, the fact that \(g\) is non-degenerate (it is a riemannian metric) allows us to define an inner product of one-forms by \(\langle \alpha, \beta\rangle_g:=g\parent{\alpha^\#, \beta^\#}\), where \(\#\) is the \textit{sharp} isomorphism (see \parencite[Ch. 2]{lee_introRM}). On the other hand, whenever \(V_1, \ldots V_n\) are vector spaces endowed with inner products \(\langle\cdot, \cdot \rangle_i\), we may define an inner product by extending by linearity the following expression
+    \[
+    \langle v_1 \otimes v_2 \otimes \cdots \otimes v_n,  w_1 \otimes w_2 \otimes \cdots \otimes w_n \rangle = \langle v_1, w_1 \rangle_1 \cdot \langle v_2, w_2 \rangle_2 \cdots \langle v_n, w_n \rangle_n.
+    \]
+    This defines an inner product on each \(\otimes^k T^*M \otimes E\) (see \parencite[Lemma 1.7]{Rusman} for a very detailed proof that the previous expression defines an inner product).
+\end{obs}
+
+\Lemma{}{Let \((M,g)\) be a compact riemannian manifold, and let \(E\) be a vector bundle over \(M\) endowed with a fiber product \(\langle \cdot, \cdot \rangle\). The map defined in equation \ref{prod_in_Gamma(E)}: 
+\[
+\begin{array}{ccc}
+    \Gamma(E) \times \Gamma(E) & \longrightarrow & \R \\
+    (\phi, \psi) & \mapsto & \langle \phi, \psi\rangle_k
+\end{array}
+\]
+is an inner product in the vector space \(\Gamma(E)\).
+}
+\begin{proof}
+    It follows straightforward from the fact that the product \(\langle \cdot, \cdot \rangle\) on each summand is pointwise an inner product and the fact that the integral of a non-negative function with respect to the riemannian volume form is zero if and only if the function itself is zero \parencite[Prop. 16.28]{lee_introSM}.
+\end{proof}
+Observe that we do not need the trick we use in \(L^p\)-spaces of identifying functions that coincide almost everywhere to ensure positivity because we do not have the problem of section being zero almost everywhere. Indeed, sections are smooth, and if they are zero on a dense subset, then they are identically zero. \\
+
+With the previous constructions in mind, we can give the final definition of the Sobolev space associated to the space of connections.
+
+\Definition{}{Let \((M, g)\) be a compact riemannian manifold, and let \(E\) be a vector bundle over \(M\) endowed with an inner product and a covariant derivative. Let \(m \in \N_{\geq 0}\) and \(1 \leq p <\infty\). The \textit{Sobolev space} \(W^k(M; E)\) is the Hilbert-completion of \(\Gamma(M;E)\) with respect to the inner product \(\langle \cdot, \cdot \rangle_k\).}
+
+Of course, once the completion is then endowed with the \(\langle \cdot, \cdot \rangle_k\), and this turns \(W^{k}(M;E)\) into a Hilbert space. 
+
+\begin{obs}
+    \(\hspace{1 pt}\)
+    \begin{enumerate}
+        \item The previous construction can be done using Banach spaces. There, instead of an inner product, we define a norm
+        \[
+        ||\phi||_{p,k}:=\parent{\int_M \parent{||\phi||_p+||\nabla\phi||_p + \ldots ||\nabla^k \phi ||_p} \ \diff V_g}^{1/p}
+        \]
+        out of a \(p\)-norm on each \(\otimes^k T^*M \otimes E\), and then we consider \(W^{p,k}(M;E)\) as the completion of \(\Gamma(E)\) with respect to that norm.
+        \item We obviously have \(||\phi||_k < ||\phi||_{k'}\) for every \(k<k'\) (the latter has more summands).
+        \item Recall that the topology of a Hilbert space is the metric topology with respect to the distance induced by the norm. The inner product we defined depends on \(g, \nabla\) and \(\langle\cdot, \cdot \rangle\). However, different choices of these parameters lead to equivalent norms. This means that, as a topological space, \(W^k(M;E)\) is well-defined and independent of any choice of these parameters.
+        \item There is a way to write the norm in a more explicit way. Let \((U_i, \eta_i)_{i=1}^m\) be a finite covering of \(M\) by local charts (which exists by compactness of \(M\)), and such that there are trivializations \(\Phi_{U_i}\colon \pi^{-1}(U_i) \to U_i \times \R^k\) (or \(\C^k\) is the bundle is complex). Then, the product \(\langle \cdot, \cdot \rangle_k\) is equivalent to the product defined by
+        \[
+        \langle \phi, \psi \rangle'_k:=\sum_{i=1}^m \sum_{|\nu| \leq k} \int_{\eta_i^{-1}(U_i)} \bigg\langle \frac{\partial^{|\nu|}(\mathrm{pr}_{\R^k} \circ \Phi_{U_i} \circ \phi \circ \eta_i)}{\partial x^\nu }, \frac{\partial^{|\nu|}(\mathrm{pr}_{\R^k} \circ \Phi_{U_i} \circ\psi \circ \eta_i)}{\partial x^\nu } \bigg\rangle \ \diff ^n \bm x.
+        \]
+        where we are considering derivatives of real (or complex) valued functions, and the inner product is the usual euclidean (or hermitian) inner product (see \parencite[Section 5.7]{Rudolph_2017pug}).
+    \end{enumerate}
+\end{obs}
+
+\Lemma{\textbf{Sobolev}}{Let \(E \to M\) be a vector bundle over a compact smooth manifold, and let \(k,p \in \N_{\geq 0}\) be such that \(k> \dim M/2+p\). Then, there is a continuous embedding \(W^k(M;E) \hookrightarrow \mathscr{C}^p(M;E)\). \label{Sobolev_lemma} }
+\begin{proof}
+    See \parencite[Th. B.2]{wehrheim2004uhlenbeck} Here, \(\mathscr{C}^p(M;E)\) is endowed with the metric topology induced by the norm 
+    \[
+    ||\phi||_\infty:=\sup_{j \leq p} \big\{ \max_{p \in M}\ \langle \nabla^j \phi(p), \nabla^j \phi(p)\rangle \big\}. 
+    \]
+\end{proof}
+As a consequence, even though \(W^k(M;E)\) is formally constructed using equivalence classes of Cauchy sequences, we can still view its elements as maps (sections in fact) \(M \to E\), but now some of those elements lose regularity; we can only ensure they are of class \(\mathscr{C}^p\). \\
+
+We are now ready to endow \(\mathcal{G}\) with a Hilbert-group structure. To keep the technicalities to a minimum, we will suppose that \(G\) is a compact, connected, matrix Lie group, and that \(M\) is a compact manifold. In that case, there is \(n \in \N_{\geq 1}\) such that \(G \subset \mathfrak{gl}(n, \C)=\mathrm{M}_n(\C)\). Consider the vector bundle \(E^n_\C:=P \times_G \mathfrak{gl}(n, \C)\) where \(G\) acts on \(\mathfrak{gl}(n, \C)\) by conjugation. Consider as well the bundle \(\mathrm{Ad}(P)=P \times_G G\) where \(G\) acts on itself by conjugation again. \(\mathrm{Ad}(P)\) is a subbundle of \(E_\C^n\), when both of them are seen as and therefore, we have \(\Gamma(M; \mathrm{Ad}(P)) \subset \Gamma(M; E_\C^n)\). Now, \(M\) always admits a riemannian metric (see \parencite[Prop. 13.3]{lee_introSM}), and  every vector bundle admits a fibre product and a connection compatible with it (this is a partition of unity argument, see for example \parencite[Page 196]{lee_introCM}). Therefore, we may consider \(\Gamma(M; E_{\C}^n) \subset W^k(M; E_\C^n)\) for any \(k > \dim M/2+1\). In particular, we can see \(\Gamma(M; \mathrm{Ad}(P))\) as a subset of the Hilbert space \(W^{k+1}(M; E_\C^n)\). We can now define \(\mathscr{G}_k:=\overline{\Gamma(M; \mathrm{Ad}(P))}\), where the closure is taken with respect to the metric topology in \(W^{k+1}(M, E_\C^n)\). 
+
+\Lemma{}{With the previous definitions, \(\mathrm{Ad}(P)\) and \(\mathrm{ad}(P)\) are subbundles of \(E_\C^n\).}
+\begin{proof}
+    Since \(G\) is a matrix Lie group, we may see it as an embedded submanifold of \(\mathfrak{gl}(n, \C)=\mathrm{M}_n(\C) \cong \C^{n^2}\). Moreover, in that case, its lie algebra is a matrix lie algebra, which consists of square matrices of the same dimension. Therefore, \(\mathfrak{g}\) is a vector subspace of \
+    \(\mathfrak{gl}(n, \C)\), and therefore an embedded submanifold. Moreover, all the bundles \(\mathrm{Ad}(P), \  \mathrm{ad}(P)\) and \(E_\C^n\) are associated bundles obtained from, \(P \times G\), \(P \times \mathfrak{g}\) and \(P \times \mathfrak{gl}(n, \C)\) respectively. To get the associated bundle, \(G\) acts by conjugation on \(G\) and \(\mathfrak{gl}(n, \C)\), and through the \(\mathrm{Ad}\)-representation on \(\mathfrak{g}\). However, since we work with matrix Lie groups, the adjoint representation is just conjugation, so all associated bundles are obtained from the action of \(G\) on the corresponding space by conjugation. Finally, seeing \(G\) and \(\mathfrak{g}\) inside \(\mathfrak{gl}(n, \C)\), the equivalence relation defining the associated bundles does not add elements from to the orbits from \(\mathfrak{gl}(n, \C)\) that were not present before (i.e. it cannot happen that for \(h \notin \mathfrak{g}\), we end up having \([p,h] \in \mathrm{ad}(P)\)). Thus, we can see \(\mathrm{Ad}(P)\) and \(\mathrm{ad}(P)\) as {\color{red}embedded submanifolds} of \(E_\C^n\) through the inclusion \(\imath\colon P \times_G G \hookrightarrow P \times _G \mathfrak{gl}(n, \C), [p, g] \mapsto [p,g]\), the latter being an equivalence class in \(E_\C^n\). In particular, \(\Gamma(M; \mathrm{Ad}(P)) \subset \Gamma(M; E_\C^n)\).
+\end{proof}
+
+% \begin{obs}
+%     Observe that choosing \(G\) compact ensures that we have an \(\mathrm{Ad}\)-invariant metric on \(\mathfrak{g}\). Since the fibers of \(\mathrm{ad}(P)\) are canonically isomorphic to \(\mathfrak{g}\), we have a fiber metric defined on the vector bundle \(\mathrm{ad}(P)\). We may use it to define \(W^{k}(M; \mathrm{ad}(P))\).
+% \end{obs}
+
+\Lemma{}{With the previous definitions, choose \(k \in \N_{\geq 0}\) such that \(k>\dim M/2+1\). Then, \(\mathscr{G}_k\) can be seen as a space of \(\mathscr{C}^2\)-sections of the bundle \(\mathrm{Ad}(P)\), which we will denote \(\Gamma^2(M;\mathrm{Ad(P)})\), and it is a group under pointwise multiplication. \hfill \({\color{blue} \bigstar}\)}
+\begin{proof}
+    Let us see first that maps in \(\mathscr{G}_k\) are indeed sections. More precisely, let \(\phi \in \mathscr{G}_k\). Lemma \ref{Sobolev_lemma} ensures that 
+    \(\phi\) can be seen as a \(\mathscr{C}^2\)-map from \(M\) to \(E_\C^n\). By definition of the Hilbert-completion, and due to the fact that the inclusion given by lemma \ref{Sobolev_lemma} is continuous, there is a sequence \((\phi_n)_{n \in \N} \in \Gamma(M;\mathrm{Ad}(P))\) satisfying \(||\phi_n-\phi||_\infty \xrightarrow{n \to \infty}0\). By definition of the \(||\cdot ||_\infty\)-norm, norm convergence implies pointwise convergence, hence \(\phi_n(p) \xrightarrow{n \to \infty} \phi(p)\) for every \(p \in M\). Finally, let \(\pi\colon E_\C^n \to M\) be the vector bundle projection. Since it is continuous, and \(\phi_n(p)\) converges in the topology of \(E\), we have
+    \[
+    p=\lim_{n \to \infty} \pi(\phi_n(p))=\pi\parent{\lim_{n \to \infty} \phi_n(p)}=\pi(\phi(p)),
+    \]
+    and therefore, \(\pi \circ \phi = \mathrm{id}_M\), so \(\phi\) is a section of the vector bundle \(E_\C^n\). Moreover, \(\phi(p) \in \mathrm{Ad}(P)\) for every \(p \in M\), so \(\phi\) is actually a section of \(\mathrm{Ad}(P)\). {\color{red} revisar. Para esto tengo que especificar bien que significa que \(\mathrm{Ad}(P)\) sea un vertical subbundle. No es un fibrado vectorial.} \\
+
+    Once established that \(\mathscr{G}_k\) is the space of \(\mathscr{C}^2\)-sections, the product of two sections can be defined pointwise just as in proposition \ref{equivalences_gauge_group}. Moreover, it can be shown that for a compact manifold, if \(\phi, \psi \in W^{k+1}(M;E_\C^n)\), then its pointwise product \(\phi \cdot \psi\) does not lose regularity, i.e. \(\psi \cdot \phi \in W^{k+1}(M;E_\C^n)\) (see \parencite[Lemma B.3]{wehrheim2004uhlenbeck}). In particular, the pointwise product of two sections in \(\mathscr{G}_k\) still belongs to \(\mathscr{G}_k\), so this set is a group.  
+\end{proof}
+
+We are now ready to proof the desired result.
+
+\Theorem{}{Let \(P(M,G)\) be a principal \(G\)-bundle over a compact manifold, where \(G\) is a compact, connected, matrix Lie group. Then, for \(k>\dim M/2+1\), \(\mathscr{G}_k\) is a Hilbert Lie group whose lie algebra is \(\mathrm{Lie}(\mathscr{G}_k)\cong W^{k+1}(M;\mathrm{ad}(P))\), and whose exponential map is given by
+\[
+\exp_{\mathscr{G}_k}(\xi)(p) = \big[p,\exp_G(\xi(p))\big], \hspace{1 cm} \xi \in \mathrm{Lie}(\mathscr{G}_k), \  p \in M
+\]
+}
+\begin{proof}
+    We will follow the original proof found in sections I and II of \parencite{mitter1981bundle}. We have seen that \(\mathscr{G}_k\) is a group, and it is a topological space with respect to the subspace topology inherited from \(W^{k+1}(M;E_\C^n)\). Since the latter is a Hilbert space, it is Hausdorff, so \(\mathscr{G}_k\) is Hausdorff as well. Let us check first that the group operations are continuous. To do so, we can check that the pointwise operations are continuous in \(W^{k+1}(M;E_\C^n)\), because in that case, the restriction to \(\mathscr{G}_k\) will be continuous as well by the characteristic property of the subspace topology. Now, \parencite[Lemma B.5]{wehrheim2004uhlenbeck} also justifies that there is a constant \(C>0\) such that \(||\phi \cdot \psi ||_k \leq C \cdot ||\phi||_k \cdot ||\psi||_k\) and products in \(W^{k+1}(M;E_\C^n)\) are bilinear (a bilinear map defined in a Banach space is continuous if and only if it is bounded). This shows that products are continuous. To check that taking inverses is continuous {\color{red}???}  \\
+
+    Observe that we require \(G\) to be connected becasue the codomain of \(\exp_G\) is the connected component of the identity 
+
+    To endow \(\mathscr{G}_k\) with the structure of a Hilbert manifold, we are going to use the exponential map as a chart. Note that if \(\xi \in W^{k+1}(M;\mathrm{ad}(P))\), then it is a section \(M \to P\times_G \mathfrak{g}\). If, at each point we consider the unique representative such that \(\xi(p)=[p, X]\), and we identify \(X\) with \(\xi(p)\), then we can make \(\exp_G\) act on the second component, and we get an element of \(G\). Thus,
+    \[
+    \begin{array}{cccc}
+        \exp_{\mathscr{G}_k}(\xi) \colon & M & \longrightarrow & \mathrm{Ad}(P) \\
+        & p & \mapsto & [p, \exp_G(\xi(p))],
+    \end{array}
+    \]
+    is well-defined. We are basically using the exponential of the original Lie group to define the new exponential map pointwise, but we make the abuse of notation of simply writing \(\exp_{\mathscr{G}_k}(\xi) = \exp_G(\xi)\). Let us see that \(\exp_{\mathscr{G}_k}\) defines a homeomorphism between a sufficiently small neighborhood \(V_k(0)\) of \(0 \in W^{k+1}(M; \mathrm{ad}(P))\), and \(N_k(e)\) of the map \(p \mapsto [p, e] \in \mathscr{G}_k \subset W^{k+1}(M; E_\C^n)\), which we will call \(e\) making some abuse of notation. To do so, observe that \(\exp_{\mathscr{G}_k}(\xi)\) can be seen as an element of \(W^{k+1}(M; E_\C^n)\), which is a Hilbert space. Since \(W^{k+1}(M; \mathrm{ad}(P))\) is a Hilbert space as well, we may see the exponential map as a map
+    \[
+    \exp_{\mathscr{G}_k} \colon W^{k+1}(M; \mathrm{ad}(P)) \longrightarrow W^{k+1}(M;E_\C^n).
+    \]
+    If we consider it as above, it makes sense to speak about its regularity. Assume for a moment that \(\exp_{\mathscr{G}_k}\) is at least of class \(\mathscr{C}^1\), and that its differential defines an isomorphism from \(W^{k+1}(M; \mathrm{ad}(P))\) onto its image, which is again \(W^{k+1}(M; \mathrm{ad}(P))\). Since \(W^{k+1}(M; E_\C^n)\) is a Hilbert space, every closed subspace is complemented by its orthogonal complement. Therefore, the Banach version of the immersion theorem applies (theorem \ref{Local_immersion_Banach_Spaces}), and \(\exp\) defines a homeomorphism from \(V_k(0)\) to its image, call it \(N_k(e)\), which is an open subset of \(\mathscr{G}_k\). We thus have a chart. \\
+
+    Let us check now that \(\exp\) is smooth. {\color{red} Terminar.} \\
+
+    This allows us to proof that products are smooth near the idenitity. Indeed, if we choose \(\phi_1, \phi_2 \in V \), where \(V\) is a neighborhood of \(e\) satisfying \(V\cdot V \subset N_k(e)\), then \(V \subset N_k(e)\), and we may express \(\phi_i=\exp_{\mathscr{G}_k}(\xi_i), \ i=1,2\). Therefore, pointwise, we may use the Baker-Campbell-Hausdorff (BCH) formula, and we have
+    \[
+    \phi_1 \cdot \phi_2 = \exp_G (f(\xi_1, \xi_2)),
+    \]
+    where \(f\) is the BCH series
+    \[
+    f(\xi_1, \xi_2)=\xi_1+\xi_2+\frac{1}{2}[\xi_1, \xi_2] +\ldots
+    \]
+    where again, everything is understood pointwise. If we choose \(\xi_i\) such that \(||\xi_i||_k\) is sufficiently small, by lemma \ref{Sobolev_lemma}, we know that \(||\xi_k||_\infty\) will be small as well. In particular, we can make \(||\xi_i(p)||_\infty\) as small as we want. Now, \(G\) is a Lie group, and the exponential we are using pointwise is that of \(G\). We know from the general theory of Lie groups that the BCH series converges for sufficiently small elements in the Lie algebra. By taking \(||\xi_i||_k\) sufficiently small, we see that the series converges absolutely in \(W^{k+1}(M; \mathrm{ad}(P))\) and \(f\) is smooth. Therefore, since the smooth structure is given by the exponential map, we have
+    \[
+    \phi_1 \ \phi_2 =\exp_{\mathscr{G}_k}(f(\xi_1, \xi_2))=\exp_{\mathscr{G}_k}\big(f((\exp_{\mathscr{G}_k})^{-1}(\phi_1), (\exp_{\mathscr{G}_k})^{-1}(\phi_2))\big)
+    \]
+     so the product is smooth near the identity.  \\
+
+    Keeping the previous notations, we are going to transport the smooth structure by right translation. Since we have already shown that \(\mathscr{G}_k\) is a topological group, we know that there is a neighborhood of \(e\), let us call it \(W\), satisfying \(W^{-1}\cdot W \subset N_k(e)\), and \(W \subset N_k(e)\). In particular, \(e \in W\), which means that for every \(\phi \in \mathscr{G}_k\), \(W(\phi):=W \cdot \phi\) is a neighborhood containing \(\phi\). We may define a chart on \(W\) as follows: given \(\psi\in W\cdot \phi\), there exist \(\vartheta \in W\) such that \(\psi=\vartheta \cdot \phi\). Since \(W \subset N_k(e)\), there exists \(\xi \in W^{k+1}(M;\mathrm{ad}(P))\) such that \(\vartheta = \exp_{\mathscr{G}_k}(\xi)\). Therefore, the map \(W \to V_k(0), \psi \mapsto \xi\) is a homeomorphism. Indeed, it is the composition of two homeomorphisms \((\exp_{\mathscr{G}_k})^{-1}\circ R_{\phi^{-1}}\). To check that these maps actually define charts, we need only check that the corresponding transition maps are smooth. \\
+
+    Let \(\psi \in W(\phi_1) \cap W(\phi_2)\), where \(W(\phi_i)=\phi_i \cdot W\). Applying the construction above, \(\psi\) is in the domain of two charts, and we may write
+    \[
+    \psi=\exp_{\mathscr{G}_k}(\xi_1)\cdot \phi_1 = \exp_{\mathscr{G}_k}(\xi_2)\cdot \phi_2.
+    \]
+    We thus have
+    \[
+    \exp_{\mathscr{G}_k}(\xi_1) = \exp_{\mathscr{G}_k}(\xi_2) \ \phi_2 \ \phi_1^{-1}.
+    \]
+    Now, observe that \(\phi_1 \ \phi_2^{-1}=\exp_{\mathscr{G}_k}(\xi_2)^{-1} \exp_{\mathscr{G}_k}(\xi_1) \in W\), so there is some \(\zeta\in V_k(0)\), which remains fixed, such that \(\phi_1 \ \phi_2^{-1}=\exp_{\mathscr{G}_k}(\zeta)\). Thus, \(\exp_{\mathscr{G}_k}(\xi_1)=\exp_{\mathscr{G}_k}\big(f(\xi_2, \zeta)\big)\), and therefore, \(\xi_1=f(\xi_2, \zeta)\), which is smooth. We have thus shown that the transition functions are smooth.
+
+    Moreover, the product is a smooth map. We have already shown it near the identity, and for the general case, we can repeat the argument using the transported charts. Finally, smoothness of the inversion map follows from remark \ref{Lie_group_inverse_superfluous}. \\
+
+    We conclude that \(\mathscr{G}_k\) is a Hilbert Lie group. Observe that since tangent spaces are isomorphic as vector spaces to the Banach spaces the manifolds are modelled on, we deduce that the lie algebra of \(\mathscr{G}_k\) is isomorphic as a Banach space to \(W^{k+1}(M;\mathrm{ad}(P))\) (see lemma \ref{Lemma_tang_space_to_Banach_manifold}). Observe that the Lie algebra structure on \(W^{k+1}(M; \mathrm{ad}(P))\) is given by the isomorphism.
+\end{proof}
+
+% We want to extend that definition, and consider Sobolev spaces associated to maps between manifolds. Before stating the following lemma, recall that by the Whitney embedding theorem, every \(\ell\)-dimensional manifold can be embedded into \(\R^{2 \ell+1}\). ({\color{red}Me may even assume that \(X\) is embedded isometrically in some \(\R^N\) by Nash's theorem}).
+
+% \Lemma{}{Let \(M\) be a compact manifold, and \(X\) a riemannian manifold. Let \(k \in \N_{\geq 0}\) and \(1 \leq p< \infty\) be such that \(kp>n\). Fix an embedding \(\Phi\colon X \to \R^{2\ell +1}\), and a smooth chart \(\corch{(U_\alpha, \varphi_\alpha)}_{\alpha \in A}\) of \(X\). Then, for every \(u \in \mathscr{C}^0(M; X)\), the following statements are equivalent:
+% \begin{enumerate}
+%     \item \(\phi_\alpha \circ u\in W^{k,p}(u^{-1}(U_\alpha), \R^\ell)\) for all \(\alpha \in A\).
+%     \item \(\Phi \circ u \in W^{k,p}(M; \R^{2\ell+1})\).
+%     %\item \(u=\exp_sV\) for some \(s \in \mathscr{C}^\infty(M;X)\) and \(V \in W^{k,p}(M; s^*TX)\).
+% \end{enumerate}
+% }
+% \begin{proof}
+%     See \parencite[Lemma B.5]{wehrheim2004uhlenbeck}.
+% \end{proof}
+
+% \begin{obs}
+%     \(\hspace{1 pt}\)
+%     \begin{enumerate}
+%         \item In the previous lemma, 
+%         \item Everything is well-defined in the previous lemma {\color{red}completar}.
+%     \end{enumerate}
+% \end{obs}
+
+% Now, the Sobolev space \(W^{k,p}(M;X)\) of maps from \(M\) to \(X\) is defined as the set of continuous maps that satisfy any of the previous equivalent conditions. Consider the case where \(P\) is a fiber bundle with fiber \(X\), and fix a \textit{bundle atlas}, that is, a family of local trivializations \(\corch{(U_\alpha, \pi \times \tau_\alpha)}_{\alpha \in A}\) such that \(M=\cup_{\alpha \in A} U_\alpha\). In a local trivialization, a section \(u \in \Gamma(U_\alpha;P)\) can be composed with \(\tau_\alpha\) to obtain a smooth map \(\tau_\alpha \circ u\colon U_\alpha \to X\). The Sobolev space \(W^{k,p}(M;P)\) is defined as the set of all sections \(u \in \Gamma(M;P)\) such that \(\tau_\alpha \circ u \in W^{k,p}(U_\alpha, X)\) for all \(\alpha\in A\). The topology in \(W^{k,p}(M;X)\) is given by th equivalent characteristics of the following lemma.
+
+% \Lemma{}{
+%     Let \(M\) be compact and let \(k \in \N_{\geq 0}\), \(1 \leq p \leq \infty\) be such that \(kp>n\). Then, for a sequence \((u_i)_{i \in \N}\) and an element \(u \in W^{k,p}(M,X)\), the following are equivalent:
+%     \begin{enumerate}
+%         \item \(u_i \to u\) in the \(\mathscr{C}^0\)-topology and \(\phi_\alpha \circ u_i\) converges to \(\phi_\alpha \circ u\) with respect to the \(W^{k,p}\)-norm for all \(\alpha \in A\).
+%         \item \(\Phi \circ u_i\) converges to \(\Phi \circ u\) with respect to the \(W^{k,p}\)-norm.
+%     \end{enumerate}
+% }
+% \begin{proof}
+%     See \parencite[Lemma B.7]{wehrheim2004uhlenbeck}.
+% \end{proof}
+
+% \begin{obs} \(\hspace{1 pt}\)
+%     \begin{enumerate}
+%         \item Observe that \(W^{k,p}(M;P)\) is not defined itself by Banach-completing another vector space. This contrast with the Sobolev spaces we defined for vector bundles. This conceptual difference is due to the fact that \(\Gamma(M;E)\) is a vector space (the vector space structure is given by adding sections and multiplying them by constants pointwise), whereas \(\Gamma(M; P)\) is generally \textit{not}a vector space.
+%         \item When \(X=G\) is a Lie group, the third condition of lemma ref can be reformulated as \(u=s\cdot \exp \xi\) for some \(s \in \mathscr{C}^\infty(M;G)\) and \(\xi \in W^{k,p}(M, \mathfrak{g})\) (with \(\xi=s^{-1}V\)). This means that \(W^{k,p}(M; G)\) is a Banach manifold modeled on \(W^{k,p}(M; \mathfrak{g})\).
+%     \end{enumerate}
+% \end{obs}
+
+% We have now introduced everything needed to treat \(\mathcal{G}\) as a Banach manifold. Due to proposition {\color{red}ref}, we know that \(\mathcal{G} \cong \Gamma(M; \mathrm{Ad}(P))\). Since we will only consider the case where \(M\) and \(G\) are both compact, we make these assumptions from now on. Let \(k \in \N_{\geq 0}\) and \(1 \leq p < \infty\) be such that \(kp>n\). We define the Sobolev space of gauge transformations as
+% \[
+% \mathcal{G}^{k,p}(P):=W^{k,p}(M, \mathrm{Ad(P)}).
+% \]
+
+% \Theorem{}{Under the previous hypothesis, \(\mathcal{G}^{k,p}(P)\) is a Banach Lie group modelled on \(W^{k,p}(M; \mathrm{ad}(\mathfrak{g}))\).}
+% \begin{proof}
+%     {\color{red} Hay que dar cartas y probar que la multiplicación y la inversión son diferenciables y decir que topología tiene??.}
+% \end{proof}
+
+% In general, one chooses \(p=2\) and works with \(\mathcal{G}^{2,p}(P)\), because in this case we actually have a Hilbert-manifold.
+
+% \begin{obs} \(\hspace{1 pt}\)
+%     \begin{enumerate}
+%         \item When \(p=2\), \(H^p(P):=W^{k,2}(P)\) is actually a Hilbert manifold. The condition then becomes \(k>\frac{1}{2}\cdot  \dim M\), which is sometimes seen in the literature.
+%         \item Since \(\mathrm{ad}(\mathfrak{g})\) is indeed a vector bundle, \(W^{k,p}(M; \mathrm{ad}(\mathfrak{g}))\) is a Banach space, and that is the space used to define charts for \(\mathcal{G}^{k,p}(P)\).
+%         \item The "problem" that forces us to rely on such a technical construction is that \(\mathcal{G}\) is not a vector space, so we cannot just define a norm and complete it. 
+%     \end{enumerate}
+% \end{obs}
+
+\subsection{The Lie algebra of \(\mathcal{G}\)}
+{\color{red}In the previous section, we have given \(\mathscr{G}_k\) the structure of a Hilbert-Lie group. Moreover, under the idenitification \(\mathcal{G} \equiv \Gamma(M; \mathrm{Ad}(P))\), we can see \(\mathcal{G}\) as a subset (in fact, a subgroup) of \(\mathscr{G}_k\). Similarly, we can see \(\Gamma(M; \mathrm{ad}(P))\) as a subalgebra of \(\mathrm{Lie}(\mathscr{G}_k)\). In fact, if we pick \(\xi \in \Gamma(M, \mathrm{ad}(P))\), it is a smooth section, and if we consider \(\exp_{\mathscr{G}_k}(\xi)\), it is the composition of smooth maps, hence smooth, and it is an element of \(\Gamma(M; \mathrm{Ad}(P))=\mathcal{G}\). Thus, the exponential map sends \(\Gamma(M; \mathrm{ad}(P))\), so we can agree to call this algebra the Lie algebra of \(\mathcal{G}\), and denote \(\mathrm{Lie}(\mathcal{G}):=\Gamma(M; \mathrm{ad}(P))\).} \\
+
+Our objective in this section is to see that there is a Lie algebra isomorphism
+\[
+\mathrm{Lie}(\mathcal{G})\cong \mathfrak{G}:=\corch{X \in \mathfrak{X}(P): (\phi_g)_*X=X \ \ \forall \ g \in G, \  \text{and} \ \ X \  \text{ is vertical}  },
+\]
+where \(\phi\colon G \times P \to P\) is the right action. The latter is a Lie algebra when it is endowed with the Lie bracket in \(\mathfrak{X}(P)\) (although we must show that it is invariant under that Lie bracket). Observe that the first set is composed of vector fields \textit{defined on} \(P\), and the algebra structure we endow them with is that inherited from the Lie bracket in \(\mathfrak{X}(P)\). On the other hand, \(\Gamma(M; \mathrm{ad}(P))\) has a natural Lie algebra structure defined pointwise using the Lie bracket of \(\mathfrak{g}\). More precisely, if \(s_1, s_2 \in \Gamma(M; \mathrm{ad}(P))\), then \([s_1, s_2]\) is the section defined pointwise by
+\[
+[s_1, s_2](p):=\big[\ p, [s_1(p), s_2(p) ] \ \big].
+\]
+This is well-defined. 
+
+\Lemma{}{Let \(P(M,G)\) be a principal \(G\)-bundle over a manifold \(M\). Then, \((\mathfrak{G}, [\cdot, \cdot])\) is a Lie subalgebra of \((\mathfrak{X}(P), [\cdot, \cdot ]).\) \(\hfill\) \({\color{blue} \bigstar}\) 
+}
+\begin{proof}
+    Recall that vertical vector fields are those lying on the vertical bundle. Moreover, \(G\)-invariant vector fields form a vector space, so it is obvious that \(\mathfrak{G}\) is a vector space. To check that it is a subalgebra, recall that the Lie bracket of \(G\)-invariant vector fields is again \(G\)-invariant (\((\phi_g)_*[X_1, X_2]=[(\phi_g)_*X_1, (\phi_g)_*X_2]\)), so we need only check that the bracket of vertical vector fields is vertical again. Observe that \(X \in \mathfrak{X}(P)\) is vertical if and only if \(\diff_p\pi(X_p)=X_p(\pi)=0\) for every \(p \in P\), that is, \(X(\pi) \equiv 0\). Thus, let \(X,Y \in \mathfrak{X}(P)\) be vertical vector fields. Therefore:
+    \[
+    \diff_p\pi([X,Y]_p)=[X,Y]_p(\pi)=X_p(Y(\pi))-Y_p(X(\pi))=0,
+    \]
+    as we wanted to show. We thus conclude that \((\mathfrak{G}, [\cdot, \cdot])\) is a Lie algebra.
+\end{proof}
+
+We can finally proof the desired result.
+
+\Proposition{}{Let \(M\) be a smooth manifold, and \(P(M,G)\) a principal \(G\)-bundle over \(M\). Let \(\mathfrak{G}\) be the Lie algebra defined as above. Then, \((\mathfrak{G}, [\cdot, \cdot]) \cong (\mathrm{Lie}(\mathcal{G}), [\cdot, \cdot])\). \hfill \({\color{blue} \bigstar}\)}
+\begin{proof}
+    We will use an intermediate Lie algebra that is isomorphic to both of them. First, observe that every \(X \in \Gamma(\mathrm{ad}(P))\) is a map \(M \to P \times_G \mathfrak{g}, m \mapsto [p, X_p]\), where \(\pi(p)=m\), and \(X_p \in \mathfrak{g}\). By definition of the \(\mathrm{ad}(P)\)-bundle, \([p, X_p]=[p\cdot g, \Ad{g^{-1}}(X_p)]\). Thus, we can identify each section with a smooth map \(\xi\colon P \to \mathfrak{g}\) satisfying \(\xi(p\cdot g)=\Ad{g^{-1}}(\xi(p))\). The set
+    \[
+    \mathtt{G}:=\corch{\xi \in \mathscr{C}^\infty(P, \mathfrak{g}): \xi(p\cdot g)=\Ad{g^{-1}}(\xi(p))}
+    \]
+    is a Lie algebra under pointwise bracket, and it is isomorphic to \((\Gamma(\mathrm{ad}(P)), [\cdot, \cdot])\). Indeed, let \(X \in \Gamma(\mathrm{ad}(P))\), we define \(\xi(p):=X_p\), where \(X(m)=[p, X_p]\) (more precisely, \(\xi(p)=q_p^{-1}(X(m))\), see remark \ref{def_q_p}). It is clear that \(\xi(p \cdot g)=\Ad{g^{-1}}(\xi(p))\) due to the relation that defines \(\mathrm{ad}(P)\). Moreover, \(\xi\) is smooth. This can be seen by choosing a trivialization (see equation \ref{trivialization_associated_bundle} for the explicit form). We find, in the appropriate open sets, \(\xi=\Ad{s_U} \circ \mathrm{pr}_{\mathfrak{g}} \circ \Phi \circ X \circ \pi\), which is a composition of smooth maps. It helps to visualize it with a commutative diagram:
+    \begin{center}
+    \begin{tikzcd}[row sep=normal, column sep=normal, text height=1ex, text depth=1ex, ampersand replacement=\&]
+            U \subset M \arrow[r, "{\displaystyle X}"]  \& \pi_G^{-1}(U) \subset P\times \mathfrak{g} \arrow[r, "{\displaystyle \Phi}"]\& U \times \mathfrak{g} \arrow[r, "{\displaystyle \mathrm{pr}_{\mathfrak{g}}}"] \& \mathfrak{g}  \\ 
+            \\
+            \pi^{-1}(U) \subset P \arrow[uu, "{\displaystyle \pi}"] \arrow[uurrr, "{\displaystyle \Ad{s_U^{-1} \circ \xi}}", '] 
+    \end{tikzcd} 
+    \end{center}
+    Since the Lie bracket in \(\Gamma(M, \mathrm{ad}(P))\) is defined pointwise in the second coordinate, the map sending \(X \to \xi\) is a Lie algebra homomorphism. Reciprocally, given \(\xi\in \mathscr{C}^\infty(P; \mathfrak{g})\), we define \(X\in \Gamma(M; \mathrm{ad(P)})\) by setting \(X(m)=[p, \xi(p)]\) for any \(p \in \pi^{-1}(m)\). This is well-defined, and it is smooth because the following diagram is commutative
+    \begin{center}
+    \begin{tikzcd}[row sep=normal, column sep=normal, text height=1ex, text depth=1ex, ampersand replacement=\&]
+            P \arrow[r, "{\displaystyle \mathrm{id}_P \times \xi}"] \arrow[d, "{\displaystyle \pi}", '] \& P\times \mathfrak{g} \arrow[d, "{\displaystyle q}"]  \\
+             M  \arrow[r, "{\displaystyle X}"]\& P\times_G\mathfrak{g} 
+    \end{tikzcd} 
+    \end{center}
+    and we can use with \(\pi\) the characteristic property of surjective smooth surjections: \(X \circ \pi= q \circ (\mathrm{id}_P \times \xi), \) the latter being smooth. Finally, it is clear that these morphisms are inverses of each other. \\  
+    
+    Let us see that \((\mathtt{G}, [\cdot, \cdot])\cong (\mathfrak{G}, [\cdot, \cdot])\). To do so, recall the definition of the Killing vector field associated to an element of a Lie algebra (equation \ref{def_Killing}). We define \(\sigma\colon \mathtt{G} \to \mathfrak{G}, \xi \to \sigma(\xi)\) as follows
+    \[
+    \sigma(\xi)_p:=X_{\xi(p)}=\left.\frac{\diff}{\diff t} \right|_{t=0} p \cdot \exp(t \cdot \xi(p)). 
+    \]
+    Then, {\color{red} \(\sigma\) is a Lie algebra isomorphism}. The vector field \(\sigma(\xi)\) is vertical because \(\pi\) is constant on \(G\)-orbits and
+    \[
+    \diff_p\pi (\sigma(\xi)_p)=\diff_p\pi \parent{\left.\frac{\diff}{\diff t} \right|_{t=0} p \cdot \exp(t \cdot \xi(p))} =\left.\frac{\diff}{\diff t}  \right|_{t=0} \pi \big(p \cdot \exp(t \cdot \xi(p)) \big) = 0.
+    \]
+    Moreover, \((\phi_g)_*\sigma(\xi)=\sigma(\xi)\). Certainly,
+    \begin{align*}
+        \diff_p\phi_g\parent{\sigma(\xi)_p} & = \diff_p \phi_g \parent{\left.\frac{\diff}{\diff t} \right|_{t=0} p \cdot \exp(t \cdot \xi(p))} = \left.\frac{\diff}{\diff t} \right|_{t=0} p \cdot \exp(t \cdot \xi(p)) \ g
+        =\left.\frac{\diff}{\diff t} \right|_{t=0} p \cdot \exp(t \cdot \xi(p\cdot g\ g^{-1})) \\
+        & = \left.\frac{\diff}{\diff t} \right|_{t=0} p \cdot \exp(t \cdot \Ad{g}\xi(p)) \ g = \left.\frac{\diff}{\diff t} \right|_{t=0} p \cdot g \ \exp(t \cdot \xi(p\cdot g)) \ g^{-1} \ g \\
+        & = \left.\frac{\diff}{\diff t} \right|_{t=0} (p\cdot g) \cdot \exp(t \cdot \xi(p\cdot g)) \\
+        & = \sigma(\xi)_{p \cdot g}.
+    \end{align*}
+    Thus, \(\sigma(\xi) \in \mathfrak{G}\). Moreover, \(\sigma\) is a Lie algebra homomorphism. {\color{red} A partir de aquí no lo tengo nada claro, revisar} To justify that, let us first observe that, for each \(p_0 \in P\), the restriction \(\sigma(\xi)|_{p_0 \cdot G}\) is a vector field on \(p_0 \cdot G\) (because \(\sigma(\xi)\) is vertical). Moreover,
+    \begin{align*}
+        \sigma(\xi)_{p_0 \cdot g} & = \left.\frac{\diff}{\diff t} \right|_{t=0} (p_0\cdot g) \cdot \exp(t \cdot \xi(p_0 \cdot g)) = \left.\frac{\diff}{\diff t} \right|_{t=0} (p\cdot g) \cdot \exp(t \cdot \Ad{g^{-1}}\xi(p_0)) \\
+        & =\left.\frac{\diff}{\diff t} \right|_{t=0} p_0\cdot \parent{g \ g^{-1} \cdot \exp(t \cdot \xi(p_0))\ g}= \left.\frac{\diff}{\diff t} \right|_{t=0} p_0 \cdot \exp(t \cdot \xi(p_0))\ g.
+    \end{align*}
+    Let \(\phi^{(p_0)}\colon G \to P, g \mapsto p_0 \cdot g\), and observe that, since \(\xi(p_0)\in \mathfrak{g}\), it is left-invariant, hence,
+    \[
+    \left.\frac{\diff}{\diff t} \right|_{t=0} \exp(t \cdot \xi(p_0)) \cdot g = \diff_e L_g (\xi(p_0)_e)=\xi(p_0)_g
+    \] 
+    where we used that \(\gamma=\exp(t\cdot \xi(p_0))\) is a smooth curve on \(G\) satisfying \(\gamma(0)=e\) and \(\gamma'(0)=\xi(p_0)_e\) (see \parencite[Cor. 3.25]{lee_introSM}). This implies that \(\sigma(\xi)_{p_0 \cdot g}=\diff_g\phi^{(p_0)}(\xi(p_0)_g)\), and therefore, \(\xi(p_0)\) and \(\sigma(\xi)|_{p_0 \cdot G}\) are \(\phi^{(p_0)}\)-related. Now, since \(p_0\cdot G\) is an embedded submanifold of \(P\), and \(\sigma(\xi)\) and \(\sigma(\eta)\) are tangent to that submanifold, \([\sigma(\xi), \sigma(\eta)]\) is tangent as well, and \([\sigma(\xi), \sigma(\eta)]_{p_0 \cdot g} = [\sigma(\xi)|_{p_0 \cdot G}, \sigma(\eta)|_{p_0 \cdot G}]_{p_0\cdot g}\). Therefore,
+    \begin{align*}
+    [\sigma(\xi), \sigma(\eta)]_{p_0 \cdot g} &= [\sigma(\xi)|_{p_0 \cdot G}, \sigma(\eta)|_{p_0 \cdot G}]_{p_0\cdot g} =[\phi^{(p_0)}_*(\xi(p_0)), \phi^{(p_0)}_*(\eta(p_0))]_{p_0 \cdot g}  \\
+    &= \phi^{(p_0)}_* \big([\xi(p_0), \eta(p_0)]\big)_{p_0 \cdot g}=\diff_{g}\phi^{(p_0)}\big([\xi, \eta](p_0)\big) = \sigma([\xi, \eta])_{p_0\cdot g}.
+    \end{align*}
+    We conclude by observing that \(P\) is the union of \(G\)-orbits. \\
+
+    To obtain an inverse, given \(X \in \mathfrak{G}\), each \(X_p\) is a vertical, and \(\diff_e\phi^{(p)}\colon \mathfrak{g} \to V_pP \subset T_pP\) is a vector space isomorphism. Hence, for every \(G\)-invariant vector field, we may define \(\xi(p):=\parent{\diff_e\phi^{(p)}}^{-1}(X_p)\). This defines a smooth map \(\xi\colon P \to \mathfrak{g}\). Similar arguments to the ones already given show that \(\xi\) is smooth and well-defined, and this map is again a lie algebra homomorphism that is the inverse of \(\sigma\).
+\end{proof}
+
+% \begin{obs}
+%     Before going on, let us comment on the actual meaning of \(\mathrm{Lie}(\mathcal{G})\). We have seen that to consider \(\mathcal{G}\) as a Banach Lie group, we have to first consider the isomorphism \(\mathcal{G} \cong \Gamma(M; \mathrm{Ad}(P))\) (recall that the latter is a group under pointwise multiplication). Then, we see it as a subset (?) of \(W^{k,p}(M; \mathrm{Ad}(P))=\mathcal{G}^{k,p}(P)\) and this one is a Banach Lie group. Thus, \(\mathrm{Lie}(\mathcal{G}):=\mathrm{Lie}(\mathcal{G}^{k,p}(P))\), and this is perfectly defined according to the theory of Banach Lie groups.
+% \end{obs}
+
+% Finally, \(\mathcal{G}\) is a Banach-Lie group modelled on \(W^{k,p}(M; \mathrm{ad}(P))\), so its Lie algebra is isomorphic to the latter. {\color{red}??}

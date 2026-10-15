@@ -1,0 +1,283 @@
+\chapter{Connections on vector bundles} \label{section_connections_vector_bundles}
+In this chapter, we sketch the theory of connections over complex vector bundles. The notion of a connection itself is familiar from riemannian geometry, and the definition can be adapted to abstract vector bundles with minor modifications. We also define the curvature of a connection from different points of view. The first definition we give should be familiar from riemannian geometry, but we will introduce a new way to think about curvatures as \(\mathrm{End}(E)\)-valued forms. Once these basic concepts are introduced, we present the Chern connection; a connection that is simultaneously compatible with a hermitian inner product and the complex structure. We also define the First Real Chern class.
+
+\Definition{}{Let \(\pi \colon E \to M\) be a smooth complex vector bundle of rank \(r\) over a smooth manifold \(M\). A \textit{connection}\index{Connection!on a vector bundle} on \(E\) is a map \label{def_connection}
+\[
+\begin{array}{cccc}
+    \nabla \colon & \Gamma(T_\C M) \times \Gamma(E) & \longrightarrow & \Gamma(E) \\
+    &\ \ \ \ \ \ \ \ (X, \sigma) & \mapsto & \nabla_X \sigma  
+\end{array}
+\]
+satisfying the following properties:
+\begin{enumerate}
+    \item \(\nabla\) is \(\mathscr{C}^\infty(M, \C)\)-linear on its first component.
+    \item For every \(f \in \mathscr{C}^\infty(M;\C)\), and \(\sigma \in \Gamma(E)\),
+    \[
+    \nabla_X (f \cdot \sigma) = X(f) \cdot \sigma + f \cdot \nabla_X \sigma.
+    \]
+\end{enumerate} 
+}
+The expression \(\nabla_X \sigma\) is usually called the \textit{covariant derivative of \(\sigma\) in the direction of \(X\)}\index{Covariant derivative}. One can show that \((\nabla_X \sigma)_p\) for \(p \in M\) depends only on the value of \(X\) at \(p\) and the value of \(\sigma\) in an arbitrarily small neighborhood of \(p\), so for any open subset \(U \subset M\), restriction of the connection defines a connection on the restriction of the bundle \(E|_U\) (which is a smooth manifold of its own). See \parencite[Prop. 4.3]{lee_introRM} for a proof for connections on the real tangent bundle of a manifold, which applies almost verbatim to this case. \\
+
+Sometimes, one is given the following definition of a connection:
+
+\Definition{}{Let \(\pi \colon E \to M\), a \textit{connection} on \(E\) is a \(\C\)-linear map \(\nabla\colon \Gamma(E) \to \Gamma(T^*_\C M \otimes E)\) such that for every \(f \in \mathscr{C}^\infty(M;\C)\), \(\sigma \in \Gamma(E)\), we have \label{def_tot_cov_der}
+\begin{equation} \label{def_connection_eq}
+\nabla (f \cdot \sigma)=\diff f \otimes \sigma+f \cdot \nabla \sigma
+\end{equation}
+}
+
+The last definition is sometimes called a \textit{total covariant derivative}\index{Total covariant derivative}. Observe that a connection in the sense of definition \ref{def_connection} induces a total covariant derivative: for any \(\sigma \in \Gamma(E)\), we define \(\nabla \sigma \in \Gamma(T^*M \otimes E)\) to be the section such that \(\nabla\sigma(X)=\nabla_X \sigma\) (we are using here the vector bundle isomorphism \(T^*_\C M \otimes E \cong \mathrm{Hom}(T_\C M , E)\)). Reciprocally, a total covariant derivative induces a connection by simply defining \((X, \sigma) \mapsto \nabla\sigma (X)=:\nabla_X \sigma\). By an abuse of notation, we will refer to both constructions by the name connection. When we consider real vector bundles, we may still define connections analogously (we do not consider the complexified tangent and cotangent bundles in that case). Moreover, observe that \(\Omega_\C^1(M;E) \cong \Gamma(\bigwedge ^1T^*_\C M \otimes E)=\Gamma(T^*_\C M \otimes E)\), hence a connection is a map \(\nabla \colon \Omega_\C^0(M;E) \to \Omega_\C^1(M;E)\) satisfying the ``Leibniz rule'' of definition \ref{def_tot_cov_der}. This is the definition one can find in \parencite{huybrechts2005complex} and \parencite{kobayashi_complex_vector_bundles}.
+
+\begin{obs}[\textbf{Coordinate expression of connections}] \label{coordinate_exp_connection}
+    Consider a local frame \((s_1, \ldots s_r)\) of a complex vector bundle \(E\) defined on some open set \(U \subset M\). For each \(1 \leq j \leq r\), \(\nabla s_j \in \Omega_\C^1(E)\), and hence it may be written as
+    \begin{equation} \label{def_connection_1_form}
+    \nabla s_j = \omega^i_j \otimes s_i
+    \end{equation}
+    for some \(\omega^i_j \in \Omega_\C^1(M)\) that are called \textit{connection one-forms}. If we consider a section \(\xi=\xi^j\cdot  s_j \in \Gamma(E)\), then the coordinate expression of its image is
+    \[
+    \nabla \xi = \nabla(\xi^j s_j) = \diff \xi^j \otimes s_j + \xi^j \cdot  \nabla s_j = \parent{\diff \xi^k + \xi^j \cdot \omega^k_j} \otimes s_k.
+    \]
+
+    Moreover, if we choose another local frame \((\tilde{s}_1, \ldots \tilde{s}_r)\) whose domain of definition overlaps with that of \((s_1, \ldots s_r)\), proposition \ref{prop_change_of_coordintes_frames} claims that there are smooth functions \(\tau^\ell_m\) such that \(\tilde{s}_k=\tau^j_k \cdot s_j\). Then, a straightforward calculation (see \parencite[Page 195]{lee_introCM}) shows that the connection one-forms with respect to the new frame relate to the original ones by
+    \begin{eqnarray}\label{eq_transf_connection_one_form}
+        \tilde{\omega}=(\tau^{-1})^p_j\cdot \diff \tau^j_k + (\tau^{-1})^p_\ell \cdot \tau^j_k \cdot \omega^\ell_j.
+    \end{eqnarray}
+\end{obs}
+
+\section{Curvature of a connection}
+Every connection has an associated curvature form. One may find this object introduced in different equivalent ways in the literature. Some texts (\parencite{kobayashi_complex_vector_bundles} for instance) define the curvature by \(\nabla \circ \nabla\). If we take this expression and definition \ref{def_connection} literally, it does not make sense. Indeed, \(\nabla\) is not an endomorphism; it can not be composed with itself. To give this definition properly, one has to extend \(\nabla\) to a family of operators \(\diff_\nabla \colon \Omega_\C^p(M;E)\to \Omega_\C^{p+1}(M,E)\). This is done in theorem \ref{Th_ext_cov_der} bellow. However, it is quite useful to see the curvature as an \(\mathrm{End}(E)\)-valued two-form, and that is not immediate from the definition \(\diff_\nabla\circ \diff_\nabla\). To see the curvature that way, let us work with reference frames. Let \((s_1, \ldots s_r)\) be a smooth local frame for \(E\). Define the \textit{curvature two forms}\index{Curvature two forms (vector bundles)} by 
+\begin{equation} \label{def_curv2_forms}
+\Omega^k_j:=\diff \omega^k_j+ \omega^k_\ell\wedge \omega^\ell_j.
+\end{equation}
+Then, we define, locally, the curvature as
+\begin{equation} \label{F_nabla_curv}
+    F_\nabla = \Omega^k_j \otimes s_k \otimes t^j,
+\end{equation}
+where \((t^1, \ldots t^r)\) is the dual frame to \((s_1, \ldots s_r)\). Since \(E \otimes E^*\cong \mathrm{End}(E)\), we may see \(F_\nabla\) as a (locally defined) \(\mathrm{End}(E)\)-valued two-form. However, if we choose another frame, and we use the transformation equation given by \eqref{eq_transf_connection_one_form}, a straightforward (but calculations) shows that \(F_\nabla=\tilde{\Omega}^k_j\otimes \tilde{s}_k\otimes \tilde{t}^j\). Hence, equation \eqref{F_nabla_curv} defines \(F_\nabla\) globally. We can now see how this relates to the operators \(\diff_\nabla\). 
+
+\Theorem{\textbf{The Exterior Covariant Derivative}}{Let \(M\) be a complex manifold, and \(\pi\colon E \to M\) be a smooth complex vector bundle over \(M\). Let \(\nabla\) be a connection on \(E\). Then, there are unique operators called \textit{exterior covariant derivatives}\index{Covariant derivatives!exterior} \(\diff_\nabla \colon \Omega_\C^q(M;E) \to \Omega_{\C}^{q+1}(M;E)\) for each \(q \geq 0\), satisfying: \label{Th_ext_cov_der}
+\begin{enumerate}
+    \item For every \(\sigma \in \Gamma(E)=\Omega_\C^0(M;E)\), \(\diff_\nabla \sigma=\nabla \sigma\).
+    \item For every \(\alpha \in \Omega_\C^q(M)\) and \(\beta \in \Omega_\C^p(M;E)\), 
+    \[
+    \diff_\nabla (\alpha \wedge \beta)= \diff \alpha \wedge \beta + (-1)^q \alpha \wedge \diff_\nabla \beta.
+    \]
+    \item For every \(\alpha \in \Omega_\C^p(M;E)\), \(\diff_\nabla^2 \alpha = F_\nabla \wedge \alpha \in \Omega_\C^{p+2}(M;E)\).
+\end{enumerate}
+}
+\begin{proof}
+    We define \(\diff_\nabla\sigma=\nabla \sigma\) for every \(\sigma \in \Gamma(E)\) and for higher degree forms, we consider \((s_1, \ldots s_r)\)  a local reference, and let \(\alpha \in \Omega_\C^q(M;E)\) whose local expression is given by \(\alpha = \alpha ^j \otimes s_j\). We define \(\diff_\nabla \alpha:=\diff \alpha^j \otimes s_j + (-1)^q \alpha ^j \wedge \diff_\nabla s_j \). One then checks that this is well-defined and independent of the local frame. See \parencite[Prop. 7.11]{lee_introCM} for details.
+\end{proof}
+
+Some sources then define the curvature of the connection to be the map \(\diff_\nabla^2 \colon \Gamma(E) \to \Omega_\C^2(M;E)\). It is common to find the notation \(F_\nabla=\nabla \circ \nabla\), which is a slight abuse of notation that comes from using the symbol \(\nabla\) to refer to all maps \(\diff_\nabla\). Observe that for sections \(\xi \in \Gamma(M;E)\), our definition of the wedge product means that we can write \(\diff_\nabla^2(\xi)=F_\nabla(\xi)\). \\
+
+
+\section{Induced connections} \label{sec_induced_connections}
+Connections on vector bundles give rise to connections in other vector bundles, provided these are constructed using the ones we originally had. We will be concerned with 3 cases:
+\begin{enumerate}
+    \item Let \(E\) and \(F\) be two vector bundles over a smoth manifold, endowed with connections \(\nabla^E\) and \(\nabla^F\). Then, we may define a connection in \(E \times F\) by extending by linearity the following expression
+    \begin{equation} \label{def_connection_product}
+    \parent{\nabla^E \otimes \nabla^F}(\xi \otimes \eta)=\nabla^E \xi \otimes \eta + \xi \otimes \nabla^F \eta,
+    \end{equation}
+    as a direct computation shows.
+    \item Let \(\nabla\) be a connection on \(E\), then, it induces a connection on \(E^*\) as follows. There is a unique connection \(\nabla^*\) on \(E^*\) such that for every \(t \in \Gamma(E^*)\), and \(\xi \in \Gamma(E)\), 
+    \begin{equation} \label{def_connection_dual}
+        \big[\nabla^*(t) \big](\xi) = \diff (t (\xi)) - t(\nabla \xi),
+    \end{equation}
+    where \(t(\alpha \otimes s):=t(s) \cdot \alpha\). Combining this with the previous item, we get an induced connection in \(\mathrm{Hom}(E, F)\cong E^*\otimes F\).
+    \item A connection \(\nabla\) on a complex vector bundle \(E\) induces a connection on \(\bar{E}\) given by \(\overline{\nabla} s:=\overline{\nabla \overline{s}}\). The map \(E \to \bar{E}, s \mapsto \bar{s}\) sends every element to itself, but it is antilinear: \(\overline{\lambda *s}=\overline{\overline{\lambda}\cdot s}=\bar{\lambda} \cdot s\).
+\end{enumerate}
+
+\section{Hermitian inner products}
+Hermitian inner products can be seen as generalizations of Riemannian metrics to arbitrary vector bundles.
+
+\Definition{\textbf{Hermitian fiber metric}}{Let \(\pi \colon E \to M\) a smooth complex vector bundle over a smooth manifold \(M\). A \textit{hermitian fiber metric}\index{Hermitian!fiber metric} \(h\) is an assignment of a hermitian inner product \(h_x\) to each fiber \(E_x\) and such that for every pair of local smooth sections \(\sigma, \tau \in \Gamma(U;E)\), the map \(U \to \C, x \mapsto h_x(\sigma_x, \tau_x)\) is smooth. A vector bundle that is endowed with a hermitian fiber metric is called a \textit{hermitian vector bundle}\index{Hermitian!vector bundle} \label{def_hermitian_fiber_metric}}
+That is, a hermitian fiber metric is just an assignment of a hermitian inner product to each fiber, with the condition that is varies smoothly. Under some abuse of language, we will often call \(h\) an \textit{hermitian inner product}\index{Hermitian!inner product}. We adopt the convention that hermitian inner products are antilinear with respect to their second entry, i.e. \(h(v, \lambda \cdot u)= \bar{\lambda} \cdot h(v,u)\)for \(\lambda \in \C\). Of course, there is analogous idefinition for real vector bundles, where we assign an inner product to each fiber that varies smoothly. Riemannian metrics are examples of inner products in the bundle \(TM\). 
+
+If \(E\) is endowed with a hermitian fiber metric \(h\), we say that a connection is \textit{compatible with the fiber metric}\index{Connection!compatible with the fiber metric}, \textit{compatible with the hermitian inner product} or \textit{unitary}\index{Connection!unitary} if it satisfies the following relation (\(U \subset M\) is some open set)
+\[
+X \big(h(\xi, \eta) \big)=h(\nabla_X \xi, \eta)+h(\xi , \nabla_{\bar{X}} \eta) \hspace{0.75 cm} \text{ for all } \hspace{0.75 cm} X \in \Gamma(U, T_\C M), \ \ \xi, \eta \in \Gamma(U;E).
+\]
+This is equivalent to the following condition
+\begin{equation} \label{def_cond_compatibility}
+\diff h(\xi,\eta)=h(\nabla \xi, \eta) + h(\xi, \nabla \eta).
+\end{equation}
+Let us comment on the terms of equation \eqref{def_cond_compatibility} above. For any pair of smooth sections \(\xi, \eta \in \Gamma(U;E)\), the definition of hermitian fiber metric implies that \(h(\xi,\eta)\) is smooth, hence \(\diff h(\xi, \eta)\) is a smooth one form. On the right-hand side, we have \(h(\nabla \xi, \eta)\) (and a symmetric term). Now, \(\nabla \xi\) is a section of the bundle \(T^*_\C M \otimes E\). The product of a section of \(T^*M \otimes E\) and one of \(E\) through \(h\) is, by definition \(h(\alpha \otimes \xi, \eta):=h(\xi, \eta) \cdot\alpha\), \(h(\xi, \alpha \otimes \eta):=h(\xi,\eta)\cdot\bar{\alpha}\) (this is the conjugation of forms defined in section \ref{sec_Dolbeault_complex}), and it is extended by sesguilinearity to general sections of \(T^*_\C M \otimes E\).
+
+
+% \section{The First Real Chern Class}
+% \Definition{\textbf{First Real Chern Class}}{Let \(\pi\colon E \to M\) be a complex vector bundle over a smooth manifold \(M\), and let \(\nabla\) be a connection. We define the \textit{First Chern form}\index{Chern!form} of \(\nabla\) as 
+% \[
+% c_1(\nabla):=\frac{\ii}{2 \pi}\  \mathrm{tr} \ F_\nabla.
+% \]}
+% In the previous definition, the trace of an element \(\alpha \otimes f \in \Omega_\C^2(M; \mathrm{End}(E))\) is defined as \(\mathrm{tr}(\alpha \otimes f):=\mathrm{tr}(f) \cdot \alpha \in \Omega_\C^2(M)\).
+
+% \Theorem{}{Let \(\pi\colon E \to M\) be a complex vector bundle. Then, \(c_1(\nabla)\) is closed, and the de Rham cohomology class of \(c_1(\nabla)\) in \(H^2_{\mathrm{dR}}(M;\C)\) is independent of the choice of the connection.}
+% \begin{proof}
+%     See \parencite[Th. 7.12]{lee_introCM}.
+% \end{proof}
+
+% The following proposition will be needed to define the first Chern class, and it is what explains the factor \(\ii\) in the definition of the Chern form.
+% \Proposition{}{Let \(\pi\colon E \to M\) be a complex vector bundle over a smooth manifold which is endowed with a hermitian fiber metric. If \(\nabla\) is a metric connection on \(E\), then \(c_1(\nabla)\) is a real \(2\)-form.}
+% \begin{proof}
+%     See \parencite[Prop. 7.13]{lee_introCM}.
+% \end{proof}
+
+% Observe that, in general, \(c_1(\nabla)\) defines an element of \(H^2_{\mathrm{dR}}(M;\C)\). However, the previous proposition shows that whenever \(\nabla\) is compatible with the metric, \(c_1(\nabla)\) is real. Since we may always find a connection compatible with metric (for instance, the Chern connection, see theorem \ref{th_Chern_connection}), we conclude that \(c_1(\nabla)\) defines (for \textit{any connection}) an element of the real De Rham cohomology group \(H^2_{\mathrm{dR}}(M;\R)\) (which we may see as the subspace of \(H^2_{\mathrm{dR}}(M;\C)\) of cohomology classes invariant under conjugation, see section \ref{sec_Dolbeault_complex}). 
+
+
+% \section{The Chern connection}
+% Let \(\pi\colon E \to M\) be a holomorphic vector bundle over a complex manifold \(M\). Recall that in this case, there exists a Cauchy-Riemann operator \(\overline \partial_E\colon \Omega_\C^{(p,q)}(M;E) \to \Omega_\C^{(p,q+1)}(M;E)\) (see proposition \ref{Cauchy_Riemann_operator}). Since any connection \(\nabla\) can be seen as a map \(\nabla\colon \Omega_\C^0(M;E)\to \Omega_\C^1(M;E)\), and there is a direct sum decomposition, \(\Omega^1_\C(M;E)=\Omega^{(0,1)}_\C(M;E)\oplus \Omega_\C^{(1,0)}(M;E)\), we can split the connection into two components 
+% \[
+% \nabla^{(1,0)}\colon \Omega_\C^0 (M;E) \to \Omega_\C^{(1,0)}(M;E) \hspace{1.5 cm}
+% \nabla^{(0,1)}\colon \Omega_\C^0(M;E)\to \Omega_\C^{(0,1)}(M;E),
+% \]
+% and therefore we may write \(\nabla=\nabla^{(1,0)}+\nabla^{(0,1)}\). This is just the composition of \(\Pi^{(1,0)}\) and \(\Pi^{(0,1)}\) with \(\nabla\) (extending each projection to \(T_\C^*M \otimes E\)).
+
+% \begin{obs} \label{nabla01_is_Dolbeault_operator}
+%     Since \(\nabla\) is a connection, it satisfies its "Leibniz rule", and so \(\nabla(f\cdot s)=\diff  f \otimes s+f\cdot \nabla s\). Since \(\diff=\partial + \barpartial\), after decomposition, we find, for all \(f \in \mathscr{C}^\infty(M;\C)\) and \(s \in \Omega_\C^{0}(M;E)\)
+%     \[
+%     \nabla^{(0,1)}(f\cdot s)= \barpartial f \otimes s+f\cdot \nabla^{(0,1)} s.
+%     \]
+%     This is the same relation satisfied by \(\overline{\partial}_E\) (see \eqref{prop_operador_cauchy_riemann}). This motivates the following definition.
+% \end{obs}
+
+% \Definition{\textbf{Compatible connection}}{A connection \(\nabla\) on a holomorphic vector bundle \(\pi\colon E \to M\) is \textit{compatible with the holomorphic structure} if \(\nabla^{(0,1)}=\barpartial_E\)}
+
+% Every holomorphic vector bundle with a hermitian fiber metric admits a connection that is compatible with the holomorphic structure and the hermitian fiber metric simultaneously.
+
+% \Theorem{\textbf{Existence of the Chern connection}}{Let \(\pi\colon E \to M\) be a holomorphic vector bundle over a complex manifold \(M\). There is a unique connection, called the \textit{Chern connection}\index{Chern!connection} that is compatible with the metric and the holomorphic structure. \label{th_Chern_connection}}
+% \begin{proof}
+%     See \parencite{lee_introCM}. The strategy is to show that the connection one-forms of any such connection with respect to a holomorphic frame are \(\omega_j^m=h^{km} \partial h_{jk}\), which shows uniqueness and can be used to prove the existence.
+% \end{proof}
+% Observe that this proof is similar to the one given to construct the Levi-Civita connection; there, one writes the Christoffel symbols in terms on the coefficients of the riemannian metric on each local chart. When we work with several connections, we will denote by \(\nabla_H\) the Chern connection. 
+
+% As we anticipated before the previous theorem allows us to define the \textit{First Real Chern class}\index{Chern!class} of \(E\) as \(c_1(E):=[c_1(\nabla)]\in H^2_{\mathrm{dR}}(M;\R)\). This means that, associated to any holomorphic vector bundle, there is a real cohomology class that \textit{does not depend} on the connection chosen, only on the vector bundle itself. \\
+
+% To close this chapter, we will show a very important property satisfied by the curvature of the Chern connection: it is of type \((1,1)\).
+
+% \Proposition{\textbf{Curvature of the Chern connection}}{Let \(M\) be a complex manifold, and \(\pi\colon E \to M\) be a complex vector bundle over \(M\) endowed with a hermitian fiber metric. Let \(\nabla\) be its Chern connection. Then, \(F_{\nabla} \in \Omega_\C^{(1,1)}(M; \mathrm{End}(E))\).}
+% \begin{proof}
+%     From equations \eqref{def_curv2_forms} and \eqref{F_nabla_curv}, we know that, with respect to a local frame, we may write
+%     \[
+%     F_\nabla = (\partial \omega^k_j + \barpartial \omega^k_j + \omega^k_\ell \wedge \omega^\ell_k) \otimes s_k \otimes t^j,
+%     \]
+%     The result follows from the fact that \(\partial \omega^k_j +\omega^k_\ell \wedge \omega^\ell_k=0\). See \parencite[Prop. 7.18]{lee_introCM} for details.
+% \end{proof}
+
+% \section{The Chern correspondence} \label{sec_Chern_correspond}
+% We devote this section to explaining, schematically, the Chern correspondence. Good references for this section are \parencite[Ch. 7]{kobayashi_complex_vector_bundles} and \parencite[Ch. 1]{teleman}. The main statement of the Chern correspondence is that there is a bijection between the set of connections on a complex vector bundle over a complex manifold and the set of Dolbeault operators (or semiconnections), which restricts to a bijection between connections of type \((1,1)\), and integrable Dolbeault operators. 
+
+% \Definition{\textbf{Dolbeault operator}}{Let \(E \to M\) be a complex vector bundle over a complex manifold. A \textit{Dolbeault operator}\index{Dolbeault!operator} or \textit{semiconnection of type \((0,1)\)} on \(E\) is a \(\C\)-linear map
+% \[
+% \barpartial_e \colon \Gamma(M; E) \longrightarrow \Omega_\C^{(0,1)}(M;E)
+% \]
+% satisfying
+% \begin{equation} \label{eq_ext_barpartial_e}
+% \barpartial_e(f \cdot \xi) = \barpartial f \otimes \xi + f \cdot \barpartial_e \xi.
+% \end{equation}
+% We denote \(\mathscr{D}(E)\) (or \(\mathscr{D}\) when the bundle is clear from the context) the set of all Dolbeault operators.
+% }
+% Observe that every Dolbeault operator can be extended to higher order complex differential forms by linear extension of
+% \begin{equation} \label{eq_ext_Dolb_operator}
+% \barpartial_e (\alpha \otimes \xi) = \barpartial \alpha \otimes \xi + (-1)^{p+q} \cdot \alpha \wedge \barpartial_e \xi, \hspace{1 cm} \alpha \in \Omega_\C^{(p,q)}(M), \ \xi \in \Gamma(M; E). 
+% \end{equation}
+
+% \Lemma{}{Let \(E \to M\) be a complex vector bundle over a complex manifold. Then, \(\mathscr{D}(E)\) is an affine space modelled on the vector space \(\Omega_\C^{(0,1)}(\mathrm{End}(E))\). \label{lemma_vect_bund_connections_affine_space}}
+% \begin{proof}
+%     First, fix \(\barpartial_{e}^0 \in \mathscr{D}(E)\), and choose \(\alpha \in \Omega_\C^{(0,1)}(\mathrm{End}(E))\). Let us see that \(\barpartial^0_e + \alpha \in \mathscr{D}(E)\). Observe that given \(\xi \in \Gamma(M;E)\), \(\alpha(\xi)\in \Omega_\C^{(0,1)}(M;E)\), so the sum of \(\barpartial_e^0\) and \(\alpha\) makes sense as an operator. Moreover,
+%     \begin{align*}
+%         \parent{\barpartial_e^0 + \alpha}(f\cdot  \xi) & = \barpartial_e^0(f \cdot \xi) + \alpha(f \cdot \xi) = \barpartial f \otimes \xi + f \cdot \barpartial_e^0 \xi + f \cdot \alpha(\xi) \\
+%         & = \barpartial f \otimes \xi + f \cdot \parent{\barpartial_e^0+\alpha}(\xi).
+%     \end{align*}
+%     Reciprocally, choose another \(\barpartial_e \in \mathscr{D}(E)\). A direct computation shows that \(\barpartial_e^0-\barpartial_e\) is \(\mathscr{C}^\infty(M;\C)\)-linear, so \(\barpartial_e^0-\barpartial_e\in \Omega_\C^{(0,1)}(M;\mathrm{End}(E))\).
+% \end{proof}
+
+% Let \(\bar{\mathscr{A}}(E)\) be the set of all connections on a complex vector bundle over a complex manifold \(E \to M\) (again, we will simply write \(\bar{\mathscr{A}}\) if no confusion arises). Then, we have a map (see \eqref{nabla01_is_Dolbeault_operator}):
+% \[
+% \begin{array}{ccc}
+%     \bar{\mathscr{A}}(E) & \longrightarrow & \mathscr{D}(E) \\
+%     \nabla & \mapsto & \nabla^{(0,1)}.
+% \end{array}
+% \]
+% Suppose now that \(E\) is endowed with a hermitian fiber metric \(h\). This condition will allow us to give an inverse to the map we just defined. Let \(\mathscr{A}(E)\) be the set of all the connections on \(E\) that are compatible with the fiber metric. By applying \(\Pi^{(0,1)}\) to equation \ref{def_cond_compatibility}, we get
+% \[
+% \barpartial h(\xi, \eta) = h\parent{\nabla^{(0,1)}\xi, \eta} + h \parent{\xi, \nabla^{(1,0)}\eta}.
+% \]
+% This is key to define the inverse map. Indeed, we can define \(\mathscr{D}(E) \to \mathscr{A}(E)\) as follows: given a Dolbeault operator \( \barpartial_e\), we define a connection by \(\nabla:=\nabla^{(1,0)}_e + \barpartial_e\), where \(\nabla^{(0,1)}_e\colon \Gamma(M;E) \to \Omega_\C^{(1,0)}(M;E)\) is uniquely determined by
+% \begin{equation} \label{def_nabla_e}
+% \barpartial h(\xi, \eta) = h \parent{\barpartial_e \xi, \eta} + h\parent{\xi, \nabla^{(1,0)}_e \eta}.
+% \end{equation}
+% If the operator \(\nabla_e^{(0,1)}\) exists, it is unique, because any other operator \(\overline{\nabla}_e^{(1,0)}\) satisfying equation \eqref{def_nabla_e} should satisfy \(h\parent{\xi, \nabla_e^{(1,0)}\eta - \overline{\nabla}_e^{(1,0)}\eta}=0\) for every \(\xi, \eta \in \Gamma(M;E)\), thus \(\nabla_e^{(1,0)} =\overline{\nabla}_e^{(1,0)}\). Moreover, equation \eqref{def_nabla_e} implies that 
+% \begin{equation} \label{eq_ext_nabla01}
+% \nabla_e^{(1,0)} (f \cdot \xi) = \partial f \otimes \xi  + f \cdot \nabla_e^{(1,0)} \xi.
+% \end{equation}
+% Indeed, for any \(\eta, \xi \in \Gamma(M;E)\) one has
+% \begin{align*}
+%     h\parent{\xi, \nabla_e^{(1,0)} (f\cdot \eta)} & = \barpartial h(\xi, f\cdot \eta) - h\parent{\nabla^{(0,1)}\xi, f\cdot\eta} = \barpartial \parent{\bar{f}\cdot h(\xi, \eta)} + \bar{f}\cdot h\parent{\nabla^{(0,1)}\xi,\eta} \\
+%     & = \barpartial \bar{f} \cdot h(\xi, \eta) + \bar{f}\cdot \parent{h(\xi, \eta) + h\parent{\nabla^{(0,1)}\xi, \eta}} = \barpartial \bar{f} \cdot h(\xi, \eta) + \bar{f}\cdot h\parent{\xi, \nabla_e^{(1,0)}\eta} \\
+%     & = h\parent{\xi, \partial f \otimes \eta + f\cdot\nabla_e^{(1,0)}\eta}.
+% \end{align*}
+% This implies that \(\nabla\) is a well-defined connection. To check that the so-defined connection \(\nabla\) is compatible with the metric, observe that equation \eqref{def_nabla_e} implies
+% \begin{align*}
+%     \partial h(\xi, \eta) & = \overline{\barpartial \ \overline{h(\xi, \eta)}} = \overline{\barpartial h(\eta, \xi)} = \overline{h\parent{\barpartial_e \eta, \xi} + h\parent{\eta, \nabla_e^{(1,0)}\xi}} = h\parent{\xi, \barpartial_e \eta} + h\parent{\nabla_e^{(1,0)}\xi, \eta}.    
+% \end{align*}
+% Therefore, 
+% \[
+% \diff h(\xi, \eta) = \partial h(\xi, \eta) +  \barpartial h(\xi, \eta) = h\parent{\barpartial_e\xi + \nabla_e^{(1,0)}\xi, \eta} + h\parent{\xi, \barpartial_e \eta + \nabla^{(1,0)}_e \eta}.
+% \]
+%  To see that \(\nabla_e^{(1,0)}\) actually exists, we follow an argument similar to the one given in the proof of theorem \ref{th_Chern_connection}: we choose a local frame \((s_1, \ldots s_r)\) of \(E\) and define the operator on the frame. There exist \((0,1)\)-forms \(\alpha^r_i\) such that \(\barpartial_e s_i=\alpha^r_i \otimes s_r\) (this is analogous to remark \ref{coordinate_exp_connection}). Then, we can define \(\nabla_e^{(1,0)}\) by its action on a local frame \(\nabla_e^{(1,0)} (\xi^i \cdot s_i)=\parent{\partial \xi^i + \xi^j \cdot \omega ^k_j} \otimes s_k  \), where
+%  \[
+%  \omega^k_j := \overline{h^{mi}\cdot \parent{\barpartial h_{ij}-\alpha^r_i \cdot h_{rj}}}.
+%  \]
+%  Finally, observe that \(\nabla_e^{(0,1)}=\barpartial_e\) by definition. We thus have a bijection \(\mathscr{A}(E) \leftrightarrow \mathscr{D}(E)\).\\
+
+%  It is appropriate now to state (without proof) the following result.
+
+%  \Theorem{}{Let \(E \to M\) be a smooth complex vector bundle defined over a complex manifold \(X\). Let \(\barpartial_e\) be a Dolbeault operator satisfying the \textit{integrability condition} \(\barpartial_e \circ \barpartial_e =0\). Then, there is a unique holomorphic structure on \(E\) such that \(\barpartial_e=\barpartial_E\). \label{th_holomorphic_struc_iff_integrable}}
+%  \begin{proof}
+%     See \parencite[I-Prop. 3.7]{kobayashi_complex_vector_bundles}. Observe that by \(\barpartial_e^2=0\) we mean that the composition of \(\barpartial_e\) with its extension to one-forms \eqref{eq_ext_Dolb_operator} vanishes.
+%  \end{proof}
+%  Motivated by this result, let \(\mathscr{H}(E):=\corch{\barpartial_e \in \mathscr{D}(E): \barpartial_e^2=0}\). Observe that each element on \(\mathscr{H}(E)\) defines a holomorphic structure on \(E\). We now ask ourselves which connections correspond to \(\mathscr{H}(E)\) under the Chern correspondence. It turns out that this condition depends on the curvature. By \eqref{eq_decomp_E_forms}, we have a decomposition \(\Omega_\C^2(M;\mathrm{End}(E))=\Omega_\C^{(2,0)}(M; \mathrm{End}(E))\oplus \Omega_\C^{(1,1)}(M; \mathrm{End}(E)) \oplus \Omega_\C^{(0,2)}(M; \mathrm{End}(E))\), hence the curvature of any connection decomposes as \(F_\nabla=F_{\nabla}^{(2,0)}+F_\nabla^{(1,1)}+F_\nabla^{(0,2)}\).
+
+%  \Lemma{}{Let \(E \to M\) be a complex vector bundle, and let \(\nabla\) be a connection on \(E\). Then, \(\barpartial_e:=\nabla^{(0,1)}\) is an integrable Dolbeault operator if and only if \(F_\nabla^{(2,0)}=0\). \label{lemma_integrable_Dolb_operator}} 
+%  \begin{proof}
+%     First, observe that the decomposition of the curvature induces a decomposition of \(\diff_\nabla^2=\diff_\nabla^{(2,0)}+\diff_\nabla^{(1,1)}+\diff_\nabla^{(0,2)}\), where \(\diff_\nabla^{(0,2)}(\alpha)=F_\nabla^{(0,2)}\wedge \alpha\) for any \(\alpha \in \Omega_\C^{(p,q)}(M;E)\). The other operators are defined analogously. On the other hand, \(\nabla=\nabla^{(1,0)}+\barpartial_e\) means that, after extending these operators to act on higher degree forms as in \eqref{eq_ext_barpartial_e} and \eqref{eq_ext_nabla01}, we have
+%     \begin{align*}
+%     \diff_\nabla^2&=(\nabla^{(1,0)}+\barpartial_e) \circ (\nabla^{(1,0)}+\barpartial_e)\\
+%     &=\nabla^{(1,0)}\circ \nabla^{(1,0)} + \parent{\nabla^{(1,0)}\circ \barpartial_e+\barpartial_e\circ \nabla^{(1,0)}} + \barpartial_e \circ \barpartial_e. 
+%     \end{align*}
+%     Applying the projection \(\Pi^{(0,2)}\) to both expressions for \(\diff_\nabla^2\), we get \(\diff_\nabla^{(0,2)}=\barpartial_e^2\), and the result follows.
+%  \end{proof}
+% Observe that \(F_\nabla^{(0,2)}=0\) if and only if \(F_\nabla^{(2,0)}\). This follows from the fact that \(F_\nabla^{(2,0)}(\bar{X}, \bar{Y})=F_\nabla^{(0,2)}(X,Y)\) for all vector fields \(X, Y \in \Gamma(M; T_\C M)\). \\
+
+% Motivated by the previous lemma, we set \(\mathscr{A}^{(1,1)}(E):=\corch{\nabla \in \mathscr{A}: F_\nabla \in \Omega_\C^{(1,1)}(M; \mathrm{End}(E))}\). We call its elements connections of type \((1,1)\) or \textit{integrable connections}\index{Connection!integrable}. By the previous lemma, the Chern correspondence restricts to a bijection \(\mathscr{A}^{(1,1)}(E) \leftrightarrow \mathscr{H}(E)\). Observe that under this bijection, a connection becomes the Chern connection of the complex structure that its \((0,1)\) component induces on \(E\). \\
+
+% Looking at theorem \ref{th_holomorphic_struc_iff_integrable}, we would like to identify \(\mathscr{H}(E)\) with all possible holomorphic structures on \(E\) (whose underlying smooth complex vector bundle structure is that of \(E\)). Although theorem \ref{th_holomorphic_struc_iff_integrable} does state that every element \(\barpartial_e \in \mathscr{H}(E)\) induces a holomorphic structure on \(E\), it may happen that two different integrable Dolbeault operators induce biholomorphic complex structures, and it would not make sense to count those as different. To remedy this issue, let us define the following groups.
+
+% \Definition{}{Let \(E \to M\) be a complex vector bundle endowed with a hermitian fiber product \(h\). The \textit{complex gauge group} \(\mathscr{G}^\C=\mathrm{GL}(E) \subset \Gamma(M; \mathrm{End}(E))\) is the group of complex smooth bundle automorphisms (equipped with fiberwise composition). The \textit{gauge group} or \textit{group of unitary automorphisms} \(\mathscr{G}=\mathrm{U}(E,h)\subset \mathscr{G}^\C\) is the group of bundle isomorphisms of \(E\) satisfying \(h_p(f_p(\xi), f_p(\eta))=h_p(\xi, \eta)\), \(\xi, \eta \in E_p\) for all \(p \in M\).}
+
+% The complex gauge group acts through the right on the space of Dolbeault operators as follows 
+% \[
+% \begin{array}{ccc}
+%     \mathscr{D}(E) \times \mathscr{G}^\C & \longrightarrow & \mathscr{D}(E) \\
+%     (\barpartial_e, f) & \mapsto & \barpartial_e \cdot f
+% \end{array}
+% \]
+% where \(\barpartial_e \cdot f:=\parent{\mathrm{id}_{T_\C^*M}\otimes f^{-1}} \circ \barpartial_e \circ f\). The identity component is usually omitted, and one writes \(f^{-1} \circ \barpartial_e \circ f\). 
+
+% \Proposition{}{Let \(E \to M\) be a complex vector bundle over a smooth manifold. Let \(f \in \mathscr{G}^\C\), and \(\barpartial_e, \barpartial_e'\) two Dolbeault operators such that \(\barpartial_e'=\barpartial_e\cdot f\). Let \(\mathcal{E}\) and \(\mathcal{E}'\) be the complex structures induced on \(E\) by theorem \ref{th_holomorphic_struc_iff_integrable}. Then, \(f\colon \mathcal{E' \to \mathcal{E}}\) is an isomorphism between holomorphic vector bundles.}
+% \begin{proof}
+%     Since \(f \in \mathscr{G}^\C\), it is an isomorphism of complex smooth vector bundles, so one needs only check that it is holomorphic. This follows from the fact that given two holomorphic vector bundles, holomorphicity of bundle homomorphism is determined by the condition \(f \circ \barpartial_e'=\barpartial_e\circ f\).
+% \end{proof}
+
+% Thus, the true set of complex structures is given by the quotient of \(\mathscr{H}(E)\) by the action of the complex gauge group:
+% \[
+% \mathscr{C}(E)=\frac{\mathscr{H}(E)}{\mathscr{G}^\C},
+% \]
+% \(\mathscr{C}\) being the set of complex structures on \(E\). Moreover, \(\mathscr{G}^\C\) also acts on \(\mathscr{A}(E)\) by \(\nabla \cdot f:=f^* \circ \nabla^{(1,0)} \circ (f^*)^{-1} + f^{-1} \circ \nabla^{(0,1)} \circ f\) (same abuse of notation as before), where \(f^*\) is the adjoint of \(f\), i.e. the unique bundle homomorphism satisfying \(h_p(\xi, f_p^*(\eta))=h_p(f_p(\xi), \eta)\) for \(\xi, \eta \in E_p\) and all \(p \in M\). One may show (see \parencite[Sec. 7.1]{kobayashi_complex_vector_bundles}) that this action maps \(\mathscr{A}^{(1,1)}(E)\) to itself, so it restricts to an action on \(\mathscr{A}^{(1,1)}(E)\). We then get a bijection 
+% \begin{equation} \label{eq_moduli_Chern_correspondence}
+% \frac{\mathscr{A}^{(1,1)}(E)}{\mathscr{G}^\C} \leftrightarrow \frac{\mathscr{H}(E)}{\mathscr{G}^\C} = \mathscr{C}(E).
+% \end{equation}
+% These spaces admit extra structures (i.e. topologies and even manifold structures). When endowed with those, we call them \textit{Moduli spaces}.
