@@ -1,0 +1,827 @@
+\chapter{The Hitchin-Kobayashi correspondence} \label{chapter_HK_correspondence}
+Up until now, the different topics we have treated seem unrealted to each other. In this chapter, we shall see how everything comes together in the Hitchin-Kobayashi correspondence. The objetive of this chapter is to present an exposition to the Hitchin-Kobayashi correspondence. Our main interest lies in the principal bundle version of the correspondence, but we will give an expository account to the vector bundle both for the sake of completeness, and so that we can compare them. We will also try to emphasize the role played by moment maps in the theory, specially in the construction of moduli spaces. We will refer to the Hitchin-Kobayashi correspondence by HK. 
+
+\section{The HK correspondence for vector bundles}
+The Hitchin-Kobayasi correspondence states that a holomorphic vector bundle over a compact Kähler manifold is polystable if and only if it admits a Hermite-Einstein metric. To make sense of this definition, we need to introduce several concepts. We will mainly follow \parencite{kobayashi_complex_vector_bundles}, however, we should remark that when this book was originally published, the result had only been proven for Riemann surfaces, so it does not include a proof of the more general statement. In fact, the result is true under the weaker assumption that \(M\) is just a compact complex manifold. The book \parencite{teleman} gives a very detailed proof of the theorem under this relaxed assumption. \\
+
+We introduce now the following notation (which is the same we introduced for principal bundles in section \ref{sec_complex_principal_bundles}). Whenever we have a holomorphic vector bundle, we will use \texttt{mathcal} letters to name it, and we will use the corresponding plain letter for the underlying complex smooth vector bundle. For example, we will use \(\mathcal{E}\) when we work with the holomorphic structure, and \(E\) to refer to the underlying complex smooth vector bundle.
+
+\subsection{Stability of vector bundles}
+Let us start with the definition of stability.
+
+\Definition{}{Let \(\mathcal{E}\to M\) be a holomorphic vector bundle over a Kähler manifold \(M\). We define the \textit{degree} of \(\mathcal{E}\) by \label{def_stability_vector_bundles}
+\[
+\deg(\mathcal{E}):=\int_M c_1(\mathcal{E}) \wedge \omega^{n-1}.
+\]
+}
+\begin{obs}
+    \(\hspace{1 pt}\)
+    \begin{enumerate}
+        \item The degree is well-defined \textit{real} number. It should be remarked that \(c_1(\mathcal{E})\) is a cohomology class, so the integral above is understood as the integral of some representative of the class. Accordingly, we must show that it is independent of the representative chosen. First, since \(M\) is compact, and we integrate a top-degree form, the integral is finite. Moreover, we may choose any two representatives of \(c_1(\mathcal{E})\), say \(c_1(\nabla)\) and \(c_1(\nabla')\) for two different connections. Since they determine the same cohomology class, \(c_1(\nabla)=c_1(\nabla')+\diff \alpha\) for some one-form. Then, 
+        \[
+        \int_M c_1(\nabla) \wedge \omega^{n-1}=\int_M c_1(\nabla')\wedge \omega^{n-1}+\int_M\diff \alpha \wedge \omega^{n-1}.
+        \]
+        The last summand is zero because \(\diff \alpha \wedge \omega^{n-1}=\diff(\alpha \wedge \omega^{n-1})\) (the Kähler form is closed) and we may apply Stokes' theorem.
+        % \item It is common to find the notation
+        % \[
+        % \deg(E)=\langle c_1(E) \cup[\omega^{n-1}], [M] \rangle
+        % \]
+        % This notation comes from cohomology theory, and it reflects the fact \(c_1(E) \cup [\omega^{n-1}] \in H_{\mathrm{dR}}^{2n}(M;\R)\), and \(H_{2n}(X;\Z)\cong \Z\) for any connected compact riemannian manifold without border. Choosing an element in the homology group corresponds to fixing an orientation, and \(\langle \cdot, \cdot \rangle\) is the pairing corresponding to integrating.
+        \item If \(M=X\) is a Riemann surface, the degree is \(\deg \mathcal{E}=\int_X c_1(\mathcal{E})\). %In that case, the degree is always an integer because the Chern class is an element of \(H^{2}(X;\Z)\).
+    \end{enumerate}
+\end{obs}
+
+For Riemann surfaces, the notion of stability, or slope-stability, is quite straightforward. The definition of stability is originally due to Mumford \parencite{mumford1962projective}.
+
+\Definition{\textbf{Stability}}{Let \(\mathcal{E} \to X\) be a holomorphic vector bundle over a Riemann surface. We say that \(\mathcal{E}\) is \textit{stable}\index{Vector bundle!stable} (resp. \textit{semistable}\index{Vector bundle!semistable}) if for every proper holomorphic subbundle \(\mathcal{E}'\) of \(\mathcal{E}\) with \(0<\mathrm{rank}(\mathcal{E}')<\mathrm{rank}(\mathcal{E})\), one has
+\[
+\upmu(\mathcal{E}'):=\frac{\deg(\mathcal{E}')}{\mathrm{rank}(\mathcal{E}')}< \frac{\deg(\mathcal{E})}{\mathrm{rank}(\mathcal{E})} \hspace{1 cm} \parent{\text{resp.} \hspace{0.3 cm} \frac{\deg(\mathcal{E}')}{\mathrm{rank}(\mathcal{E}')} \leq \frac{\deg(\mathcal{E})}{\mathrm{rank}(\mathcal{E})}}.
+\]
+\(\upmu\) is called the \textit{slope}\index{Slope} of the vector bundle \(\mathcal{E}\). We say that \(\mathcal{E}\) is \textit{polystable}\index{Vector bundle!polystable} if \(\mathcal{E}=\oplus_{i=1}^n\mathcal{E}_i\) where each \(\mathcal{E}_i\) is a stable holomorphic vector bundle, and all of them have the same slope.
+}
+
+% \Definition{\textbf{Polystability}}{Let \(\mathcal{E} \to X\) be a holomorphic vector bundle over a Riemann surface. We say that \(\mathcal{E}\) is \textit{polystable}\index{Vector bundle!polystable} if \(\mathcal{E}=\oplus_{i=1}^n\mathcal{E}_i\) where each \(\mathcal{E}_i\) is a stable holomorphic vector bundle, and all of them have the same slope.}
+
+For Riemann surfaces, i.e. Kähler manifolds of complex dimension one, the definition of stability in terms of subbundles works well. However, once we try to generalize to higher dimensional Kähler manifolds, it turns out that looking as subbundles is not enough. The correct definition (i.e. the one that works) is given in terms of coherent sheaves. Introducing coherent sheaves would take us another whole appendix, so we refer the reader to \parencite{kobayashi_complex_vector_bundles} for the relevant definitions.
+
+% \Definition{}{Let \(\mathscr{S}\) be a torsion free, coherent sheaf over a compact \(n\)-dimensional Kähler manifold \(M\). The \textit{degree} of \(\mathscr{S}\) is defined as the degree of its associated determinant bundle. That is
+% \[
+% \deg(\mathscr{S})=\deg(\det(\mathscr{S}))=\int_M c_1(\det\mathscr{S}) \wedge \omega^{n-1}.
+% \]
+% }
+% We will denote \(c_1(\mathscr{S}):=c_1(\det \mathscr{S})\). The definition of stability is then modified accordingly.
+
+% \Definition{\textbf{Stability for torsion free coherent sheafs}}{Let \(\mathscr{S}\) be a torsion-free coherent sheaf over a compact Kähler manifold \(M\). We define its slope by \(\upmu(\mathscr{S}):=\deg(\mathscr{S})/\mathrm{rank}(\mathscr{S})\). We say that \(\mathscr{S}\) is \textit{stable} (resp. \textit{semistable}) if, for every coherent subsheaf \(\mathscr{S}'\) of positive rank, we have
+% \[
+% \upmu(\mathscr{S}')< \upmu(\mathscr{S}) \hspace{1 cm} (\mathrm{resp.} \hspace{0.3 cm} \upmu(\mathscr{S}')\leq \upmu(\mathscr{S})).
+% \]
+% Then, a holomorphic vector bundle \(\mathcal{E} \to M\) is said to be stable or semistable if its sheaf of holomorphic sections \(\mathcal{O}(\mathcal{E})\) is stable or semistable.
+% }
+% Then, a holomorphic vector bundle \(\mathcal{E} \to M\) is said to be stable or semistable if its sheaf of holomorphic sections \(\mathcal{O}(E)\) is stable or semistable (this is always a locally free sheaf of \(\mathcal{O}\)-modules \parencite[Prop. 5.14]{lee_introCM}, hence coherent and torsion free). For Riemann surfaces, every torsion-free coherent sheaf is locally free \parencite[Page 147]{kobayashi_complex_vector_bundles}, and the property of being torsion-free is preserved for subsheaves. By \parencite[Prop. 5.14]{lee_introCM}, every locally free sheaf is the sheaf of sections of a holomorphic vector bundle which is unique up to isomorphism. Putting everything together, we see that the notion of stability for Riemann surfaces is actually the same as the more general notion for Kähler manifolds.
+
+\subsection{Hermite-Einstein vector bundles}
+% In this section, we fix a holomorphic vector bundle \(E \to M\), over a compact Kähler manifold \(M\), and endow it with a hermitian fiber metric. To avoid repeating this constantly, we will refer to this condition as hypothesis \textit{B}. Let \(\nabla\) be a connection on \(E\), and let \(F_\nabla\) be its curvature. With respect to some local coframe and its dual coframe, we may write it as \(F_\nabla=\Omega^i_j \otimes s_i \otimes t^j\). Now, choose holomorphic coordinates \((z^1, \ldots z^n)\) in an open set contained in the set where the local frame is defined. There are smooth complex-valued functions such that \(\Omega^i_j=R^i_{j \alpha\bar{\beta}} \cdot \diff z^\alpha \otimes \diff \bar{z}^\beta\). Locally, we may define \(K^i_j:=g^{\alpha \bar{\beta}}\cdot R^i_{j \alpha\bar{\beta}}\). This defines, locally, a section of \(\mathrm{End}(E)\) given by \(K(\xi^i\cdot s_i) = K^i_j \cdot \xi^j \cdot s_i\). It may look like \(K\) is only locally defined, but a computation in coordinates shows that \(K=\ii \Lambda_\omega F_\nabla\), so it is defined globally.
+Besides stability, the other concept in the statement if the Hitchin-Kobayashi correspondence that is new to us is that of a Hermite-Einstein metric. A Hermite-Einstein metric is a usual hermitian fiber metric (in the sense of definition \ref{def_hermitian_fiber_metric}) which is asked to fulfill a particular equation.
+
+\Definition{}{Let \(\mathcal{E} \to M\) be a holomorphic vector bundle over a compact Kähler manifold \(M\). Let \(h\) be a hermitian fiber metric. We say that a \(h\) satisfies the \textit{weak Hermite-Einstein condition} if its Chern connection \(\nabla\) satisfies \(\ii \Lambda_\omega F_\nabla = \varphi\cdot \mathrm{id}_E\) for some \(\varphi \in \mathscr{C}^\infty(M;\R)\), and we will say that it satisfies the \textit{Hermite-Eisntein condition}\index{Hermite-Einstein!condition} if 
+\begin{equation} \label{eq_def_Hermite_Einstein}
+\ii \Lambda_\omega F_\nabla = c\cdot \mathrm{id}_\mathcal{E}
+\end{equation}
+for some constant value \(c\). We say that \(h\) is a \textit{Hermite-Einstein metric}\index{Hermite-Einstein!metric}.
+}
+% In the previous circumstances, we will say that \(\nabla\) is an Einstein-Hermite connection. We introduce now the following notation: if \(E\) is a smooth complex vector bundle that admits a holomorphic structure turning it into a holomorphic vector bundle, then we will write \(\mathcal{E}\) for the holomorphic vector bundle structure whose underlying smooth vector bundle structure is \(E\). Hence, suppose that \(\mathcal{E}\) is a holomorphic vector bundle endowed with a hermitian fiber metric \(h\). If the \textit{Chern connection} of \(\mathcal{E}\) (or more precisely, its curvature) satisfies \eqref{eq_def_Hermite_Einstein}, then we say that \(h\) is a \textit{Hermite-Einsten metric}.
+Even though the definition above is given in terms of an arbitrary real constant \(c\), if equation \eqref{eq_def_Hermite_Einstein} holds, then, the value of \(c\) is determined uniquely by the topology of the bundle and the manifold, as the following lemma shows. If a connection \(\nabla\) (not necessarily the Chern connection) satisfies equation \eqref{eq_def_Hermite_Einstein}, we say that has \textit{constant central curvature}\index{Connection!constant central curvature}.
+
+\Lemma{}{Let \(\mathcal{E} \to M\) be a holomorphic vector bundle over a compact Kähler manifold, and suppose that \(\nabla\) is connection that has constant central curvature. Then, the constant \(c\) is determined uniquely by \label{lemma_value_c_vector_bundle}
+\[
+c:=\frac{2\pi \cdot \deg(E)}{(n-1)!\cdot\mathrm{rank}(E)\cdot \mathrm{Vol}(M)}=\frac{2\pi \cdot \upmu(E)}{(n-1)!\cdot \mathrm{Vol}(M)}.
+\]
+}
+\begin{proof}
+    Wedge \(\omega^n\) and equation \eqref{eq_def_Hermite_Einstein} on both sides. This yields \(\ii \Lambda_\omega F_\nabla \otimes \omega^n=c\cdot \omega \otimes \mathrm{id}_E\). Applying lemma \ref{lemma_wedge_omega} we get \(\ii \Lambda_\omega F_\nabla\otimes \omega^n=\ii n \cdot L_\omega^{n-1} F_\nabla=\ii n \cdot \omega^{n-1}\wedge F_\nabla=c\cdot \omega^n \otimes \mathrm{id}_E\). Taking the trace, \(n \cdot 2\pi\cdot \ii/2 \pi \cdot \mathrm{Tr}(F_\nabla)=c\cdot \omega^n \cdot \mathrm{Tr}(\mathrm{id}_E)\). Observe that \(\mathrm{Tr}(\mathrm{id}_E)=r=\mathrm{rank}(E)\). Finally, using the expression for \(c_1(\nabla)\) and integrating the top degree forms on both sides
+    \[
+    2\pi n\cdot \deg(E)= n\cdot 2\pi \cdot \int_M c_1(\nabla)\wedge \omega^{n-1} = \int_M c\cdot \mathrm{rank}(E) \cdot n!\cdot  \frac{\omega^n}{n!}=c\cdot \mathrm{rank}(E)\cdot n!\cdot \mathrm{Vol}(M). 
+    \]
+\end{proof}
+Observe that this constant only depends on the topology of the bundle. Indeed, it only depends on the cohomology classes of \(c_1(\nabla)\) (that is, \(c_1(E)\)) and \(\omega\).\\
+
+Even though the weak Hermite-Einstein condition may seem more general at first glance, it is not. Indeed, one can show that, after a suitable conformal change, i.e. after rescaling the hermitian fiber product \(h':=a\cdot h\) for some real constant, if \((E,h)\) has a connection satisfying the weak Hermite-Einstein condition, then, the same connection satisfies the Hermite-Einstein condition on \((E,h')\) \parencite[Prop. 4.2.4]{kobayashi_complex_vector_bundles}.
+
+\begin{obs}
+    Observe that the condition of having constant central curvature can be seen as an attempt to relax the condition of being flat (recall that flat connections satisfy \(F_\nabla=0\)). Indeed, by definition of the degree of a vector bundle, only vector bundles of degree zero admit flat connections. Since asking for the degree to be zero is very restrictive, one may think about a more relaxed condition. 
+\end{obs}
+
+\Definition{\textbf{Hermitian Yang-Mills connection}}{Let \(E \to M\) be a smooth complex vector bundle over a compact Kähler manifold \(M\). A unitary connection \(\nabla\) is said to be \textit{Hermitian-Yang-Mills}\index{Connection!Hermitian Yang-Mills} if it satisfies
+\[
+\left\{ 
+    \begin{array}{ccc}
+    F_\nabla^{(0,2)} & =& 0  \\
+    \ii \Lambda_\omega F_\nabla & = & c \cdot \mathrm{id}_E
+    \end{array} \right.
+\]
+for a constant \(c\).
+}
+Observe that we do not ask for \(E\) to be holomorphic here. This definition is useful because it allows for a shift in our point of view. More precisely, as mentioned at the beginning of the chapter, and as stated in theorem \ref{th_HK_vector_bundles} bellow, we fix a holomorphic vector bundle \(\mathcal{E}\) (or more precisely, we fix the \textit{holomorphic structure}), and we \textit{look for a fiber metric} whose Chern connection satisfies \eqref{eq_def_Hermite_Einstein}. Nonetheless, we could think about this differently: we could ignore the holomorphic structure, but \textit{fix a hermitian fiber metric} on \(E\). Then, we can look for a Hermitian-Yang-Mills connection. If we happen to find one, \(\nabla\), the condition \(F_\nabla^{(0,2)}=0\) combined with lemma \ref{lemma_integrable_Dolb_operator} and theorem \ref{th_holomorphic_struc_iff_integrable} imply that \(\nabla^{(0,1)}\) induces a holomorphic structure on \(E\). If \(\mathcal{E}\) is the corresponding holomorphic structure, its Chern connection is \(\nabla\), and the metric we had originally fixed becomes a Hermite-Einstein metric. The following theorem provides a solid basis for the ideas discussed above.
+
+%  This is because the condition \(F_\nabla^{(0,2)}=0\) means that \(\nabla\) defines a holomorphic structure on \(E\). That is, a Hermitian-Yang-Mills connection is a connection that has constant central curvature, and defines a holomorphic structure on \(E\) (see lemma \ref{lemma_integrable_Dolb_operator} and theorem \ref{th_holomorphic_struc_iff_integrable}).
+\Theorem{}{Let \(\mathcal{E} \to M\) be a holomorphic vector bundle over a compact Kähler manifold, and fix a hermitian fiber metric \(h\). Let \(\barpartial_E \in \mathscr{H}\) be its Cauchy-Riemann operator. Then, there is a Hermite-Einstein fiber metric \(h'\) if and only if there is a gauge transformation \(f \in \mathscr{G}^\C\) such that \(h\) is a Hermite-Einstein fiber metric with respect to the complex structure induced by \(\barpartial_E\cdot f\). \label{th_equivalent_viewpoints}}
+\begin{proof}
+    We present a very schematic proof. For more details see \parencite[Sec. 1.1]{LarsMartin_Notes_HK}. Let \(h'\) be a Hermite-Einstein fiber metric, and let \(\nabla'\) be its Chern connection. Every pair of hermitian fiber metrics is related as follows \(h'(\xi, \zeta)=h(\xi, f(\zeta))\) for some \(f \in \mathscr{G}^\C\) which coincides with its hermitian conjugate: \(f=f^*\) with respect to both \(h\) and \(h'\). This implies that \((\nabla')^{(1,0)}=f^{-1}\circ \nabla^{(1,0)}\circ f\). Finally, there is some \(g\in \mathscr{G}^\C\) satisfying \(g^2=f\). We find \(\nabla\cdot g^{-1}=g \circ \nabla '\circ g^{-1}\) and \(F_{\nabla \cdot g^{-1}}=g\circ F_\nabla \circ g^{-1}\). Finally, let \(\nabla_h\) be the Chern connection with respect to the pair \((h, \barpartial_E \cdot g^{-1})\). One may show that \(F_{\nabla_h}=g \circ F_{\nabla'}\circ g^{-1}\). This connection is Hermite-Yang-Mills if and only if \(\ii \Lambda_\omega F_{\nabla_h}=c \cdot \mathrm{id}_E\), which is equivalent to
+    \[
+    c \cdot \mathrm{id}_E=\ii \Lambda_\omega \parent{g \circ F_{\nabla'} \circ g^{-1}}=g \circ \parent{\ii \Lambda_\omega F_{\nabla'}}\circ g^{-1} \iff  \ii \Lambda_\omega F_{\nabla'}=c\cdot \mathrm{id}_E,
+    \]
+    which is equivalent to \(h'\) being Hermite-Einstein with respect to \(\barpartial_E\).
+\end{proof}
+
+To recapitulate, there are two ways of tackling the existence of a Hermite-Einstein metric: we either \textit{fix the holomorphic structure} and \textit{look for the hermitian fiber metric}, or we \textit{fix the fiber metric} and \textit{look for a Hermite-Yang-Mills connection}. By theorem \ref{th_equivalent_viewpoints} above these are equivalent: it states that if we fix both a holomorphic structure \(\barpartial_E\) and a hermitian fiber metric \(h\), then we can find a (new) Hermite-Einstein metric \(h'\) for \(\barpartial_E\) if and only if we can find a (new) holomorphic structure \textit{which is isomorphic to the original one} making the metric we initially had Hermite-Einstein. Observe that we obtain isomorphic holomorphic vector bundle structures because two integrable Dolbeault operators in the same \(\mathscr{G}^\C\)-orbit produce isomorphic structures (see section \ref{sec_Chern_correspond}). Hence, an equivalent way to phrase the problem of finding a Hermite-Einstein fiber metric is as follows: if we are given a holomorphic vector bundle \(\mathcal{E} \to M\) whose holomorphic structure is given by \(\barpartial_E\), and we wonder if it has a Hermite-Einstein metric, a way to decide is to fix a hermitian fiber metric (recall that these always exist) and see if there is a gauge transformation \(f \in \mathscr{G}^\C\) such that the Chern connection of the holomorphic structure induced by \(f \cdot \barpartial_E\) satisfies \eqref{eq_def_Hermite_Einstein}. Finally, by the Chern correspondence, this is equivalent to finding a connection of type \((1,1)\) (of the type \(f \cdot \nabla_h\), where \(\nabla_h\) is the original Chern-connection) satisfying \eqref{eq_def_Hermite_Einstein}.
+
+\subsection{The theorem}
+
+\Theorem{\textbf{HK, vector bundle version}}{Let \(\mathcal{E} \to M\) be a holomorphic vector bundle over a Kähler manifold \(M\). Then, \(\mathcal{E}\) admits a Hermite-Einstein metric if and only if it is polystable. \label{th_HK_vector_bundles}}
+The proof of the fact the polystability implies the existence of a Hermite-Einstein metric uses some heavy analysis, and it would require several techniques we have not mentioned. We refer the reader to the original proof by Uhlenbeck and Yau \parencite{uhlenbeck_Yau_HK}, or to the notes by Lars Martin \parencite{LarsMartin_Notes_HK}. The proof of the converse is more accessible, but we have not introduced coherent sheaves. For completeness, we will give an outline of the proof for Riemann surfaces. Hence, we will actually give a proof of the theorem by Narashiman and Seshadri, but following Donaldson and Kobayashi. We will need some work before giving the proof. \\
+
+Before getting into the proof, consider the following situation: let \(\mathcal{E}\to M\) a holomorphic vector bundle, and \(\mathcal{S}\) a subbundle. We can consider the quotient bundle (see example \ref{ex_vector_bundle_constructions}) \(\mathcal{Q}:=\mathcal{E}/\mathcal{E}'\) which is a holomorphic vector bundle and fits into the following short exact sequence
+\begin{equation} \label{eq_short_exact_seq}
+0 \to \mathcal{S} \to \mathcal{E} \to \mathcal{Q} \to 0.
+\end{equation}
+Let \(h\) be a hermitian fiber metric on \(\mathcal{E}\), and let \(h_{\mathcal{S}}\) be its restriction to \(\mathcal{S}\). This is a hermitian fiber metric as well. On every fiber \(\mathcal{E}_m\) the metric \(h\) defines an orthogonal complement to the subspace \(\mathcal{S}_m\), which we shall denote \(S_m^\perp\). We define \(S^\perp:=\sqcup_{m \in M} S_m^\perp\). This is a complex smooth vector bundle, but not holomorphic in general. Then (as smooth vector bundles) we have the following decomposition \(E=S\oplus S^\perp\). In addition, \(Q=E/S\cong S^\perp\) (again only as \textit{smooth} vector bundles). Furthermore, \(h\) induces a hermitian fiber metric \(h_{S^\perp}\) on \(S^\perp\), which under the isomorphism, induces a hermitian fiber metric \(h_Q\) on \(Q\) (hence on \(\mathcal{Q}\)). \\
+
+Let \(\nabla\) be the Chern connection on \(\mathcal{E}\). For any local section of \(S\) \(\xi\in \Gamma(S)\), \(\nabla\xi\) can be projected onto \(S\) and \(S^\perp\). We define \(\nabla_S\) and \(\alpha\in \Omega_\C^1(M;\mathrm{Hom}_\C(S, S^\perp))\) by
+\[
+\nabla \xi = \nabla_S \xi + \alpha(\xi).
+\] 
+Then, \parencite[Prop. 1.6.4]{kobayashi_complex_vector_bundles}, \(\nabla_S\) is the Chern connection in \(\mathcal{S}\), and \(\alpha\) is of type \((1,0)\). We call it the \textit{second fundamental form} of \(S\). Since \(Q \cong S^\perp\), we can see \(\alpha \in \Omega_{\C}^{(1,0)}(M;\mathrm{Hom}_{\C}(S, Q))\). \\
+
+Similarly, given a local section \(\eta\in \Gamma(S^\perp)\), we define \(\beta\in \Omega_\C^1(M;\mathrm{Hom}(S^\perp, S))\) and \(\nabla_{S^\perp}\) by the projections onto \(S\) and \(S^\perp\):
+\[
+\nabla \eta=\beta(\eta)+\nabla_{S^\perp} \eta.
+\]
+Under the isomorphism \(S^\perp \cong Q\), \(\nabla_{Q}\equiv\nabla_{S^\perp}\) is the Chern connection of \(\mathcal{Q}\), and \(\beta \in \Omega_\C^{(0,1)}(M; \mathrm{Hom}_\C(Q, S))\) \parencite[Prop. 1.6.6]{kobayashi_complex_vector_bundles}. After a computation in coordinates, we may write (see section \ref{sec_induced_connections})
+\begin{equation} \label{eq_connection_direct_sum}
+    \nabla=\begin{pmatrix}
+        \nabla_S & \beta \\
+        \beta^* & \nabla_Q
+    \end{pmatrix} \hspace{2 cm}
+    F_\nabla=
+    \begin{pmatrix}
+        F^{(\mathcal{S})}-\beta \wedge \beta^* & \nabla^{(1,0)}_{\mathrm{Hom}(Q, S)} \beta \\
+        -\nabla^{(0,1)}_{\mathrm{Hom}(S,Q)}\beta^* & F^{(\mathcal{Q})}-\beta^* \wedge \beta
+    \end{pmatrix}.
+\end{equation}
+There \(\beta^*\) is the adjoint of \(\beta\), i.e. the only one-form satisfying 
+\[
+h_S(\beta(\xi), \eta) = h_Q(\xi, \beta(\eta)) \hspace{1 cm} \text{for} \hspace{1 cm} \xi \in\Gamma(M;Q) \ \eta \in \Gamma(M; S).
+\]
+One can show that \(\beta^*=-\alpha\). \(F^{(\mathcal{S})}\) and \(F^{(\mathcal{Q})}\) are the curvatures of the Chern connection. Equation \eqref{eq_connection_direct_sum} is to be interpreted as follows: for any section \(\xi \in \Gamma(M;E)\), we consider its orthogonal decomposition \(\xi=\xi_S+\xi_{Q}\) (the latter under the isomorphism \(Q \cong S^\perp\)). Then, 
+\begin{equation} \nonumber
+\nabla(\xi) = \begin{pmatrix}
+        \nabla_S & \beta \\
+        \beta^* & \nabla_Q
+    \end{pmatrix}\cdot \begin{pmatrix}
+        \xi_S \\
+        \xi_Q
+    \end{pmatrix} = \begin{pmatrix}
+        \nabla_S \xi_S +\beta (\xi_Q) \\
+        \beta^*(\xi_S)+\nabla_Q \xi_Q
+    \end{pmatrix},
+\end{equation}
+ and analogously for the curvature.
+
+\begin{proof}[\textit{Proof of theorem} \ref{th_HK_vector_bundles} \textit{for a Riemann surface} \(X\). \(\left.\Rightarrow\right)\)]
+    Suppose that \(\mathcal{E}\) admits a Hermite-Einstein fiber metric \(h\), and let \(\nabla\) be the corresponding Chern-connection. Let \(\mathcal{S}\subset \mathcal{E}\) be a holomorphic subbundle. Since \(X\) is a Riemann surface, from remark \ref{obs_hodgestar_equal_lambda}, equation \eqref{eq_def_Hermite_Einstein} may be rewritten as \(\star F_\nabla=-\ii c \cdot \mathrm{id}_E\), where \(\star\) acts only on the differential form. Since \(\star\circ \star=1\) acting on two-forms, and \(\star 1=\omega\), applying the Hodge star operator to the previous equation yields an equivalent equation: \(F_\nabla=-\ii c \cdot \omega \otimes \mathrm{id}_E\). From \eqref{eq_connection_direct_sum}, we may write \eqref{eq_def_Hermite_Einstein} as
+    \begin{equation} \label{eq_separeted_HYM}
+    F_\nabla = \begin{pmatrix}
+        F^{(\mathcal{S})}-\beta \wedge \beta^* & \nabla^{(1,0)}_{\mathrm{Hom}(S;Q)}\beta \\
+        -\nabla^{(0,1)}_{\mathrm{Hom}(Q,S)} \beta^* & F^{(Q)}-\beta^*\wedge \beta
+    \end{pmatrix} = -\ii c\cdot 
+    \begin{pmatrix}
+     \omega \otimes \mathrm{id}_{\mathcal{S}} & 0 \\
+     0 & \omega \otimes \mathrm{id}_Q
+    \end{pmatrix}.
+    \end{equation}
+    This implies 
+    \begin{equation} \label{eq_dem_HK_1}
+    F^{(S)}-\beta\wedge \beta^*= -\ii c\cdot  \omega \otimes \mathrm{id}_{\mathcal{S}}.
+    \end{equation}
+    Observe that taking \(n=1\) in lemma \ref{lemma_value_c_vector_bundle}, \(c=2\pi \cdot \upmu(\mathcal{E})/\mathrm{Vol(X)}\). Taking the trace of equation \eqref{eq_dem_HK_1} and integrating over \(X\), we get
+    \[
+    \int_X \mathrm{Tr}\parent{F^{(\mathcal{S})}-\beta \wedge \beta^*}=-\ii c\cdot \int_X\mathrm{\omega \otimes Tr(\mathrm{id}_{\mathcal{E'}})}=-\ii \frac{2 \pi\cdot \upmu(\mathcal{E})}{\mathrm{Vol(X)}}\cdot \mathrm{rank(\mathcal{S})}\cdot \mathrm{Vol(X)}
+    \]
+    Simplifying
+    \[
+    \frac{1}{\mathrm{rank}(\mathcal{E'})}\int_X\frac{\mathrm{i}}{2 \pi}\cdot  \mathrm{Tr}\parent{F^{(\mathcal{S})}}-\frac{\mathrm{i}}{2\pi\cdot \mathrm{rank}(\mathcal{E'})}\int_X \mathrm{Tr}\parent{\beta \wedge \beta^*}=\upmu(\mathcal{S'})-\frac{\mathrm{i}}{2\pi\cdot \mathrm{rank}(\mathcal{S})}\int_X \mathrm{Tr}\parent{\beta \wedge \beta^*}=\upmu(\mathcal{E}).
+    \]
+    So it suffices to show that the second summand in the left-hand side is non-negative. To see this, choose orthonormal frames \((s_1, \ldots s_r)\) and \((\sigma_1, \ldots \sigma_\ell)\) of \(S\) and \(Q\) respectively, and let \((t^1, \ldots t^r)\) and \((\vartheta^1, \ldots \vartheta^\ell)\) be the corresponding dual frames. Then, \(\beta\) and \(\beta^*\) can be written as
+    \[
+    \beta=\beta^i_j \otimes t^j \otimes \sigma_i \hspace{1 cm}
+    \beta^* = (\beta^*)^\ell _m \otimes \vartheta^m \otimes s_\ell \hspace{1 cm} \text{for some } \ \beta^i_j , (\beta^*)^\ell_m \in \Omega_\C^1(X).
+    \]
+    Since the frame is orthonormal, one may show that \((\beta^*)^i_k =\overline{\beta^k_i}\). Hence,
+    \begin{align*}
+        \beta \wedge \beta^* = \parent{\beta^i_j \otimes t^j \otimes \sigma_i} \wedge \parent{(\beta^*)^\ell _m \otimes \vartheta^m \otimes s_\ell}=\beta^i_j \wedge (\beta^*)^\ell_m \cdot \otimes \parent{\vartheta^m(\sigma_i)\cdot t^j \otimes s_\ell} = \beta^i_j \wedge (\beta^*)^\ell_i \otimes t^j \otimes s_\ell
+    \end{align*}
+    Hence, 
+    \begin{align*}
+        \mathrm{Tr}(\beta \wedge \beta) & = \sum_{i,j}r\cdot  \beta^i_j \wedge\overline{\beta ^j_i} =-r \cdot \sum_{i,j}\beta ^i_j \wedge \star \star \overline{\beta^j_i}=-\ii r \cdot \sum_{i,j} \beta^i_j \wedge \star \overline{\beta^j_i} \\
+        & = -\ii r \cdot \sum_{i,j} \big\langle \beta ^i_j , \overline{\beta^j_i} \  \big \rangle \cdot \omega = -\ii  \sum_{i,j} ||\beta^i_j||^2 \cdot \omega 
+    \end{align*}    
+    Hence, \(\int_X \mathrm{Tr}(\beta \wedge \beta^*)\) is locally the integral of a non-negative multiple of \(\omega\) multiplied by \(-\ii\). This implies that \(\ii \int_X\mathrm{Tr}(\beta \wedge \beta^*) \geq 0\), with equality if and only if \(\beta=0\). We deduce that \(\upmu(\mathcal{S}) \leq \upmu(\mathcal{E})\). \\
+    
+    It follows that \(\mathcal{E}\) is semistable. Now we separate cases. If \(\upmu(\mathcal{S})<\upmu(\mathcal{E})\) for all holomorphic proper subbundle, then \(\mathcal{E}\) is in fact stable and we are done. Else, there is some proper holomorphic subbundle \(\mathcal{S}\) for which the equality holds, hence \(\beta=0\). Thus, \(\mathcal{E=S \oplus Q}\) where \(\mathcal{Q}\equiv S^\perp\) is now holomorphic (see \parencite[Prop. 1.6.14]{kobayashi_complex_vector_bundles}). Observe that \eqref{eq_separeted_HYM} implies that both \(\mathcal{S}\) and \(\mathcal{Q}\) satisfy the Hermite-Einstein condition with the same factor, and by the previous calculation, they have the same slope. By \parencite[Prop. 4.1.4]{kobayashi_complex_vector_bundles}, \(\mathcal{E}\) satisfies the Hermite-Einstein condition for the same constant value, hence lemma \ref{lemma_value_c_vector_bundle} implies that \(\upmu(\mathcal{E})=\upmu(\mathcal{S})=\upmu(\mathcal{Q})\). Iterating this process, we decompose each subbundle until we can no longer decompose them. We are guaranteed to reach that point because each decomposition decreases the rank of the resulting bundles and \(\mathrm{rank(\mathcal{E})}\) is finite. Thus, we obtain \(\mathcal{E}=\oplus_{i=1}^\ell \mathcal{E}_i\) for some \(\ell\), all of them with the same slope, and the bundle is polystable.
+    % If \(\mathcal{E}\) does not split as a Whitney sum of holomorphic subbundles, then it is stable (hence polystable) and we are done. If it splits, then for some holomorphic subbundle \(\mathcal{E}'\) we have \(\beta=0\). Hence, \(\mathcal{E}=\mathcal{E}'\oplus \mathcal{E}''\) and \(\upmu(\mathcal{E})=\upmu(\mathcal{E'})=\upmu(\mathcal{E}'')\). 
+\end{proof}
+
+For the converse we refer the reader to the paper by Donaldson \parencite{DonaldsonNS83}.
+
+% \begin{proof}[[\textit{Sketch of a proof of theorem} \ref{th_HK_vector_bundles} \textit{for a Riemann surface} \(X\). \(\left.\Leftarrow\right)\)]]
+%  First, one shows that every holomorphic line bundle admits a Hermite-Einstein metric \parencite[Prop. 4.1.4]{kobayashi_complex_vector_bundles} (every line bundle is stable because it has no proper holomorphic subbundles), and then one proceeds Inductively. We consider the action of \(\mathscr{G}^\C\) on the space of connections \(\mathscr{A}(E)\). We will require to work with Sobolev completions. {\color{Blue} We define the norm \(L_2^k\) on the space of \(E\)-valued \(p\)-forms by
+%  \[
+%  ||\alpha||_{1}:=\sqrt{\int_X |\alpha|^2+|\diff_\nabla \alpha|^2 }.
+%  \]
+% Observe that this is a particular case of the Sobolev norms defined in chapter 3. We denote \(\Omega^2_{\C, W_k}(X;E)\) the Sobolev completion of this space with respect to the norm we just-defined. We also consider the completion of the space of connections. ???? \\
+
+% Now, we define the \textit{Donaldson functional} as follows
+% \[
+% \mathcal{YM_D}(\nabla):=N\parent{\frac{\star F_\nabla}{\mathrm{i}}+\upmu(\mathcal{E})\cdot \mathrm{id}_{\mathcal{E}}}
+% \]
+% where \(N(s):=\sqrt{\int_X\nu(s)^2}\), and \(\nu(M)=\mathrm{Tr}(M^*M)^{1/2}\) is equal to the sum of absolute values of the eigenvalues of \(M\). One then shows that \(\mathcal{YM_D}(\nabla)=0\) if and only if \(\nabla\) has constant central curvature. Now, given a sequence of \(L_1^2\) connections \(\corch{\nabla_n}_{n \in \N}\subset \mathscr{A}(E)\) such that \(||F(\nabla_n)||_2\) is bounded, there is a subsequence \(\corch{\nabla_m}_{m \in \N}\), and \(L_2^2\) gauge transformations \(g_m\) such that \(g_m(\nabla_m)\) converges in \(L_1^2\). \\
+
+% Now, if we fix the holomorphic structure of \(E\), and we denote it \(\mathcal{E}\), and denote \(\mathrm{Orb}(\mathcal{E})\)
+%  }
+% \end{proof}
+
+
+
+
+\subsection{Moduli spaces and moment map interpretation}
+The aim of this section is to give an expository account of the moduli space interpretation of the previous result, and the role played by moment maps and the Marsden-Weinstein quotient. We want to foccus on the core ideas, so we will not give many details and we will omit most proofs. More importantly, we will ignore, for the moment, the fact that the space of connections and the gauge group must be completed with suitable Sobolev norms to make sense of the quotients that will appear. This is an important technicality to make all the statements in this section rigorous, but since we will deal with that when we present the principal bundle version of the correspondence, we will give heuristic constructions here. We follow the exposition in \parencite{garcia2007differential}. For the sake of simplicity, let us consider the case where \(M=X\) is a Riemann surface. We will make some comments at the end about the way one generalizes this result for higher dimension Kähler manifolds, but for know, it frees us from having to consider only connections of type \((1,1)\). \\
+
+Let \(\mathscr{A}\) the set of all unitary connections on \(E\). Let \(\mathscr{G}^\C=\mathrm{GL}(E)\) be the gauge group of \(E\), and \(\mathscr{G}=\mathrm{U}(E,h)\) the group of unitary automorphisms (the notation comes from the fact that one can be seen as a complexification of the other). There is an action of \(\mathscr{G}\) on \(\mathscr{A}\) given by \(g \cdot \nabla=g\circ \nabla \circ g^{-1}\). Since satisfying the Hermite-Einstein condition is invariant under the \(\mathscr{G}\)-action, we may restrict that action to \(\mathscr{A}_0\), this being the set of connections satisfying the Hermite-Einstein equation. Now, the quotient \(\mathscr{A}_0/\mathscr{G}\) is called the \textit{moduli space of Hermite-Einstein connections}. Observe that fixing a holomorphic structure on \(E\) and then looking for a Hermite-Einstein fiber metric is equivalent to fixing a hermitian fiber metric and then looking for a Hermite-Einstein connection (see \parencite[Page 251]{garcia2007differential}). Finally, a connection \(\nabla\) is said to be reducible if \((E,h)=(E_1, h_1)\oplus (E_2, h_2)\) and \(\nabla=\nabla_1 \oplus \nabla_2\) and \textit{irreducible} otherwise. Let \(\mathscr{A}^*\) and \(\mathscr{A}_0^*\) be the sets irreducible and irreducible Hermite-Einstein connections. 
+
+\Theorem{}{The moduli space \(\mathscr{A}_0^*/\mathscr{G}\) of irreducible Hermite-Einstein connections on \((E,h)\) has the structure of a \textit{smooth real manifold} of finite dimension equal to \(2+2n^2\cdot(g-1)\).}
+
+Observe that every Dolebault operator on a Riemann surface is integrable because \(\Omega_\C^{(0,2)}(X;E)=\corch{0}\). Thus, the Chern correspondence simplifies greatly, and yields a bijection \(\mathscr{A} \leftrightarrow \mathscr{H}=\mathscr{D}\) (where \(\mathscr{H}\) is the set of Dolbeault operators). Observe that, fixing the hermitian metric \(h\), the proposition above implies that the Chern correspondence restricts to a map \(\mathscr{A} \to \mathscr{H}^{ps}\), \(\mathscr{H}^{ps}\) being the set of integrable Dolbeault operators that induce polystable holomorphic vector bundle structures. Let \(\mathscr{H}^s\) be the set of stable holomorphic structures. Thus, that proposition may be reformulated as follows: \\
+
+\Theorem{}{There is a homeomorphism \(\mathscr{A}_0/\mathscr{G} \cong \mathscr{H}^{ps}/\mathscr{G}^\C=\mathscr{C}^{ps}\), which restricts to another homeomorphism \(\mathscr{A}_0^*/\mathscr{G}\cong \mathscr{H}^s/\mathscr{G}^\C=\mathscr{C}^s\).}
+
+By taking the quotient with respect to \(\mathscr{G}^\C\) we get the moduli spaces of polystable holomorphic structures and stable structures, accounting for biholomorphisms. Now, to be completely rigorous, everything we just said, as it is stated is false, because our sets do not have manifold structures. They have to be completed with respect to appropriate Sobolev norms, and then everything makes sense {\color{red} and the constructions are independent of the chosen completions}. \\
+
+For Kähler manifolds, everything remains true, but with some adjustments: we have to restrict to connections of type \((1,1)\), and the notions of stability and polystability must be formulated in terms of coherent sheaves.\\
+
+Let us see now the moment map picture for the Hitchin-Kobayashi correspondence. As we shall see, this is related to the Kempf-Ness theorem, but on an infinite-dimensional setting. Again, ignoring Sobolev completions, \(\mathscr{A}\) is an affine space modelled on \(\Omega_\R^1(\mathrm{End}(E,h))\), and it is a symplectic manifold whose symplectic form is given by
+\[
+\Omega(a,b)=\int_M \mathrm{Tr}(a \wedge b), \hspace{1 cm} \nabla \in \mathscr{A}, a,b \in T_\nabla \mathscr{A} \cong \Omega^1_\R(\mathrm{End}(E,h)).
+\]
+Similarly, the set \(\mathscr{H}\) is also endowed with an affine space structure modelled on \(\Omega_\C^{(0,1)}(\mathrm{End}(E))\), and it has a complex structure \(J_\mathscr{H}(\alpha)=i\alpha\) for \(\barpartial_e \in \mathscr{H}\) and \(\alpha\in T_{\barpartial_e} \mathscr{H} \cong \Omega_\C^{(0,1)}(X; \mathrm{End}(E))\). Through the Chern correspondence, this gives an almost complex structure on \(\mathscr{A}\).\\
+
+The \(\mathscr{G}\) action on \(\mathscr{A}\) is symplectic, and idenitifying \(\mathrm{Lie}(\mathscr{G})=\Gamma(X; \mathrm{End}(E,h))\) it admits a moment map given by 
+\[
+\langle \mu_\mathscr{G}(\nabla), a\rangle:=\int_M \mathrm{Tr}(a \circ (i\Lambda_\omega F_\nabla-c \cdot \mathrm{id}_E))
+\]
+With this moment map, \(\mu^{-1}(0)\) is the set of Hermite-Einstein connections, and \(\mu^{-1}(0)/\mathscr{G}=\mathscr{A}_0/\mathscr{G}\cong \mathscr{H}^{ps}/\mathscr{G}^\C\). This is \textit{formally} an infinite-dimensional version of Kempf-Ness' theorem: we get a differential quotient using a moment map. {\color{red} How is stability of vector bundles related to GIT stability?}
+
+
+\section{The HK correspondence for principal bundles}
+{\color{violet}
+The Hitchin-Kobayashi correspondence can be formulated in the context of principal bundles. One then needs to formulate both the polystability condition and the Hermite-Yang-Mills equation. For the remainder of the section, we fix a complex connected reductive Lie group \(G\) and \(K\) a maximal compact subgroup. Write \(\mathfrak{g}\) and \(\mathfrak{k}\) for their respective Lie algebras, and recall that \(\mathfrak{g}=\mathfrak{k}^\C\). Let \(\mathcal{P}_G\) a holomorphic principal \(G\)-bundle over some compact Riemann surface \(X\). For any smooth reduction of the structure group to \(K\), say \(P_K\), there is a ``preferred'' connection: the Chern connection. Recall from section \ref{section_Chern_Singer_correspondence} that this connection is obtained as follows: since \(\mathcal{P}\) is a holomorphic principal bundle, it is endowed with an integrable almost complex \(G\)-structure. Hence, by the Chern correspondence, we assign the connection \(A:=\mathsf{CS}(J)\) on \(P_K\). The statement of the Hitchin-Kobayashi correspondence remains almost the same: a holomorphic principal \(G\)-bundle over a compact Kähler manifold is polystable if and only if its Chern connection satisfies \(\Lambda_\omega F_A=-\ii c\), which we call the \textit{Hermitian-Yang-Mills equation}, for some \(c \in \ii \mathfrak{z}(\mathfrak{g}) \cap \mathfrak{k}\) \textbf{(6)}. However, we need to make sense of both, the equation, and the stability condition. We will use extensively the notions of parabolic subgroups introduced in appendix \ref{appendix_lie}. It is important to remark that one may find several definitions of stability in the literature. They are all equivalent, even though it is not obvious at first glance. Our definitions will follow \parencite{i1999hitchin} and \parencite{garcia2009hitchin}. From now on, we fix \(\langle \cdot, \cdot \rangle\colon \mathfrak{g} \times \mathfrak{g} \to \C\) a \(\C\)-bilinear \(\Ad{}\)-invariant pairing on \(\mathfrak{g}\) that restricts to a non-degenerate pairing on \(\mathfrak{k}\). We fix the notation \(\mathscr{G}:=\Gamma(M; P_K \times _K K)\) and \(\mathscr{G}^\C=\Gamma(M; P_G \times_G G)\). Since \(G=K^\C\), \(\mathscr{G}^\C\) is fiberwise the complexification of \(\mathscr{G}\), hence the notation. We will write \(\exp_{\mathscr{G}}\) and \(\exp_{\mathscr{G}^\C}\) their respective exponential maps. 
+
+\begin{obs} \label{obs_def_prod}
+    The \(\Ad{}\)-invariant bilinear form induces a bilinear form on the space of sections of the associated bundle \(P_G \times _G \mathfrak{g}=\mathrm{ad}(P_G)\). Indeed, given two sections \(\bm{\xi}, \bm{\zeta}\in \Gamma(X; \mathrm{ad}(P_G))\), we define \(\langle \bm{\xi}(x), \bm{\zeta}(x)\rangle :=\langle \xi, \zeta \rangle\) where \(\bm{\xi}(x)=[p, \xi], \bm{\zeta}(x)=[p, \zeta]\) and \(\pi(p)=x\). This is well-defined because taking another pair of representatives \([p\cdot g, \Ad{g^{-1}}\xi]\) and \([p\cdot g, \Ad{g^{-1}}\zeta]\), \(\Ad{}\)-invariance implies that \(\langle \Ad{g^{-1}}\xi, \Ad{g^{-1}}\zeta \rangle = \langle \xi, \zeta\rangle\). Moreover, this extends to \(\mathrm{ad}(P_G)\)-valued differential forms. More precisely, we define 
+    \[
+    \begin{array}{cccc}
+        \langle \cdot \wedge \cdot \rangle \colon & \Omega_\R^p(X; \mathrm{ad}(P_G)) \times \Omega_\R^q(X; \mathrm{ad}(P_G)) & \longrightarrow & \Omega_\R^{p+q}(X) \\ 
+    \end{array}
+    \]
+    by extension of \(\langle \alpha \otimes \bm{\xi} \wedge \beta \otimes \bm{\zeta}\rangle = \langle \bm{\xi}, \bm{\zeta}\rangle \cdot \alpha \wedge \beta\). The same construction serves for \(\Omega_{\Ad{}, \ \mathrm{hor}}^1(P;\mathfrak{g})\). We may also endow \(\Gamma(X, \mathrm{ad}(P_G))\) with a Lie algebra structure as in remark \ref{obs_def_bracket_sections}, and extend it to differential forms by linear extension of \([\alpha \otimes \bm{\xi} \wedge \beta \otimes \bm{\zeta}]:=(\alpha \wedge \beta)\otimes [\bm{\xi}, \bm{\zeta}]\).
+\end{obs}
+
+Since the notion of stability for vector bundles depends on a notion of degree, it seems reasonable to try to define a degree for holomorphic principal bundles, and use that as a basis to define a notion of stability. This is done by means of characters.
+
+\Definition{}{Let \(\mathfrak{g}\) be a complex Lie algebra. \\
+\noindent
+\begin{minipage}{0.7\textwidth}
+    A \textit{character}\index{Charecter} is a complex linear map \(\chi\colon \mathfrak{g}\to \C\) that factorizes through the quotient \(q\colon \mathfrak{g}\to \mathfrak{g}/[\mathfrak{g}, \mathfrak{g}]\). That is, there is a complex linear map \(\bar{\chi}\colon \mathfrak{g}\to \mathfrak{g}/[\mathfrak{g}, \mathfrak{g}]\) such that diagram is commutative.
+\end{minipage}%
+\begin{minipage}{0.29\textwidth}
+        \begin{center}
+    \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+            \mathfrak{g} \arrow[d, "{\displaystyle q}", '] \arrow[r, "{\displaystyle \chi}"] \& \C \\
+            \mathfrak{g}/[\mathfrak{g}, \mathfrak{g}] \arrow[ur, "{\displaystyle \bar{\chi}}",'] \& 
+        \end{tikzcd}
+\end{center}
+\end{minipage}
+}
+
+The following lemma gives examples of characters on parabolic algebras of the form \(\mathfrak{p}_s\) for \(s \in \ii \mathfrak{k}\). Let \(\langle \cdot, \cdot \rangle\) be a \(\C\)-bilinear non-degenerate pairing on \(\mathfrak{g}\) invariant under the adjoint action of \(G\).
+
+\Lemma{}{Let \(\zeta \in \mathfrak{k}\subset \mathfrak{g}\). We define \(\chi_\zeta\in \mathfrak{g}^*\) by \label{lemma_character}
+\[
+\chi_\zeta(\xi)=\langle \zeta, \xi \rangle \hspace{1 cm} \xi \in \mathfrak{g}. 
+\]
+Then, the restriction of \(\chi_\zeta\) to \(\mathfrak{p}_\zeta\) (which we will denote by the same symbol) is a character on \(\mathfrak{p}_s^*\). \label{lemma_antidominant_character}
+}
+\begin{proof}
+    \(\chi_\zeta\) is clearly \(\C\)-linear, and so is its restriction. Observe that \(\zeta \in \mathfrak{p}_\zeta\). This follows from the definition of \(\mathfrak{p}_\zeta\), and the fact that \(\Ad{\exp(t\zeta)}(\zeta)=\zeta\) for all \(t \in \R\). To check that it factors through \([\mathfrak{p}_\zeta, \mathfrak{p}_\zeta]\), we must see that \(\langle \zeta, [x, y]\rangle =0\) for \(x,y \in \mathfrak{p}_\zeta\). Observe that \(\langle \zeta, [x,y]\rangle = \langle [x,\zeta], y \rangle\). This follows from \(\Ad{}\)-invariance, and from the fact that \(\mathrm{ad}(x)(y)=[x,y]=\diff_e \Ad{}(x)(y)\) \parencite[Th. 20.27]{lee_introSM}:
+    \begin{align*}
+        \langle \zeta, [x,y] \rangle & = \langle \zeta, \mathrm{ad}(x)(y) \rangle = \langle \zeta, \diff_e \Ad{}(x)(y) \rangle = \bigg\langle \zeta, \bigdt \Ad{\exp(tx)}(y) \bigg\rangle  \\
+        & = \bigg\langle \bigdt \Ad{\exp(-tx)}(\zeta), y \bigg \rangle =\langle [-x,\zeta], y\rangle = \langle [\zeta,x], y \rangle.
+    \end{align*}
+    Moreover, \(\mathfrak{p}_\zeta=\mathfrak{l}_\zeta \oplus \mathfrak{u}_\zeta\) where \(\mathfrak{u}_\zeta\) is the nilpotent radical obtained from the Levi factor \(\mathfrak{l}_\zeta\) (c.f. section \ref{section_parabolic_subalgebras} and proposition \ref{prop_charact_parabolic_subgroups}). Hence, by definition of \(\mathfrak{l}_\zeta\) if \(x \in \mathfrak{l}_\zeta\), \(\chi_\zeta([x,y])=\langle [\zeta,x], y \rangle =0\). By the direct sum decomposition above, it suffices to see that \(\chi_\zeta([x,y])\) for \(x \in \mathfrak{u}_\zeta\). Now, since \(\mathfrak{u}_\zeta\) is an ideal of \(\mathfrak{p}_\zeta\), we have \([\mathfrak{u}_\zeta, \mathfrak{p}_\zeta] \subset \mathfrak{u}_\zeta\), hence \([x,y]\in \mathfrak{u}_\zeta\) for \(x\in \mathfrak{u}_\zeta, y \in \mathfrak{p}_\zeta\). Hence, we need only show that \(\chi_\zeta(x)=0\) for all \(x \in \mathfrak{u}_\zeta\), but this is trivially true because \(\mathfrak{u}_\zeta\) is the radical of the restriction of \(\langle \cdot, \cdot  \rangle\) to \(\mathfrak{p}_\zeta\) (that is \(\langle \xi, x\rangle=0\) for all \(\xi \in \mathfrak{p}_\zeta, x \in \mathfrak{u}_\zeta\), see \parencite[Page 273]{knapp2013lie}).
+\end{proof}
+
+Consider now \(\mathfrak{p}\) any parabolic subalgebra, and \(\chi\in \mathfrak{p}^*\) a character. The non-degenerate pairing \(\langle \cdot, \cdot \rangle\) induces a linear isomorphism \(\mathfrak{g}\cong \mathfrak{g}^*, \zeta \mapsto \langle \zeta, \cdot \rangle\). Recall that we have a direct sum decomposition \(\mathfrak{g}=\mathfrak{k}\oplus \ii \mathfrak{k}\), which induces a projection \(\mathfrak{g} \twoheadrightarrow \ii \mathfrak{k}\). Finally, the pairing \(\langle \cdot , \cdot \rangle\) induces a direct sum decomposition \(\mathfrak{g}=\mathfrak{p}\oplus \mathfrak{p}^\perp\) \textbf{(7)}. This comes with a natural orthogonal projection \(p_\perp \colon \mathfrak{g}\to \mathfrak{p}\), whose dual map gives an injection \(\mathfrak{p}^* \hookrightarrow \mathfrak{g}^*, \chi \mapsto \chi \circ \textsf{pr}_\perp \). We thus have the following chain of maps 
+\[
+\mathfrak{p}^* \hookrightarrow \mathfrak{g}^* \xrightarrow{\cong} \mathfrak{g} \to \ii \mathfrak{k}.
+\]
+Given \(\chi \in \mathfrak{p}^*\) we denote \(\zeta_\chi\in \ii \mathfrak{k}\) its image through the previous chain of maps.
+
+\Definition{}{Let \(\mathfrak{p}\subset \mathfrak{g}\) be a parabolic subalgebra. A character \(\chi \in \mathfrak{p}^*\) is said to be \textit{antidominant}\index{Character!antidominant} if \(\mathfrak{p}_{s_\chi}\subset \mathfrak{p}\) and \textit{strictly antidominant}\index{Character!stricly antidominant} if \(\mathfrak{p}_{\zeta_\chi}=\mathfrak{p}\).}
+
+\begin{obs} \label{obs_chis_antidominant}
+    For each \(\zeta\in \ii \mathfrak{k}\), we have \(\zeta_{\chi_\zeta}=\zeta\), thus the character \(\chi_\zeta\) of \(\mathfrak{p}_\zeta\) is always strictly antidominant. This follows from the fact that \(\chi_\zeta \circ \textsf{pr}_\perp=\chi_\zeta\) (recall that \(\zeta \in \mathfrak{p}_\zeta\)) the way \(\langle \cdot, \cdot \rangle\) induces the pairing.
+\end{obs}
+
+We now prove a lemma we will need to define the notion of degree. 
+
+\Lemma{}{Let \(P(M,G)\) be a principal bundle, and let \(A\) be a connection. Let \(\alpha \in \Omega^1_\R(M; \mathrm{ad}(P_G))\). Then \label{lemma_F_A_plus_alpha}
+\[
+F_{A+\alpha}=F_A+\diff_A \alpha + \frac{1}{2}\cdot [\alpha, \alpha]
+\]
+}
+\begin{proof}
+    Let \(\hat{\alpha}:=\Upsilon^{-1}(\alpha)\in \Omega_{\Ad{}, \ \text{hor}}^1(P; \mathfrak{g})\). By \(A+\alpha\) we mean the connection one-form \(A+\hat{\alpha}\). From remark \ref{ex_connection_1_forms_horizontal} we apply \(\Upsilon\) to equation \eqref{eq_rel_curvature}. Then,
+    \begin{align*}
+        F_{A+\alpha} & = \Upsilon\parent{\Diff_AA + \Diff_A \hat{\alpha} + \frac{1}{2}\cdot [\hat{\alpha}, \hat{\alpha}]} = F_A+ \Upsilon(\Diff_A \hat{\alpha})+ \frac{1}{2}\cdot \Upsilon([\hat{\alpha} \wedge  \hat{\alpha}]) \\
+        &= F_A + \diff_A \Upsilon(\hat{\alpha}) + \frac{1}{2}\cdot [\Upsilon(\hat{\alpha}) \wedge \Upsilon(\hat{\alpha})].
+    \end{align*}
+    It remains to check that \(\Upsilon([\hat{\alpha}, \hat{\alpha}])=[\Upsilon(\hat{\alpha}), \Upsilon(\hat{\alpha})]\). To do so, let us unveil the different definitions. Let \(\alpha=\alpha^j \otimes \bm{\xi}_j\) for \(\alpha^j \in \Omega_\R^1(M)\) and \(\bm{\xi}_j \in \Gamma(M; \mathrm{ad}(P_G))\). A simple calculation shows that \(\Upsilon^{-1}(\alpha)=\pi^* \alpha^j \otimes \hat{\xi}_j\), where \(\hat{\xi}_j:=\Upsilon^{-1}(\bm{\xi}_j)\colon P \to \mathfrak{g}\) is \(G\)-equivariant (see \parencite[Remark 1.2.13]{Rudolph_2017pug}). Then, letting \(p \in P\), \(v_1, v_2 \in T_pP\)
+    \begin{align*}
+        \big(\Upsilon([\hat{\alpha}\wedge \hat{\alpha}])\big)_{\pi(p)}(\diff_p\pi(v_1), \diff_p\pi(v_2)) & = q_p \big((\pi^*(\alpha^j \wedge \alpha ^\ell))_{p}(v_1, v_2) \cdot [\hat{\xi}_j(p), \hat{\xi}_\ell(p)]\big) \\
+        &=\big[p,(\pi^*(\alpha^j \wedge \alpha ^\ell))_{p}(v_1, v_2) \cdot [\hat{\xi}_j(p), \hat{\xi}_\ell(p)]  \big]
+    \end{align*}
+    Whereas
+    \begin{align*}
+        [\Upsilon(\hat{\alpha}) \wedge \Upsilon(\hat{\alpha})]_{\pi(p)}(\diff_p\pi(v_1), \diff_p\pi(v_2)) &= [\alpha^j \otimes \xi_j \wedge \alpha^\ell \otimes \xi_\ell]_{\pi(p)}(\diff_p\pi(v_1), \diff_p\pi(v_2)) \\
+        & = (\alpha^j \wedge \alpha^\ell)_{\pi(p)}(\diff_p\pi(v_1), \diff_p\pi(v_2))\cdot [p, \xi_j(\pi(p)), \xi_{\ell}(\pi(p))].
+    \end{align*}
+    And these coincide due to the way the Lie bracket on \(\Gamma(X; \mathrm{ad}(P))\) is defined (c.f. remark \ref{obs_def_bracket_sections}) and the way that \(\Upsilon\) acts on sections of \(\mathrm{ad}(P_G)\) (c.f. section \ref{section_connections_associated_bundles}).
+\end{proof}
+
+Consider \(\mathcal{P}\) a holomorphic principal \(G\)-bundle over a Riemann surface \(X\). Let \(\zeta \in \ii \mathfrak{k}\) and let \(P_\zeta\subset G\) be the parabolic subgroup defined by \(\zeta\) as in proposition \ref{prop_charact_parabolic_subgroups}. Consider a reduction of the structure group of \(\mathcal{P}\) to \(P_\zeta\) given by a holomorphic section \(\sigma \in \mathcal{O}(X; \mathcal{P}/P_\zeta)\), and let \(\mathcal{P}_\sigma:=\sigma^*\mathcal{P}\) be the corresponding holomorphic \(P_\zeta\)-principal bundle over \(X\). As noted in remark \ref{obs_chis_antidominant}, the character \(\chi_s\in \mathfrak{p}^*\) is antidominant. Consider \(L_\zeta\) the Levi subgroup of \(P_\zeta\) defined by \ref{prop_charact_parabolic_subgroups}. Define \(K_\zeta:=K\cap L_\zeta\) which is a Lie group whose Lie algebra is given by \(\mathfrak{k}_\zeta:=\mathfrak{k}\cap \mathfrak{l}_\zeta\).  Then, \(K_\zeta\) is a maximal compact subgroup of \(L_\zeta\) and the inclusion \(K_\zeta \subset L_\zeta\) is a homotopy equivalence. The inclusion \(L_\zeta\subset P_\zeta\) is a homotopy equivalence as well, so \(K_\zeta\) and \(P_\zeta\) are homotopy equivalent. This implies that any reduction \(\sigma\) induces another reduction (unique up to homotopy equivalence) of the structure group to \(K_\zeta\). Call \(P'_\sigma\) the resulting smooth principal \(K_\zeta\)-bundle. See \parencite[Example 5.6]{kobayashi_vol1} and the results surrounding it for a justification of this fact.
+
+\Definition{}{Let \(\mathcal{P}(X,G)\) be a holomorphic principal bundle and \(\zeta \in \ii \mathfrak{k}\). Keeping the notations of the previous paragraph, consider a connection \(A\) on \(\mathcal{P}'_\sigma\), and let \(F_A\in \Omega^2(X; P'_\sigma\times_{K_\zeta} \mathfrak{k}_\zeta)\) its curvature, We define the \textit{degree of \(\mathcal{P}\) with respect to \(\zeta\) and the reduction \(\sigma\)} by \label{def_degree_principal_bundle}
+\begin{equation} \nonumber
+    \deg \mathcal{P}(\sigma, \zeta)=\frac{\mathrm{i}}{2 \pi}\cdot \int_X \chi_\zeta(F_A).     
+\end{equation}
+}
+\begin{obs} \label{obs_deg_well_defined}
+    Let us check that \(\deg \mathcal{P}(\sigma, \chi)\) is a well-defined real number. First, observe that \(\chi_\zeta(\mathfrak{k}_\zeta) \subset \ii \R\). Indeed, \(\zeta=\ii \zeta'\) for some \(\zeta' \in \mathfrak{k}\), hence \(\chi_\zeta(\xi)=\langle \ii \zeta', \xi \rangle = \ii \langle \zeta', \xi \rangle\) for \(\zeta \in \mathfrak{k}_\zeta \subset \mathfrak{k}\) using \(\C\)-bilinearity. Moreover, since \(\mathfrak{g}=\mathfrak{k}\oplus \ii \mathfrak{k}\), \(\mathfrak{g}\) is endowed with a natural conjugation map. With respect to this conjugation map, and due to \(\C\)-bilinearity, a direct computation shows that \(\overline{\langle \zeta, \xi \rangle} = \langle \overline{\zeta}, \overline{\xi} \rangle\) for any pair \(\zeta, \xi \in \mathfrak{g}\). Hence, if \(\zeta, \xi \in \mathfrak{k}\), they coincide with their complex conjugates and their product is real. \\
+
+    On the other hand, \(F_A\) takes values in the associated bundle \(P'_\sigma \times _{K_\zeta}\mathfrak{k}_\zeta\). We define the composition of \(\chi_\zeta\) and any \(p\)-form in \(\Omega^p(X; P'_\sigma \times_{K_\zeta} \mathfrak{k}_\zeta)\) by linear extension of \(\chi_s(\alpha \otimes \bm{\xi})=\chi_s(\bm{\xi})\cdot\alpha\), where \(\bm{\xi}\in \Gamma(X; P'_\sigma \times_{K_s}\mathfrak{k}_s)\). Finally, if \(\bm{\xi}(x)=[p, \xi]\in P'_\sigma \times_{K_\zeta}\mathfrak{k}_\zeta\), with \(\pi(p)=x\), we define \(\chi_\zeta(\bm{\xi}(x))=\chi_\zeta(\xi)\). This does not depend on the representative chosen. Indeed, \([p, \xi]=[p\cdot k, \Ad{k^{-1}}(\xi)]\) for \(k \in K_\zeta\), but
+    \[
+    \chi_\zeta(\Ad{k^{-1}}(\xi))=\langle \zeta, \Ad{k^{-1}}(\xi) \rangle = \langle \Ad{k}(\zeta), \xi \rangle = \langle \zeta, \xi \rangle = \chi_\zeta(\xi)
+    \]
+    using the \(\Ad{}\)-invariance of the product and the fact that \(K_\zeta \subset L_\zeta=\corch{g\in G: \Ad{g}(\zeta)=\zeta}\). Finally, let us see that the definition is independent of the chosen connection \(A\). First, recall that Since the space of connections \(\mathscr{A}(P'_\sigma)\) is an affine space modelled on \(\Omega^1_\R(X; \mathrm{ad}(P_\sigma'))\), hence if we fix a connection \(A \in \mathscr{A}(P_\sigma')\), any other connection will be given by \(A+\alpha\) for \(\alpha \in \Omega_\R^1(X; P_\sigma')\). Observe that by our definitions, and due to the fact that everything is smooth, it follows that \(\chi_\zeta(\alpha)\in \Omega_\R^1(X)\). Let us assume that \(\chi_\zeta(\diff_A \alpha)=\diff \chi_\zeta(\alpha)\) (we give a proof of this fact in lemma \ref{lemma_def_degree_principal_bundl} bellow). The curvature two-forms of \(A\) + \(A+\alpha\) relate as \(F_{A+\alpha}=F_A+\diff_A \alpha + 1/2 \cdot [\alpha \wedge \alpha]\), (see lemma \ref{lemma_F_A_plus_alpha}). Since \(\chi_\zeta\) is a character of \(\mathfrak{p}_\zeta\), it vanishes on \([\mathfrak{p}_\zeta, \mathfrak{p}_\zeta]\), hence, it vanishes on \([\mathfrak{k}_\zeta, \mathfrak{k}_\zeta]\) as well, and that is where \([\alpha \wedge \alpha]\) takes values. Hence, applying Stokes' theorem, we find
+    \[
+    \int_X \chi_\zeta(F_{A+\alpha})=\int_X \chi_\zeta(F_A) + \int_X \diff \chi_\zeta(\alpha)
+    \]
+    the latter being zero because \(\partial X=\emptyset\).
+    % {\color{red} Esto no lo he encontrado en ningún sitio. Se me ocurren dos formas de intentar probarlo. La primera es utilizar el teorema 1.1 del Ch. XII del volumen II del Kobayashi-Nomizu que habla de clases características y el homomorfismo de Weil (tomando \(f=\chi_\zeta\) según su notación, si no tienes el libro a mano avísame y te lo envío). La otra idea que tengo es hacerlo directamente. Suponiendo que sea cierto \(\chi_\zeta(\diff_A \alpha)=\diff \chi_\zeta(\alpha)\) para toda \(\alpha \in \Omega^1(X; \mathrm{ad}(P_G))\), hacemos lo siguiente (lo pongo a partir de ahora en inglés por si acaso es cierto no escribirlo de nuevo): Since the space of connections \(\mathscr{A}(P'_\sigma)\) is an affine space modelled on \(\Omega^1(X; \mathrm{ad}(P_G))\), if we fix a connection \(A\), any other connection will be \(A+\alpha\) for some \(\alpha \in \Omega^1(X; \mathrm{ad}(P_G))\). Then, the curvature two-forms relate as \(F_{A+\alpha}=F_A+\diff_A \alpha + 1/2 \cdot [\alpha \wedge \alpha]\). Since \(\chi_\zeta\) is a character of \(\mathfrak{p}_\zeta\), it vanishes on \([\mathfrak{p}_\zeta, \mathfrak{p}_\zeta]\), hence, it vanishes on \([\mathfrak{k}_\zeta, \mathfrak{k}_\zeta]\) as well, and that is where \([\alpha \wedge \alpha]\) takes values. Hence, applying Stokes' theorem, we find
+    % \[
+    % \int_X \chi_\zeta(F_{A+\alpha})=\int_X \chi_\zeta(F_A) + \int_X \diff \chi_\zeta(\alpha)
+    % \]
+    % the latter being zero. \textbf{(12)}
+    % }
+\end{obs}
+
+\Lemma{}{In the conditions of definition \ref{def_degree_principal_bundle}, we have \(\chi_\zeta(\diff_A \alpha)=\diff \chi_\zeta(\alpha)\) for all \(\zeta\in \ii \mathfrak{k}\) and \(\alpha \in \Omega_\R^1(X; \mathrm{ad}(P_\sigma'))\). \label{lemma_def_degree_principal_bundl}}
+\begin{proof}
+    The calulation is similar to that of lemma \ref{lemma_F_A_plus_alpha}. Let \(\pi\colon P_\sigma'\to X\) be the projection, and \(\alpha \in \Omega_\R^1(X; P_\sigma' \times_{K_\zeta} \mathfrak{k}_\zeta)\). Recall from theorem \ref{th_forms_associated_bundles} that \(\Upsilon^{-1}(\alpha) \in \Omega^1_{\text{Ad, hor}}(P'_\sigma; \mathfrak{k}_\zeta)\). Expand \(\alpha=\alpha^j \otimes \bm{\xi}_j\) for some \(\alpha^j \in \Omega_\R^1(X)\) and \(\bm{\xi}_j\in \Gamma(X; P_\sigma'(\mathfrak{k}_\zeta))\). As in lemma \ref{lemma_F_A_plus_alpha} \(\Upsilon^{-1}(\alpha)=\pi^* \alpha^j \otimes \hat{\xi}_j\), where \(\hat{\xi}_j=\Upsilon^{-1}(\bm{\xi}_j)\colon P'_\sigma \to \mathfrak{k}_\zeta\) is \(K_\zeta\)-equivariant. After setting this notation up, the result follows from a simple computation. Observe that the definition of \(\Upsilon\) forces us to set a point. Hence, let \(p \in P_\sigma'\) and \(v_1, v_2 \in T_pP_\sigma'\). On the one hand, it follows from our definitions that \(\diff \chi_\zeta(\alpha)=\chi_\zeta(\bm{\xi}_j)\cdot\diff \alpha^j\). Hence, 
+    \begin{align*}
+        \diff_{\pi(p)}\ \chi_\zeta(\alpha) (\diff_p \pi(v_1), \diff_p\pi(v_2)) & = \diff_{\pi(p)} \alpha(\diff_p\pi(v_1), \diff_p\pi(v_2)) \cdot \chi_\zeta(\bm{\xi}_j(\pi(p)))=(\pi^*\alpha^j)_p(v_1, v_2) \cdot \chi_\zeta(\bm{\xi}_j(\pi(p))).
+    \end{align*} 
+    On the other hand,
+    \begin{align*}
+        \chi_\zeta((\diff_A \alpha)_p(\diff_p\pi(v_1), \diff_p\pi(v_2))) & = \chi_\zeta(q_p( \Diff_A \Upsilon^{-1}(\alpha))_p(v_1^H, v_2^H)) = \chi_\zeta\big(q_p(\diff_p(\pi^* \alpha^j)(v_1^H,v_2^H)\cdot \hat{\xi}_j(p))\big) \\
+        & = (\pi^* \diff\alpha^j)_p(v_1, v_2) \cdot \chi_\zeta(\bm{\xi}_j(\pi(p))).
+    \end{align*}
+    In the last step we used the fact that \(\xi_j(\pi(p))=[p, \hat{\xi}_j(p)]\) and the fact that \(\diff_p\pi(v)=\diff_p\pi(v^H)\) because vertical vectors are annihilated by the projection. We thus get the identity \(\diff \chi_\zeta(\alpha)=\chi_\zeta(\diff_A \alpha)\) but written pointwise.
+\end{proof}
+
+Observe the clear parallelism between this definition of degree and the definition for vector bundles (definition \ref{def_stability_vector_bundles}). For vector bundles, we integrate the first Chern class, which is (up to some constants) the cohomology class of \(\mathrm{Tr}(F_\nabla)\). Here, the role of the trace is played by the antidominant character. We are now ready to state the definition of stability. First, observe that parabolic subgroups \(P_\zeta\) are complex closed subgroups, and the action of \(P_\zeta\) on \(G\) by left multiplication \(P_\zeta \times G \to G, (p,g) \mapsto p\cdot g \) is smooth free and proper (the reasoning in the proof of \parencite[Th. 21.17]{lee_introSM} hods), hence, by theorem \ref{quot_man_th_complex}, \(G/P_\zeta\) has the structure of a complex manifold. Then, given holomorphic principal bundle \(\mathcal{P}\), the associated bundle \(\mathcal{P}(G/P_\zeta)\) is holomorphic as well, and we can consider its holomorphic sections.
+
+\Definition{\textbf{Stability condition}}{Let \(\mathcal{P}_G\) be a holomorphic principal bundle over a Riemann surface, and let \(c \in \ii \zenterg \cap  \mathfrak{k}\). We say that \(\mathcal{P}_G\) is \textbf{(8)} \label{def_stability_connected}
+\begin{enumerate}
+    \item \(c\)\textit{-stable} (resp. \(c\)\textit{-semistable}) if for any \(\zeta \in \ii \mathfrak{k}\), and any \(\sigma \in \mathcal{O}(X; \mathcal{P}(G/P_\zeta))\), we have 
+    \[
+    \deg \mathcal{P}(\sigma, \zeta)-\langle c, \zeta\rangle >0 \hspace{1.5 cm} (\text{resp. } \deg \mathcal{P}(\sigma, \zeta)-\langle c, \zeta \rangle \geq 0).
+    \]
+    \item \(c\)\textit{-polystable} if it is \(c\)-semistable and or any \(\zeta\in \ii \mathfrak{k}\) and any \(\sigma \in \mathcal{O}(X; \mathcal{P}(G/P_\zeta))\) such that \(\deg \mathcal{P}(\sigma, \zeta)-\langle c, \zeta \rangle = 0\), there is a holomorphic reduction of the structure group \(\sigma'\in \mathcal{O}(X; \mathcal{P}_\sigma(P/L_\zeta))\).
+\end{enumerate}
+}
+The arguments of remark \ref{obs_deg_well_defined} apply to show that \(\langle c, \zeta \rangle \in \R\), hence the inequalities above make sense. With the correct notion of stability, we can now state the correspondence.
+
+\Theorem{\textbf{Hitchin-Kobayashi for principal bundles}}{Let \(G\) be a connected complex reductive Lie group, \(K\subset G\) a maximal compact subgroup, and \(\mathcal{P}\) a holomorphic principal \(G\)-bundle over a compact Riemann surface \(X\). Then, \(\mathcal{P}\) is \(c\)-polystable if and only if there is a reduction of the structure group to \(K\), \(P_K\) whose Chern connection \(A\) satisfies the equation
+\begin{equation} \label{eq_Hermite_Yang_Mills}
+    \Lambda_\omega F_A=-\ii  c
+\end{equation}
+for some \(c \in\ii\zenterg\cap\mathfrak{k}\). In that case, the reduction is unique. \label{th_HK_principal_bund_connected}
+}
+Equation \eqref{eq_Hermite_Yang_Mills} is called the \textit{Hermite-Yang-Mills equation for principal bundles}. We insist on the fact that \(F_A \in \Omega^2(X; P_K \times_K \mathfrak{k})\) is the curvature of the Chern connection on the \textit{reduced} bundle.
+\begin{obs} \label{obs_HYM_center_Lie_algebra}
+    Observe that \(\Lambda_\omega F_A=-\ii c\) should be understood as an equality between smooth sections of the bundle \(P_K \times _K \mathfrak{k}\). The right-hand side then corresponds to a constant section \(m \mapsto [p, c]\) for \(\pi(p)=m\). One should check that this section is well-defined. Indeed, choose another representative \([p\cdot g, \Ad{k^{-1}}(c)]\). Since \(c \in \zenterg\cap \mathfrak{k}\) \textit{and \(K\) is connected}, \(\Ad{k}(c)=c\) for each \(c \in \zenterg \cap \mathfrak{k}\). It is very important to remark that this only holds for connected Lie groups. A quick proof is as follows:
+    \begin{align*}
+        \Ad{k}(c) =\left.  \frac{\diff}{\diff t}\right|_{t=0} L_k \circ R_{k^{-1}} \circ \exp(tc) = \left.  \frac{\diff}{\diff t}\right|_{t=0}  k \exp(tc)k^{-1}=\left.  \frac{\diff}{\diff t}\right|_{t=0} kk^{-1}\exp(tc)=c.
+    \end{align*}
+    This uses the fact that \(\zenterg\cap\mathfrak{k}\subset \mathfrak{z}(\mathfrak{k})\), that the exponential on a compact connected Lie group is surjective \parencite[Cor. 12.2.3]{hilgert2011structure} and the Baker-Campbell-Hausdorff formula. \\
+
+    Moreover, as happens for vector bundles, if equation \eqref{eq_Hermite_Yang_Mills} is satisfied, then the constant \(c\) is determined uniquely by the topology of the bundle. Uniqueness is not difficult to see. Recall that \(\langle \cdot, \cdot \rangle\) is chosen so that its restriction to \(\mathfrak{k}\) is negative definite {\color{red}?}. Hence, let \(\corch{\zeta_1, \ldots \zeta_r}\) be an orthonormal basis. \(-\ii c \in \mathfrak{k}\), hence \(-\ii c=\sum_{j=1}^r \langle-\ii c,\zeta_j\rangle \cdot \zeta_j \). Moreover, \(\langle \zeta_j, -\ii c \rangle=\langle\zeta_j, \Lambda_\omega F_A \rangle\) where this is an equality between smooth real-valued maps. Integrating on \(X\) with respect to the volume form \(\omega\), we get
+    \[
+    \int_X\langle\zeta_j, -\ii c\rangle \cdot \omega = \langle \zeta_j, -\ii c \rangle \cdot \mathrm{Vol}(X)=\int_X \langle \zeta_j , \Lambda_\omega F_A \rangle \cdot \omega = \int_X \langle \zeta_j, F_A \rangle  
+    \]
+    Using lemma \ref{lemma_wedge_omega} in the last identity and extending the inner product to differential forms the usual way. Then,
+    \begin{equation} \label{eq_unique_c}
+    -\ii c = \sum_{j=1}^r \frac{1}{\mathrm{Vol}(X)} \cdot \int_X \langle \zeta_j, \Lambda_\omega F_A \rangle.
+    \end{equation}
+    Hence, we have shown that the Chern connection may only satisfy \eqref{eq_Hermite_Yang_Mills} for a single value of \(c\). For a proof of the fact that \ref{eq_unique_c} depends only on the topology of the manifold and the bundle, see \parencite[Prop. 3.4]{garcia2014connectedness} or \parencite[Remark 1.2]{alvarez2013coupled} and the references therein. 
+\end{obs}
+
+In theorem \ref{th_HK_principal_bund_connected} we have phrased things as follows: we have fixed a holomorphic principal bundle structure on \(P_G\), and we ``are looking'' for a reduction of the structure group whose Chern connection satisfies the Hermite-Einstein-Yang-Mills equation. We find that this reduction exists if and only if \(\mathcal{P}_G\) is polystable. If we compare this with the vector bundle version, it is analogous to the point of view where we fix the holomorphic structure and look for a Hermite-Einstein fiber metric. We could think is this differently: instead of fixing the holomorphic structure, we could start with a principal \(G\)-bundle, and fix a reduction of the structure group (this corresponds to fixing the hermitian fiber metric). Then, we look for a connection on the reduction satisfying \(F_A^{(0,2)}=0\) and equation \ref{eq_Hermite_Yang_Mills}. Through the Chern-Singer correspondence, this induces an integrable almost complex \(G\)-structure on \(P_G\) with respect to which \(A\) is the Chern connection. In that case, by the theorem above, the bundle \(\mathcal{P}_G\) with the correspondence induced by the Chern-Singer correspondence will be \(c\)-polystable.
+
+}
+\subsection{The moment map picture} \label{section_moment_map_picture}
+{\color{violet}
+In this section we will lay the foundations of the moment map picture of the Hitchin-Kobayashi correspondence. We will specify how the various spaces involved have to be completed with suitable Sobolev norms to actually get infinite-dimensional manifolds. Our main references for this section are \parencite{mitter1981bundle}, \parencite{trautwein2015surveygitpictureyangmills}, \parencite{BrongersMST} \parencite{LarsMartin_Notes_HK} and \parencite{Rudolph_2017pug}. \\
+
+Consider first a compact Lie group \(K\) and a principal \(K\)-bundle \(P_K\) over a compact Kähler manifold \(M\) (for this part of the exposition we may work over a compact Kähler manifold instead of a Riemann surface without significant added difficulties). From example \ref{ex_connection_1_forms_horizontal} and remark \ref{remark_connections_affine_adP}, we know that \(\mathscr{A}(P_K)\) is an affine space modelled on \(\Omega^1(X; P_K \times _K \mathfrak{K})\). We consider \(L_k^2(X; T^*M \otimes \mathrm{ad}(P_K))\) its Sobolev completion with respect to the connection \(\nabla_A\) that any connection \(A\in \mathscr{A}(P_K)\) induces on the associated bundle \(\mathrm{ad}(P_K)\) (see section \ref{section_Sobolev_spaces}). \textbf{(4)} Since \(\mathscr{A}(P_K)\) is an affine space, we can fix an element \(A_0\in \mathscr{A}\). We define the space of \(L_2^k\)-connections by 
+\[
+\mathscr{A}_k(P_K):=\corch{A_0+\alpha : \alpha \in L_k^2(T^*M \otimes \mathrm{ad}(P_K))}.
+\]
+This is again an affine space, and the set is independent of the smooth connection \(A_0\) we use to define it. In fact, since \(\bm{\Omega}^1_k(M;\mathrm{ad}(P_K)):=L_k^2(M;T^*M \otimes \mathrm{ad}(P_K))\) is a Hilbert space by construction, this endows \(\mathscr{A}_k(P_K)\) with the structure of a Banach manifold. Indeed, charts are given by \(\alpha \mapsto \alpha + A\) for some smooth connection \(A\), and the transition maps are given by \(\alpha \mapsto \alpha + (A_0-A_1)\) for two smooth connections \(A_0, A_1 \in \mathscr{A}(P_K)\). This is clearly a smooth map in the sense of Banach manifolds. Finally, choosing \(k\) sufficiently large, in particular, \(k>\dim_\R M /2+1\) implies that \(\mathscr{A}_k(P_G)\) is embedded in the set of \(\mathscr{C}^1\) connections (those whose connection one form is of class \(\mathscr{C}^1\) instead of smooth, see lemma \ref{Sobolev_lemma}). One should remark that for affine spaces, the tangent space in the sense of section \ref{section_tangent_space_Banach} coincides (is isomorphic to) with the model vector space. To define the curvature associated to an \(L^2_1\)-connection, we may use the structure equation; for any \(A\in \mathscr{A}(P_K)\), \(\Diff_AA:=\diff A+1/2\cdot [A\wedge A]\). This is a \(\mathfrak{k}\)-valued two form but, in general, it will only be continuous. It still makes sense to define \(F_A:=\Upsilon(\Diff_AA)\), which is a continuous two form on the associated bundle \(P_K \times_K \mathfrak{k}\).  \\
+
+When \(K\) is a compact \textit{connected, matrix} Lie group \textbf{(9)}, then \(\mathscr{G}_k:=\overline{\Gamma(X; \mathrm{ad}(P_K))}\) is a Hilbert Lie group, see section \ref{section_gauge_group_is_Hilbert}. Choose \(k+1\) to endow the gauge group with a smooth structure. Then, the action by pullback 
+\begin{equation} \label{eq_def_action_Phi}
+    \Phi: \mathscr{G}_{k+1} \times \mathscr{A}_k \longrightarrow  \mathscr{A}_k, \ \  (A, \phi) \mapsto (\phi^{-1})^*A 
+\end{equation}
+is smooth in the sense of Banach manifolds \parencite[Prop. 3.12]{mitter1981bundle}. See equation \eqref{eq_explicit_action_gauge_group} for an explicit expression of the action. To set some notation, given \(\phi \in \mathscr{G}_{k+1}\), we will write \(\tau\colon P \to G\) the map corresponding to \(\phi\) by the isomorphism of theorem \ref{equivalences_gauge_group}. Observe that the construction of that theorem is still well-defined is we restrict the regularity of our maps. Observe as well that we consider the pullback with respect to the inverse to get a left-action. Had we not used the inverse, we would ahve gotten a right action. This is not particularly relevant, but we define a left action to be coherent with the discussion of chapter \ref{Chapter_inf_dim_sympl_red}. To be very explicit, elements of \(\mathscr{G}_k\) can be viewed as \(\mathscr{C}^{2}\) sections of the bundle \(\mathrm{ad}(P_K)\). The group isomorphisms of theorem \ref{equivalences_gauge_group} hold if we consider maps of lower regularity. Under these isomorphisms, every element of \(\mathscr{G}_k\) corresponds to a \(\mathscr{C}^{2}\) automorphism of \(P_K\) covering the identity, which can be used to define the pullback. \\
+
+Back to \(\mathscr{A}_k\), this Hilbert manifold is in fact symplectic. To endow it with a symplectic structure, we define 
+\begin{equation} \label{eq_def_sympl_form_connections}
+\Omega_A(\alpha, \beta):=\int_X \Lambda_\omega\langle \alpha \wedge \beta \rangle \ \diff V_g = \int_X \langle \alpha \wedge \beta \rangle \wedge \frac{\omega^{n-1}}{(n-1)!} \hspace{0.8 cm} \alpha, \beta \in T_A \mathscr{A}_k = \Omega^1_k(M; \mathrm{ad}(P_K))
+\end{equation}
+where the second expression follows from \ref{lemma_wedge_omega}. \(\langle \cdot \wedge \cdot \rangle\) is defined as in remark \ref{obs_def_bracket_sections}. Here \(\langle \cdot, \cdot \rangle\) is an \(\Ad{}\)-invariant inner product on \(\mathfrak{k}\), which always exists because \(K\) is compact (this is done by averaging any positive define inner product on \(\mathfrak{k}\) by means of the Haar measure, see \parencite[Lemma 10.4.14]{hilgert2011structure}).
+
+\begin{obs}
+    It is true, and we shall assume it henceforth, that almost every property of differential forms is still true when we restrict ourselves to differential forms with reduced regularity. For example, in \parencite{SergeLang}, the theory of differential forms is constructed without requiring smoothness.
+\end{obs}
+
+\Lemma{}{Let \(K\) be a compact Lie group, and \(P(M,K)\) a principal \(K\)-bundle over a compact Kähler manifold, and consider the Sobolev completion of its space of connections \(\mathscr{A}_k(P_G)\) for \(k>\dim_\R M/2+1\). Then, the form \(\Omega\) defined by \eqref{eq_def_sympl_form_connections} is symplectic. Moreover, the \(\mathscr{G}_k\)-action is symplectic.}
+\begin{proof}
+    For each \(A \in \mathscr{A}\), \(\Omega_A\) is clearly bilinear and skew-symmetric. \(\diff \Omega=0\) follows from the fact that \(\Omega\) does not depend on the point (see proposition \ref{def_ext_differential}). Since this is the first time we encounter the exterior differential applied to an infinite-dimensional form, let us be more explicit. First, for a two-form, the definition given in \eqref{def_ext_differential} reads
+    \begin{align*}
+        \diff \Omega(X_1, X_2, X_3)  = & X_1(\Omega(X_2, X_3)) - X_2(\Omega(X_1, X_3))+X_3(\Omega(X_1, X_2)) - \Omega([X_1, X_2], X_3) \\
+        & \ + \Omega([X_1, X_3], X_2) - \Omega([X_2, X_3], X_1).
+    \end{align*}    
+    Since \(\Omega\) does not depend on the point we evaluate it at, this expression depends only on the values of the vector fields at a point. Since all the tangent spaces can be canonically idenitified with \(\bm{\Omega}_k^1(M; \mathrm{ad}(P_G))\) we can calculate the right-hand side using constant vector fields. Their commutator is then zero (the proof given \parencite[Prop. 2.6]{LarsMartin_Notes_HK} can be adapted to this case). Hence, it suffices to show that each of the first three summands vanishes. To do so, consider \(\alpha, \beta ,\vartheta \in \bm{\Omega}_k^1(M; \mathrm{ad}(P_K))\), which we will see as constant vector fields. Observe that we may interpret \(\Omega(\alpha, \beta)\) as a map \(\mathscr{A} \to \R\). We then consider the vector field defined by assigning \(\vartheta\) to every point, which we still denote \(\vartheta\). To apply the comments on remark \ref{obs_vector_fields_and_differentials_inf_dim}, we identify it with the map that to any \(A \in \mathscr{A}\) assigns the equivalence class of the curve \(t \mapsto A+t \cdot \vartheta\). Hence, at any point \(A \in \mathscr{A}\), we have
+    \[
+    \big(\vartheta(\Omega(\alpha, \beta))\big)_A=\diff_A \big(\Omega(\alpha, \beta)\big)([t \mapsto A+ t\vartheta])=\bigdt \Omega_{A+t\vartheta}(\alpha, \beta)=0
+    \] 
+    the latter being zero because the map \(\Omega(\alpha, \beta)\colon \mathscr{A}\to \R\) is constant. Finally, to check non-degeneracy, let \(\alpha \in \Omega^1_k(M;\mathrm{ad}(P_K))\). Observe that the assignment 
+    \[
+    (\alpha, \beta):=\int_M \langle \alpha \wedge \star \beta \rangle \hspace{1 cm} \alpha, \beta \in \bm{\Omega}^1_k(M; \mathrm{ad}(P_K))
+    \]
+    defines an inner product on \(\Omega^1_k(M; \mathrm{ad}(P_G))\) (see the comment bellow \eqref{eq_Hodge_inner_prod_def_2}). Now, for a fixed \(\alpha\), let \(\beta:=\Lambda_\omega^{n-1} \star\alpha\). Hence,
+    \begin{align*}
+        \int_M \langle \alpha \wedge \Lambda_\omega^{n-1} \star \alpha \rangle \wedge \omega^{n-1} & = \int_M \langle \alpha \wedge  L_\omega ^{n-1} \Lambda_\omega^{n-1} \star \alpha \rangle = \int_M \langle L_\omega ^{n-1} \Lambda_\omega^{n-1} \star \alpha \wedge \star \star \alpha \rangle \\
+        & = (L_\omega^{n-1} \Lambda_\omega^{n-1} \star \alpha , \star \alpha) = (\Lambda_\omega^{n-1} \star\alpha,\Lambda_\omega^{n-1} \star\alpha)^2>0  
+    \end{align*}
+    and we conclude that the latter is positive using that \(\Lambda_\omega^{n-1} \star\alpha=\star L_\omega^{n-1} \alpha\) and \(L_\omega^{n-1}\) is injective \parencite[Lemma 9.39]{lee_introCM}. Finally, the \(\mathscr{G}_k\) action is symplectic. Let \(\phi(p)=p\cdot \tau(p)\), and consider \(\Phi_\phi\colon \mathscr{A}_k \to \mathscr{A}_k, A \mapsto (\phi^{-1})^*A\). Let \(\alpha \in \bm{\Omega}^1_k(M; \mathrm{ad}(P_G))\). We have (see \eqref{eq_def_action_connection_gauge_group})
+    \[
+    \diff_A \Phi_\phi(\alpha)=\left. \frac{\diff}{\diff t}\right|_{t=0} (\phi^{-1})^*(A+t\alpha)=\left. \frac{\diff}{\diff t}\right|_{t=0} \bigg( \Ad{\tau}(A+t \alpha) + (\tau^{-1})^*\theta \bigg) = \Ad{\tau} (\alpha).
+    \]
+    Here, \(\diff_A\) is the exterior differential evaluated at a connection \(A\), not the covariant exterior differential induced on an associated bundle. Finally, 
+    \[(\Phi_\phi^* \Omega)_A(\alpha, \beta)=\Omega_{\phi^*A}(\diff_A \Phi_\phi(\alpha), \diff_A \Phi_\phi(\beta))=\Omega_{\phi^*A}(\Ad{\tau}(\alpha), \Ad{\tau}(\beta))=\Omega_A(\alpha, \beta)
+    \] 
+    using the fact that \(\langle \cdot, \cdot \rangle\) is \(\mathrm{Ad}\)-invariant, and the adjoint action applies to the ``section of \(\mathrm{ad}(P_K)\)'' part of the differential form.
+\end{proof}
+Once shown that the action is symplectic, let us see that it is Hamiltonian. Hence, we define \(\mu \colon \mathscr{A}_k \to \mathrm{Lie}(\mathscr{G}_{k+1})^*\) by 
+\begin{equation} \label{eq_def_moment_map}
+ (\mu (A), \bm{\xi} ) :=\int_M \langle \bm{\xi}, (\Lambda_\omega F_A - \ii c) \rangle \  \frac{\omega^n}{n!} \hspace{1 cm} A \in \mathscr{A}_k, \ \bm{\xi}\in \mathrm{Lie}(\mathscr{G}_{k+1})=L^2_{k+1}(X; \mathrm{ad}(P_G)).
+\end{equation}
+Here, the symbol \((\cdot, \cdot) \) is the pairing between \(\mathrm{Lie}(\mathscr{G}_{k+1})\) and its dual as in \eqref{eq_def_pairing_lie_alg}.
+
+\Lemma{}{Let \(P(M,G)\) be a principal bundle over a compact Kähler manifold \(M\). The map \(\mu\) defined by \eqref{eq_def_moment_map} is a moment map for the action defined by \eqref{eq_def_action_Phi}.}
+\begin{proof}
+    For each \(A \in \mathscr{A}_k\) it is obvious that \(\mu(A)\) is linear. Moreover, \(F_{\phi^*A}=\Ad{\tau}\circ F_A\) (see \parencite[Page 462]{Rudolph_2017pug}). Hence
+    \begin{align*}
+        (\mu(\phi^*A), \bm{\xi})  & = \int_M \langle \bm{\xi}, (\Lambda_\omega F_{(\phi^{-1})^*A}-\ii c) \rangle \ \diff V_g = \int_M \langle \bm{\xi}, \Ad{\tau}(\Lambda_\omega F_A- \ii c) \rangle \ \diff V_g \\
+        & = \int_M \langle \Ad{\tau^{-1}} (\bm{\xi}), \Lambda_\omega F_A -\ii c \rangle \ \diff V_g = \langle \mu(A), \Ad{\tau^{-1}}(\bm{\xi}) \rangle 
+    \end{align*}
+    Finally, given \(\bm{\xi}\in \mathrm{Lie}(\mathscr{G}_{k+1})\), the infinitesimal action is \(X_{\bm{\xi}, A}:=\diff/\diff t|_{t=0} \ \exp_{\mathscr{G}_{k+1}}(t \bm{\xi})\cdot A=-\diff_A \bm{\xi}\), where \(\diff_A\) is connection that \(A\) induces in the associated bundle \(\mathrm{ad}(P_G)\). Here, we identify \(\exp_{\mathscr{G}_{k+1}}(t \bm{\xi})\) with a gauge transformation by means of theorem \ref{equivalences_gauge_group}. For a proof of the claim, see \parencite[Lemma 2.2]{trautwein2015surveygitpictureyangmills} {\color{red}revisar}. Let us check that \(\diff \mu^{\bm \xi}=i_{X_{\bm{\xi}}}\Omega\). To do so, we use the expression for \(F_{A+\alpha}\) proven in lemma \ref{lemma_F_A_plus_alpha}. Now, (again, \(\diff_A\) is the exterior differential evaluated at point \(A\))
+    \begin{align*}
+    \diff_A \  \mu^{\bm{\xi}}(\alpha) & = \left. \frac{\diff }{\diff t} \right|_{t=0} \int_M \langle \bm{\xi}, (\Lambda_\omega F_{A+t \alpha}-c) \rangle \ \diff V_g = \bigdt\int_M \bigg\langle \bm{\xi},  \Lambda_\omega F_A + t \Lambda_\omega  \diff_A \alpha +\frac{t^2}{2} \Lambda_\omega[\alpha \wedge \alpha ] \bigg\rangle \ \diff V_g   \\
+    & = \int_M \langle \bm{\xi}, \Lambda_\omega \diff_A \alpha \rangle \cdot \frac{\omega^n}{n!} \overset{{\color{red}(1)}}{=}\int_M \langle \bm{\xi} \wedge \diff_A \alpha \rangle \wedge \frac{\omega^{n-1}}{(n-1)!} \overset{{\color{red}(2)}}{=} \int_M \langle -\diff_A \xi \wedge  \alpha \rangle \wedge \frac{\omega^{n-1}}{(n-1)!} \\
+    & = i_{X_{\bm{\xi}, A}} \Omega_A(\alpha).
+    \end{align*}
+    Hence, \(\diff \mu^{\bm{}\xi}=i_{X_{\bm{\xi}}} \Omega\). In \({\color{red}(1)}\) we used lemma \ref{lemma_wedge_omega} and in \(\color{red}(2)\) we Stokes' theorem with the fact that 
+    \[
+    \diff \parent{\langle \bm{\xi} \wedge  \alpha \rangle \wedge \omega^{n-1}}=\langle \diff _A \bm{\xi} \wedge  \alpha \rangle \wedge \omega^{n-1} + \langle \bm{\xi}\wedge  \diff_A \alpha \rangle  \wedge \omega^{n-1}.
+    \]
+    Indeed, \(\diff \parent{\langle \bm{\xi} \wedge \alpha \rangle \wedge \omega^{n-1}}=\diff \big(\langle \bm{\xi} \wedge \alpha \rangle\big) \wedge \omega^{n-1}+\langle \bm{\xi} \wedge \alpha \rangle\wedge \diff \omega^{n-1}\), the latter being zero. For the former, one can show that \(\diff \langle \bm{\xi}, \alpha \rangle = \langle \diff_A \bm{\xi} \wedge \alpha \rangle  + \langle \bm{\xi} , \diff_A \alpha \rangle\). To do this, first observe that a straightforward computation shows that \(\langle \Upsilon^{-1}(\alpha) \wedge \Upsilon^{-1}(\beta)\rangle = \pi^*\langle \alpha \wedge \beta \rangle\) for all \(\mathrm{ad}(P_K)\)-valued differential forms \(\alpha\) and \(\beta\). Let \(\tilde{\alpha}:=\Upsilon^{-1}(\alpha)\) and \(\hat{\xi}:=\Upsilon^{-1}(\xi)\). Then,
+    \begin{align*}
+        \pi^* \langle\xi \wedge  \diff_A \alpha \rangle & = \langle\hat{\xi} \wedge \Diff_A \tilde{\alpha} \rangle=\langle \hat{\xi}\wedge (\diff \tilde{\alpha}+[A, \tilde{\alpha} ])  \rangle=\diff \langle \hat{\xi} \wedge \tilde{\alpha}\rangle- \langle\diff \hat{\xi}\wedge  \tilde{\alpha}\rangle + \langle  \hat{\xi}\wedge [A \wedge \tilde{\alpha}] \rangle \\
+        & \overset{{\color{red}(3)}}{=} \pi^*\diff \langle\xi \wedge  \alpha \rangle - \langle (\diff \hat\xi + [A, \hat{\xi}]) \wedge \tilde{\alpha}\rangle = \pi^* \diff \langle\xi \wedge  \alpha  \rangle -\langle  \Diff_A \hat{\xi} \wedge \tilde{\alpha}  \rangle \\
+        & = \pi^*\big(\diff \langle \xi \wedge \alpha \rangle -\langle\diff_A \xi \wedge \alpha  \rangle\big).
+    \end{align*}
+    In \(\color{red}(3)\) we used the invariance of the product (see the proof of lemma \ref{lemma_antidominant_character}). The equality holds when removing the pullbacks because \(\pi\) is a surjective smooth submersion (c.f. lemma \ref{lemma_null_pullback}).
+    %%%%%%%%%%%%%% IMPORTANTE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%% IMPORTANTE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % si acabo haciendo la prueba de que la acctión infinitesimal es -\diff_A, hay que tener en cuenta que se está utilizando el isomorfismo upsilon en la prueba que cito pero sin decirlo explícitamente 
+\end{proof}
+Observe that, by construction, \(\mu^{-1}(0)\) is precisely the set of connections in \(\mathscr{A}_k(P_G)\) that satisfy the Hermite-Yang-Mills equation.
+\begin{obs} \label{obs_mu_lie_sin_dual}
+    The map 
+    \[
+    \begin{array}{ccc}
+        \mathrm{Lie}(\mathscr{G}_{k+1}) & \longrightarrow & \mathrm{Lie}(\mathscr{G}_{k+1})^* \\
+        \bm{\xi} & \mapsto & \int_M \langle \bm{\xi}, \cdot \rangle \ \diff V_g
+    \end{array}
+    \]
+    is a vector space isomorphism. This justifies the fact that one commonly finds in the literature the statement that the moment map is given by \(\mu \colon \mathscr{A}_{k} \to \mathrm{Lie}(\mathscr{G}_{k+1}), A \mapsto \Lambda_\omega F_A-\ii c\). When writing this, we are seeing the moment map under that isomorphism.
+\end{obs}
+
+% We may consider \(\mathscr{A}^{(1,1)}_k(P_G)\) the subset of connections of type \((1,1)\). This will not be, in general, an infinite-dimensional smooth manifold: it may have singularities. However, outside its singularity set (which under some abuse of notation we will denote by \(\mathscr{A}^{(1,1)}_k(P_G)\) as well), it is a symplectic manifold with the restriction of \(\Omega\) as a symplectic form. The restriction of the \(\mathscr{G}_{k+1}\) action is Hamiltonian for the restriction of the moment map \(\hat{\mu}\), and each connection orbit contains a smooth one. Hence, the moduli space of Hermite-Einstein-Yang-Mills connections on \(P_G\) can be identified with the symplectic quotient: \(\hat{\mu}^{-1}(0)/\mathscr{G}\). To be sure that we ``do not add any new points'' in the quotient, one must show that each \(\mathscr{G}\)-orbit contains a smooth connection. From the Banach manifold version of the Marsden-Meyer-Weinstein theorem (theorem \ref{th_banach_sympl_red}) it follows that the moduli space of Hermite-Yang-Mills connections is a symplectic manifold. This, together with the Kempf-Ness theorem motivates the Hitchin-Kobayashi correspondence. \textbf{(10)}.
+
+\subsection{Infinite-dimensional Kempf-Ness theorem}
+We have claimed several times that the Hitchin-Kobayashi correspondence can be seen as an infinite-dimensional version of the Kempf-Ness theorem. The previous section has been devoted to stablish, with some level of detail, the moment map picture. In this section, we shall explore how this situation can be seen as a formal analogue of the Kempf-Ness theorem. Proofs of most of our claims are beyond the scope of this thesis, so this section will be rather expository. Moreover, even though the discussion on the moment map picture above holds for arbitrary compact Kähler manifolds, we shall restrict ourselves to the case of a Riemann surface in this section to simplify the discussion. Thus, we will be working in the context of the theorem by Ramanathan. The general case requires dealing with some aditional technicalities, but the core ideas are the same. To be clear, the proof does become way more complicated if one works with a compact Kähler manifold, but the interpretation in terms of the Kempf-Ness theorem is what does not change that much. The main reference for this section is \parencite{trautwein2015surveygitpictureyangmills}. \newline\newline
+
+Let us fix \(K\) a compact Lie group, \(G=K^\C\) its complexification, \(P_K\) a principal \(K\)-bundle and \(P_G=P_K \times_K G\). Observe that \(P_K\) is a reduction of the structure group of \(P_G\) to \(K\). Let \(\mathscr{G}_k\) and \(\mathscr{G}_k^\C\) be the corresponding gauge groups. Since we are dealing with Riemann surfaces, every connection \(A\in \mathscr{A}(P_K)\) is of type \((1,1)\) and induces a holomorphic structure on \(P_G\). We know that \(\mathscr{A}_k\) is a Banach manifold, and \(\mathscr{G}_{k+1}\) is a Banach Lie group whose action on \(\mathscr{A}_k\) is smooth and Hamiltonian for the moment map given in \eqref{eq_def_moment_map}. We will assume that the slice condition is satisfied {\color{red}?}. Moreover, the zeroes of the moment map are precisely the connections satisfying the Hermite-Yang-Mills equation. By the Banach manifold version of the Marsden-Meyer-Weisntein theorem, we know that the quotient \(\mu^{-1}(0)/\mathscr{G}_{k+1}\) has the structure of a Banach symplectic manifold. We have thus constructed the \textit{moduli space} of Hermite-Yang-Mills connections on the bundle \(P_K\). {\color{red} Smoothness??} \newline \newline
+
+The discussion of the previous paragraph was relatively clear from the theory we developed in section \ref{section_moment_map_picture}. It is now time to see the algebraic side of the story. Looking at the definition of stability we gave for the finite-dimensional version of the Kempf-Ness theorem (definition \ref{}), it is not clear how this relates to stability of principal bundles. In other words, had we not called the conditions of definition \ref{} stability, semistability and polystability, it would not be obvious to think about the Kempf-Ness theorem. To remedy this, we shall give an equivalent definition of stability which resembles definition \ref{} more clearly. Recall that the action of the gauge group \(\mathscr{G}\) on \(\mathscr{A}\) can be extended to an action of \(\mathscr{G}^\C\) by means of the Chern-Singer correspondence and \(\mathscr{J}(P_G)/\mathscr{G}^\C\) parametrizes the set of holomorphic structures on \(P_G\) up to isomorphism. This can be extended so that we get an action of \(\mathscr{G}^\C_{k+1}\) on \(\mathscr{A}_k(P_K)\). {\color{red}??????} Moreover, for every connection \(A \in \mathscr{A}_k(P_K)\) there is a complex gauge transformation \(\phi \in \mathscr{G}^\C_{k+1}\) such that \(\phi\cdot A \in \mathscr{A}(P_K)\) (that is, \(\phi\cdot A\) is a smooth connection). This means {\color{red} a connection still determines a holomorphic structure on \(P_G\) up to (complex) gauge transformation.} \newline \newline
+
+Consider the following definition.
+
+\Definition{}{Under the following assumptions}
+}
+
+\subsection{A sketch of the proof}
+{\color{violet}
+We will sketch a proof of theorem \ref{th_HK_principal_bund_connected} following Mundet i Riera, García Prada and Gothen \parencite{i1999hitchin} and \parencite{garcia2009hitchin}. The results stated in these articles are more general: they are given in the context of Kähler fibrations and Higgs bundles respectively, but we may reduce their arguments to ours by ignoring the extra structures. For an alternate proof this result which relies heavily on the vector bundle theorem, we refer the reader to \parencite{anchouche2001einstein}. Our strategy for the proof is to reduce the structure group further to another subgroup in such a way that another stronger condition is satisfied: simplicity. Then, the results will follow from the arguments on \parencite{i1999hitchin}. The results in these articles are quite involved, giving detailed proofs would take a lot of work, and is beyond the scope of this thesis. We include a sketch for the sake of completeness.  \\
+
+% We first see how being \(c\)-polystable implies that some reduction of the structure group satisfies \eqref{eq_Hermite_Yang_Mills}. The strategy to do so is to reduce the structure group further to another subgroup in such a way that another stronger condition is satisfied: simplicity. Then, the results will follow from the arguments on \parencite{i1999hitchin}. The results in these articles are quite involved, giving detailed proofs would take a lot of work, and is beyond the scope of this thesis. We include a sketch for the sake of completeness. \\
+
+First of all, we say that an element \(\bm{\xi} \in \mathrm{Lie}(\mathscr{G}^\C)=\Gamma(X; P_G \times_G \mathfrak{g})\) is \textit{semisimple} if, for any \(x \in X\), \(\bm{\xi}(x)\in \mathfrak{g}\) is semisimple (i.e. its adjoint diagonalizes). We see \(\bm{\xi}(x)\in \mathfrak{g}\) through any of the isomorphisms \((P_G \times_G \mathfrak{g})_x \cong \mathfrak{g}\) (see proposition \ref{prop_adP_is_bundle}). The condition of being semisimple does not depend on the chosen representative (because any other representative will be its image through the adjoint action, and \(\Ad{g}\) is an isomorphism for every \(g \in G\)). Finally, recall that the action of \(\mathscr{G}\) on \(\mathscr{A}\) can be extended to an action of \(\mathscr{G}^\C\) using the Chern-Singer correspondence (see section \ref{section_Chern_Singer_correspondence}). Then, a connection \(A \in \mathscr{A}(P_G)\) is said to be \textit{simple} if no element \(\bm{\xi} \in \mathrm{Lie}(\mathscr{G})\) fixes \(A\) under the infinitesimal action of \(\mathscr{G}^\C\). More explicitly, given \(\bm{\xi}\in \mathrm{Lie}(\mathscr{G}^\C)\) we can construct the associated vector field \(X_{\bm{\xi}}\). Then, the \textit{infinitesimal action} is the vector \(X_{\bm{\xi},A}\in \Omega^1(M;\mathrm{ad}(P_G))\). As shown in \parencite[Prop. 2.3]{trautwein2015surveygitpictureyangmills}, this is given, explicitly, by
+\[
+X_{\bm{\zeta}_1+ \ii \bm{\zeta}_2, A}=-\diff_A \xi - \star \  \diff_A \zeta
+\]
+for \(\bm{\xi}=\bm{\zeta}_1 + \ii \bm{\zeta}_2\) and \(\bm{\zeta}_1 , \bm{\zeta}_2 \in \mathrm{Lie}(\mathscr{G})\). Then, \parencite{i1999hitchin} shows the following version of the Hitchin-Kobayashi correspondence.
+
+\Theorem{\textbf{Hitchin-Kobayashi for simple connections}}{Let \(\mathcal{P}_G\) be a holomorphic principal \(G\)-bundle over a Riemann surface, and \(A \in \mathscr{A}(P_K)\) a simple connection. Let \(c \in \ii\zenterg \cap \mathfrak{k}\). Then, there is a gauge transformation \(\psi \in \mathscr{G}^\C\) such that \label{th_HK_simple_connections}
+\begin{equation} \label{eq_HK_simple}
+\Lambda_\omega F_{\psi \cdot A}=-\ii c
+\end{equation}
+if and only if \(A\) is \(c\)-stable. If \(\psi\cdot A\) and \(\psi'\cdot A\) solve equation \eqref{eq_HK_simple}, then there is some \(\phi \in \mathscr{G}\) such that \(\psi'=\phi \circ \psi\).
+}
+\begin{proof}[\textit{Sketch of proof} \parencite{i1999hitchin}]
+    The main idea is to construct a functional \(\Psi\colon \mathscr{A}_k(P_K) \times \mathscr{G}_{k+1}^\C \to \R\) whose critical points are solutions of \eqref{eq_HK_simple} after completing these spaces with suitable Sobolev norms as in section \ref{section_moment_map_picture}. Since everything works fine when working in the completed spaces, we will ignore that technicality. We fix a \textit{hermitian metric} \(\langle \cdot, \cdot \rangle\) metric in \(\mathfrak{g}\).\\
+
+    First, one defines \textit{weight} 
+    \[
+    \lambda_t(A; \bm{\zeta}):=\mu^{\bm{\zeta}}(\exp_{\mathscr{G}}(t\  \bm{\zeta})\cdot A)=\big(\mu(\exp_{\mathscr{G}}(t \ \bm{\zeta})\cdot A, \bm{\zeta}) \big) \in \R,
+    \]
+    and the \textit{maximal weight}
+    \[
+    \lambda(A; \bm{\zeta})=\lim_{t \to 0} \lambda_t(A; \bm{\zeta}) \in \R \cup \corch\infty.
+    \]
+    Then, one shows that there is a unique functional \(\Psi\colon \mathscr{A}(P_K) \times \mathscr{G}^\C \to \R\), called \textit{the integral of the moment map} satisfying:
+    \begin{enumerate}
+        \item For any \(A \in \mathscr{A}(P_G)\), the critical points of the restriction \(\Psi_A\) of \(\Psi\) to \(\corch{A} \times \mathscr{G}\) coincide with the points of the orbit \(A\cdot \mathscr{G}\) on which \(\mu\) vanishes.
+        \item The restriction of \(\Psi_A\) to lines of the form \(\corch{\exp_{\mathscr{G}}(t\bm{\zeta}): t \in \R}\) for \(\bm{\zeta} \in \mathrm{Lie}(\mathscr{G})\) is convex.
+    \end{enumerate}
+    One then shows that an element \(\phi \in \mathscr{G}\) is a critical point of \(\Psi_A\) for some \(A \in \mathscr{A}(P_K)\) if and only if \(\mu(A \cdot \phi)=0\), i.e. if \(A \cdot \phi\) is a solution of \eqref{eq_HK_simple}. Then, one shows that the integral of the moment map may be written as
+    \[
+    \Psi_A(\exp(i\bm{\zeta}))=\int_X \langle \Lambda_\omega F_A+\ii c, \bm{\zeta}\rangle +\int_0^1(1-\ell)\cdot |\exp(i\ell \bm{\zeta})\ \barpartial_A(\bm{\zeta}) \ \exp(-i \ell \bm{\zeta})|^2 \ \diff \ell. 
+    \]
+    In the previous expression, \(\barpartial_A=\Pi^{(0,1)}\circ \diff_A\) is the \((0,1)\) component of the induced connection \(\diff_A\) on the associated bundle \(P_K \times_K \mathfrak{k}\), and \(|\cdot|^2\) is the norm associated to the \(\C\)-bilinear product \((\cdot, \cdot)\). \\
+    One may show that \(\Psi(A, \phi \circ  \psi)=\Psi(A, \psi)\) for \(\phi \in \mathscr{G}\) and \(\mathscr{G}^\C\) \parencite[Prop. 3.4]{i1999hitchin}. Then, \(\Psi_A\) factors through \(\mathscr{G}\):
+    \[
+    \Psi_A\colon \mathscr{G}^\C/\mathscr{G} \to \R.
+    \]
+    We want to minimize that functional. To do so, since \(\mathfrak{g}/\mathfrak{k}\cong \ii \mathfrak{k}\), we may use the exponential map to identify \(\mathscr{G}^\C/\mathscr{G}\) with \(\Gamma(M;P_K \times_K \ii \mathfrak{k})\). For an appropriate choice of \(p\), we define \(\mathscr{Met}^p_2=L_2^p(P_K \times_K \ii \mathfrak{k})\) (the \(L_2^p\) norm is defined as usual), which we shall identify with the quotient of the Sobolev completions. When \(A\) is a simple connection, one can restrict to looking for minima on the subset
+    \[
+    \mathscr{Met}^p_{2,B}:=\corch{\bm{\zeta}\in \mathscr{Met}^p_2:||\mu(\exp(\bm{\zeta}\cdot A))||_{L_p} \leq B}
+    \] 
+    for some positive constant \(B\). We see the moment map as taking values in \(\mathrm{Lie}(\mathscr{G})\) to make sense of the norm (c.f. remark \ref{obs_mu_lie_sin_dual}). Finally, one shows that there is an element of \(\mathscr{Met}^p_{2,B}\) that minimizes \(\Psi_A\) and this minimizing element is smooth. Then, it corresponds to an equivalence class of the quotient \(\mathscr{G}^\C/\mathscr{G}\), so there is a solution, and any two different solutions are related by a transformation of \(\mathscr{G}\). \\ 
+
+    Reciprocally, choose a simple connection \(A\) and a gauge transformation \(\psi \in \mathscr{G}^\C\) such that \(A\cdot \psi\) satisfies \eqref{eq_HK_simple}. To show that \(A\) is stable, let \(s \in \ii \mathfrak{k}\), and choose a holomorphic reduction of the structure group to \(P_s\), \(\sigma \in \mathcal{O}(X; \mathcal{P}(G/P_s))\). By definition, one should check that \(\deg \mathcal{P}(\sigma, s)-\langle c, s\rangle >0\), however, \parencite[Lemma 4.3]{i1999hitchin} shows that one may equivalently check that \(\lambda(A;-\ii g_{\sigma,s})\), where \(g_{\sigma, s} \in \ii \mathrm{Lie}(\mathscr{G})=\Gamma(X; P_K \times_K \ii \mathfrak{k})\) is fiberwise dual to the character \(\chi_s\) (see \parencite[Sec. 2.7]{i1999hitchin}). One can show the following bound \parencite[Sec. 6.3]{i1999hitchin}
+    \begin{equation} \label{eq_dem_HK_mundet}
+    t \sup |g_{\sigma, s}| \leq C_1 \cdot \Psi_A(\exp_{\mathscr{G}}(t g_{\sigma,s})) + C_2, \hspace{1 cm} C_1, C_2>0,
+    \end{equation}
+    and for sufficiently large \(t>0\). Moreover, one can show that \(\Psi_A(\exp_{\mathscr{G}}(\ii t g_{\sigma, s}))=\int_0^1 \lambda_{t\cdot\ell} (A; g_{\sigma, s}) \ \diff \ell\). If \(\lambda(A; -\ii g_{\sigma, s})<0\), then the previous integral would be negative for every \(t\). Finally, \eqref{eq_dem_HK_mundet} would imply \(t\cdot \sup|g_{\sigma, s}|<C_2\), but the left-hand side tends to \(+\infty\), so we get a contradiction.
+\end{proof}
+
+Since our goal is to use theorem \ref{th_HK_simple_connections} to prove theorem \ref{th_HK_principal_bund_connected}, we will need a way to translate the stability condition into a condition dealing with simplicity. We do this by means of the following theorem. The following theorem associates to each \(c\)-polystable principal bundle a \(c\)-stable principal bundle over a different group.
+
+\Theorem{\textbf{Jordan-Hölder reduction}}{Let \(\mathcal{P}_G\) be a holomorphic principal \(G\)-bundle over a compact Riemann surface, and let \(c\in \ii \zenterg \cap \mathfrak{k}\). Then, there is a compact subgroup \(K'\subset K\) and a holomorphic reduction of the structure group of \(\mathcal{P}_G\) to \(G':=(K')^\C\), that is \(c\)-stable. Any two such reductions \(\mathcal{P}^{(1)}_{G'}\) and \(\mathcal{P}_{G'}^{(2)} \subset \mathcal{P}_G\) are related by \(\mathcal{P}_{G'}^{(1)}=\mathcal{P}_{G''}^{(2)}\cdot g\) for some \(g \in G\).  \label{th_Jordan_Holder}}
+\begin{proof}
+    The proof is not trivial at all. We refer the reader to section 2.10 of \parencite{garcia2009hitchin}. \textbf{(3)}
+\end{proof}
+
+\begin{proof}[\textit{Sketch of proof of theorem} \ref{th_HK_principal_bund_connected}]
+    Suppose first that \(\mathcal{P}_G\) is \(c\)-stable, and fix a reduction to the structure group to \(K\), \(P_K\) then one can show that admits a simple connection \(A \in \mathscr{A}(P_K)\) \textbf{(1)}. The holomorphic structure induced by \(A\) on \(P_G\) via the Chern-Singer correspondence coincides with that of \(\mathcal{P}_G\) \textbf{(2)}. By theorem \ref{th_HK_simple_connections}, there is \(\varphi \in \mathscr{G}^\C\) such that \(A':=A \cdot \varphi\) satisfies equation \ref{eq_Hermite_Yang_Mills}. Now, since \(A\) and \(A'\) are on the same \(\mathscr{G}^\C\)-orbit, they induce the same structure of holomorphic principal bundle on \(P_G\) (see \eqref{CS_corresp_quot}). Finally, \(A'\) is the Chern connection with respect to \(J\cdot g\), \(J=\mathsf{CS}^{-1}(A)\), and \(J\cdot g\) induces the same structure of holomorphic principal bundle on \(P_G\) as \(J\). \\ 
+    
+    Suppose now that \(\mathcal{P}_G\) is \(c\)-polystable, but not stable. We use theorem \ref{th_Jordan_Holder} and obtain a \(c\)-stable reduction of the structure group to some subgroup \(G'\). Now, \(\mathcal{P}_{G'}\) is stable, and the previous reasoning applies. Hence, there is a reduction of the structure group to \(P_{K'}\) whose Chern connection satisfies \eqref{eq_HK_simple}. Now we define \(P_K:=P_{K'} \times _{K'} K\subset P_{K'} \times_{K'} G=P_G\) (c.f. \ref{obs_red_struc_group}) for the action of \(K'\) on \(K\) by conjugation. This is a reduction of the structure group to \(K\), and one can show that its Chern connection satisfies \eqref{eq_Hermite_Yang_Mills}. \\
+
+    For the converse, one shows first that if \(\mathcal{P}_G\) admits a reduction of the structure group to \(K\) satisfying \eqref{eq_Hermite_Yang_Mills}, then it is \(c\)-semistable. {\color{red}?}.
+        
+    Now, to prove polystability, let \(\sigma \in \Gamma(X; P(G/K))\) be a reduction of the structure group satisfying \eqref{eq_Hermite_Yang_Mills}. We know that the bundle is semistable, thus, for some parabolic subgroup \(P_s \subset G\), we consider a holomorphic reduction of the structure group \(\sigma \in \mathcal{O}(X, \mathcal{P}(G/P_s))\) such that \(\deg \mathcal{P}(\sigma, s)=\langle s, c \rangle\). We seek a further restriction of the structure group to the Levi subgroup \(L_s\). Let \(P_K\) be the reduction of the structure group whose Chern connection satisfies \eqref{eq_Hermite_Yang_Mills}. This reduction produces a section \(\bm{\zeta}\) of the bundle \(P_K \times_K \ii \mathfrak{k}\). Since \(\mathrm{Lie}(\mathscr{G})=\Gamma(X;P_K \times_K \mathfrak{k})\), we can identify \(-\ii \bm{\zeta}\) with an element of \(\mathrm{Lie}(\mathscr{G})\). Now, let \(J\) be the almost complex structure of \(\mathcal{P}_G\), and let \(A=\mathsf{CS}(J)\in \mathscr{A}(P_K)\). One can see that the condition \(\deg \mathcal{P}(\sigma, s)=\langle \alpha, s\rangle\) is equivalent to 
+    \[
+    \lambda(A, -\ii \bm{\zeta}):=\lim_{t \to \infty} \lambda_t(A, -\ii \bm{\zeta})=\lim_{t\to \infty} ( \mu(\exp_{\mathscr{G}}(t \bm{\zeta})\cdot A), -\ii \bm{\zeta}) =0.
+    \]
+    From \parencite[Lemma 2.2]{i1999hitchin}, we know that the function \(\lambda_t(A, -\ii \bm{\zeta})\) is non-decreasing. Moreover, by the way the moment map \(\mu\) is defined, equation \eqref{eq_Hermite_Yang_Mills} is equivalent to the vanishing of the moment map. Hence, at \(t=0\), we have \(\mu(\exp_{\mathscr{G}}(t \bm{\zeta})\cdot A)|_{t=0}=\mu(A)\), and the latter vanishes because the Chern connection \(A\) satisfies \eqref{eq_Hermite_Yang_Mills}. Therefore, we have \(\lambda_0(A, -\ii \bm{\zeta})=0\). Now, the fact that the weight is non-decreasing implies that it is constant and equal to \(0\) for any \(t \geq 0\). One may deduce from this fact that \(\exp_{\mathscr{G}_k}(t \bm{\zeta})\cdot J=J\) for all \(t \geq 0\). \textbf{(5)} This implies that \(\bm{\zeta}\) induces a holomorphic section \(\sigma_s \in \mathcal{O}(M; E_\sigma(P_s/L_s))\), hence a reduction of the structure group to \(L_s\), and this is precisely the definition of polystability.
+\end{proof}
+}
+
+\section{The HK correspondence for non-connected structure groups}
+{\color{violet}
+This section contains the most original part of the thesis. It formulates a HK correspondence for principal bundles with non-connected complex reductive structure groups. Most of the section is based on the unpublished article \parencite{HKnonconnected} that my supervisor kindly shared with me. His work is more general, but with his ideas, we try to give a generalization of the theorems by Narasimahn and Seshadri \parencite{NS1965} and Ramanathan \parencite{Ramanathan1996}. This section relies heavily on the concepts introduced in appendix \ref{appendix_non_connected_lie_groups}. For the whole section we fix a complex reductive Lie group \(\hat{G}\), and \(\hat{K}\subset \hat{G}\) a maximal compact subgroup. \(K\) and \(G\) will be their respective identity components. We also set \(\Gamma:=\hat{G}/G  \cong\hat{K}/K\) the group of connected components. Then, \(K\) is a maximal compact subgroup of \(G\). We fix \(\langle \cdot , \cdot \rangle\) a non-degenerate \(\C\)-bilinear pairing on \(\mathfrak{g}\) invariant under the adjoint \(\hat{G}\) action. If \(\hat{G}\) is semisimple, then the Killing form \(\kappa_{\mathfrak{g}}\) does the job. If \(\hat{G}\) is only reductive, an invariant pairing still exists \parencite{Benito2024}. Indeed, reductive Lie algebras can be decomposed as \(\mathfrak{g}=\mathfrak{z}(\mathfrak{g})\oplus [\mathfrak{g}, \mathfrak{g}]\). On the semisimple part, the Killing form gives a \(\C\)-bilinear, \(\hat{G}\)-invariant, non-degenerate pairing. On the zenter, we may choose \textit{any} non-degenerate bilinear from, and it will be invariant uncer the adjoint action because the center is abelian. The direct sum of these forms yields the desired pairing. \textbf{(11)} If a \(\hat{G}\)-invariant pairing exists, we can make it invariant under the \(\Gamma\)-action on \(\mathfrak{g}\) (c.f. equation \eqref{eq_Gamma_action_Lie_algebra}) through a standard averaging procedure, that is, we define a new \(\C\)-bilinear pairing:
+\[
+\langle \cdot, \cdot \rangle':=\frac{1}{|\Gamma|} \sum_{\gamma \in \Gamma} \langle \cdot \gamma, \cdot \gamma \rangle.
+\]
+Observe that \(\Gamma\) is finite, hence so is the sum. Recall from the appendix that the action of \(\Gamma\) on \(G\) and \(K\) is given by a lift of the characteristic homomorphism \(\bar{\theta}\colon \Gamma \to \mathrm{Out}(K)\), and its extension to \(G\). In particular, \(K\) is invariant under the \(\Gamma\) action. Observe that the differential of each \(\theta_\gamma\) induces an action on the Lie algebra \(\mathfrak{k}\) (c.f. equation \eqref{eq_Gamma_action_Lie_algebra}). Since the differential of any Lie group homomorphism is a Lie algebra homomorphism, the action leaves the Lie algebra of \(Z(K)\), \(\mathfrak{z}_K\) invariant. Indeed, given \(\zeta \in \mathfrak{z}_K, \xi \in \mathfrak{k}\), we have
+\begin{equation} \label{lie_group_hom_induces_lie_alg_hom}
+    \big[\diff_e\theta_{\gamma^{-1}}(\zeta), \xi \big] = \diff_e \theta_{\gamma^{-1}} \parent{\big[\zeta, \diff_e \theta_\gamma(\xi) \big]} = \diff_e\theta_{\gamma^{-1}}(0)=0.
+\end{equation}
+
+\subsection{The Hermite-Einstein-Yang-Mills equation}
+In our quest to generalize the Hitchin-Kobayashi correspondence to the case of a non-connected structure group, a naïve guess we could try is to take the statement of theorem \ref{th_HK_principal_bund_connected} and try to remove directly the hypothesis of connectedness. However, looking at remark \ref{obs_HYM_center_Lie_algebra}, we soon realize that this is not going to work: the equation \(\Lambda_\omega F_A= c\) no longer makes sense because now we cannot define a constant section by setting \(m \mapsto [p, c]\). This already gives us a hint that some things need to be changed. Let \(\mathfrak{z}_K\) be the Lie algebra of \(Z(K)\). Since \(K\) is connected (c.f. remark \ref{k_connected_kc_G}), this coincides with \(\mathfrak{z}(\mathfrak{k})\) {\color{red}revisar que \(K=\hat{K} \cap G\) sea conexo.} \\
+
+A calculation analogous to equation \eqref{lie_group_hom_induces_lie_alg_hom} shows that \(\mathfrak{z}_K\) is invariant under the \(\Ad{}\)-action of \(\hat{K}\). This does not mean that the adjoint action is \textit{trivial} on \(\mathfrak{z}_K\); that claim does need connectedness.
+
+\Definition{}{Let \(\mathcal{P}_{\hat{G}}\to X \) be a holomorphic principal \(\hat{G}\)-bundle, and consider a reduction \(P_{\hat{K}}\) of the structure group to \(\hat{K}\). Let \(A\) be the Chern connection \(A\) associated to the reduction and \(a \in \Gamma(X;P_{\hat{K}} \times_{\hat{K}}\ii\mathfrak{z}_K)\) satisfying \(\diff_A a=0\). We say that \(A\) satisfies the \textit{\(a\)-Hermitian-Yang-Mills equation} if 
+\begin{equation} \label{eq_HYM_non_connected}
+    \Lambda_\omega F_A=- \ii a,
+\end{equation}
+where \(F_A \in \Omega^2(X; P_{\hat{K}} \times _{\hat{K}} \mathfrak{k})\) is the curvature of the Chern connection.
+}
+Equation \eqref{eq_HYM_non_connected} should be understood as an equality between sections of the vector bundle \(P_{\hat{K}}\times_{\hat{K}}\mathfrak{k}\) (observe that it contains \(P_{\hat{K}}\times_{\hat{K}}\mathfrak{z}_K\) as a vector subbundle). {\color{red}\textbf{Nota:} En el artículo en preparación ponéis que \(a\) debe ser una sección de \(P_{\hat{K}} \times_{\hat{K}} \mathfrak{z}_K\) sin el factor \(\ii\), pero luego en la ecuación si que ponéis el factor \(\ii\), entiendo que es una errata y que si que debe aparecer el factor \(\ii\) en \(P_{\hat{K}}\times_{\hat{K}} \ii \mathfrak{z}_K\) para que luego en la ecuación tengamos una igualdad entre secciones de \(P_{\hat{K}}\times_{\hat{K}}\mathfrak{k}\).}
+
+\begin{obs} \(\hspace{1 pt}\)
+    \begin{enumerate} \label{obs_HK_non_connected_alpha_a}
+        \item When \(G\) is connected (that is \(\hat{G}=G\)), equation \eqref{eq_HYM_non_connected} reduces to the connected version of the Hermite-Einstein-Yang-Mills equation \eqref{eq_Hermite_Yang_Mills}. Indeed, when \(\hat{G}\) is connected, so is \(\hat{K}=K\), and the adjoint action of a connected Lie group on the center of its Lie algebra is trivial. Therefore, \(P_{\hat{K}}\times_{\hat{K}}\mathfrak{z}_K=X \times \ii\mathfrak{z}_K\) is a trivial bundle. Hence, sections of this bundle can be identified with smooth maps \(X \to \ii\mathfrak{z}_K\). From section \ref{section_connections_associated_bundles}, to \(a\colon X \to \ii \mathfrak{z}_K\) we assign a \(K\)-equivariant (invariant actually, because the \(K\)-action on \(\ii \mathfrak{z}_K\) is trivial) map \(\tilde{a}(p):=\Upsilon^{-1}(a)(p)=a(\pi(p))\). Hence, \(\diff_A a=\Upsilon(\Diff_A \tilde{a})=0\), and since \(\Upsilon\) is a vector space isomorphism, we have \(\Diff_A\tilde{a}=(\diff\tilde{a})^H=0\). However, \(\diff \tilde{a}=(\diff \tilde{a})^H\). To see this, it suffices to check that \(\diff \tilde{a}\) vanishes when acting on vertical vectors. Indeed, given a vertical vector \(X_{\xi, p}\) for \(\xi \in \mathfrak{k}, p \in P\), we have
+        \[
+        \diff_p \tilde{a}(X_{\xi, p})=\diff_p(a \circ \pi)(\diff_e\phi^{(p)}(\xi))=\diff_e(a\circ \pi \circ \phi^{(p)})(\xi)=0
+        \]
+        because \(\pi\circ \phi^{(p)}\) is a constant map identically equal to \(p\). Hence, \(\diff \tilde{a}=0\), and this implies that \(\tilde{a}\) is constant. By construction, \(a\) must be also constant. Hence, if \(G\) is connected, we recover \(\Lambda_\omega F_A=-\ii a\) for \(a \in \ii \mathfrak{z}_K=\ii \mathfrak{z}(\mathfrak{k}) \subset \ii \zenterg \cap \mathfrak{k}\).
+        \item If \(\hat{G}\) is not connected but \(\mathcal{P}_{\hat{G}}\) has {\color{red} surjective monodromy}, then the section \(a\in \Gamma(X;P_{\hat{K}}\times _{\hat{K}}\mathfrak{z}_K)\) can be identified with a single element \(\alpha\in \mathfrak{z}_K^\Gamma\). Then, solving \eqref{eq_HYM_non_connected} is equivalent to solving \(\Lambda_\omega F_A=-\ii \alpha\). {\color{red} If the monodromy of \(\mathcal{P}_{\hat{G}}\) is not surjective, we may always find a reduction \(\mathcal{P}_{\hat{G}'}\) of the structure group to another group \(\hat{G}' \subset \hat{G}\) that has surjective monodromy.} To see why, first observe that, sine \(\hat{G}\) acts on \(P_{\hat{G}}\), proposition \ref{prop_gamma_Action_Y} implies that there is a natural \(\Gamma\)-action on \(Y:=P_{\hat{G}}/G\). In fact, \(Y \to X\) has teh structure of a principal \(\Gamma\)-bundle. We thus have a natural vector bundle isomorphism given by 
+        \[
+            P_{\hat{K}} \times_{\hat{K}} \mathfrak{z}_K \longrightarrow Y \times_\Gamma \mathfrak{z}_K, \ [p, \zeta] \mapsto [\hat{\pi}(p), \zeta] \ {\color{red}?}
+        \]
+        where \(\hat{\pi}\colon P_{\hat{G}}\to Y\) is the natural projection (which we restrict to \(P_{\hat{K}}\)). {\color{red} No entiendo como seguimos}. A reduction of the structure group to \(\hat{K}\) satisfying \(\Lambda_\omega F_A=-\ii \alpha\) is called an \(\alpha\)\textit{-Hermite-Yang-Mills reduction of the structure group}.
+        \item If \eqref{eq_HYM_non_connected} holds, then \(\alpha\) is determined uniquely by the topology of the bundle and the manifold. {\color{red} justificción ?} \textbf{(17)}
+    \end{enumerate}
+\end{obs}
+
+\subsection{Stability condition}
+The first step towards the generalization of the correspondence is to give a notion of stability. In fact, we will need two notions: one for principal bundles with non-connected structure group, and another for twisted equivariant bundles. \\
+
+Observe that the statement of lemma \ref{lemma_character} holds in the non-connected case. Moreover, if the pairing \(\langle \cdot, \cdot \rangle\) is \(\Gamma\)-invariant, and \(\zeta \in \ii \mathfrak{k}^\Gamma\), then \(\chi_\zeta\) is \(\Gamma\)-invariant, i.e. \(\chi_\zeta(\xi \cdot \gamma)=\chi_\zeta(\xi)\) for all \(\xi \in \mathfrak{g}\). Observe that the definition of the degree of a holomorphic principal bundle with respect to a reduction and an element of \(\ii \mathfrak{k}\) applies verbatim. \newline\newline
+
+Before giving the definition of stability, observe that if we choose \(\zeta \in \ii \mathfrak{k}^\Gamma\), then the parabolic subgroup \(P_\zeta\) defined by proposition \ref{prop_charact_parabolic_subgroups} is a \(\Gamma\)-invariant subgroup of \(G\). From proposition \ref{prop_GquotH_Gamma_action} and the comments bellow, we deduce that \(G/P_\zeta\) is a \((\theta, c)\)-twisted \((g, \Gamma)\)-equivariant manifold. Finally, by proposition \ref{prop_gamma_equivariant_bundles}, we deduce that, given a \((\theta,c)\)-twisted \(\Gamma\)-equivariant bundle, \(P\to X\), the associated bundle \(P(G/P_\zeta)\to X\) is a \(\Gamma\)-equivariant principal bundle. Hence, we may consider \(\Gamma\)-equivariant sections or, equivalently, \(\Gamma\)-equivariant reductions of the structure group to \(P_\zeta\). Similarly, consider \(L_\zeta \subset P_\zeta\) is \(\Gamma\)-invariant, and given a \(\Gamma\)-invariant reduction fo the structure group of \(P\) to \(P_\zeta\), call it \(P_\sigma\), we know from proposition \ref{prop_Gamma_inv_red_struc_group} that \(P_\sigma\) is endowed with the structure of a \((\theta,c)\)-twisted \(\Gamma\)-equivariant principal \(P_\zeta\)-bundle. {\color{red}A partir de ahora no sé si esto es verdad} Since \(L_\zeta\subset P_\zeta\) is also \(\Gamma\)-invariant, and \(\hat{L}_\zeta \subset \hat{P}_\zeta\) meets all the connected components of the latter, we have an isomorphism \(P_\zeta/L_\zeta\cong \hat{P}_\zeta/\hat{L}_\zeta\). Thus, the same argumets apply, \(P_\sigma(P_\zeta/L_\zeta)\) is a \(\Gamma\)-equivariant principal, and it makes sense to consider \(\Gamma\)-equivariant reductions of the structure group to \(L_\zeta\). With this in mind, we are now ready to define stability. 
+
+\Definition{}{Let \(\mathcal{P}\) be a \((\theta,c)\)-twisted \(\Gamma\)-equivariant principal bundle over a Riemann surface \(Y\), and let \(\alpha \in \ii \mathfrak{z}_K^\Gamma\). We say that \(\mathcal{P}\) is
+\begin{enumerate}
+    \item \textit{\(\Gamma\)-invariantly \(\alpha\)-stable (resp. semistable)}\index{Principal bundle!\(\Gamma\)-invariantly \(\alpha\)-semistable} if for any \(\zeta \in \ii \mathfrak{k}^\Gamma\) and any \(\Gamma\)-invariant holomorphic section \(\sigma \in \mathcal{O}(Y;\mathcal{P}(G/P_\zeta))\), we have 
+    \[
+    \deg \mathcal{P}(\sigma, \zeta)- \langle \alpha, \zeta\rangle >0 \hspace{1 cm} \parent{\text{resp. } \  \deg \mathcal{P}(\sigma, \zeta)-\langle \alpha, \zeta\rangle \ge 0}.
+    \]
+    \item \textit{\(\alpha\)-invariantly \(\Gamma\)-polystable}\index{Principal bundle!\(\Gamma\)-invariantly \(\alpha\)-polystable} if it is \(\Gamma\)-invariantly \(\alpha\)-semistable and, for any \(\zeta \in \mathfrak{k}^\Gamma\) and any \(\Gamma\)-invariant holomorphic section \(\sigma \in \mathcal{O}(Y;\mathcal{P}(G/P_s))\) such that \(\deg \mathcal{P}(\sigma, \zeta) - \langle \alpha, \zeta \rangle = 0 \), there is a \(\Gamma\)-invariant holomorphic reduction of the structure group \(\sigma'\in \mathcal{O}(X;\mathcal{P}_\sigma(P_\zeta/L_\zeta))\).
+\end{enumerate}
+}
+
+Now we need a notion of stability for principal bundles with non-connected structure group. The definition we are about to give is quite similar to the definition for twisted equivariant principal bundles, and as we shall wee, these definitions are closely related.
+
+\Definition{}{Let \(X\) be a compact Riemann surface, and let \(\mathcal{P}(X,\hat{G})\) be a holomorphic principal \(\hat{G}\)-bundle with surjective monodromy, and let \(\alpha \in \ii \mathfrak{z}_K^\Gamma\). We say that the principal bundle is
+\begin{enumerate}
+    \item \textit{\(\alpha\)-stable (resp- semistable)}\index{Principal bundle!\(\alpha\)-semistable} if for any \(\zeta \in \ii \mathfrak{k}^\Gamma\) and any holomorphic section \(\sigma \in \mathcal{O}(X; \mathcal{P}(\hat{G}/\hat{P}_\zeta))\), we have
+    \[
+    \deg \mathcal{P}(\sigma, \zeta) - \langle \alpha, \zeta\rangle >0 \hspace{1 cm} \parent{\text{resp.} \ \ \deg \mathcal{P}(\sigma, \zeta)-\langle \alpha, \zeta\rangle >0}
+    \]
+    \item \textit{\(\alpha\)-polystable}\index{Principal bundle!\(\Gamma\)-invariantly \(\alpha\)-stable} if it is \(\alpha\)-semistable and for any \(\zeta \in \ii \mathfrak{k}^\Gamma\) and \(\sigma \in \mathcal{O}(X; \mathcal{P}(\hat{G}/\hat{P}_\zeta))\) such that \(\deg \mathcal{P}(\sigma, \zeta)-\langle \alpha, \zeta \rangle=0\), there is a holomorphic reduction of the structure group \(\sigma'\in \mathcal{O}(X; \mathcal{P}_\sigma(\hat{P}_\zeta/\hat{L}_\zeta))\).
+\end{enumerate}
+}
+
+When \(G=\hat{G}\) is connected, we recover the usual stability criteria (see definition \ref{def_stability_connected}).
+
+% \begin{obs}
+%     Observe that, in both definitions of (semi, poly)-stability, the number \(\langle \alpha, s\rangle\) is real. Indeed, \(\alpha =\ii \alpha'\) and \(s= \ii s'\) for some \(\alpha'\in \mathfrak{z}_K^\Gamma\) and \(s'\in \mathfrak{k}^\Gamma\), hence \(\langle \alpha, s\rangle = \ii^2 \langle \alpha',s'\rangle\), where \(\langle\alpha', s'\rangle\) is real. This follows from the fact that the decomposition \(\mathfrak{g}=\mathfrak{k}\oplus \ii \mathfrak{k}\) induces a conjugation map. It then follows that 
+%     \[
+%     \overline{\langle \alpha', s' \rangle} = \langle\overline{\alpha'}, \overline{s'} \rangle = \langle\alpha', s'\rangle
+%     \]
+%     because \(\alpha',s'\in \mathfrak{k}\). The conjugation of the right-hand side of the previous chain of equations is the usual conjugation of complex numbers. 
+% \end{obs}
+
+\subsection{The theorem}
+The aim of this section is to state and proof the non-connected version of the Hitchin-Kobayashi correspondence. For this section, we fix a complex reductive non connected Lie group \(\hat{G}\), its identity component \(G\), \(\hat{K}\) a maximal compact subgroup, and \(K:=\hat{K}\cap G\) is identity component. We thus have the following diagram of extensions
+\begin{center}
+     \begin{tikzcd}[row sep=normal, column sep=normal, ampersand replacement=\&]
+     1 \arrow[rr] \& \& G \arrow[rr] \& \& \hat{G} \arrow[rr] \& \& \Gamma \arrow[rr] \& \&  1 \\
+     1 \arrow[rr] \& \& K \arrow[hookrightarrow, u] \arrow[rr] \& \& \hat{K}\arrow[hookrightarrow, u] \arrow[rr] \& \& \Gamma \ar[u,-,double equal sign distance,double]  \arrow[rr]\& \&  1
+     \end{tikzcd}
+\end{center}
+We also fix a Riemann surface \(X\). Under this hypothesis, the non-connected version of the Hitchin-Kobayashi correspondence reads as follows.
+
+\Theorem{\textbf{Hitchin-Kobayashi, non-connected version}}{Let \(\alpha\in \ii \mathfrak{z}_K^\Gamma\). A holomorphic principal \(\hat{G}\)-bundle \(\mathcal{P}_{\hat{G}}\) admits a reduction of the structure group to \(\hat{K}\), say \(P_{\hat{K}}\), satisfying equation \eqref{eq_HYM_non_connected} for a section \(a \in \Gamma(X;P_{\hat{K}} \times_K \mathfrak{z}_K )\) satisfying \(\diff_A a=0\), where \(A\) is the Chern connection in \(\hat{K}\) if and only if it is \(\alpha\)-polystable for \(\alpha \in \ii \mathfrak{z}_K\) defined as in remark \ref{obs_HK_non_connected_alpha_a}. \label{th_HK_non_connected}}
+
+Our strategy for the proof is to translate the problem into one concerning principal bundles with connected structure groups. This is done by means of the correspondence of categories given by theorem \ref{th_equivalence_categories}. We then show that the statement of the correspondence for non-connected structure group is equivalent to a HK correspondence for twisted equivariant bundles over a covering, for which we sketch (?) a proof. 
+
+\Proposition{}{Let \(\mathcal{P}_{\hat{G}}\) be a holomorphic principal \(\hat{G}\)-bundle, and let \(\mathcal{P}_G\) the corresponding \((\theta,c)\)-twisted \(\Gamma\)-equivariant principal bundle over \(Y:=\mathcal{P}_{\hat{G}}\ /G\) given by theorem \ref{th_equivalence_categories}. Let \(\alpha \in \ii \mathfrak{z}_K^\Gamma\), then \(\mathcal{P}_{\hat{G}}\) is \(\alpha\)-polystable if and only if \(\mathcal{P}_G\) is \(\Gamma\)-invariantly \(\alpha\)-polystable. \label{prop_equiv_twisted_non_con}}
+Before given the proof, we will need some lemmas.
+\Lemma{}{Let \(\hat{G}\) be an \(\mathcal{S}\)-Lie group, \(G\) its identity component, and \(\hat{H} \subset \hat{G}\) a closed embedded \(\mathcal{S}\)-Lie subgroup that meets every connected component of \(\hat{G}\). Let \(H:=\hat{H}\cap G\). Then, \(\hat{G}/\mathcal{H}\) is \(\mathcal{S}\)-diffeomorphic to \(G/H\). \label{lemma_HK_non_connected_1}}
+\begin{proof}
+    Define \(G/H \to \hat{G}/\hat{H}, \ gH \mapsto g \hat{H}\). This map is well-defined: if \(gH=g'H\), then \(g^{-1}g'\in H\subset \hat{H}\), hence \(g\hat{H}=g'\hat{H}\). It is also injective: if \(g\hat{H}=g'\hat{H}\), then \(g^{-1}g'\in \hat{H}\cap G=H\), and surjective. To see surjectivity, observe that all the connected components of \(\hat{G}\) are given by the cosets \(\hat{g} G\) for \(g \in \hat{G}\). Let \(\hat{g}\hat{H}\in \hat{G}/\hat{H}\). We want to see that there is \(g \in G\) such that \(\hat{g}\hat{H}=g\hat{H}\). The connected component containing \(\hat{g}\) is \(\hat{g}G\). Since \(\hat{H}\) meets every connected component of \(\hat{G}\), \(\hat{g}G \cap \hat{H} \neq \emptyset\), hence there is \(h \in H\) such that \(\hat{g}g=h\). Since \(G\triangleleft \hat{G}\), \(\hat{g}G=G\hat{g}\), so there is \(g_2\in G\) such that \(\hat{g}g=g_2\hat{g}=h\). Choosing \(g:=g_2^{-1}\), we have \(g\hat{H}=g_2^{-1}h \hat{H}=\hat{g}H\). Finally the map is an \(\mathcal{S}\)-isomorphism by the characteristic property of surjective submersions and the equivariant rank theorem \parencite[or. 2.6]{lee_introCM} and \parencite[Th. 7.25]{lee_introSM}.
+\end{proof}
+
+\Lemma{}{Let \(F\) be a \((\theta,c)\)-twisted \((G, \Gamma)\)-manifold and \(\pi\colon P \to X\) be a \((\theta, c)\)-twisted \(\Gamma\)-equivariant principal \(G\)-bundle. Let \(\mathscr{C}^\infty(P, F)^{G, \Gamma}\) the space of \((\theta,c)\)-twisted \((G, \Gamma)\)-equivariant smooth maps \eqref{eq_def_twisted_equiv_map}, and let \(\Gamma_{\mathrm{inv}}(X, P(F))\) the space of \(\Gamma\)-invariant sections on the twisted equivariant bundle \(P \to X\). Then, there is a bijection \(\mathscr{C}^\infty(P, F)^{G, \Gamma} \leftrightarrow \Gamma_{\mathrm{inv}}(X, P(F))\). The result holds form holomorphic sections and maps as well. \label{lemma_HK_non_connected_2}}
+\begin{proof}
+    See \parencite[Prop. 4.8]{barajas2023non}
+\end{proof}
+
+\begin{proof}[\textit{Proof of proposition} \ref{prop_equiv_twisted_non_con}]
+    First, observe that on both definitions of stability, we ask for \(\alpha \in \ii \mathfrak{z}_K^\Gamma\), and we choose elements \(\zeta \in \ii \mathfrak{k}^\Gamma\). Moreover, given \(\zeta \in \ii \mathfrak{k}^\Gamma\), the group \(\hat{P}_\zeta\) meets all the connected components of \(\hat{G}\) \parencite[Prop. 2.12]{HKnonconnected}. Since \(P_\zeta=\hat{P}_\zeta \cap G\), lemma \ref{lemma_HK_non_connected_1} implies that \(G/P_\zeta=\hat{G}/\hat{P}_\zeta\). This implies that any holomorphic section of the associated bundle \(\mathcal{P}_{\hat{G}}(\hat{G}/\hat{P}_\zeta)\to X\) induces a \(\Gamma\)-invariant section of the \(\Gamma\)-equivariant bundle \(\mathcal{P}_{G}(G/P_\zeta)\to Y\) and vice-versa. To see this, first observe that \(\mathcal{P}_{\hat{G}}=\mathcal{P}_G\) as manifolds (c.f. remark \ref{obs_equivalence_categories}). Observe that \(G/P_\zeta\cong \hat{G}/\hat{P}_\zeta\) is a \((\theta,c)\)-twisted \((G, \Gamma)\)-equivariant manifold {\color{red}ref}. Moreover, a map between twisted equivariant manifolds is \((\theta,c)\)-twisted \((G, \Gamma)\)-equivariant if and only if it is \(\hat{G}\)-equivariant. Sections of \(\mathcal{P}_{\hat{G}}(\hat{G}/\hat{P}_\zeta)\to X\) are in one-to-one correspondence with \(\hat{G}\)-equivariant maps \(\mathcal{P}_{\hat{G}}\to G/P_\zeta\), and these are in one-to-one correspondence with \((\theta,c)\)-twisted \((G, \Gamma)\)-equivariant maps \(\mathcal{P}_{\hat{G}}\to \hat{G}/\hat{P}_\zeta\), observe that these coincide with \((\theta,c)\)-twisted \((G, \Gamma)\)-equivariant maps \(\mathcal{P}_{{G}}\to G/P_\zeta\) because the sets are the same. Moreover, by proposition \ref{prop_gamma_equivariant_bundles} we know that \(\mathcal{P}_{\hat{G}}(\hat{G}/\hat{P}_\zeta)\to X\) is a \(\Gamma\)-equivariant fiber bundle. By lemma Applying \ref{lemma_HK_non_connected_2}, to each \((\theta,c)\)-twisted \((G, \Gamma)\)-equivariant map \(\mathcal{P}_{{G}}\to G/P_\zeta\) corresponds a \(\Gamma\)-invariant section of the \(\Gamma\)-equivariant bundle \(\mathcal{P}_G \to Y\). Under some abuse of notation, we shall use the same notation for both sections. Observe that by proposition \ref{prop_Gamma_inv_red_struc_group} this means that there is a one-to-one correspondence between holomorphic reductions of the structure group of \(\mathcal{P}_{\hat{G}}\to X\) to a parabolic subgroup \(\hat{P}_\zeta\), and \(\Gamma\)-invariant reductions of the twisted equivariant bundle \(\mathcal{P}_G \to Y\) to the connected component \(P_\zeta\) of \(\hat{P}_\zeta\). \\
+
+    The same discussion applies to Levi subgroups: \(\hat{L}_\zeta\) meets every connected component of \(\hat{P}_\zeta\), \(P_\zeta\) is the identity component of \(\hat{P}_\zeta\), and \(L_\zeta =\hat{L}_\zeta \cap P_\zeta\). Hence, lemma \ref{lemma_HK_non_connected_1} holds, and \(\hat{P}_\zeta /\hat{L}_\zeta\cong P_\zeta/L_\zeta\) {\color{red} esto no tengo ni idea de si es verdad, en el paper solo pone ``the same applies to the Levi subgroup''}. By the same reasoning, a section of the bundle \((\mathcal{P}_{\hat{G}})_\sigma(\hat{P}_\zeta / \hat{L}_\zeta)\to X\) is equivalent to a \(\Gamma\)-invariant section of the \(\Gamma\)-equivariant bundle \((\mathcal{P}_G)_\sigma(P_\zeta/L_\zeta)\to Y\). Observe as well that the \(\Gamma\)-invariance of \(\zeta\) ensures that the integral descends to an integral over \(Y\). In particular, we have \(\deg \mathcal{P}_{\hat{G}}(\sigma, \zeta)=\deg \mathcal{P}_G(\sigma, \zeta)\).
+    
+    {\color{red}Aquí en el paper solo afirmáis que la integral desciende a una integral en \(X\) porque siempre se puede encontrar una conexión \(A\) que sea \(\Gamma\)-invariante. Esto no lo entiendo. Primero, aunque \(Y/\Gamma=X\), no tengo muy claro como se relacionan las integrales entre variedades y sus cocientes. He encontrado algo llamado ``integración a lo largo de fibras'' que es una especie de Fubini para variedades cociente, aunque no sé si es lo que estamos aplicando aquí. Según ese concepto de integración a lo largo de fibras, si tenemos un recubrimiento, es como un \(\Gamma\)-fibrado, entonces para las formas \(\alpha\) en \(Y\) que son invariantes, existen formas \(\beta\) en \(X\) de manera que 
+    \[
+    \int_Y \alpha = |\Gamma|\int_X \beta
+    \]    
+    Consideramos el fibrado twisted \(P_G \to Y\). Suponiendo que \(K_\zeta\) sea \(\Gamma\)-invariante tiene sentido hablar de una reducción \((P_G)'_\sigma\) que sea \(\Gamma\)-invariante ?. Entonces si la 2-forma \(\alpha=\chi_\zeta(F_A)\) se correspondiera con una 2-forma \(\chi_\zeta(F_{\hat{A}})\) para alguna conexión \(\hat{A}\) en el fibrado \(P_{\hat{G}}\to X\), tendríamos 
+    \[
+    \int_Y \chi_\zeta(F_{A})=|\Gamma|\cdot \int_X \chi_\zeta(F_{\hat{A}}).
+    \]
+    Esto sigue sin ser lo que queremos porque aparece un factor de proporcionalidad \(|\Gamma|\), pero si de alguna forma nos pudiéramos quitar el factor de proporcionalidad sí que tendríamos igualdad de los grados, que entiendo que es lo que queremos. En cualquier caso, no sé si con la frase de que la integral desciende a una en \(X\) os referís a esto o a otra cosa.
+    } \\
+
+    Having said that, suppose that \(\mathcal{P}_{\hat{G}}\) is \(\alpha\)-polystable for \(\alpha \in \ii \mathfrak{z}_K^\Gamma\), and let \(\zeta \in \ii \mathfrak{k}^\Gamma\). Let \(\sigma \in \mathcal{O}(Y; \mathcal{P}_{{G}}(G/P_\zeta))\) be \(\Gamma\)-invariant. We have seen that this induces a section (which we cal the same) \(\sigma \in \mathcal{O}(X; \mathcal{P}_{\hat{G}}(\hat{G}/\hat{P}_\zeta))\). Now, since \(\mathcal{P}_{\hat{G}}\) is \(\alpha\)-polystable, it is \(\alpha\)-semistable, hence 
+    \begin{equation} \label{eq_P_G_1}
+    \deg \mathcal{P}_{\hat{G}}(\sigma, \zeta)-\langle \alpha, \zeta\rangle=\deg \mathcal{P}_{{G}}(\sigma, \zeta)-\langle \alpha, \zeta \rangle \geq 0,
+    \end{equation}
+    so \(\mathcal{P}_{G}\) is \(\Gamma\)-invariantly \(\alpha\)-semistable. Now, take \(\zeta \in \ii \mathfrak{k}^\Gamma\) and a \(\Gamma\)-invariant \(\sigma \in \mathcal{O}(Y; \mathcal{P}_G(G/P_\zeta))\) such that the equality holds in \eqref{eq_P_G_1}. Again, this induces a section \(\sigma\in \mathcal{O}(X; \mathcal{P}_{\hat{G}}(\hat{G}/\hat{P}_\zeta))\) such that the equality holds. Since \(\mathcal{P}_{\hat{G}}\) is \(\alpha\)-polystable, there is a holomorphic section \(\sigma'\in \mathcal{O}(X; \mathcal{P}_{\hat{G}}(\hat{P}_\zeta/\hat{L}_\zeta))\) which induces a \(\Gamma\)-invariant section (again, we keep the name) \(\sigma'\in \mathcal{O}(Y; \mathcal{P}_G(P_\zeta/L_\zeta))\). The converse follows from the same reasoning in the opposite direction.
+\end{proof}
+
+\Theorem{\textbf{Hitchin-Kobayashi for twisted bundles}}{Let \(P\to X\) a \((\theta,c)\)-twisted \(\Gamma\)-equivariant principal \(G\)-bundle, and let \(\alpha \in \ii \mathfrak{z}_K^\Gamma\). Then, \(P\) is \(\Gamma\)-invariantly \(\alpha\)-polystable if and only if there exists a \(\Gamma\)-equivariant reduction of the structure group \(\sigma \in \Gamma(X; P(G/K))\) satisfying \(\Lambda_\omega F_A=-\ii \alpha\), where \(A\) is the Chern connection on \(P_K\). \label{th_HK_twisted_bundles}}
+A \(\Gamma\)-equivariant reduction of the structure group satifying \(\Lambda_\omega F_A=-\ii \alpha\) is called a \(\Gamma\)\textit{-equivariant} \(\alpha\)\textit{-Hermite-Yang-Mills reduction of the structure group} to \(K\). Moreover, observe that a \(\Gamma\)-invariant reduction of the structure group is, in particular, a reduction of the structure group, hence it makes sense to consider its Chern-connection.
+\begin{proof}
+    {\color{red}De momento no sé por donde tirar con esto.}
+\end{proof}
+
+\Proposition{}{Let \(P_{\hat{G}}\) be a principal \(\hat{G}\)-bundle over a compact Riemann surface \(X\), and consider the associated \((\theta,c)\)-twisted \(\Gamma\)-equivariant principal bundle \(P_G \to P/G=:Y\). Then, \(P_{\hat{G}}\) admits an \(\alpha\)-Hermite-Yang-Mills reduction of the structure group to \(\hat{K}\) if and only if \(P_G\) admits a \(\Gamma\)-equivariant \(\alpha\)-Hermite-Yang-Mills reduction of structure group to \(K\). \label{prop_proof_HK_nc}}
+\begin{proof}
+    Since \(\hat{K}\) meets all the connected components of \(\hat{G}\), lemma \ref{lemma_HK_non_connected_1} implies that \(G/K\cong \hat{G}/\hat{K}\), Moreover, \(P_G(G/K)/\Gamma \cong P_{\hat{G}}(\hat{G}/\hat{K})\) implies that there is a bijection between the set of sections of the bundle \(P_{\hat{G}}(G/K)\to X\) and the set of \(\Gamma\)-equivariant sections \(P_G(G/K)\to Y\) (recall that this in \(\Gamma\)-equivariant {\color{red}ref}) {\color{red}??}. Hence, suppose that \(P_{\hat{G}} \to X\) admits an \(\alpha\)-Hermite-Yang-Mills reduction of the structure group to \(\hat{K}\). This reduction is given by a section \(\sigma\in \Gamma(X; P_{\hat{G}}(\hat{G}/\hat{K}))\), its Chern connection satisfies \(\Lambda_\omega F_A=-\ii \alpha\). Through the bijection above, the reduction corresponds to a \(\Gamma\)-equivariant section of the \(\Gamma\)-equivariant bundle \(P_G(G/K)\to Y\) {\color{red} no sé como seguir la demostración, más que nada porque no acabo de ver como se relaciona la conexión de Chern en \(P_{\hat{K}}\) con la conexión de Chern en \(P_K\). Desde luego, la \(\Lambda_\omega F_A=-\ii \alpha\) no es \textit{exactamente la misma} en ambos casos y ya está, porque según si estamos en un fibrado o en otro, tenemos (a ambos lados de la igualdad) secciones de \(P_K \to Y\) o de \(P_{\hat{K}}\to X\), que obviamente son fibrados distintos.}
+\end{proof}
+
+With all the work we have done, the proof of the non-connected version of the HK correspondence is just a matter of putting all the pieces together. Observe that the weight of proof is carried by the correspondence for twisted bundles.
+\begin{proof}[\textit{Proof of theorem} \ref{th_HK_non_connected}]
+First, by proposition \ref{prop_equiv_twisted_non_con}, \(\mathcal{P}\) is \(\alpha\)-polystable if and only if \(P_G\) is \(\Gamma\)-invariantly \(\alpha\)-polystable. By theorem \ref{th_HK_twisted_bundles}, this is equivalent to the existence of a \(\Gamma\)-equivariant reduction of the structure group to \(K\) satisfying \(\Lambda_\omega F_A=-\ii \alpha\), i.e. a \(\Gamma\)-equivariant \(\alpha\)-Hermite-Yang-Mills reduction of the structrue group. Finally, by proposition \ref{prop_proof_HK_nc}, this is equivalent to the existence of an \(\alpha\)-Hermite-Yang-Mills reduction of the structure group to \(\hat{K}\), i.e. a reduction satisfying \(\Lambda_\omega F_A=-\ii \alpha\).
+\end{proof}
+
+\subsection{Moment map picture for the non-connected version}
+This version of the correspondence also has a moment map interpretation. Let \(P_{\hat{G}}\) be a smooth principal \(\hat{G}\)-bundle, and consider a reduction of the structure group \(P_{\hat{K}}\) to a principal \(\hat{K}\)-bundle. By the Chern-Singer correspondence, each \(A \in \mathscr{A}\parent{P_{\hat{K}}}\) defines a holomorphic structure on \(P_{\hat{G}}\). Let \(\mathscr{G}\) the gauge group of \(P_{\hat{K}}\). Upon completing these spaces with Sobolev norms, \(\mathscr{A}\parent{P_{\hat{K}}}\) and \(\mathscr{G}\) are a Banach manifold and a Banach Lie group respectively. Then, given a section \(a \in \Gamma(X; P_{\hat{K}} \times_K \mathfrak{z}_K)\) satisfying \(\diff_A a=0\), the action of \(\mathscr{G}\) on \(\mathscr{A}\parent{P_{\hat{K}}}\) given by \eqref{eq_def_action_Phi} is Hamiltonian, and the associated moment map is 
+\[
+\begin{array}{cccc}
+    \mu \colon & \mathscr{A}\parent{P_{\hat{K}}} & \longrightarrow & \mathrm{Lie}(\mathscr{G}) \\
+    & A & \mapsto & \Lambda_\omega F_A +\ii a
+\end{array}
+\]
+is a moment map (we are idenitifying \(\mathrm{Lie}(\mathscr{G})\) and its dual as in remark \ref{obs_mu_lie_sin_dual}). Hence, the moduli space of solutions to the Hermite-Yang-Mills equations for \(P_{\hat{G}}\) is given by 
+\[
+\mu^{-1}(0)/\mathscr{G}.
+\]
+}
+
+% {\color{violet}
+% Let \(\hat{G}\) be a non-connected Lie group, and consider the short exact sequence \(1 \to G \to \hat{G}\to \Gamma \to 1\), where \(G\) is the connected component containing the group identity, and \(\Gamma=\hat{G}/G\) is the group of connected components, consider a principal bundle \(E_{\hat{G}} \to X\). For a homomorphism \(\theta\colon \Gamma \to \mathrm{Aut}(G)\), and a \(2\)-cocycle \(c \in Z_{\theta}^2(\Gamma, Z(G))\), we have \(\hat{G}\cong G \times_{(\theta,c)}\Gamma\). Then, setting \(Y:=E_{\hat{G}}/G\), we get a coverging of \(X\), \(Y \to X\), whose deck group is \(\Gamma\). By the isomorphism of categories (as stated in the article of \textit{Geometriae Dedicata}), the principal \(\hat{G}\)-bundle \(E_{\hat{G}}\to X\) induces a \((\theta, c)\)-twisted \(\Gamma\)-equivariant bundle \(E_G \to Y\). \\
+
+% It is important to remark that given a fiber bundle \(F \to N\) over a manifold \(N\) on which \(\Gamma\) acts smoothly, we say that it is a \(\Gamma\)-equivariant bundle if \(\Gamma\) acts smoothly on \(F\), and the projection satisfies \(\pi(f\cdot \gamma)=\pi(f)\cdot \gamma\) (for left actions we get the equivalent expression). Observe that \((\theta,c)\)-twisted \(\Gamma\)-equivariant bundles on \(X\) are \textit{not} \(\Gamma\)-equivariant principal bundles. \\
+
+% Having said that, a \textit{very important result} is the following.
+
+% \Proposition{}{Let \(M\) be a \((\theta,c)\)-twisted right \((G, \Gamma)\)-manifold, and let \(\pi\colon E \to X\) be a \((\theta,c)\)-twisted \(\Gamma\)-equivariant principal \(G\)-bundle. Consider the associated bundle \(E \times_G M\). The assignment \([e,m]\cdot \gamma=[e\cdot \gamma, m \cdot \gamma]\) is a proper \(\Gamma\)-action, and the associated bundle \textit{is} a \(\Gamma\)-equivariant fiber bundle.}
+% From this result, we get that the bundle \(E_G(G/K)\) is a \(\Gamma\)-equivariant principal bundle. This follows from the fact that \(G/K\) has a \((\theta, c)\)-twisted \((G, \Gamma)\)-action (prop. 3.20 of the paper). This allows us to define \(\Gamma\)-invariant reductions of the structure group \(\sigma\in \Gamma(X;E(G/K))\). These produce subbundles \(E_\sigma:=\sigma^*E \subset E\) that are invariant under the map \(E \times \Gamma \to E,  (e, \gamma) \mapsto e \cdot \gamma\). This is neccesary to make sense of the stability conditions, as those need \(\Gamma\)-invariant reductions. \\
+% }
+
+{\color{blue}
+\textbf{Problemas/Dudas:}
+\begin{enumerate}
+    \item[\textbf{(1)}] En \parencite{garcia2009hitchin} dice: ``Then, by proposition 2.14 \(\mathrm{aut}^{ss}(E, \varphi)=H^0(E(\mathfrak{z}))\), so \((E, \varphi)\) is simple in the sense of Definition 3.8 in \parencite{bradlow2003relative}''. Pero la definición que se da de simple es de un par \((A, \Phi)\) simple, no de que el propio par principal \((E, \varphi)\) sea simple. No he visto la definición de que el propio par principal sea simple en ningún sitio, así que he asumido que quiere decir que tiene una conexión simple.
+    \item[\textbf{(2)}] Esto directamente no se si es verdad. 
+    \item[\textbf{(3)}] Este enunciado no aparece explícitamente en el paper, intenta ser un resumen de lo que llamáis descomposición de Jordan-Holder dando los mínimos detalles posibles. No sé si estará bien. 
+    \item[\textbf{(4)}] En la sección de espacios de Sobolev (sección \ref{section_Sobolev_spaces}) defino esas normas de una manera concreta, pero no estoy seguro de que esté bien. Primero, en la mayoría de sitios donde he visto esto hecho simplemente escriben 
+    \[
+    \langle \psi. \phi\rangle_k=\int_X \sum_{i=1}^r \langle \nabla ^i \psi, \nabla^i \phi \rangle
+    \]
+    y no dicen que es \(\nabla^i\). En el TFM de Diego he visto que define la norma para formas a valores en un fibrado vectorial cualquiera con una conexión a partir del operador \(\diff_\nabla\) como
+    \[
+    ||\alpha||_k:=\sqrt{\sum_{i=0}^r ||\diff_\nabla ^i \alpha ||_{L_2}^2}.
+    \]
+    No sé si la definición que he dado yo es equivalente a la anterior para espacios de formas. Lo que hago yo lo he visto en el libro \parencite{wehrheim2004uhlenbeck}. He mirado el libro de Donalson \parencite{donaldson1990geometry} y yo diría que hace lo mismo que yo, pero es de esos que no parece decir explícitamente a que se refiere con \(\nabla^i\).
+    \item[\textbf{(5)}] Esto está sacado de la demostración de \parencite{garcia2009hitchin} pero no entiendo bien ni como se define la sección que yo he llamado \(\bm{\zeta}\) y en el paper llamáis \(s_{h,\sigma, \chi}\) ni cuál es la sección holomorfa \(\sigma_{s}\). A partir de ahora sigo vuestra notación en el paper. Tampoco entiendo bien a qué llamáis en el paper \parencite{garcia2009hitchin} \(\barpartial_A\) porque decís que es una estructure holomorfa en el fibrado principal diferenciable subyacente a la reducción \(E_h\), pero citáis el paper de Ignasi \parencite{i1999hitchin}, y en él \(\barpartial_A\) siempre denota un operador de Dolbeault en un fibrado vectorial asociado.
+    \item[\textbf{(6)}] La condición de \(c \in \ii \zenterg \cap \mathfrak{k}\) la he sacado del paper de Ignasi \parencite{i1999hitchin}. En vuestro paper sobre grupo de estructura no conexo, se toma \(c \in \ii \mathfrak{z}_K^\Gamma\) donde \(\mathfrak{z}_K=\mathfrak{z}(\mathfrak{k})\) es el álgebra de Lie del centro de \(K\). En general, no es cierto que \(\zenterg \cap \mathfrak{k}=\mathfrak{z}_K\), aunque sí que tenemos una inclusión \(\zenterg \cap \mathfrak{k}\subset \mathfrak{z}_K\).  Por otro lado, en su artículo \parencite{anchouche2001einstein}, Biswas toma \(c\) directamente en \(\zenterg\), y vosotros en \parencite{garcia2009hitchin}, tomáis \(c \in \mathfrak{z}_\R\) que es el álgebra de Lie del compacto maximal de \(Z\), donde \(Z \subset G\) es el centro de \(G\). Mi pregunta es dónde tengo que tomar el elemento \(c\) en la ecuación. Lo más ``coherente'' con lo que hago para el caso no conexo sería tomar \(c \in \mathfrak{z}_K=\mathfrak{z}(\mathfrak{k})\), pero como en cada paper me parece que se hace una cosa, prefiero preguntar.
+    \item[\textbf{(7)}] He visto que en varios de los artículos habláis de tomar projecciones ortogonales con respecto a la forma bilineal \(\langle \cdot , \cdot \rangle\) en \(\mathfrak{g}\). El problema es que en general, una forma bilineal simétrica compleja en un espacio \(V\) no induce descomposiciones ortogonales ni aún siendo no degenerada. El criterio para que sí que induzca una descomposición ortogonal en un subespacio \(W\) es que su restricción a \(W \times W\) sea no degenerada, pero esto no se sigue de que sea no degenerada en \(V\)  (por ejemplo, en \(\C^2\) la forma bilineal dada en la base canónica por la identidad es no degenerada en todo \(\C^2\), pero no lo es en \(W:=\mathrm{span}_\C(i,1)\), de hecho, la restricción de la forma bilineal en cuestión se anula en \(W\)).
+    \item[\textbf{(8)}] He puesto esta definición de estabilidad buscando ser un poco coherente con las que ponéis en los papers. Los critetios de estabilidad no aparecen escritos exactamente igual en todos los papers, así que no sé si esta estará bien (también he quitado todas las condiciones relativas a la sección \(\varphi\) en el fibrado adjunto, pero esa parte debería estar bien). Más concretamente, he cogido la definición que dais de estabilidad en el paper sin publicar y en el paper \parencite{garcia2009hitchin}. En otros papers como el de Biswas o el Ignasi las condiciones de estabilidad parecen algo diferentes, y no me parece claro de primeras que sean equivalentes. En alguna reunión que hemos tenido me has dicho que sí que lo son, pero aún así preferiría que me confirmaras que esta definición está bien.
+    \item[\textbf{(9)}] El resultado de que \(\mathscr{G}_{k+1}\) tenga una estructura de grupo de Lie de dimensión infinita lo he encontrado solo para \(G\) compacto, conexo, semisimple y matricial. En el paper de Mitter \parencite{mitter1981bundle} dicen que el grupo tiene que ser conexo y compacto aunque yo no he sido capaz de ver donde utilizan la conexión en su prueba (quizás sea alguna propiedad que no sé de la exponencial?). El caso es que lo de que sea un grupo matricial si que me parece muy necesario porque se utiliza muy fuertemente en la construcción. No sé si se suele considerar que todos los grupos con los que se trabaja son matriciales o si hay alguna forma de hacerlo para grupo no matricial, pero yo no la encontré. La verdad es que traté de entender la demostración cuando hice el trabajo y no fui capaz. No tengo nada claro donde necesita todas esas condiciones sobre el grupo de Lie, y no he encontrado más pruebas de que \(\mathscr{G}_k\) sea un grupo de Lie de Hilbert en ningún sitio, así que no sé ni siquiera si es cierto cuando eliminamos todas esas hipótesis y solo pedimos que el grupo sea reductivo.
+    \item[\textbf{(10)}] Lo de que cada órbita contenga una conexión \(\mathscr{C}^\infty\) lo he visto en el articulo de Atiyah-Bott para superficies de Riemann, y para la acción de \(\mathscr{G}^\C\) sobre \(\mathscr{A}^{(1,1)}\). Para la acción de \(\mathscr{G}\) sobre \(\hat\mu^{-1}(0)\) no sé si es cierto, aunque si queremos que el cociente sea el moduli de conexiones de Einstein-Hermite salvo transformación de gauge, tiene sentido. Por otro lado, el otro día hablamos de que todo lo del moment map y el teorema de Kempf-Ness es \textit{lo que motiva} la correspondencia de Hitchin-Kobayashi, o al menos lo que nos lleva a preguntarnos si dicha correspondencia existencia. La parte de la aplicación momento desde luego que veo como se relaciona con el caso finito-dimensional, al fin y al cabo tenemos una aplicación momento y una acción simpléctica. Lo que no veo claro es la parte algebraica. En el kempf-Ness clásico tenemos también nociones de semiestabilidad y estabilidad, pero más allá de que nosotros damos definiciones de estabilidad poliestabilidad etc para fibrados principales, y decidimos darles esos nombres, no veo como esto se tendría que relacionar con la noción finito-dimensional de estabilidad. Es decir, no entiendo por qué uno vería las definiciones que hemos dado de estabilidad, semiestabilidad y poliestabilidad y, si se llamasen de otra forma, pensaría que son análogas a las de dimensión finita (definición \ref{def_stability_fin_dim_KempfNess}).
+    \item[\textbf{(11)}] Que exista un pairing invariante bajo la acción adjunta es algo que afirmáis en el paper pero no dais muchos detalles. He buscado mucho en internet y lo más explícito que he encontrado es una mención a que dichas formas bilineales no degeneradas existes existen en la introducción de este artículo \parencite{Benito2024}. De todas formas, no sé si está bien porque la acción adjunta de \(\hat{G}\) en el centro del álgebra de Lie no tendría que ser trivial en princio si \(\hat{G}\) no es conexo. En resumen, no entiendo de donde sale que exista ese pairing.
+    \item[\textbf{(12)}] No tengo nada claro que eso esté bien, pues de momento no sé si es cierta la relación \(\chi_\zeta(\diff_A \alpha)=\diff \chi_\zeta (\alpha)\). Otro problema que noto es que no sé donde hace falta en nada de lo que hago que al caracter sea antidominante. Sé que tiene que ser necesario en algún momento, no sé si para definir el grado o en algún otro sitio.
+    \item[\textbf{(13)}] Pongamos que tenemos la situación usual \(1 \to G \to \hat{G} \to \Gamma \to 1\). Dado un elemento \(s \in \ii \mathfrak{k}\), se define el grupo parabólico asociado como
+    \[
+    \hat{P}_s:=\corch{g \in \hat{G}: \exp(ts)\ g \ \exp(-ts) \text{ está acotado cuando } t \to \infty }\subset \hat{G}
+    \]
+    y no entiendo con respecto a qué está acotado. Si trabajamos siempre con grupos de matrices, entonces lo vemos en algún \(\mathrm{GL}(n,\C)\), que es un espacio normado y ahí ya tiene perfecto sentido hablar de acotación (y de límites), pero para grupos de Lie abstractos no acabo de ver como lo hacemos. En el texto, lo he interpretado en términos de representaciones unitarias. Esto no lo he visto dicho explícitamente en ningún sitio, pero en \parencite{trautwein2015surveygitpictureyangmills} definen las cosas de un modo un poco diferente, pues piden que el límite exista, no que haya acotación. Para interpretar el límite sí que toman representaciones. No se dice que lo que se hace sea independiente de la representación elegida, cosa que, en caso de ser esta la interpretación correcta, entiendo que debe ser cierta.
+    \item[\textbf{(14)}] Imagino que los subgrupos parabólicos tienen que ser grupos de Lie complejos y subgrupos cerrados de \(G\), pues en los papers tomáis secciones holomorfas de fibrados del tipo \(G/P_s\), de modo que \(G/P_s\) tiene que ser una variedad compleja, y por tanto \(P_s\) debería ser un grupo complejo, pero no he encontrado ningún sitio en que eso esté dicho explícitamente. De hecho, me está constanto mucho encontrar referencias que hablen de subgrupos parabólicos en el contexto de los grupos de Lie. Creo que es cierto que todo grupo reductivo complejo tiene estructure de grupo algebraico, pero en los grupos que tratan con grupos algebraicos como Humprheys \parencite{humphreys1975linear} hacen todo con la topología de Zariski y no me estoy enterando de como pasar estas propiedades a la topología usual. Por ejemplo, para Humprheys \(P \subset G\) es parabólico si y solo si \(G/P\) es una variedad proyectiva \textit{completa}. Completa y compacta en principio no es lo mismo: completa quiere decir, según su propia definición, que para toda variedad proyectiva \(Y\) la segunda proyección \(G/P \times Y \to Y\) es una aplicación cerrada. Según el propio Humprheys, si los espacios son suficientemente buenos y de Hausdorff, y dotamos a todo de la topología producto, entonces esa condición equivale a compacidad, pero él en principio considera todo con la topología de Zariski. Lo mismo en el paper de Ramanathan \parencite{Ramanathan1996} que me recomendaste en su momento, dice que el hecho de que \(P\) sea parabólico es equivalente a que \(G/P\) sea completo, no compacto.
+    \item[\textbf{(15)}] De estas airmaciones hay bastantes cosas de las que no estpy seguro. Casi todo está sacado del remark 3.21 del paper en preparación y de la sección 3.3 del paper de Geometría Dedicata \parencite{barajas2023non}. En primer lugar, que \(G/H\cong \hat{G}/\hat{H}\) no lo tengo muy claro. Si \(\hat{H}\) interseca a todas las componentes conexas de \(\hat{G}\) entonces sí (lo tengo probado en el lema \ref{lemma_HK_non_connected_1}), pero no sé si es cierto. Por otro lado, entiendo que hacemos esto porque queremos que \(G/H\) tenga una acción de \(\hat{G}\), o equivalentemente, una \((\theta,c)\)-twisted \((G, \Gamma)\) action, para poder aplicar así la proposición \ref{prop_gamma_equivariant_bundles} y decir que el fibrado \(P(G/H)\) es \(\Gamma\)-equivariante, y que así tenga sentido hablar de secciones \(\Gamma\)-equivariantes (o \(\Gamma\)-invariantes, que creo que son lo mismo por como definís la \(\Gamma\)-acción, pero creo que no se dice explícitamente).
+    \item[\textbf{(16)}] Lo que pongo en ese remark no lo tengo muy claro. Cuando consideramos \(\hat{G}\) un grupo reductivo, complexificación de \(\hat{K}\), \(G\) es la componente conexa de la identidad de \(\hat{G}\) y definimos \(K:=\hat{K}\cap G\) entiendo que sea compacto, pero no estoy seguro ni de que sea conexo ni de que sea cierto \(K^\C=G\). Tampoco sé si es muy relevante. 
+    \item[\textbf{(17)}] He leído la parte del artículo en que habláis de monodromía y demás, pero no entiendo como deducís que se puede pasar de la ecuación \(\Lambda_\omega F_A=-\ii a\) donde \(a\in \Gamma(P_{\hat{K}} \times_{\hat{K}}\mathfrak{k})\) es una sección con \(\diff_A a=0\) a la misma ecuación con \(\Lambda_\omega F_A=-\ii \alpha\) y \(\alpha \in \mathfrak{z}^\Gamma_K\). 
+\end{enumerate}
+}

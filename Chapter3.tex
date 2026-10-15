@@ -1,0 +1,933 @@
+\chapter{Principal bundles} \label{chapter_principal_bundles}
+The aim of this chapter in to introduce basic concepts regarding principal bundles. As we did for vector bundles, we will describe simultaneously principal bundles in the smooth and holomorphic category. Hence, we recover the notation \(\mathcal{S}\) introduced in appendix \ref{appendix_Kahler} to mean either smooth or holomorphic. The expression \(\mathcal{S}\)\textit{-Lie group}\index{Lie group!\(\mathcal{S}\)} means a smooth or holomorphic Lie group, and an \(\mathcal{S}\)\textit{-action}\index{Action!\(\mathcal{S}\)} means either a smooth or holomorphic action (that is the map \(G \times M \to M, (g,m)\mapsto g \cdot m\) is an \(\mathcal{S}\)-morphism). A good reference for principal \(G\)-bundles is \parencite[Ch. 1]{Rudolph_2017pug} (they work with smooth bundles, but some of the results and definitions can be generalized to the holomorphic setting). \\
+
+We will also describe connections in principal bundles. Since principal bundles do not have linear fibers, connections will no longer be differential operators, but we will see that they can be seen from a very geometric viewpoint. There is also a concept of curvature, and this can be seen as a section of an associated vector bundle, which means that differential operators may be applied to the curvature of a connection. This is, as we will see in chapter \ref{chapter_HK_correspondence}, essential to write down the Hermite-Yang-Mills equations. We will also see how principal and vector bundles are related to one another (and how one goes from one to the other). The chapter finishes with a principal bundle version of the Chern correspondence which shows how reductions of the structure group (which are, in some sense, analogous to hermitian fiber metrics) parametrize complex structures on smooth principal bundles.
+
+\section{Definition and first properties}
+The notion of a vector bundle admits several generalizations. Among them, principal \(G\)-bundles will be very important for our purposes. The spirit of the definition is quite similar to that of vector bundles: we attach a Lie group to each point of the manifold in a way such that the resulting manifold becomes locally trivial. Before stating the definition, recall that an action \(\phi\) of a group \(G\) on a set \(S\) is free if \(\phi_g(s)=s\) for some \(s \in S\) implies that \(g=e\) (that is, only the group identity can have fixed points).
+
+\Definition{\textbf{Principal \(G\)-bundle}}{A \textit{principal \(G\)-bundle}\index{Principal \(G\)-bundle}, or \textit{principal bundle with structure group}\index{Structure group} \(G\) is a \(4\)-tuple \((P,G,M,\pi)\), where \(P\) and \(M\) are \(\mathcal{S}\)-manifolds, \(G\) is an \(\mathcal{S}\)-Lie group, and \(\pi\colon P \to M\) is an \(\mathcal{S}\)-morphism satisfying
+\begin{enumerate}
+    \item There is a free, \(\mathcal{S}\), right-action of \(G\) on \(M\).
+    \item \(\pi^{-1}(\pi(p))=\corch{p\cdot g: g\in G}=p\cdot G\).
+    \item For every \(m \in M\) there are an open neighborhood \(U \subset M\) of \(m\) and an \(\mathcal{S}\)-isomorphism, called a \textit{local trivialization} \(T_U\colon\pi^{-1}(U) \to U \times G\), where \(T_U(p)=(\pi(p), s_U(p))\), and \(s_U\colon \pi^{-1}(U)\to G\) commutes with the \(G\)-action, that is \(s_U(p\cdot g)=s_U(p)\cdot g\).
+\end{enumerate} \label{def_principal_G_bundles}
+}
+We say that \(M\) is the \textit{base space}, and \(P\) is the \textit{total space}. Observe that holomorphic principal bundles require \(G\) and \(M\) to be complex. They are also called \textit{complex principal bundles}\index{Principal bundle!complex}. If there is no room for confusion, we will denote a principal \(G\) by \(P(M,G)\), or \(P_G\) if the base manifold is understood. Observe that the following diagram commutes
+
+\begin{center}
+    \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+            P \supset \pi^{-1}(U) \arrow[rr, "{\displaystyle T_U}"] \arrow[rd, "{\displaystyle \pi}", ']  \& \& U\times G \arrow[ld, "{\displaystyle \pi_1}"]  \\
+            \& M. \& 
+        \end{tikzcd}
+\end{center}
+
+Note that this means that \(\pi\) must be surjective: for each \(m \in M\), take a local trivialization \((U, T_U)\) with \(m \in U\). Then, \(\pi=\pi_1 \circ T_U\), so \(m\) is in the image of the right-hand side. Moreover, by taking differentials, and applying the chain rule, we observe that \(\pi\) is a submersion. In particular, this implies that for every \(m \in M\), \(\pi^{-1}(m)\) is an embedded submanifold of \(P\) \parencite[Cor. 5.13]{lee_introSM}. Moreover, the second property of the definition of \(G\)-bundle implies that each fiber is a copy of \(G\), and can be identified with \(G\). In fact, each fiber is \(\mathcal{S}\)-isomorphic, as a manifold, to the structure group \(G\). Moreover, from local triviality we may deduce that \(\dim P(M,G)=\dim P + \dim M\). \\
+
+\begin{obs} \label{action_principal_G_bundle}
+    If \(P(M,G)\) is a principal \(G\)-bundle, then the action of \(G\) on \(P\) is proper, and \(P/G \cong M\). Some references, such as \parencite{kobayashi_vol1} define principal \(G\)-bundles by replacing part \(2\) of definition \ref{def_principal_G_bundles} by the condition \(P/G \cong M\). Here, we used the fact that the quotient manifold theorem (theorem \ref{quot_manifold_theorem}) admits a generalization to free and proper holomorphic actions of complex Lie groups to complex manifolds (see \parencite[Lemma 3.2.6, page 334]{schneider1999several} for a proof). Recall that by a proper action, we mean that the map \(P \times G \to P \times P, (g,p)\mapsto (g\cdot p, p)\) is a proper map. %https://math.stackexchange.com/questions/848248/is-the-g-action-on-a-principal-g-bundle-proper eso es una respuesta de Lee que explica como hacerlo. Por otro lado, hay un recíproco que establece que para fibrados diferenciables toda free proper action de G en una variedad P define un principal G bundle sobre M:=P/G, pero usa el tubular neighbourhood theorem que por lo que parece no es cierto en general.
+\end{obs}
+
+% Transition functions also have a generalization to the context of principal fiber bundles. Let \(P(M,G)\) be a principal fiber bundle, and choose two local trivializations \((U_i, T_i)\) and \((U_j, T_j)\) such that \(U \cap V \neq \emptyset\). Observe that for every \(p \in \pi^{-1}(U_i \cap V_j)\), we have
+% \[
+% s_i(p\cdot g) \parent{s_j(p \cdot g)}^{-1}=s_i(p)gg^{-1}s_j(p)^{-1}=s_i(p)s_j(p)^{-1}.
+% \]
+% Therefore, we may define \(\psi_{ij}\colon U_i\cap U_j \to G, x \mapsto s_i(p)s_j(p)^{-1}\) for any \(p \in \pi^{-1}(x)\). The map \(\psi_{ij}\) is well-defined because the previous calculation shows that \(s_i(p)s_j(p)^{-1}\) does not depend on the element of the fiber we choose. Moreover, \(\psi_{ij}\circ \pi=s_is_j^{-1}\colon \pi^{-1}(U_i \cap U_j) \to G\) is smooth, and by the characteristic property of surjective smooth submersions \parencite[Th. 4.29]{lee_introSM}, we conclude that \(\psi_{ij}\) is smooth. Observe as well that \(\psi_{ii}\equiv e\), \(\psi_{ij}(p)^{-1}=\psi_{ji}(p)\) and \(\psi_{ij}(p)\psi_{jk}(p)=\psi_{ik}(p)\) for \(p \in U_i \cap U_j \cap U_k\). \\
+
+\begin{obs} \label{obs_bijection_triv_sect}
+    Since principal bundles are equipped with a natural projection to the base manifold, we can define \textit{global sections} (resp. \textit{local sections}) as \(\mathcal{S}\)-morphisms \(\sigma\colon M \to P\) (resp. \(\sigma\colon U \to P\) where \(U \subset M\) is open) satisfying \(\pi\circ \sigma=\mathrm{id}_M\) (resp. \(\pi \circ \sigma=\mathrm{id}_U\)). They are sometimes called \textit{global} and \textit{local gauges} in the physics literature \parencite{hamilton2018mathematical}. Just as happens with vector bundles, there is a one-to-one correspondence between local trivializations and local sections. Indeed, given a local section \(\sigma\), we define a local trivialization by the inverse of \(U \times G \mapsto \pi^{-1}(U), (m,g) \mapsto \sigma(m)\cdot g\). Explicitly, we define \(T_U(p)=(\pi(p), s_U(p))\), where \(s_U(p)\in G\) is the only element satisfying \(p=\sigma(\pi(p))\cdot s_U(p)\). Observe that this implies \(s_U \circ \sigma \equiv e_G\). Reciprocally, given a local trivialization \(T_U\), a local section is defined by \(m \to T_U^{-1}(m, e_G)\). See \parencite[Prop. 1.1.6]{Rudolph_2017pug} for a proof in the smooth category, but observe that the claim holds in the holomorphic category. 
+\end{obs}
+
+\Definition{\textbf{Principal bundle homomorphism}}{Let \((P_1, M_1,G_1, \pi_1)\) and \((P_2, M_2, G_2, \pi_2)\) be two \(\mathcal{S}\)-principal bundles with respective structure groups \(G_1\) and \(G_2\). A \textit{principal bundle homomorphism}\index{Principal bundle!isomorphism} is a pair of mappings \((\vartheta, \lambda)\), such that \(\vartheta\colon P_1\to P_2\) is an \(\mathcal{S}\)-morphism, \(\lambda\colon G_1 \to G_2\) is a \(\mathcal{S}\)-Lie group homomorphism, and \(\vartheta(p \cdot g)=\vartheta(p)\cdot \lambda(g)\) for all \(p \in P_1, g \in G_1\). \label{def_principal_bundle_homomorphism}}
+We will say that a principal bundle homomorphism is an \textit{isomorphism} if \(\vartheta\) is an \(\mathcal{S}\)-isomorphism, and \(\lambda\) is a Lie group isomorphism. 
+
+\noindent
+\begin{obs} \(\hspace{1 pt}\) \\
+    \begin{minipage}{0.67\textwidth}
+        In the situation described in the previous definition, \(\vartheta\) induces a smooth map on the base manifolds \(M_1\) and \(M_2\). Indeed, \(\vartheta\) must send fibers of \(\pi_1\) to fibers of \(\pi_2\), and therefore, we may define \(\vartheta'\colon M_1 \to M_2\) by \(\vartheta'(\pi_1(p)):=\pi_2(\vartheta(p))\) (which is an \(\mathcal{S}\)-morphism by local triviality). This makes the following diagram commutative.
+    \end{minipage}
+    \begin{minipage}{0.27\textwidth}
+        \begin{center}
+            \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+                P_1 \arrow[r, "{\displaystyle \vartheta}"] \arrow[d, "{\displaystyle \pi_1}", '] \& P_2 \arrow[d, "{\displaystyle \pi_2}"] \\
+                M_1 \arrow[r, "{\displaystyle \vartheta'}"] \& M_2
+            \end{tikzcd}
+        \end{center}
+    \end{minipage} \\
+
+    Observe that \(\vartheta'(\pi_1(p\cdot g))=\pi_2(\vartheta(g\cdot p))=\pi_2(\vartheta(p)\cdot \lambda(g))=\pi_2(\vartheta(g))\) so its well-defined and independent of the representative chosen. It is smooth because \(\pi_1\) is a surjective smooth submersion, and \(\vartheta'\circ \pi_1=\pi_2 \circ \vartheta\), the right-hand side being smooth. By the characteristic property of surjective smooth submersions, \parencite[Th. 4.29]{lee_introSM}, we conclude that \(\vartheta'\) is smooth. \\
+
+    We will generally work with different principal bundles over the same base manifold (although we may consider different structure groups). In that case, we will consider unless otherwise stated, morphisms where \(\vartheta'=\mathrm{id}_M\) (these are sometimes called \textit{vertical principal bundle morphisms}, or morphisms \textit{covering the identity}). If the structure groups are the same, and \(\lambda=\mathrm{id}_G\) then, \(\vartheta\) is called a \textit{\(G\)-morphism}.
+\end{obs}
+
+In complete analogy to vector bundles (see \eqref{def_pullback_vec_bund} and the surrounding comments), given an \(\mathcal{S}\)-principal bundle \(P(M,G)\), another \(\mathcal{S}\)-manifold, and an \(\mathcal{S}\)-morphism \(\varphi\colon N\to M\), we can define a the \textit{pullback principal bundle}\index{Pullback!of a principal bundle}
+\begin{equation} \label{eq_def_pullback}
+\varphi^* P:=\corch{(n,p)\in N \times P: \varphi(n)=\pi(p)} \subset N \times P.
+\end{equation}
+Endowed with the action given by \((n, p)\cdot g=(n, p\cdot g)\) and whose projection is the restriction of the projection \(N \times P \to N\), it becomes a principal \(G\)-bundle \parencite[Remark 1.1.9]{Rudolph_2017pug}. \\
+
+Finally, sometimes vector bundles and fiber bundles are not enough; sometimes we need general manifolds to be the fibers of a bundle. This motivates the definition of a general fiber bundle, which generalizes vector and principal bundles.
+
+\Definition{\textbf{Fiber bundle}}{A \textit{fiber bundle}\index{fiber bundle} is a \(4\)-tuple \((E,M,F,\pi)\), where \(M,E\) and \(F\) are \(\mathcal{S}\)-manifolds, \(\pi\colon E \to M\) is a surjective \(\mathcal{S}\) morphism, and for every \(m \in M\) there are an open neighborhood \(U \subset M\), and an \(\mathcal{S}\)-isomorphism \(\Phi\colon \pi^{-1}(U) \to U \times F\) called a \textit{local trivialization}, such that \(\pi_1\circ \Phi=\pi\).}
+
+Observe that we use the term \textit{local trivialization} for all the types of bundles we have discussed. This shall lead to no confusion, as it will be clear from the context the type of bundle we are dealing with. \\
+
+\subsection{Frame bundles} \label{section_frame_bundle}
+This section is devoted to highlight the relation that exists between vector bundles and principal bundles. More precisely, given a rank \(r\) \(\mathcal{S}\)-vector bundle over the field \(\K=\R\) or \(\C\), and defined over an \(\mathcal{S}\)-manifold \(M\), we are going to construct an \(\mathcal{S}\)-principal \(\mathrm{GL}(r, \K)\)-bundle over the same manifold \(M\). This principal bundle is called the \textit{frame bundle of \(E\)}\index{Frame bundle}.  \\
+
+For each \(m \in M\), let \(L_m:=\corch{\bm{u}:=(u_1, \ldots u_r) \text{ basis of } E_m}\). Define (see \eqref{eq_disjoint_union})
+\begin{equation} \label{def_frame_bundle}
+L(E):=\bigsqcup_{m \in M} L_m.
+\end{equation}
+Observe that there is a clear action of \(\mathrm{GL}(k, \K)\) on \(L(E)\), which is given as follows
+\begin{equation} \label{eq_action_frame_bundle}
+    \begin{array}{ccc}
+        L(E) \times \mathrm{GL}(r, \K) & \longrightarrow & L(E) \\
+        (\bm{u}, A=(a^i_j)) & \mapsto & \bm{u}A.
+    \end{array}
+\end{equation}
+Here, \(\bm{u}A\) is the basis whose \(j\)-th element is given by \(v_j:=u_i\cdot a^i_j\). This is a free right-action because only the identity matrix can fix all the elements of a basis. Moreover, there is a canonical projection \(\pi\colon L(E)\to M, (m,\bm{u})\to m\). Since all the basis of one fiber are related by an invertible linear transformation, the orbit space for this action is \(M\) as a set. The only thing left is to endow \(L(E)\) with an \(\mathcal{S}\)-manifold structure. To that end, choose a local trivialization of the vector bundle \(E\), \((\Phi, U)\), and let \((s_1, \ldots s_r)\) be the associated local frame (see proposition \ref{prop_local_frames_associated_trivializations}). Then, for each \(\bm{u}\in L_m\) there is a matrix \(A(\bm{u}, \Phi)\in \mathrm{GL}(r, \K)\) satisfying \(u_j=a^i_j\cdot s_i\). Thus, we may define 
+\[
+\begin{array}{cccc}
+    T_U \colon & \pi^{-1}(U) & \longrightarrow & U \times \mathrm{GL}(r, \K) \\
+    & (m,\bm{u}) & \mapsto & (m, A(\bm{u}, \Phi)).
+\end{array}
+\]
+The smooth structure on \(L(E)\) is defined by requiring the maps \(T_U\) defined above to be diffeomorphisms (see \parencite[Th. 4.3.3]{hamilton2018mathematical}). \\
+
+This construction can be refined when the vector bundle is equipped with some extra structure. For example, suppose that \(E\) is a smooth complex vector bundle equipped with a hermitian fiber metric. Then, we may define \(U_m\) the set of \textit{unitary basis} with respect to the hermitian product \(h_m\) of the fiber \(E_m\). Setting
+\begin{equation} \label{eq_def_UE}
+U(E):=\bigsqcup_{m \in M} U_m,
+\end{equation}
+we get a set endowed with a natural action of \(\mathrm{U}(r)\) (recall that orthonormal basis are taken to orthonormal basis by \(\mathrm{U}(r)\)-transformations). The action is just as in \eqref{eq_action_frame_bundle}. The principal bundle structure is given by choosing local trivializations associated to unitary frames. Thus, \(U(E)\) has the structure of a principal \(\mathrm{U}(r)\)-bundle.
+
+\subsection{Associated bundles} \label{section_associated_bundles}
+Given an \(\mathcal{S}\)-principal \(G\)-bundle, and another \(\mathcal{S}\)-manifold \(F\) which is acted upon through the left by \(G\) by \(\mathcal{S}\)-morphisms, we may construct another fiber bundle called an \textit{associated bundle}\index{Associated bundle} to the original principal \(G\)-bundle.  \\
+
+Firstly, observe that if \(\phi\colon F \times G \to F\) is the left action originally defined, we may always define a right action as follows
+\begin{equation} \label{eq_nueva_accion}
+\begin{array}{cccc}
+    \tilde{\phi}\colon& G\times F & \longrightarrow & F\\
+    & (g,p) & \mapsto & \phi_{g^{-1}}(a).
+\end{array}
+\end{equation}
+Thus, we can define a right action on the usual cartesian product \(P \times F\) by
+\[
+\begin{array}{ccc}
+    (P\times F) \times G & \longrightarrow & P \times F \\
+    ((p,\xi), g) & \mapsto & (p\cdot g, g^{-1}\cdot \xi).
+\end{array}
+\]
+If \(G\) acts freely and by \(\mathcal{S}\)-morphisms on \(F\), then it does so on \(P \times F\). Certainly, the action is component-wise free, therefore free. Moreover, by remark \ref{action_principal_G_bundle}, the action of \(G\) on \(P\) is proper. Furthermore, the product of a proper action with any other action is again proper (see \parencite[Remark 6.3.9]{rudolph2012differential}). Having that in mind, we define \(P\times_G F:=(P\times F)/G\)\footnote{This is sometimes denoted \(P \times_\phi F\) to emphasize the action.}. That is, we define \(P\times_GF\) to be the set of equivalence classes for the equivalence relation \((p_1, \xi_1) \sim (p_2, \xi_2)\) if and only if \((p_1 \cdot g, g^{-1}\cdot \xi_1)=(p_2, \xi_2)\) for some \(g \in G\). Let us denote by \([p, \xi]\) the equivalence class of a pair \((p, \xi)\). We endow it with the quotient topology, and by the quotient manifold theorem (theorem \ref{quot_manifold_theorem} or theorem \ref{quot_man_th_complex} depending on the category we are workin in), \(P \times_G F\) as a unique \(\mathcal{S}\)-manifold structure that makes the usual quotient map \(q\colon P\times F \to P\times_GF\) into an \(\mathcal{S}\)-morphism and a submersion. Define the projection \(\pi_G\colon P \times_GF \to M, [p, \xi] \mapsto \pi(p)\). It is well-defined because \(\pi\) is invariant by the action of \(G\). Moreover, the following diagram commutes
+\begin{center}
+    \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+            P \times F \arrow[d, "{\displaystyle q}",'] \arrow[rd, "{\displaystyle \pi \circ \pi_1}"] \\
+            P \times_G F \arrow[r, "{\displaystyle \pi_G}",'] \& M.
+        \end{tikzcd}
+\end{center}
+Since \(\pi_1 \circ \pi\) is an \(\mathcal{S}\)-morphism, the characteristic property of surjective smooth submersions implies that \(\pi_G\) is an \(\mathcal{S}\)-morphism (see \parencite[Th. 4.29]{lee_introSM} \parencite[Cor. 2.6]{lee_introCM} for the smooth and complex categories respectively). \\
+
+The only thing left to check is that this structure admits local trivializations. Recall that the set of local trivializations is in bijection with the set of smooth local cross-sections (see remark \ref{obs_bijection_triv_sect}), and let \((U, T_U)\) be a local trivialization of \(P\). Let \(\sigma\colon U \to P\) be its associated cross-section. Define
+\begin{equation} \label{trivialization_associated_bundle}
+\begin{array}{cccc}
+    \tilde{\sigma} \colon & U \times F & \longrightarrow & \pi^{-1}_G(U)\\
+    & (m,f) & \mapsto & [\sigma(m), f].
+\end{array}
+\hspace{2 cm}
+\begin{array}{cccc}
+    \Phi\colon & \pi_G^{-1}(U) & \longrightarrow & U \times F \\
+    & [p,f] & \mapsto & (\pi_G([p,f]), s_U(p)\cdot f)
+\end{array}
+\end{equation}
+These maps are \(\mathcal{S}\)-morphisms (this is again the characteristic property of surjective smooth submersions), and inverses of each other. \(Phi\) is a local trivialization. Observe that \(\pi_1 \circ \Phi=\pi_G\) if and only if \(\pi_1=\pi_G \circ \Phi^{-1}\), and
+\[
+\pi_G \circ \Phi^{-1}(m,f)=\pi_G[\sigma(m), f]=\pi(\sigma(m))=\mathrm{id}_U(m)=m.
+\]
+% Let us give \(\Phi\) explicitly. Let \((U, T_U)\) be a local trivialization, and let \(s_U\) be as in definition \ref{def_principal_G_bundles}. Then, the trivialization \(\Phi\colon \pi_G^{-1}(U) \to U \times F\) is given by 
+% \begin{equation} \label{trivialization_associated_bundle}
+%     \Phi([p,f])=(\pi_G([p,f]), s_U(p) \cdot f)
+% \end{equation}
+
+\begin{obs}\label{def_q_p}
+    The natural projection \(q\colon P \times F \to P \times_G F\) induces a natural \(\mathcal{S}\)-isomorphism between the fibers of \(\pi_G\) and \(F\). Indeed, fix \(p \in P\), and define the map \(q_p\colon F \to P \times_GF, f \mapsto [p,f]\). The image is clearly contained in \(\pi_G^{-1}(\pi(p))\), and \(q_p\) is equivariant:
+    \[
+    q_{p\cdot g}(f)=[p\cdot g, f]=[p \cdot g, g^{-1}\cdot g \cdot f]=[p, g \cdot f]=q_p(g \cdot f),
+    \]
+    thus \(q_{p \cdot g}=q_p \circ \sigma_g\). If we choose an element in the fiber \(\pi_G^{-1}(\pi(p))\), it will be \([p \cdot g, f]=q_{p}(g\cdot f)\), so each \(q_p\) is a bijection. In fact it is an \(\mathcal{S}\)-isomorphism.
+\end{obs}
+
+% It is common to write \(P(F):=P \times_G F\). In that case, there is a natural bijection between sections of \(P(F)\) and smooth maps \(\tilde{s}\colon P \to M\) satisfying the equivariance condition \(\tilde{s}(p \cdot g)=\tilde{s}(p)\cdot g\).
+
+Let us now discuss the case of the adjoint bundle. Let \(P(M,G)\) be a principal \(G\)-bundle. As the manifold \(F\), take the Lie algebra \(\mathfrak{g}\). This is clearly a smooth manifold because it is a finite-dimensional vector space. Moreover, \(\mathrm{Ad}\colon G \to \mathfrak{g}\) is a left action of \(G\) on \(\mathfrak{g}\). We can thus define the \textit{adjoint bundle}\index{Bundle!adjoint} \(\mathrm{ad}(P):=P \times_G \mathfrak{g}\). This case is special, in the sense that we actually obtain a vector bundle, as the following proposition shows.
+
+\Proposition{}{Let \(P(M, G)\) be a principal \(G\)-bundle.  \label{prop_adP_is_bundle} Then, \(\mathrm{ad}(P)\) is a smooth vector bundle.}
+\begin{proof}
+    % Let us start by checking that the fibers have a vector space structure. To do so, define, for \(p \in P, \xi,\zeta \in \mathfrak{g}:\) 
+    One simply defines the vector space structure by \(\lambda \cdot [p,  \xi]+\mu \cdot [p, \zeta]:=[p, \lambda \xi+\mu \zeta]\) for \(p \in P, \xi,\zeta \in \mathfrak{g}\)and checks that this independent of the chosen representatives. Actually, this does not use any particular feature of \(\mathfrak{g}\), other than it is a vector space. This means that for every vector space \(V\) on which there is a representation of \(G\), the bundle \(P\times_GV\) is again a vector bundle. This works for complex vector bundles as well, and in that case \(P \times_G V\) becomes a smooth vector bundle. If \(P(M,G)\) is a holomorphic principal bundle, \(V\) is a complex vector space, and the representation \(G \to \mathrm{GL}(V)\) is holomorphic, then the associated bundle is a holomorphic vector bundle.
+    % The symbol \([\cdot, \cdot]\) is used to denote the equivalence class, not the Lie bracket. For this to be well-defined, it must be independent of the representatives of the equivalence class. Choose \(g \in G\), then 
+    % \begin{align*}
+    %      \lambda \cdot [p, \xi]+\mu \cdot [p, \zeta]&=[p, \lambda \xi+ \mu\zeta]=[p\cdot g, \Ad{g^{-1}}(\lambda \xi+\mu \zeta)]=[p\cdot g, \mathrm{Ad}_{g^{-1}}(\lambda \xi)]+[p\cdot g, \mathrm{Ad}_{g^{-1}}(\mu \zeta)]  \\
+    %     & =\lambda\cdot [p\cdot g, \mathrm{Ad}_{g^{-1}}(\xi)]+\mu\cdot [p\cdot g, \mathrm{Ad}_{g^{-1}}(\zeta)] ,
+    % \end{align*}
+    % and the vector space structure is well-defined. Moreover, the fibers of \(\mathrm{ad}(P)\) are clearly isomorphic to \(\mathfrak{g}\), and hence, all of them have the same dimension. Let us check now that the local trivializations of the associated bundle are local trivializations in the sense of vector bundles. This is not strictly true since definition \ref{def_vector_bundle} requires local trivializations to be defined as \(\Phi\colon \pi_G^{-1}(U) \to U \times \R^k\), for \(U \subset M\) an open set. However, the local trivializations we constructed for the associated bundle are defined onto \(U \times \mathfrak{g}\). This is of course not a problem, because we may always compose with a coordinate isomorphism, and that does not affect smoothness or linearity. Therefore, we have to check that for every \(m \in M\),
+    % \[
+    % \Phi|_{\pi_G^{-1}(m)}\colon \pi_G^{-1}(m) \longrightarrow \corch{m} \times \mathfrak{g}
+    % \]
+    % is linear. We may check instead that \(\parent{\Phi|_{\pi_G^{-1}(m)}}^{-1}\colon \corch{m} \times \mathfrak{g} \to \pi_G^{-1}(m)\) is linear, but this is clear because 
+    % \[
+    % \parent{\Phi|_{\pi_G^{-1}(m)}}^{-1}(m,\xi)=[\sigma(m), \xi],
+    % \]
+    % where \(\sigma\) is the cross-section we used to define the trivialization. 
+    % Observe that \([\sigma(x), X] \in \pi_G^{-1}(x)\) because \(\pi_G([\sigma(x), X])=\pi(\sigma(x))=x\).
+\end{proof}
+
+% \begin{obs} \label{obs_associated_vector_bundles}
+%     Actually, the previous proposition does not use any particular feature of \(\mathfrak{g}\), other than it is a vector space. This means that for every vector space \(V\) on which there is a representation of \(G\), the bundle \(P\times_GV\) is again a vector bundle. This works for complex vector bundles as well, and in that case \(P \times_G V\) becomes a smooth vector bundle. If \(P(M,G)\) is a holomorphic principal bundle, \(V\) is a complex vector space, and the representation \(G \to \mathrm{GL}(V)\) is holomorphic, then the associated bundle is a holomorphic vector bundle.
+% \end{obs}
+
+\begin{example} \label{ex_group_adjoint_bundle}
+    Let us comment on another example of associated bundle that we will use: the \textit{group adjoint bundle}\index{Bundle!adjoint, of groups}. Let \(P(M,G)\) be a principal \(G\)-bundle. Consider \(F=G\) in the notation at the beginning of the section, where \(G\) acts on itself through the left by conjugation \(g \cdot h :=ghg^{-1}\). We then define \(\mathrm{Ad}(G):=P \times_G G\). Observe that the fibers of \(\mathrm{Ad}(P)\) have a natural group structure. The product is defined by \([p, g] \cdot [p, h]:=[p, g\cdot h]\), and an argument analogous to that of proposition \ref{prop_adP_is_bundle} shows that this is well-defined. In general, \(\mathrm{Ad}(P)\) is a fiber bundle over \(M\) (it is usually not a vector bundle, as happens with \(\mathrm{ad}(P)\)).
+\end{example}
+
+\begin{example} \label{ex_associated_bundle_to_frame_bundle}
+    Consider a rank \(r\) complex vector bundle over a smooth manifold \(E \to M\), and \(L(E)\) its frame bundle as in \eqref{def_frame_bundle}. As we now, this construction can be used to obtain a principal bundle from a vector bundle. Now, consider the usual left action of \(\mathrm{GL}(r, \C)\) on \(\C^r\) given by \((A, x) \mapsto A\cdot x\) (where we see \(x \in \C^r\) as a column vector). The action is smooth and free, so we can consider the associated bundle \(L(E) \times_{\mathrm{GL}(r, \C)} \C^r\), which is a vector bundle. There is a vector bundle isomorphism \(E \cong L(E) \times_{\mathrm{GL}(r,\C)}\C^r\) given by 
+    \[
+    L(E) \times_{\mathrm{GL}(r, \C)} \C^r \longrightarrow E, ([\bm{u}, (x_1, \ldots x_r)]) \mapsto \sum_{i=1}^r x_i\cdot u_i.
+    \]
+\end{example}
+
+Finally, there is a bijection between smooth sections of \(P \times_GF\) and \(G\)-equivariant maps \(P \to F\). Given a \(G\)-equivariant map \(\tilde{s}\colon P \to F\), \(\mathrm{id}_P \times \tilde{s}\colon P \to P \times F\) is \(G\)-equivariant, hence descends to the quotient and defines \(s\colon P/G \cong M\to (P \times F)/G=P(F)\). Conversely, given a section \(s\in \Gamma(M;P \times_GF)\), we define \(\tilde{s}(m)=f\) if and only \(s([p])=[p,f]\), where \([p]\) is the equivalence class of an element in \(P/G\cong M\). 
+
+\begin{obs}
+    Of course, if \(F\) already had a right \(G\)-action, the same construction holds but there is no need to transform the action.
+\end{obs}
+
+\section{The gauge group of a principal bundle} \label{section_gauge_group}
+
+\Definition{}{Let \(P(M,G)\) a principal \(G\)-bundle.
+
+\begin{minipage}{0.72\textwidth}
+ A \textit{gauge transformation} of \(P\) is a \(G\)-equivariant diffeomorphism covering the identity on \(M\). That is
+\[
+    \mathcal{G}=\corch{\phi \in \mathrm{Diff}(P): \phi(p \cdot g)=\phi(p) \cdot g \ \ \ \text{and} \ \ \ \phi \circ \pi = \pi}.
+\]
+\end{minipage} \hfill
+\begin{minipage}{0.24\textwidth}
+    \begin{center}
+    \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+            P \arrow[rr, "{\displaystyle \phi}"] \arrow[rd, "{\displaystyle \pi}", ']  \& \& P \arrow[ld, "{\displaystyle \pi}"]  \\
+            \& M. \&
+        \end{tikzcd}
+\end{center}
+\end{minipage}
+}
+
+% That is, element of \(\mathcal{G}\) is a diffeomorphism \(\phi\colon P \to P\), satisfying \(\phi(p \cdot g)=\phi(p) \cdot g\) for all \(p \in P, g\in G\), and the following diagram is commutative.
+
+
+
+Clearly, the composition of two such automorphisms yields another one. Moreover, if \(\phi \circ \pi =\pi\), since \(\phi\) is a diffeomorphism, composition with \(\phi^{-1}\) yields \(\pi = \phi^{-1} \circ \pi\), and \(\phi^{-1}\) is \(G\)-equivariant as well. Indeed, \(\phi(\phi^{-1}(p) \cdot g)=\phi(\phi^{-1}(p)) \cdot g = p \cdot g\) and after applying \(\phi^{-1}\) on both sides, \(\phi^{-1}(p) \cdot g=\phi^{-1}(p \cdot g)\). We thus conclude that \(\mathcal{G}\) is a group. In fact, it is a subgroup of the group \(\mathrm{Diff}(P)\). \(\mathcal{G}\) is called \textit{gauge group}\index{Gauge group} or \textit{group of gauge transformations}\index{Group of gauge transformations}. Mathematics and physics literature differ in the terminology. Physicists often call gauge group what we have called structure group, and they call  the group \(\mathcal{G}\) group of gauge transformations. \\
+
+Al lot of sources claim that \(\mathcal{G}\) is a Hilbert-Lie group (or a Banach-Lie group, it depends on the construction), and that is not very accurate. As we are going to see, the one one endows \(\mathcal{G}\) with a Hilbert-Lie group structure is rather elaborate, and \(\mathcal{G}\) itself \textit{is not} a Hilbert-Lie group: we have to consider a group it is isomorphic to and complete it (in a certain sense we will precise in chapter \ref{Chapter_inf_dim_sympl_red}) to get a Hilbert-Lie group. The construction is not straightforward at all, but we will give an outline in chapter \ref{Chapter_inf_dim_sympl_red}. \\
+
+We will, however, give now a proof of the following proposition, which provides a way of looking at the gauge group from different perspectives.
+\Proposition{}{Let \(M\) be a smooth manifold, and \(P(M,G)\) a principal \(G\)-bundle. Then, \(\mathcal{G} \cong \mathrm{Gau}(P) \cong \Gamma(M;\mathrm{Ad(P)})\) as groups, 
+where
+\[
+\mathrm{Gau}(P):=\corch{\tau \in \mathscr{C}^\infty(P, G): \tau(p\cdot g)=g^{-1}\tau(p) g},
+\]
+and \(\Gamma(M;\mathrm{Ad}(P))\) and \(\mathrm{Gau}(P)\) are given a group structure through pointwise multiplication. \label{equivalences_gauge_group}
+}
+\begin{proof}
+    Let us establish first the isomorphism \(\mathcal{G} \cong \mathrm{Gau}(P)\). Let \(\phi \in \mathcal{G}\), since it covers the identity, it must preserve fibers, that is, \(\pi(\phi(p))=\pi(p)\) for every \(p \in M\). Since fibers are the orbits of the \(G\)-actions on \(P\), and the action is free, for every \(p \in P\), there exists a unique \(\tau(p) \in G\) such that \(\phi(p)=p \cdot \tau(p)\) (see definition \ref{def_principal_G_bundles}). To see that \(\tau\) is smooth, it suffices to show it locally. Let \(T_U \colon \pi^{-1}(U) \to U \times G\) be a local trivialization. The condition \(\pi \circ \phi=\pi\) means that \(\phi(\pi^{-1}(U))=\pi^{-1}(U)\), so we can consider \(T_U \circ \phi\) defined on \(\pi^{-1}(U)\). On the one hand, \(T_U(\phi(p))=(\pi(p), s_U(\phi(p)))\). On the other hand, \(\phi(p)=p \cdot \tau(p)\), so \(T_U(p \cdot \tau(p))=(\pi(p), s_U(p \cdot \tau(p)))=(\pi(p), s_U(p) \cdot \tau(p))\). In particular, \(s_U( \phi(p))=s_U(p) \cdot \tau(p)\), hence \(\tau|_{\pi^{-1}(U)}=s_U^{-1} \cdot (s_U \circ\phi)\) is a composition of smooth maps, and therefore, it is smooth. \\
+    
+    Moreover, 
+    \[
+    \phi(p \cdot g) = (p \cdot g)  \tau(p \cdot g) = \phi(p) \cdot g = (p \cdot \tau(p)) \cdot g,
+    \]
+    and therefore \(p \cdot (g  \ \tau(p \cdot g))=p \cdot (\tau(p) \cdot g) \). Since \(G\) acts transitively on \(P\), it follows that \( \tau(p\cdot g)=g^{-1}\tau(p) g\). Thus, we can define a map \(\mathcal{G} \to \mathrm{Gau}(P)\colon \phi \mapsto \tau\). Let us check that it is a group homomorphism. Let \(\tau_{12}\) be the image of \(\phi_1 \circ \phi_2 \in \mathcal{G}\). Then: 
+    \[
+    p \cdot \tau_{12}(p)=(\phi_1 \circ \phi_2)(p)=\phi_1(p \cdot \tau_2(p))=(p \cdot \tau_2(p)) \cdot \tau_1(p \cdot \tau_2(p))=p \cdot \tau_2(p)\tau_2(p)^{-1} \tau_1(p) \tau_2(p)=p \cdot \tau_1(p) \tau_2(p), 
+    \]
+    and using again that the action is free, \(\tau_{12}(p)=\tau_1(p)\tau_2(p)\). Finally, if we are given \(\tau \in \mathscr{C}^\infty(P,M)\), we can define \(\phi(p)=p \cdot \tau(p)\). This defines an element of \(\mathcal{G}\). Smoothness is and the fact that it covers the identity are obvious. Moreover, \(\phi(p\cdot g)=p\cdot g \cdot \tau(p\cdot g)=p\cdot gg^{-1} \tau(p)g=\phi(p)\cdot g\). The fact \(\mathrm{Gau}(P) \to \mathcal{G}, \tau \mapsto \phi\) so defined is the inverse of the homomorphism above is immediate. \\
+
+    Let us consider now the isomorphism \(\mathrm{Gau}(P) \cong \Gamma(M;\mathrm{Ad}(P))\). Let \(\tau \in \mathrm{Gau}(P)\). Consider the map
+    \[
+    \tilde{\tau}\colon M  \longrightarrow  \mathrm{Ad}(P),\pi(p) \mapsto  [p, \tau(p)].
+    % \begin{array}{ccc}
+    %     M &  \longrightarrow & \mathrm{Ad}(P) \\
+    %     \pi(p) & \mapsto & [p, \tau(p)],
+    % \end{array}
+    \]
+    Observe that \(\tilde{\tau}\) is well-defined; if we pick another element of the fiber \(p \cdot G\), then \(\tau(p\cdot g)=g\tau(p)g^{-1}\) by definition, and \([p, \tau(p)]=[p\cdot g, g \tau(p)g^{-1}]=[p \cdot g,\tau(p \cdot g)]\). The map \(\tilde{\tau}\) is smooth. Indeed, \(\pi\) is a surjective smooth submersion, and \(\tilde{\tau} \circ \pi=q \circ (\mathrm{id} \times \tau)\), where \(\pi \colon P \to M\) is the principal \(G\)-bundle projection, and \(q\colon P \times G \to \mathrm{Ad}(P)\) is the quotient map, so we can use the  characteristic property of surjective smooth submersions \parencite[Th. 4.29]{lee_introSM}. Since the group operation is defined for both groups as pointwise multiplication, the assignment \(\mathrm{Gau}(P) \to \mathrm{Ad}(P), \tau \to \tilde{\tau}\) is a group homomorphism. \\
+    
+    To define an inverse, let \(\tilde{\tau} \in \Gamma(M;\mathrm{Aut}(P))\). For each \(p \in P\), there is a unique \(\tau(p) \in G\) such that \(\tilde{\tau}(\pi(p))=[p, \tau(p)]\) (there is only one representative of the equivalence class whose first entry is \(p\)). Once again, \(\tau\) is smooth, and \(\tau(p \cdot g)=g\tau(p)g^{-1}\) because \([p, \tau(p)]=[p \cdot g, \tau(p\cdot g)]=[p \cdot g, g\tau(p)g^{-1}]\). To check smoothness we can use local trivializations again. Let \(\Phi_U\colon \pi_G^{-1}(U) \to U \times G\) be a local trivialization (see equation \ref{trivialization_associated_bundle}). In this trivialization, \(\tau|_{\pi_G^{-1}(U)}=s_U^{-1}\cdot (\mathrm{pr}_G \circ \Phi_U \circ \tilde{\tau} \circ \pi)\) is a composition of smooth maps. Similar arguments show that this is again a group homomorphism, whose inverse is the one defined above.
+\end{proof}
+
+% \begin{obs}
+%     Obviously, \(\mathcal{G}\) is a subgroup of \(\mathrm{Diff}(P)\), and \(\mathrm{Diff}(P)\) can be given an infinite-dimensional structure. However, it is usually not convenient to try to use that structure to see \(\mathcal{G}\) as a Lie group. Not only is this much more involved, but since \(\mathrm{Diff}(P)\) is not a Banach-Lie group, it does not endow \(\mathcal{G}\) with the structure of a Hilbert-Lie group.
+% \end{obs}
+
+\section{Theory of connections}
+For this section, we will work in the smooth category. If a connection is mentioned in the context of a holomorphic principal bundle, we will always mean a connection on the underlying smooth principal. The last section of the chapter dives into the realtion of connections and complex structures on smooth vector bundles. \(G\)-bundle. As we will see, there are different equivalent definitions of a connection on a principal \(G\)-bundle. The geometric intuition behind the idea of a connection is best seen when one uses it to define a parallel transport, which is a way to identify (or connect) fibers over nearby points. However, we will not treat viewpoint further, but we refer the reader to \parencite[Sec. 1.7]{Rudolph_2017pug} for details. \\
+
+Since every principal bundle has a natural Lie group action, every \(\xi \in \mathfrak{g}\) defines the \textit{Killing vector field}\index{Killing vector field} \(X_\xi \in \mathfrak{X}(P)\) through
+\begin{equation} \label{def_Killing}
+    X_{\xi,p}:=\left. \frac{\diff}{\diff t} \right|_{t=0} p \cdot \exp(t \xi)=\left. \frac{\diff}{\diff t} \right|_{t=0} \phi^{(p)}(\exp(t\xi))=\parent{\phi^{(p)}\circ \gamma}'(0)=\diff_e\phi^{(p)}(\xi).
+\end{equation}
+Where \(\gamma\) is the curve given by \(\gamma(t)=\exp(t\cdot \xi)\), and we used \parencite[Cor. 3.25]{lee_introSM}. Observe that these vector fields are always tangent to the orbits of the action (because the curves \(\exp(tX)\cdot p\) are contained in said orbits). The fact that the assignment \(p \mapsto X_{\xi, p}\) defines a smooth vector is readily checked (see, for example \parencite[Prop. 27.11]{tu2017differential}). The natural projection \(\pi \colon P \to M\) defines, for each \(p \in P\) a \textit{vertical subspace}\index{Vertical subspace} given by \(V_pP:=\ker \diff_p\pi\). Its elements are called \textit{vertical vectors}, and a vector field that is always vertical is called a \textit{vertical vector field}\index{Vertical!vector field}. Observe that Killing vector fields are always vertical. Indeed,
+\[
+\diff_p\pi(X_{\xi,p})= \diff_e\parent{\pi \circ \phi^{(p)}}(\xi) = 0
+\]
+because \(\pi \circ \phi^{(p)}\) is constant. In fact, \(\diff_e \phi^{(p)}\colon \mathfrak{g} \to V_pP\) is a vector space isomorphism (see \parencite[Lemma 1.3.1]{Rudolph_2017pug} or \parencite[Prop. 27.18]{tu2017differential}). Moreover, \(VP \cong P \times \mathfrak{g}\), so it is trivial, and the isomorphism is given by \((p, \xi) \mapsto X_{\xi, p}\).
+
+% Hence, given \(\corch{\zeta_1, \ldots \zeta_r}\) a basis of \(\mathfrak{g}\), the vector fields \(\corch{X_{\zeta_1}, \ldots ,X_{\zeta_r}}\) are a basis of \(V_pP\) for each \(p \in P\). Consequently, they define a global frame for a vector subbundle of \(TP\) called the \textit{vertical subbundle}\index{Vertical!subbundle} and denoted \(VP\) (we used the local frame criterion for vector bundles, lemma \ref{lemma_local_frame_crit}). Moreover, the fact that we have a global frame means that \(VP\cong P \times \mathfrak{g}\) is a trivial vector bundle.
+
+% The set of all Killing vector fields span a subbundle \(VP\) of \(TP\) called the \textit{vertical subbundle}\index{Subbundle!vertical} (this is a consequence of \parencite[Lemma 10.32]{lee_introSM}). Each space \(V_pP\) is called the \textit{vertical subspace}\index{Vertical subspace} of the tangent space \(T_pP\). \(VP\cong P \times \mathfrak{g}\) as vector bundles, and \(V_pP=\ker(\diff_p \pi)\) for each \(p \in P\). In particular, \(\diff_e \phi^{(p)}\colon \mathfrak{g}\to V_pP, \xi \mapsto X_{\xi, p}\) is a vector space isomorphism \parencite[Lemma 1.3.1]{rudolph2012differential}.
+
+\Definition{\textbf{Connection on a principal \(G\)-bundle}}{Let \(P(M,G)\) be a principal \(G\)-bundle. A \textit{connection}\index{Connection} on \(P\) is a smooth distribution \(HP\) such that 
+\begin{enumerate}
+    \item \(T_pP=V_pP\oplus H_pP\) for every \(p \in P\)
+    \item \(H_{\phi_g(p)}P=\diff_p\phi_g(H_pP)\) for every \(p \in P, g \in G\). We say that the distribution is \(G\)-invariant.
+\end{enumerate}
+We call \(H_pP\) the \textit{horizontal subspace}\index{Horizontal subspace} at \(p\). \label{def_connection_subbundle}
+}
+The direct sum decomposition \(T_pP =H_pP \oplus V_pP\) on each tangent space implies that every vector \(v \in T_pP\) can be uniquely decomposed as into a vertical and a horizontal vector \(w=w^H + w^V\). In fact, given a vector field \(X \in \mathfrak{X}(P)\), the fiberwise decomposition defines to smooth vector fields \(X^V\in \Gamma(P; VP)\) and \(X^H\in \Gamma(P; HP)\) which are called the \textit{vertical} and \textit{horizontal components}\index{Components of a vector field} of \(X\) respectively \parencite[Prop. 28.3]{tu2017differential}. Observe that both components depend on the connection. Of course, we have the same decomposition for vectors of each tangent space. 
+
+\begin{obs} \(\hspace{1 pt}\) \label{Hpp_isom_TM}
+    \begin{enumerate}
+        \item The projection \(\diff_p\pi\) defines a vector space isomorphism between \(H_pP\) and \(T_{\pi(p)}P\). This follows from the fact that \(\diff_p\pi\) is surjective and \(\ker \diff_p\pi=V_pP\), so by the first isomorphism theorem for vector spaces \(T_pP/V_pP \cong H_pP \cong T_{\pi(p)}M\).
+        \item The vertical-horizontal decomposition is \(G\)-invariant. More precisely, if \(w=w^H+w^V\in T_pP\), then the vertical and horizontal parts of \(\diff_p\phi_g(w)\in T_{p\cdot g} P\) are \(\diff_p\phi_g\parent{w^V}\) and \(\diff_p\phi_g\parent{w^H}\) respectively. Indeed, \(\diff_p\phi_g(w)=\diff_p\phi_g\parent{w^H}+\diff_p\phi_g\parent{w^V}\). The latter is vertical because \(\diff_{g\cdot p}\pi\parent{\diff_p\phi_g\parent{w^V}}=\diff_p\pi(w^V)=0\), and the former is horizontal because the distribution is \(G\)-invariant. The result follows from the uniqueness of the decomposition.
+    \end{enumerate}
+\end{obs}
+
+The main idea of the definition, is that a connection is a \textit{choice} of a complementary subspace to the vertical subspace \(V_pP\). Observe that, in general, there is no canonical way of choosing such a complement. This definition is quite intuitive, in the sense that the geometric meaning of what is being done; choosing ``smoothly'' a complementary to the vertical subspace, is quite clear. There is another equivalent way of seeing this as a splitting of a short exact sequence. Observe that, at the level of vector spaces we have the following exact sequence 
+\[
+0 \to V_pP \overset{i}{\longrightarrow} T_pP \overset{\diff_p\pi}{\longrightarrow}  T_{\pi(p)}M \to 0.
+\]
+This sequence can be extended to a sequence of vector bundles over \(P\)
+\begin{equation} \label{def_short_exact_seq_verti_bundles}
+0 \to VP \overset{i}{\longrightarrow} TP \overset{\diff\pi'}{\longrightarrow} \pi^* TM \to 0,
+\end{equation}
+where \(\diff_p\pi'\colon T_pP \to (\pi^*TM)_p, v \mapsto (p, \diff_p\pi(v))\). Given a short exact sequence of vector bundles over a manifold, \(0 \to A \xrightarrow{i} B \xrightarrow{j} C \to 0\) a  \textit{right splitting}\index{Splitting of a short exact sequence} is a bundle homomorphism \(k\colon C\to B\) such that \(j \circ k =\mathrm{id}_C\), and a \textit{left splitting} is a bundle homomorphism \(\ell \colon B \to A\) such that \(\ell \circ i=\mathrm{id}_A\). There is a right splitting if and only if there is a left splitting. If there is such a splitting, we say that the short exact sequence splits. In our case, every horizontal subbundle induces a \(G\)-equivariant left splitting of \eqref{def_short_exact_seq_verti_bundles} through the vertical projection \(\mathsf{pr}\colon TP \to VP\) which maps each vector to its vertical component. \(G\)-equivariance in this context means that \(\diff\phi_g \circ \mathsf{pr}=\mathsf{pr}\circ \diff\phi_g\). Reciprocally, a \(G\)-equivariant right splitting \(\ell\) of \eqref{def_short_exact_seq_verti_bundles} defines a horizontal vector bundle by \(HP:=\ker \ell\) (see \parencite[Prop. 27.20]{tu2017differential} for a proof of the equivalence, it is done using left splittings there). \\
+
+% \begin{obs}
+%     Recall that the pullback vector bundle is defined by \(\pi^*TM=\corch{(p,v)\in P \times TM: \pi(p)=\pi_{TM}(v)}\), where \(\pi_{TM}\) is the projection giving \(TM\) the vector bundle structure. The map \(\diff \pi'\) the bundle homomorphism whose fiberwise action is 
+%     \[
+%     \begin{array}{cccc}
+%         \diff_p\pi '\colon & T_p P & \longrightarrow & \pi^* TM \\
+%         &w & \mapsto & (p, \diff_p\pi(w)).
+%     \end{array}
+%     \]
+% \end{obs}
+
+
+% \Lemma{}{Let \(P(M,G)\) be a principal \(G\)-bundle, and \(p \mapsto H_pP\) an assignment of a vector subspace of \(T_pP\) such that \(T_pP = V_pP \oplus H_pP\) for every \(p \in P\). The previous assignment defines a smooth distribution if and only if for every \(X \in \mathfrak{X}(P)\), \(X^H\) and \(X^V\) are smooth vector fields. {\color{blue} \(\bigstar\)}}
+% \begin{proof}
+%     First, suppose that \(HP\) is a smooth distribution. Let \(p \in M\). Since \(VP\) is also a smooth distribution, there is an open neighborhood \(U\) of \(p\) and vector fields \(X_1, \ldots X_n , Y_1, \ldots Y_m \in \mathfrak{X}(U)\), such that 
+%     \[
+%     V_pP = \mathrm{span}\corch{Y_{1,q}, \ldots Y_{m, q}} \hspace{1 cm}
+%     H_pP = \mathrm{span}\corch{X_{1,q}, \ldots X_{n,q}}
+%     \]
+%     Of course, \(\mathrm{span}\corch{X_{1,q}, \ldots X_{n,q},Y_{1,q}, \ldots Y_{m, p}}=T_qP\) for every \(q \in U\). Therefore, there are smooth functions \(\lambda^i, \mu^j\colon U \to \R\) such that
+%     \[
+%     X|_U=\lambda^iX_i+\mu^jY_j.
+%     \]
+%     Finally, \(X^H|_U=\lambda^iX_i\) and \(X^V|_U=\mu^j Y_j\) are \(\mathscr{C}^\infty(M;\R)\)-linear combinations of smooth vector fields, hence smooth. \\
+%     Conversely, suppose that \(X^H\) and \(X^V\) are smooth vector fields for every \(X \in \mathfrak{X}(P)\). Take a smooth frame \(X_1, \ldots X_n\) on an open subset \(U\) of \(P\). Clearly \(X_{1,q}^H, \ldots X_{1,q}^H\) are smooth sections of \(TP\) and span \(H_qP\) for every \(q \in P\). Since they span \(H_pP\), we may extract a basis \(X_{i_1,p}^H, \ldots X_{i_k,p}^H\). These vectors span \(H_pP\) and are linearly independent. Hence, after perhaps restricting the open set \(U\), \(X_{i_1,q}^H, \ldots X_{i_k,q}^H\) span \(H_qP\) for every \(q \in U\). We thus conclude that every point has a neighborhood where \(HP\) has a basis formed by smooth sections, and therefore, \(HP\) is a smooth distribution (the last implication follows from \parencite[Lemma 10.32]{lee_introSM}).
+% \end{proof}
+
+% Before giving the definition of a connection one-form, we need some previous notions. Firstly, let \(\xi \in \mathfrak{g}\), we define the associated \textit{Killing vector field}\index{Vector field!Killing} or \textit{fundamental vector field}\index{Vector field!fundamental} by
+% \begin{equation} \label{def_Killing}
+% X_{\xi,p}:=\left. \frac{\diff}{\diff t} \right|_{t=0} \phi_{\exp(t\xi)}(p)=\left. \frac{\diff}{\diff t} \right|_{t=0} p \cdot \exp(t \xi).
+% \end{equation}
+% Observe that this is indeed a smooth vector field because it is the derivative of the smooth curve \(t \mapsto p\cdot \exp(t \xi)\). \\
+
+% We will need the following lemma to show that the other definition of connection is equivalent to the one we just gave. ({\color{red} introduce notation of pushforward \(\phi_*\)})
+
+Moreover, connections allow us to speak about horizontal lifts. Let \(P(M,G)\) be a principal bundle endowed with a connection, which we see as a horizontal subbundle. Let \(Y\in \mathfrak{X}(M)\). A \textit{horizontal lift}\index{Horizontal lift} is another vector field \(Z\) that is horizontal such that \(\diff_p\pi(Z_p)=Y_{\pi(p)}\) for each \(p \in P\). As we see in the following lemma, horizontal lifts always exist.
+
+\Lemma{\textbf{Existence of horizontal lifts}}{Let \(P(M,G)\) be a principal bundle, and let \(Y\in \mathfrak{X}(M)\). Then, \(Y\) admits a unique horizontal lift. Moreover, if \(Y^{\mathbf{HL}}\) is the lift, it satisfies \((\phi_g)_* Y^{\mathbf{HL}}=Y^{\mathbf{HL}}\). \label{lemma_horizontal_lift}}
+\begin{proof}
+    By remark \ref{Hpp_isom_TM}, the only option is to define \(Y^{\mathbf{HL}}_p:=(\diff_p\pi|_{H_pP})^{-1}(Y_{\pi(p)})\). Since smoothness is a local issue, up to choosing a trivialization, we can assume that \(P\) is trivial. Hence, \(TP \cong TM \oplus TG\). Then, we choose any smooth vector field \(\hat{Y}\in \mathfrak{X}(P)\) satisfying \(\diff_{p,g}\pi(\hat{Y}_{p,g})=Y_p\), for example, \((p,g)\mapsto (Y_p,0)=\hat{Y}_p\). By uniqueness of the vertical-horizontal decomposition, \(\hat{Y}^H=Y^{\mathbf{HL}}\), and it follows that the horizontal lift is smooth. Invariance under the action is clear from the fact that
+    \[
+    \diff_p\phi_g|_{H_pP} \circ \parent{\diff_p\pi|_{H_pP}}^{-1}=\parent{\diff_{p\cdot g}\pi|_{H_{p\cdot g}P}}^{-1},
+    \]
+    so \(\diff_p\phi_g\parent{Y^{\mathbf{HL}}_p}=\diff_p\phi_g\parent{\parent{\diff_p\pi|_{H_pP}}^{-1}(Y_p)}=\parent{\diff_{p\cdot g}\pi|_{H_{p\cdot g}P}}^{-1}(Y_p)=Y^{\mathbf{HL}}_{p\cdot g}\).
+\end{proof}
+We will write \(Y^{\mathbf{HL}}\) for the horizontal lift of a vector field \(Y\). It is not explicit in the notation, but it clearly depends on the connection. \\
+
+The definitions we have for connections are geometrically clear, but not very practical form a computational point of view. In our seek for a better definition, we will need the following lemma.
+
+\Lemma{}{Let \(G\) be a Lie group that acts smoothly and freely from the right on a smooth manifold \(M\), and let \(\phi\colon M \times G \to M\) denote the action. Then, \label{lemma_prop_connection}
+\[
+(\phi_g)_*(X_\xi) = X_{\mathrm{Ad}_{g^{-1}}(\xi)}.
+\]  }
+\begin{proof}
+    Pointwise, we may show that \(\diff_p\phi_g(X_{\xi, p})=\parent{X_{\Ad{g^{-1}}(\xi)}}_{p \cdot g}\) for all \(p \in P, g \in G\). Let \(h \in G\) and observe that 
+    \[
+    \phi_g\circ \phi^{(p)}(h)=\phi_g(p\cdot h)=p\cdot h  g = (p\cdot g)\cdot g^{-1}hg=\phi^{(p\cdot g)}\circ C_{g^{-1}}(h).
+    \]
+    Hence, 
+    \begin{align*}
+        \big[(\phi_g)_*(X_{\xi})\big]_{p\cdot g} & = \diff_p\phi_g \parent{\diff_e\phi^{(p)}(\xi)} = \diff_e(\phi^{(p\cdot g)}\circ C_{g^{-1}})(\xi) =\diff_e\phi^{(p\cdot g)}\parent{\diff_e C_{g^{-1}}(\xi)}\\
+        & = \diff_e\phi^{(p\cdot g)}\parent{\Ad{g^{-1}}(\xi)}=\parent{X_{\Ad{g^{-1}}(\xi)}}_{p\cdot g}.
+    \end{align*}
+\end{proof}
+
+Let \(V\) be a vector space. By a \(V\)-valued \(p\)-form we mean a \(p\)-form with values in the trivial vector bundle \(M \times V\), that is, a section of the vector bundle \((M \times V) \otimes \bigwedge^pT^*M\) (see section \ref{section_bundle_valued_p_forms}). Observe that a general (real) \(p\)-form may be written as a sum 
+\begin{equation} \label{V_valued_pform}
+\alpha=v_1 \otimes \alpha_1+v_2\otimes \alpha_2 + \ldots v_r\otimes \alpha_r
+\end{equation}
+where \(v_i \in V\), and \(\omega_j \in \Omega^p_\R(M)\). If \(V\) is a complex vector space and the forms are taken to be complex everything works the same. We will write \(\Omega^p_\R(M;V)\) for the set of real \(V\)-valued \(p\)-forms.
+% Let us introduce now the concept of a vector valued \(p\)-form. Let \(V\) be a vector space, and \(M\) be a smooth manifold. A \(V\)-valued \(p\)-form is just an element of \(\Gamma\parent{(M \times V) \otimes \bigwedge^pT^*M}\), where \(M \times V\) should be thought of as a trivial vector bundle. Observe that a general \(p\)-form may be written as a sum 
+% \begin{equation} \label{V_valued_pform}
+% \omega=v_1 \otimes \omega_1+v_2\otimes \omega_2 + \ldots v_r\otimes \omega_r
+% \end{equation}
+% where \(v_i \in V\), and \(\omega_j \in \Omega^p(M;\R)\). We denote the set of \(V\)-valued \(p\)-forms by \(\Omega^p(M;V)\).
+
+\begin{obs} \label{obs_V_valued_1_form}
+    Let us consider the particular case of a \(V\)-valued one-form, and analyze it more carefully. Suppose \(\omega \in \Omega^1(M;V)\) can be written as in equation \eqref{V_valued_pform}. Fix a point \(p\). Then, \(\omega_p=\sum_{i=1}^r v_i \otimes \omega_{i,p}\) is an element of \(V \otimes T^*_pM\) (we may omit the manifold). When we evaluate \(\omega_p\) at a vector \(w\in T_pM\) we simply get a vector
+    \[
+    \alpha_p(w)=\sum_{i=1}^r v_i \otimes \alpha_{i,p}(w)=\sum_{i=1}^r \alpha_{i,p}(w) \cdot  v_i,
+    \]
+    where we used that \(\alpha_{i,p}(w)\) is a real number for every \(1 \leq i \leq r\). Furthermore, since each \(\alpha_{i,p}\) is linear, \(\alpha_p\) is a linear map from \(T_pM\) to \(V\). Taking this into account, a \(V\)-valued one-forms can be thought of as a family of linear maps \(\alpha_p\colon T_pM \to V\) that vary smoothly with the point \(p\). This idea of ``varying smoothly'' simply means that, whenever \(X\in \mathfrak{X}(M)\), we may write \(\alpha(X)\) as a linear combination of vectors where the coefficients are smooth functions (in this case, these smooth functions are simply \(\alpha_i(X)\)).
+\end{obs}
+
+% Before giving the definition of a connection \(1\)-form, observe that the map \(\eta_p\colon \mathfrak{g} \to V_pP, \xi \mapsto  X_{\xi, p}\) is an isomorphism of vector spaces. First, observe that \(X_{\xi,p}\) is a vertical vector: 
+% \[
+%     \diff_p \pi \parent{X_\xi}=\diff_p\pi \parent{\left. \frac{\diff}{\diff t} \right|_{t=0} \phi_{\exp(t\xi)}(p)}=\left. \frac{\diff}{\diff t} \right|_{t=0}(\pi(\phi_{\exp(t \xi)}(p)))=0
+% \]
+% where we used the chain rule and the fact that \(t \mapsto \phi_{\exp(t \xi)}(p)\) is a curve in \(p\cdot G\), and so the projection is constant. {\color{red} completar que es inyectiva y sobreyectiva}
+
+\Definition{\textbf{Connection 1-form}}{Let \(P(M,G)\) be a principal \(G\)-bundle, and let \(HP\) be a connection. Define the \textit{connection 1-form}\index{Connection!1 form} by
+\[
+A_p(w)=\parent{\diff_e \phi^{(p)}}^{-1}\parent{w^V} \hspace{0.75 cm} w \in T_pP.
+\]
+}
+Observe that we are using \(A\) instead of a greek letter to denote the one-form. This notation is not universal. The following theorem show that \(\omega\) is smooth, and some properties that characterize it.
+
+\Theorem{}{Let \(P(M,G)\) be a principal \(G\)-bundle, and consider a connection \(A\). Let \(\omega\) be its connection one-form. Then, \(A\) is a smooth one-form, and
+\begin{enumerate}
+    \item \(A(X_\xi)=\xi\) for every \(\xi \in \mathfrak{g}\)
+    \item \((\phi_g)^*A=\mathrm{Ad}_{g^{-1}} \circ A\). We say that \(A\) is \(G\)-\textit{equivariant}.
+\end{enumerate}
+Moreover, if \(A \in \Omega^1(P;\mathfrak{g})\) satisfies the previous conditions, then there is a unique connection in \(P\) whose connection \(1\)-form is \(A\).
+\label{th_connection_1_form}}
+\begin{proof}
+    The fact that \(A\colon TP \to \mathfrak{g}\) is smooth follows from the fact that it can be written as the following composition of smooth maps
+    \[
+    TP \xrightarrow{\mathsf{pr}} VP \cong P \times \mathfrak{g} \xrightarrow{\mathrm{pr}_{\mathfrak{g}}} \mathfrak{g}.
+    \]
+    Property 1 follows immediately from \(\diff_e\phi^{(p)}(\xi)=X_{\xi,p}\) and the fact that \(X_{\xi,p}\) is vertical. For property 2, since both sides are linear, it suffices to check the equality independently for horizontal and vertical vectors. Observe first that for horizontal vector fields both sides yield \(0\), so the equality holds. Indeed, if \(w\in T_pP\) is horizontal, by remark \ref{Hpp_isom_TM}, so is \(\diff_p\phi_g(w)\). Now, to check it for vertical vector fields, we may use linearity to check it just for Killing vector fields. Thus,
+    \begin{align}
+        (\phi_g)^*A(X_\xi)=A((\phi_g)_*(X_\xi))=A(X_{\mathrm{Ad}_{g^{-1}}(\xi)})=\Ad{g^{-1}}(\xi)=\Ad{g^{-1}}\circ A(X_\xi),
+    \end{align}
+    where we used lemma \ref{lemma_prop_connection}. \\
+
+    Now, let \(A \in \Omega^1(P; \mathfrak{g})\) satisfy properties 1 and 2. A connection is given by setting \(H_pP:=\ker A_p\). Observe that we have a pointwise vector space short exact sequence given by \(0 \to H_pP\to T_pP \xrightarrow{A_p} \mathfrak{g} \to 0\), and the map \(\diff_e\phi^{(p)}\colon \mathfrak{g} \to V_pP \subset T_pP\) is a left splitting. The existence of the splitting implies (see \parencite[Prop. 27.20]{tu2017differential}) that there is an isomorphism \(T_pP \cong \mathfrak{g}\oplus H_pP\), and since \(\mathfrak{g} \cong V_pP\), we get \(T_pP \cong V_pP \oplus H_pP\) thus satisfying condition 1 of definition \ref{def_connection_subbundle}. To check condition 2, choose \(w \in H_pP\), and let us see that \(\diff_e\phi_g(w) \in H_{p\cdot g} P=\ker A_{g \cdot p}\). 
+    \begin{align*}
+        A_{g\cdot p}(\diff_p\phi_g(w))&=\big((\phi_g)^* A\big)_p(w)=\Ad{g^{-1}}(A_p(w))=\Ad{g^{-1}}(0)=0.
+    \end{align*} 
+    The only thing left to check if that \(HP\) is a smooth subbundle. This is done by showing that \(HP\) is locally spanned by smooth sections. It is a somewhat lengthy calculation, so we do not show it here. A complete proof can be found in \parencite[Prop. 28.5]{tu2017differential}
+\end{proof}
+Moreover, one may show that every principal bundle admits a connection. This is done through a partition of unity argument \parencite[Prop. 1.3.7]{Rudolph_2017pug}. The horizontal subbundle determined by a connection whose one-form is \(A\) will be denoted \(H^AP\).\\
+
+% \begin{obs}
+%     A connection on a principal bundle \(P(G,M)\) is uniquely determined by its ``coordinate expressions''. What we mean by that is the following. First, let \(\sigma\colon U \to \pi^{-1}(U)\) be a section of the principal bundle. Suppose that \(P\) is endowed with a connection, whose connection one-form is \(\omega\). We define the \textit{local representative of the connection} by \(A:=\sigma^*\omega\), \(\sigma^*\) meaning the pullback. Then, \(A\in \Omega^1(U; \mathfrak{g})\). Let \(\corch{t_1, \ldots t_m}\) be a basis of the Lie algebra of \(\mathfrak{g}\), and let \((x^1, \ldots x^n)\) be local coordinates in the open set \(U\). Then, locally, we may express
+%     \[
+%     A=A_\mu^j \cdot \diff x^\mu \otimes t_j.
+%     \]
+%     Then, \(\omega\) can be recovered from its local representatives \parencite[Cor. 1.3.12]{Rudolph_2017pug}. We used \(\mu\)'s as indices in the previous expression to mimic physics notation. Physicists say that each \(A\) is a \textit{local gauge field}.
+% \end{obs}
+
+\section{Curvature of a connection}
+First and foremost, when we deal with vector-valued \(p\)-forms, we can extend the exterior derivative as follows. If \(V\) is a real vector space, and \(\beta\in \Omega^p_\R(M;V)\), we have seen that we may express \(\beta\) in the following manner (we may suppose that \(\corch{v_1, \ldots v_r}\) is a basis of \(V\)) \(\beta=\omega^j\otimes v_j\), where \(\omega_j \in \Omega^p_\R(M)\). We can simply define
+\[
+\diff \beta:= \diff \beta_j \otimes v_j\in \Omega_\R^{p+1}(M;V).
+\]
+\begin{obs}
+    The differential is well-defined, regardless of the basis we use to express \(\beta\). The justification is quite similar to the proof of theorem \ref{Th_ext_cov_der}. Indeed, choose two basis \(\corch{v_1, \ldots v_n}\) and \(\corch{\tilde{v}_1, \ldots \tilde{v}_n}\) of  \(V\), and suppose that \(\beta=\beta^j \otimes v_j=\tilde{\beta}^k \otimes \tilde{v}_k\). Since any two basis are related by a unique linear isomorphism, there is a non-singular matrix \(A=(a^i_j)\in \mathrm{GL}(r, \R)\) such that \(\tilde{v}_k=a^i_k \cdot v_i\). Then, \(a^k_i \cdot \tilde{\beta}^i=\beta^k\). Thus,
+    \[
+    \diff \beta=\diff \beta^j\otimes v_j = \diff \parent{a^j_k \cdot \tilde{\beta}^k}\otimes v_j = \diff \tilde{\beta}^k \otimes (a^j_k \cdot v_j)=\diff \tilde{\beta}^k \otimes \tilde{v}_k,
+    \]
+    using the fact that the exterior differential is linear. Observe as well that \(\diff_\nabla=\diff\) defines a connection on trivial vector bundles.
+\end{obs}
+
+\Definition{\textbf{Covariant exterior derivative}}{Let \(P(M,G)\) be a principal \(G\)-bundle, and \(V\) be a finite dimensional vector space. Given \(\alpha\in\Omega^p_\R(M;V)\), we define its \textit{covariant exterior derivative with respect to a connection \(A\)}\index{Covariant exterior derivative} as the \(V\)-valued \(p+1\) form given by
+\[
+    \Diff_A \alpha(X_0,X_1, \ldots X_p):=\diff \alpha \parent{X_0^H, X_1^H, \ldots X_p^H} \hspace{1 cm} X_1, \ldots X_p \in \mathfrak{X}(P)
+\]
+}
+Given \(\alpha \in \Omega^p_\R(M;V)\), it is common to denote \(\alpha^H\) the \(V\)-valued \(p\)-form
+\[
+(\alpha)^H(X_1, \ldots X_p):=\alpha\parent{X_1^H, \ldots X_p^H}.
+\]
+Therefore, we may also write \(\Diff_A \alpha = (\diff \alpha)^H\). The symbol \(A\) in the notation is meant to make a reference to the connection one-form. This is because the covariant derivative depends on the connection (because the horizontal components of the vectors depend on the connection). We are now ready to define the curvature of a connection.
+
+\Definition{\textbf{Curvature of a connection}}{Let \(P(M,G)\) be a principal \(G\)-bundle endowed with a connection with connection form \(A\). We define the curvature of this connection as \(\Diff_A A\).}
+In particular, the curvature of the connection is a \(\mathfrak{g}\)-valued two-form. Again, a geometric interpretation of the curvature (and a justification of the fact that we call \textit{this} curvature) is better seen in terms of parallel transport. \\
+
+If, given \(\alpha \in \Omega^k_\R(M; \mathfrak{g})\) and \(\beta \in \Omega_\R^\ell(M;\mathfrak{g})\), we define \([\alpha, \beta]\in \Omega^{k+\ell}_\R(M; \mathfrak{g})\) by
+\begin{equation} \label{bracket_g_valued_forms}
+    [\beta\wedge  \alpha](X_1, \ldots X_{k+\ell}):=\frac{1}{k! \cdot \ell !} \sum_{\sigma \in S_{k +\ell}} \mathrm{sgn}(\sigma)\cdot [\beta(X_{\sigma(1)}, \ldots X_{\sigma(\ell)}), \alpha(X_{\sigma(\ell+1)}, \ldots X_{\sigma(\ell+k)})],
+\end{equation}
+then we have the following theorem, that gives an expression for the curvature in terms of the connection one-form. Equivalently, we may define \([\cdot \wedge \cdot ]\) by linear extension of \([(\beta \otimes \xi) \wedge (\alpha \otimes \zeta)]:=(\beta \wedge \alpha)\otimes [\xi, \zeta]\) for \(\alpha, \beta\) usual differential forms and \(\xi, \zeta \in \mathfrak{g}\) (see \parencite[Sec. 5.2]{hamilton2018mathematical}). 
+\Theorem{\textbf{Structure equation}}{Let \(P(M,G)\) be a principal \(G\)-bundle endowed with a connection, and let \(A\) be the corresponding connection one-form. Then, \label{th_structure_equation}
+\[
+\Diff_A A=\diff A + \frac{1}{2}\cdot [A \wedge A].
+\]
+}
+\begin{proof}
+    The proof is rather lengthy, see \parencite[Th. 5.2]{kobayashi_vol1} or \parencite[Th. 11.2]{sontz2015principal}. The strategy is to consider separately the cases where \(D_AA\) acts on two vertical vectors, two horizontal vectors, and a horizontal and a vertical vector. Then, one concludes using the fact that both sides are linear.
+\end{proof}
+
+We devote the rest of the section to show that the curvature of a connection on a principal \(G\)-bundle can be viewed in a canonical way as a \(\mathrm{ad}(P)\)-valued two-form, that is, a section of a vector bundle. Let us start by a definition. For now, we keep the discussion general, and we define horizontal differential forms any finite-dimensional representation of the Lie group. 
+
+\Definition{}{Let \(P(M, G)\) be a principal \(G\)-bundle with right action \(\phi\colon P \times G \to G\), and consider a finite-dimensional representation \(\sigma\colon G \to \mathrm{Aut}(V)\) for some finite-dimensional vector space \(V\). Given \(\alpha \in \Omega^k_\R(P;V)\) is called \textit{horizontal (of type \(\sigma\))}\index{Horizontal \(k\)-form} if it satisfies:
+\begin{enumerate}
+    \item For every vertical vector field \(X\), \(i_X\alpha=0\)
+    \item \((\phi_g)^*\alpha=\sigma(g^{-1})\circ \alpha\) for every \(g \in G\).
+\end{enumerate}    
+We denote the space of all horizontal \(k\)-forms with respect to \(\sigma\) by \(\Omega^k_{\sigma, \mathrm{hor}}(P;V)\). \label{def_horizontal_form}
+}
+
+\begin{obs} \label{ex_connection_1_forms_horizontal}
+    The space of connections (more precisely, connection one-forms) on a principal bundle, which we denote \(\mathscr{A}(P_G)\) is an affine space modelled on the space of horizontal one-forms with respect to the adjoint representation, i.e. \(\Omega^1_{\Ad{}, \mathrm{hor}}(P; \mathfrak{g})\). Observe the clear parallelism between this claim and lemma \ref{lemma_vect_bund_connections_affine_space}. To see the claim, let \(A_1\) and \(A_2\) be the connection one-forms of two connections on a principal \(G\)-bundle, and let \(A:=A_1-A_2\). Being the differential of two \(\mathfrak{g}\)-valued one-forms, it is a one-form, so we need only check that it is horizontal. The fact that \((\phi_g)^*A=\Ad{g^{-1}}\circ A\) follows from the second statement of theorem \ref{th_connection_1_form}. Now, the vertical bundle is spanned by vector fields \(X_\xi\) for \(\xi \in \mathfrak{g}\), therefore \(i_{X_\xi}A=A(X_\xi)-A_2(X_\xi)=\xi-\xi=0\). Reciprocally, given a connection \(A \in \Omega^1(P; \mathfrak{g})\), and a horizontal one-form \(\alpha \in \Omega^1_{\Ad{}, \mathrm{hor}}(P;\mathfrak{g})\), the sum \(A+\alpha\) is a connection one-form. By property 2 of definition \ref{lemma_vect_bund_connections_affine_space}, \(A+\alpha\) is \(G\)-equivariant. Moreover, given a vertical vector field \(X_\xi\), we have \((A+\alpha)(X_\xi)=A(X_\xi)+\alpha(X_\xi)=\xi+0\). \newline \newline
+
+    This discussion implies that if we fix a connection one-form \(A\), then any other connection may be obtained as \(A+\alpha\) for \(\alpha \in \Omega^1_{\Ad{}, \ \mathrm{hor}}(P; \mathfrak{g})\). It is then natural to ask how the curvature of \(A+\alpha\) relates to that of \(A+\alpha\). From the structure equation (theorem \ref{th_structure_equation}) it follows that 
+    \begin{equation*} 
+        \begin{split}
+    \Diff_{A+\alpha}(A+\alpha)&  = \diff(A+\alpha) + \frac{1}{2}\cdot [A+\alpha, A+\alpha] \\
+    &=\diff A + \frac{1}{2}\cdot [A,A] + \diff \alpha + \frac{1}{2}\cdot [\alpha, \alpha] + \frac{1}{2}\cdot [A \wedge \alpha] + \frac{1}{2}\cdot [\alpha \wedge A] \\
+    & = \Diff_A A + \diff \alpha + [A \wedge \alpha] +\frac{1}{2}\cdot [\alpha, \alpha].
+        \end{split}
+    \end{equation*}
+    Moreover, for \(\alpha \in \Omega_{\Ad{}, \ \text{hor}}^p(P; \mathfrak{g})\), the following relation holds \(\Diff_A \alpha=\diff \alpha + [A \wedge \alpha]\) (see \parencite[Remark 1.4.12]{Rudolph_2017pug}). Taking this identity into account, the previous equation reads
+    \begin{equation} \label{eq_rel_curvature}
+    \Diff_{A+ \alpha}(A+\alpha) = \Diff_AA + \Diff_A \alpha  + \frac{1}{2}\cdot [\alpha \wedge \alpha].
+    \end{equation}
+\end{obs}
+
+As the following lemma shows, the curvature two-form is horizontal.
+
+\Lemma{}{Let \(P(M,G)\) be a principal \(G\)-bundle and let \(A \in \mathscr{A}(P(M,G))\) be a connection. Then, its curvature is horizontal, i.e. \(\Diff_A A \in \Omega^2_{\mathrm{Ad}, \mathrm{hor}}(P; \mathfrak{g})\). \label{lemma_curv_horiz}}
+\begin{proof}
+    The fact that \(i_X (\Diff_A A)=0\) for vertical vector fields is obvious. For the second condition, one uses the structure equation. See \parencite[Page 40]{Rudolph_2017pug}.
+    % Let \(X,Y \in \mathfrak{X}(P)\), and suppose that \(X\) is vertical (in particular, \(X^H=0\)). Then,
+    % \[
+    % i_X(\Diff_A A)(Y)=\Diff_AA(X,Y)=(\diff A)^H(X,Y)=\diff A\parent{X^H, Y^H}=\diff \parent{0,Y^H}=0.
+    % \] 
+    % Moreover, using \ref{th_structure_equation}, we find
+    % \begin{equation} \nonumber
+    %     \begin{split}
+    %         (\phi_g)^*\Diff_AA & = (\phi_g)^* \parent{\diff A + \frac{1}{2}\cdot [A, A]}\overset{{\color{red}(1)}}{=}\diff((\phi_g)^*A)+\frac{1}{2}\cdot [(\phi_g)^*A, (\phi_g)^*A]\\
+    %         & =\diff (\mathrm{Ad}_{g^{-1}}\circ A)+\frac{1}{2}[\Ad{g^{-1}}\circ A, \Ad{g^{-1}}\circ A] \\
+    %         & \overset{{\color{red}(2)}}{=}\Ad{g^{-1}}\circ \parent{\diff A + \frac{1}{2}\cdot [A, A]}= \Ad{g^{-1}} \circ  \Diff_A A.
+    %     \end{split}
+    % \end{equation}
+    % In \({\color{red}(1)}\) we have used the fact that pullbacks commute with exterior differentials, and with \([\cdot, \cdot]\). The latter follows directly from the definition on equation \eqref{bracket_g_valued_forms}, and the former follows from the fact that the pullback and the exterior differential commute on differential forms, and they still commute on vector valued forms because they only act on the ``differential form part''. In \({\color{red}(2)}\) we have used the fact that \(\Ad{}\) only acts on the ``vector part'' and that \(\Ad{g}\) is a lie algebra homomorphism for every \(g \in G\). Thus, we conclude that the curvature is horizontal.
+\end{proof}
+
+% We are now ready to use this results about horizontal forms. In general there is an isomorphism \(\Omega^k_{\sigma, \mathrm{hor}}(P,V) \cong \Omega^k(M, P \times_G V)\), where \(P\times_G V\) is the associated bundle to \(P\) obtained using the representation \(\sigma\) (see \parencite[]{Rudolph_2017pug}). 
+
+We are going to show now that there is an isomorphism \(\Omega^k_{\sigma, \mathrm{hor}}(P;V) \cong \Omega^k(M;P \times _G V)\). In particular, this means that there is an isomorphism \(\Omega^2_{\mathrm{Ad}, \mathrm{hor}}(P;\mathfrak{g}) \cong \Omega^2(M;\mathrm{ad}(P))\). By means of this isomorphism, we can view the curvature of the connection \(\Diff_A A\) as a \(\mathrm{ad}(P)\)-valued \(2\)-form. 
+
+\Theorem{}{Let \(P(M,G)\) be a principal \(G\)-bundle, and \(\sigma\colon G \to \mathrm{Aut}(V)\) a finite-dimensional representation.
+
+\begin{minipage}{.6\textwidth}
+    To every \(\alpha \in \Omega^k_{\sigma, \mathrm{hor}}(P;V), k \geq 1\) corresponds a unique element \(\Upsilon(\alpha) \in \Omega^k_\R(M; P \times _G V)\) such that the following diagram commutes
+    \end{minipage}\hfill 
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+            \bigwedge^k TP \arrow[r, "{\displaystyle \mathrm{pr} \times \alpha}"] \arrow[d, "{\displaystyle \Lambda^k\diff\pi}", '] \& P\times V \arrow[d, "{\displaystyle q}"]  \\
+             \bigwedge^k TM  \arrow[r, "{\displaystyle \Upsilon(\alpha)}"]\& P\times_GV 
+        \end{tikzcd}
+    \end{minipage}
+
+    Moreover, the assignment \(\Upsilon\colon \Omega^k_{\sigma, \mathrm{hor}}(P;V) \to \Omega^k_\R(M; P \times_GV),\alpha \mapsto \Upsilon(\alpha)\) is a vector space isomorphism. \label{th_forms_associated_bundles}
+}
+\begin{proof}
+    Recall that \(P\times_G V=P \times V/\sim\) where \(\sim\) is the equivalence relation \((p, v) \sim (p', v')\) if and only if \(p'=p\cdot g\) and \(v'=\sigma_{g^{-1}}(v)\). It is a vector bundle. To fix notation, set \(q\colon P \times V \to P \times_G V\) the quotient map, \(\mathrm{pr}\colon \bigwedge^k TP \to P\) the usual projection, and \(\Lambda^k\diff\pi \colon \bigwedge^k TP \to \bigwedge^k TM\) the bundle homomorphism uniquely determined by 
+    \[
+    \Lambda^k \diff \pi (v_1 \wedge v_2 \ldots \wedge v_k):=(\diff_p\pi(v_1))\wedge (\diff_p \pi(v_2))\wedge \ldots \wedge (\diff_p\pi(v_k)) \ \ \ \text{if} \ \ \ v_1, \ldots v_k \in T_pP.
+    \]
+    \(\Lambda^k \diff \pi\) is a surjective smooth submersion. Define as well \(q_p\colon V \to P\times_G V\) by \(q_p(v):=[p,v]\). Having said that, let \(m \in M\), \(v_i \in T_mM\), \(1 \leq i \leq k\), and choose \(p \in P\) that projects onto \(m\) (that is \(\pi(p)=m\)). Choose as well \(w_i \in T_pP\) such that \(\diff_p\pi(w_i)=v_i\) for \(1 \leq i \leq k\). We define
+    \begin{equation} \label{eq_def_alpha}
+    (\Upsilon\alpha)_m(v_1, \ldots v_k):=(q_p \circ \alpha_p)(w_1, \ldots w_k).
+    \end{equation}
+    Once we see that this is independent of the choices of \(p\) and vectors \(w_1, \ldots w_k\), \(\alpha\) will be well-defined as a map, and commutativity of the diagram will be obvious. Recall that
+    \[
+    \Omega^k_\R(M;P \times_G V)=\Gamma \parent{M; \parent{{\bigwedge}^kTM}^* \otimes P \times_G V}
+    \]
+    and \(\parent{{\bigwedge}^kTM}^* \otimes P \times_G V\) is identified with the bundle whose fibers are alternating multilinear forms from \(T_mM\times \overset{k}{\cdots} \times T_mM \to (P \times_G V)_m\). Hence, \(\Upsilon(\alpha) \circ \Lambda^k \diff \pi(v_1 \wedge \ldots \wedge v_k)\) is just the form \(\Upsilon(\alpha)\) acting on \(v_1, \ldots v_r\). As usual, smoothness follows from the characteristic property of surjective smooth submersions \parencite[Th. 4.29]{lee_introSM} applied to \(\Lambda^k \diff\pi\).  \\
+
+    To see that \eqref{eq_def_alpha} does not depend on our choices, choose another point \(p'\) projecting to \(m\). Thus, we will have \(p'=p\cdot g\) for some \(g \in G\). Let \(w_i'\in T_{p'}P\) such that \(\diff_{p'}\pi(w_i')=v_i\) for \(1 \leq i \leq k\). Then, since \(\diff_{p'}\pi(w_i'-\diff_p\phi_g(w_i))=v_i-\diff_p(\pi \circ \phi_g)(w_i)=v_i-v_i=0\), there are vertical vectors \(u_i \in V_{p'}P\) satisfying \(w_i'=\diff_p\phi_g(w_i)+u_i\). Thus, we get
+    \begin{align*}
+        q_{p'} \circ {\alpha}_{p'}(w_1', \dots w_k') & = q_{p\cdot g}\circ {\alpha}_{p\cdot g}(\diff_p\phi_g(w_1)+u_1, \ldots, \diff_p\phi_g(w_k)+u_k) \\
+        & \overset{{\color{red}(3)}}{=} q_{p\cdot g}\circ {\alpha}_{p\cdot g}(\diff_p\phi_g(w_1), \ldots, \diff_p\phi_g(w_k)) \\
+        & \overset{{\color{red}(4)}}{=} q_p \circ \sigma(g) \circ \big((\phi_g)^* {\alpha}\big) (w_1, \ldots , w_k) \overset{{\color{red}(5)}}{=} q_p \circ \tilde{\alpha}_{p}(w_1, \ldots , w_k). 
+    \end{align*}
+    In \({\color{red}(3)}\), we used the fact that, if \({\alpha}\) is horizontal, then it vanishes when one of its entries is a vertical vector field. \({\color{red}(4)}\) uses the fact that \(q_{p\cdot g}=q_p \circ \sigma_g\) (see remark \ref{def_q_p}), and \({\color{red}(5)}\) follows from the identity \(\sigma(g^{-1}) \circ \alpha = (\phi_g)^*\alpha\) for horizontal forms. Observe that the map \(\Upsilon\) is clearly linear. For the converse, given \(\beta \in \Omega_\R^k(M;P\times_GV)\), we define \(\hat{\Upsilon}(\beta)\) by \( (\hat{\Upsilon}(\beta))_p=q_p^{-1}\circ (\pi^*\beta)_p.\) Observe that, looking at \eqref{eq_def_alpha} this is the only reasonable choice. \(\hat{\Upsilon}(\beta)\) is horizontal. Indeed, if \(w^V\) is vertical, \(i_{w^V}\hat{\Upsilon}(\beta)=0\) because \(\diff_p\pi\parent{w^V}=0\). Moreover,
+    \begin{align*}
+        \big((\phi_g)^*\hat{\Upsilon}(\beta)\big)_p(w_1, \ldots w_k) & = \parent{\hat{\Upsilon}(\beta)}_{p\cdot g}\parent{\diff_p\phi_g(w_1), \ldots \diff_p\phi_g(w_k)}\\
+        &=q_{p\cdot g}^{-1}\circ \beta_{\pi(p)}\parent{\diff_{p\cdot g}\pi(\diff_p\phi_g(w_1)), \ldots \diff_{p\cdot g}\pi(\diff_p\phi_g(w_k))} \\
+        & =q_{p\cdot g}^{-1}\circ \beta_{\pi(p)} (\diff_p\pi(w_1), \ldots \diff_p\pi(w_k)) = \sigma(g^{-1})\circ q_p^{-1}\circ \beta_{\pi(p)} (\diff_p\pi(w_1), \ldots \diff_p\pi(w_k)).
+    \end{align*}
+    See \({\color{red}(4)}\) for the last equality. The map \(\hat{\Upsilon}\colon \Omega_\R^k(M;P \times_G V)\to \Omega_{\sigma, \mathrm{hor}}^k(P;V)\) is also linear. One readily verifies that the two compositions of \(\Upsilon\) and \(\hat{\Upsilon}\) yield the corresponding identities.
+ \end{proof}
+
+% \begin{obs}
+%     Let us see the coordinate expression of the objects we just defined. Define \(F:=\sigma^*F_A\) the pullback of the curvature. This is what physicists call the gauge field strength. Let \(\corch{t_1, \ldots t_r}\) be a basis of \(\mathfrak{g}\), and consider coordinates \((x^1, \ldots x^n)\) in the same open set. Define \(F_{\mu \nu}:=F(\partial_\mu, \partial_\nu)\in \mathfrak{g}\), and \(F_{\mu \nu}=F_{\mu \nu}^a \otimes t_a\), so \(F=F_{\mu \nu}^a \ \diff x^\mu \wedge \diff x^\nu \otimes t_a\). From the structure equation, one may show that 
+%     \[
+%     F_{\mu \nu} = \partial_\mu A_\nu-\partial_\nu A_\mu - [A_\mu, A_\nu].
+%     \]
+%     Observe that for \(G=\mathrm{U}(1)\) (which is abelian), the second term vanishes. In fact, we have \(\mathfrak{u}(1)=\R\), which has trivial lie bracket. This is the theory that describes electromagnetism. Hence, one finds the following expression for the field strength (electric and magnetic fields) in terms of the local gauge potential:
+%     \[
+%     F=F_{\mu \nu }\ \diff x^\mu \wedge \diff x^\nu = \parent{\partial_\mu A_\nu-\partial_\nu A_\mu} \cdot \diff x^\mu \wedge \diff x^\nu.
+%     \]
+% \end{obs}
+
+\begin{obs} \label{remark_connections_affine_adP}\(\hspace{1 pt}\)
+    \begin{enumerate}
+        \item From remark \ref{ex_connection_1_forms_horizontal} and theorem \ref{th_forms_associated_bundles}, it follows that \(\mathscr{A}(P)\) can be seen as an affine space modelled on \(\Omega_\R^1(M; \mathrm{ad}(P))\).
+        \item When we see the curvature of a connection as an element of \(\Omega_\R^2(M;P\times_G\mathfrak{g})\cong\Omega_{\Ad{}, \ \text{hor}}^2(M;\mathrm{ad}(P))\), we will write \(F_A\). More precisely, we define \(F_A :=\Upsilon(\Diff_A A)\).
+        % \item If \(P=P(M,G)\) is a principal \(G\)-bundle over a complex manifold, with complex structure group, then \(\mathrm{ad}(P)\) is a complex vector bundle. We may extend \(F_A\) to complex vector fields by complex bilinearity, and see it as an element of \(\Omega_\C^2(M; \mathrm{ad}(P))\). This provides a decomposition \(F_A=F_A^{(2,0)}+F_A^{(1,1)}+F_A^{(0,2)}\). Looking at the relation between complex structures on vector bundles and connections of type \((1,1)\), we are led to think that a similar relation holds for principal bundles. We will see this in chapter {\color{red}\(\star\)}.
+    \end{enumerate}
+\end{obs}
+
+\section{Connections on associated vector bundles}\label{section_connections_associated_bundles}
+Let \(P(M,G)\) be a principal bundle over a smooth manifold \(M\), and let \(\sigma\colon G \to \mathrm{Aut}(V)\) be a finite-dimensional representation. Consider \(P(V):=P \times_G V\) the associated vector bundle defined as in proposition \ref{prop_adP_is_bundle}. Our objective for this section is to show that a connection \(A\) on \(P\) induces a connection (in the sense of definition \ref{def_connection}) on the associated vector bundle \(P(V)\). Before giving the definition, recall the isomorphism \(\Upsilon\colon \Omega^k_{\sigma, \mathrm{hor}}(P;V) \to \Omega^k(M;P\times_GV)\) given in theorem \ref{th_forms_associated_bundles}.
+
+\Definition{}{Under the previous hypothesis, let \(\alpha \in \Omega^k_\R(M; P(V))\), and suppose that the principal \(G\)-bundle \(P(M,G)\) is endowed with a connection \(A\). The covariant exterior derivative of \(\alpha\) induced by \(A\) is defined by
+\[
+\diff_A \alpha:=\Upsilon\parent{\Diff_A(\Upsilon^{-1}(\alpha))}
+\]
+}
+According to the proof given in theorem \ref{th_forms_associated_bundles}, \(\diff_A \alpha \in \Omega^k_\R(M;P(V))\) satisfies
+\begin{equation} \label{eq_def_cov_der_induced}
+(\diff_A \alpha)_{\pi(p)}(\diff_p\pi(w_0), \ldots \diff_p\pi(w_{k}))=q_p\circ (\Diff_A\Upsilon^{-1}(\alpha))_p(w_0, \ldots w_{k})
+\end{equation}
+In particular, this construction defines a family of maps 
+\[
+\diff_A\colon \Omega^k_\R(M;P(V))\longrightarrow \Omega^{k+1}_\R(M;P(V)).
+\]
+These maps are covariant exterior derivatives in the sense of theorem \ref{Th_ext_cov_der}. Observe that, for now, we work with real representations, but most of the topics we covered in chapter \ref{ch_connections} apply to real vector bundles if we do not complexify the tangent bundle. In particular, \(\diff_A\) defines a connection \(\nabla^A\) in the sense of definition \ref{def_connection}, that is, \(\nabla^A=\diff_A\) acting on sections (i.e. zero-forms) satisfies Leibniz's rule \(\nabla^A(f\cdot s)=\diff f \otimes s+f\cdot \nabla^A s\) \parencite[Prop. 1.5.4]{Rudolph_2017pug}. To make sense of this, we must observe first that theorem \ref{th_forms_associated_bundles} does not cover the case \(k=0\). In that case, we can still relate \(0\)-forms (sections). Indeed, there is a vector space isomorphism \parencite[Prop. 1.2.6]{Rudolph_2017pug}
+\begin{equation} \label{eq_bijec_G_eqiva_sections}
+\corch{G\text{-equivariant maps} \atop f\colon P \to V} \longleftrightarrow \Gamma(M; P \times_G V),
+\end{equation}
+which assigns to a \(G\)-equivariant map \(\hat{\xi}\) the section \(\bm{\xi}:=\Upsilon(\hat{\xi})\) given by \(\bm{\xi}(m)=[p,\hat{\xi}(p)], m=\pi(p)\) (that is, \(\sigma \circ \pi(p) = q_p(f(p))\)). If we call the isomorphism \(\Upsilon\), we can extend \(\diff_A\) to act on sections, and it is precisely acting on sections where we have \(\diff_A=\nabla^A\).
+
+\begin{obs}
+    Observe that for every \(\alpha \in \Omega^k_{\sigma, \mathrm{hor}}(P;V)\), \(\Diff_A\alpha\) is horizontal. Indeed, \(i_X(\Diff_A\alpha)=0\) for vertical vector fields is obvious, and one readily shows that \(\phi_g^*(D_A\alpha)=\Diff_A(\phi_g^*\alpha)=\Diff_A(\sigma(g^{-1})\circ \alpha)=\sigma(g^{-1})\circ \Diff_A\alpha \). The first equality follows from remark \ref{Hpp_isom_TM}. Indeed,
+    \begin{align*}
+    (\phi_g)^* \Diff_A A(X,Y)&=\diff A\parent{\diff\phi_g(X)^H, \diff\phi_g(Y)^H} = \diff A(\diff\phi_g\parent{X^H}, \diff\phi_g\parent{Y^H})\\
+    &=\big((\phi_g)^* \diff A\big)^H(X,Y) =\diff ((\phi_g)^*A)^H(X,Y)=\Diff_A((\phi_g)^*A)(X,Y)
+    \end{align*}
+\end{obs}
+
+% There is a nice characterization of the induced connection in terms of the connection one-forms. To do so, observe first that, if we choose a basis \((e_1, \ldots e_r)\) of \(V\), any local section \(s\in \Gamma(U;P)\) induces a local frame of \(P(V)\) given by \(s_i(m)=q_{s(m)}(e_i)=[s(m), e_i]\). Moreover, if we consider a connection \(A \in \Omega^1(P;\mathfrak{g})\) on \(P\), we have \(\bm{A}:=s^*A\in \Omega^1(U;\mathfrak{g})\). Consider then \(\diff_e\sigma\colon \mathfrak{g}\to \mathrm{End}(V)\). Then, \(\diff_e\sigma(\bm{A})\in \Omega^1(U;\mathrm{End}(V))\), and coordinate-wise, therefore, we may write, (here \((e^1, \ldots e^r)\) is the dual basis)
+% \begin{equation} \label{def_eq_coefs_A}
+% \diff_e\sigma(\bm{A})=A^j_k \otimes e_j \otimes e^k
+% \end{equation}
+% where \(A^j_k \in \Omega^1(U)\).
+% % Fixing a coordinate system \((x^1, \ldots x^n)\) on \(U\), and a basis \((\zeta_1, \ldots \zeta_r)\) of \(\mathfrak{g}\) we have 
+% % \[
+% % \bm{A}=\hat{A}^j_k\cdot  \diff x^k \otimes \zeta_j
+% % \] 
+% % for some real-valued smooth maps \(\hat{A}^j_k\). 
+
+% \Proposition{}{Let \(P(M,G)\) be a principal \(G\)-bundle over a smooth manifold \(M\), endowed with a connection \(A\), and consider the associated bundle \(P \times_G G\) with respect to a finite-dimensional representation \(\sigma\colon G \to \mathrm{Aut}(V)\). Let \(s\colon U \subset M \to P\) be a local section, and let \((s_1, \ldots s_r)\) be the local frame induced by \(s\) (i.e. \(s_i(m)=q_{s(m)}(e_i)\)). Let \(\bm{A}:=s^*A\in \Omega^1_\R(U; \mathfrak{g})\), and \(A^j_k\) be given as in \eqref{def_eq_coefs_A}, then 
+% \[
+% \nabla^As_i=A^k_j \cdot s_k.
+% \]
+% }
+% \begin{proof}
+%     See \parencite[Prop. 1.5.3]{Rudolph_2017pug}
+% \end{proof}
+
+\section{Reductions of the structure group} \label{sec_reductions_structure_group}
+
+\Definition{\textbf{Reduction of principal bundles}}{Let \(P_1(M, G_1)\) and \(P_2(M,G_2)\) two \(\mathcal{S}\)-principal bundles over the same manifold. If \(\lambda\colon G_1 \to G_2\) is an embedding, and \(\vartheta'=\mathrm{id}_M\), then we say that \(P_1\) is a \(G_1\)\textit{-reduction}\index{Principal bundle!reduction of the structure group} or \textit{reduction of the structure group} from \(G_2\) to \(G_1\). \label{def_red_struc_group}}
+
+Under the conditions of the previous definition, \(P_1\) may be identified with its image in \(P_2\) through \(\vartheta\). We say that \(P_1\) is an \textit{embedded subbundle}. The definition may be relaxed so that we consider \(\lambda\) an immersion. First, observe that \(\vartheta\) is injective. Indeed, if \(\vartheta(p)=\vartheta (p')\), the fact that \(\vartheta'=\mathrm{id}_M\) implies that \(\pi_1(p)=\pi_1(p')\), thus \(p'=p\cdot g\), so \(\vartheta(p)=\vartheta(p')=\vartheta(p)\cdot \lambda(g)\) which means \(\lambda(g)=e_{G_2}\) because the action is free. Since \(\lambda\) is an embedding, it follows that \(g=e_{G_1}\). The fact that \(\vartheta\) is an immersion follows from local triviality. Schematically, choose \(\sigma\colon M \to P_1\) a section, and observe that \(\vartheta \circ \sigma\colon M \to P_2\) is a section as well. According to remark \ref{obs_bijection_triv_sect}, these induce local trivializations of \(P_1\) and \(P_2\) over the same open set \(U\), say \(T_1\) and \(T_2\). Then, a straightforward calculation shows that \(T_2 \circ \vartheta \circ T_1^{-1}=\mathrm{id}_M \times \lambda\). Since the right-hand side is an embedding, it follows that \(\vartheta\) is an immersion. Moreover, this means that \(\vartheta\) is a local homeomorphism onto its image. Since it is injective, it is an embedding. This works in the smooth and holomophic categories.\\
+
+When one identifies \(P_1 \equiv \vartheta(P_1) \subset P_2\), \(P_1\) is a principal \(G_1\)-bundle whose \(G_1\) action is given by restriction of the \(G_2\) action on \(P_2\). Moreover, its projection simply is the restriction of the projection of \(P_2\). This means that \(VP_1 \subset VP_2\), and for each \(p \in P_1\), \(\diff_e\phi^{(p)}|_{\mathfrak{g}_1}\colon \mathfrak{g_1} \to V_pP_1\) defines a vector space isomorphism.
+
+\noindent
+\begin{minipage}{0.75\textwidth}
+    Two reductions \(P(M, H)\) and \(P'(M, H)\) of the structure group of a principal \(G\)-bundle \(\hat{P}(M,G)\) are \textit{equivalent} if there is an isomorphism of principal bundles \(\varphi\colon P\to P'\) covering the identity such that the diagram is commutative.
+\end{minipage}
+\begin{minipage}{0.24\textwidth}
+    \begin{center}
+    \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+           P \arrow[r, "{\displaystyle \vartheta}"] \arrow[dr, "{\displaystyle \varphi}", '] \& \hat{P} \\
+           \& P' \arrow[u, "{\displaystyle \vartheta'}", '] 
+        \end{tikzcd}
+    \end{center}
+\end{minipage}
+
+Consider now \(P(M,G)\) a principal \(G\)-bundle, and let \(H \subset G\) be a closed subgroup. In that case:
+\begin{enumerate}
+    \item The set \(G/H:=\corch{gH: g \in H}\) has a unique manifold structure such that the projection \(G \to G/H\) is a smooth embedding. This is a consequence of the quotient manifold theorem. See \parencite[Th. 21.17]{lee_introSM} for a detailed proof. Moreover, the projection \(G \to G/H\) admits local smooth sections.
+    \item \(G\) acts on \(G/H\) through \(G \times G/H \to G/H, (g, \tilde{g}H) \mapsto g\tilde{g} H\), and this action is smooth with respect to the previous smooth structure (see, for example, the proof of \parencite[Th. 21.17]{lee_introSM}).  
+\end{enumerate}
+
+Taking this into account, we may consider the associated bundle \(P \times _G (G/H)\), where \(G\) acts on \(G/H\) by right multiplication as we just defined. This is a fiber bundle over \(M\) with fiber \(G/H\). We will write \(P(G/H):=P\times_G (G/H)\). Moreover, there is a diffeomorphism
+\[
+\begin{array}{ccc}
+    P \times _G(G/H) & \longrightarrow & P/H \\
+   \hspace{1 pt} [p, gH] & \mapsto & [p\cdot g].
+\end{array}
+\]
+The interest of this construction lies in the fact that sections of the bundle \(P(G/H)\) parametrize reductions of the structure group of \(P\) to \(H\).
+
+\begin{obs} \label{obs_PH_prinipal_bundle}
+    Whenever \(P\) is a principal \(G\)-bundle and \(H \subset G\) is a closed Lie subgroup, the projection \(P \to P/H\) has the structure of a principal \(H\)-bundle. The free and proper action of \(G\) restricts to a free and proper action of \(H\) (this means that \(P/H\) is a well-defined manifold), and the condition of remark \ref{action_principal_G_bundle} holds trivially. Local triviality is not obvious, and it follows from the fact that \(G\to G/H\) is a principal \(H\)-bundle as well. See \parencite[I Prop. 5.5]{kobayashi_vol1}.
+\end{obs}
+
+\Proposition{}{Let \(P(M,G)\) be a principal bundle, and let \(H \subset G\) be a closed subgroup. Then, there is a reduction of the structure group to \(H\) if and only if the bundle \(P(G/H)\) has a global section. In fact, there is a bijection \label{prop_bij_red_sections}
+\[
+\Gamma(M; P(G/H))\longleftrightarrow \corch{\text{reductions of the structure group of } P(M,G) \text{ to } H}/\sim
+\]
+where \(\sim\) stands for the relation of being equivalent.
+}
+\begin{proof}
+    We refer the reader to \parencite[I Prop. 5.6]{kobayashi_vol1} for the details. We shall only sketch how the bijection goes. Let \(\pi_{P/H}\colon P \to P/H\), \(\pi\colon P\to M\) and \(\hat{\pi}\colon P\times_G G/H \cong P/H \to M\) be the projections corresponding to all the principal bundles involved. Given a section \(\sigma\colon M \to P(G/H)\cong P/H\), the reduction is given by 
+    \[
+    P_\sigma=\sigma^*P=\corch{(m,p)\in M \times P: \sigma(m)=\pi_{P/H}(p)}.
+    \]
+    Since \(P\to P/H\) is a principal \(H\)-bundle, this endows \(P_\sigma\) with the structure of a principal \(H\)-bundle over \(M\). Observe that if \((m,p)\in P_\sigma\), then \(\pi(p)=m\). Certainly, form the definition of pullback \(\pi_{P/H}(p)=\sigma(m)\). Applying \(\hat{\pi}\) on both sides we get \(\pi(p)=\hat\pi(\pi_{P/H}(p))=\hat{\pi}(\sigma(m))=m\). Finally, we consider \(\vartheta\colon P_\sigma \to P, (m,p) \mapsto P\). Hence, we may identify \(P_\sigma\) with the set \(P':=\corch{p \in P: \pi_{P/H}(p)=\sigma(\pi(p))}\subset P\). Reciprocally, let \(\pi'\colon P'\to M\) be a reduction of the structure group to \(H\), and let \(\vartheta\colon P'\to P\) the corresponding embedding. Then, the section is given by \(\sigma(m)=\pi_{P/H}(\vartheta(p'))\) for and \(p'\) such that \(\pi'(p')=m\).
+\end{proof}
+
+\begin{obs} \label{obs_red_struc_group}
+    % There is another way of seeing this. Given a principal \(G\)-bundle \(P\), and a closed subgroup \(H\). Moreover, from remark \ref{obs_PH_prinipal_bundle}, we know that \(P\to P/H\) has the structure of a principal \(H\)-bundle. Now, given a section \(\sigma \in \Gamma(M;P(G/H))\cong \Gamma(M;P/H)\), we have a map \(\sigma\colon M \to P/H\) and \(P\) is a principal \(H\)-bundle over \(P/H\). Hence, \(P_\sigma:=\sigma^*P\) defines a principal \(H\)-bundle over \(M\). 
+    There is a natural identification \(P_\sigma \times_H G\cong P\) where \(H\) acts on \(G\) by left multiplication. Just to be clear, recall that
+    \[
+    P_\sigma \times _H G:=\corch{(m,p, g)\in M \times P\times G : \pi_{P/H}(p)=\sigma(m)}/\sim
+    \]
+    where \((m,p,g)\sim(m, p\cdot h, h^{-1}\cdot g)\). This has the structure of a principal \(G\)-bundle over \(M\), which is isomorphic to \(P\) though the map \(P_\sigma \times_H G \to P, [m,p,g] \mapsto p\cdot g\). {\color{red} referencia}. {\color{red}Observe that then we may identify \(P_\sigma \equiv P_\sigma \times \corch{e_G} \subset P_\sigma \times_HG \cong P\), and see it as an embedded submanifold of \(P\). Note that by \(P_\sigma \times \corch{e_G}\) we mean the set of equivalence classes, that is \([m,p,e_G]\) such that \(\pi_{P/H}(p)=\sigma(m)\). The \(G\)-action that turns \(P \times_H G\) into a principal \(G\) bundle (equivalently the \(G\)-action on \(P\) seen under the isomorphism) is given by \([m,p,g]\cdot g'=[m, p, g\cdot g']\). This is clearly independent of the representative. Moreover, \(P_\sigma\) is invariant under the restriction of the action to \(H\). Indeed, \((P_\sigma \times \corch{e_G})\cdot h=P_\sigma\times \corch{h}=P_\sigma\cdot h^{-1}\times \corch{e_G}=P_\sigma\times\corch{e_G}\). Finally, observe that the restriction of the \(G\)-action on \(P\) to an action of \(H\) on \(P_\sigma\) is precisely the \(H\)-action that \(P_\sigma\) has as a principal \(H\)-bundle over \(M\).}
+\end{obs}
+By the discussion above, we will speak about sections of \(P(G/H)\) and reductions of the structure group of \(P\) to \(H\) intercheangeably. Let us see how connections on reductions of bundles induce connections on the original bundle. The statement is actually more general, but what we will need when giving a proof of the Chern-Singer correspondence is the particular case of reductions of the structure group.
+
+\Proposition{}{Let \((\vartheta, \lambda)\colon P_1(M_1,G_1) \to P_2(M_2,G_2)\) be a principal bundle homomorphism between smooth principal bundles. Suppose that the induced map on the base spaces \(\vartheta'\colon M_1 \to M_2\) is a diffeomorphism. Let \(A\) be a connection on \(P_1\). Then, there is a unique connection \(A'=\vartheta(A)\) on \(P_2\) such that \(\diff \vartheta (H^AP_1) \subset H^{\varphi(A)}P_2\). Moreover, the connection one-form and curvature two-form are related as follows \label{prop_induced_connection_homom}
+\[
+\vartheta ^* (A')=\diff \lambda(A) \hspace{1 cm}
+\vartheta ^* (\Diff_{A'} A')=\diff \lambda (\Diff_AA). 
+\]
+}
+\begin{proof}
+    See \parencite[Chap. II, Prop. 6.1]{kobayashi_vol1}. The connection \(\vartheta(A)\) is defined as follows (we define it in terms of the horizontal subbundle). For each \(p_2 \in P_2\) with \(m_2:=\pi_2(p_2)\) choose \(p_1 \in \pi_1^{-1}\parent{(\vartheta')^{-1}(p_2)} \subset P_1\). Then, \(p_2=\vartheta(p_1) \cdot g\) for some \(g \in G\). We set
+    \[
+    H^{\vartheta(A)}_{p_2}P_2:=\diff_{\vartheta(p_2)} \phi_g \circ \diff_{p_1} \vartheta \ \parent{H^A_{p_1}P_1}.
+    \]  
+    One then shows that this satisfies the conditions of definition \ref{def_connection}.
+\end{proof}
+
+\begin{obs} \label{obs_induced_connection_homom}
+    Consider now the particular case of a reduction of the structure group. With respect to the notation in the theorem above, this means \(M=M_1=M_2\), and \(G_1 \subset G_2\) is a Lie subgroup. The map \(\lambda=\imath\) is the inclusion, and so is \(\vartheta\) when we see \(P_1\) as an embedded subbundle of \(P_2\). 
+\end{obs}
+
+% \begin{obs}
+%     \(\hspace{1 pt}\)
+%     \begin{enumerate}
+%         \item Let \(X\) be a Kähler manifold, and let \(E\) be a principal \(G\)-bundle over \(X\) with compact structure group \(G\). Suppose that we fix a connection \(A\) on \(E\), and let \(F_A \in \Omega^2(\mathrm{ad}(E))\) be the curvature seen as an \(\mathrm{ad}\)-valued \(2\)-form. {\color{red} Now, consider \(\Omega_\C^2(X;\mathrm{ad}(E)):= \Omega^2(X; \mathrm{ad}(E)\otimes_\R \C) \cong \Omega^2(X;\mathrm{ad}(E)) \otimes_\R \C\). \(F_A\) can be viewed as a complex \(2\)-form, by simply extending it by complex bilinearity. There is a direct sum decomposition
+%         \[
+%         \Omega_\C^2(X;\mathrm{ad}(E))=\Omega^{(2,0)}(X; \mathrm{ad(E)})\oplus \Omega^{(1,1)}(X;\mathrm{ad}(E))\oplus \Omega^{(0,2)}(X; \mathrm{ad}(E))
+%          \]
+%          which yields a decomposition of \(F_A\) as \(F_A=F_A^{(2,0)}+F_A^{(1,1)}+F_A^{(0,2)}\). We will be particularly interested in the case where \(F_A^{(0,2)}=0\).
+%         }
+%         \item Let \(P(M,G)\) be a principal \(G\)-bundle. Then, the set of connections on \(P\), which we shall denote \(\mathcal{A}\) has a natural structure of affine space modeled on \(\Omega^1(\mathrm{ad}(E))\) (which is infinite dimensional). More precisely, the difference of two connection \(1\)-forms yields is an element of \(\Omega^1_{\mathrm{Ad, \mathrm{hor}}}(P, \mathfrak{g})\), and the sum of a connection \(1\)-form and a horizontal \(1\)-form of type \(\Ad{}\) is a connection \(1\)-form. The first statement is shown in example \ref{ex_connection_1_forms_horizontal}, and the second follows from the same reasoning. It is worth mentioning that this turns the space of connections into an infinite-dimensional manifold.
+%     \end{enumerate}
+
+\section{Metrics and principal bundles}
+The aim of this section is to show, succinctly, that reductions of the structure group are analogous, at least in spirit, to fiber metrics on vector bundles. Thus, consider a smooth complex vector bundle of rank \(r\) over a smooth manifold \(E \to M\). Let \(L(E)\) be its frame bundle defined as in section \ref{section_frame_bundle}. We claim that there is a one-to-one correspondence between the set of hermitian fiber metrics on \(E\), and the set of reductions of the structure group to \(\mathrm{U}(r)\) up to equivalence. \\
+
+The bijection is given as follows: if \(h\) in a hermitian fiber metric on \(E\), we define the bundle \(U(E)\) of unitary frames as in \eqref{eq_def_UE}. This is naturally a subset of \(L(E)\), and it is a reduction of the structure group to \(\mathrm{U}(r)\). Reciprocally, consider \(\vartheta \colon P(M, \mathrm{U}(r)) \to L(E)\) a reduction of the structure group to \(\mathrm{U}(r)\) in the sense of definition \ref{def_red_struc_group}, where we choose \(\lambda=\imath \colon \mathrm{U}(r) \hookrightarrow \mathrm{GL}(r, \C)\) the inclusion. For every \(m \in M\), and \(p \in \pi^{-1}(m)\), we define \(h_m\) the metric on \(E_m\) whose basis with respect to \(\vartheta(p)\) is \(\mathrm{I}_r\). This does not depend on  the choice of \(p\), as any other element in the fiber will be \(p\cdot A\) for some \(A \in \mathrm{U(r)}\), and \(\vartheta(p\cdot A)=\vartheta(p)\cdot A\) (observe that \(\vartheta(p)\) is a basis of \(E_m\) because it is on the fiber over \(m\) of \(L(E)\)). Hence, any two bases of \(E_m\) defined that way are transformed into each other through an element of \(\mathrm{U}(r)\), and the matrix of \(h\) with respect to any of them is \(\mathrm{I}_r\). Hence, \(m\mapsto h_m\) is a well-defined map. To check that it is smooth, recall that \(L(E) \times_{\mathrm{GL}(n, \C)}\C^r \cong E\) (example \ref{ex_associated_bundle_to_frame_bundle}). Now, consider two local sections \(\sigma_1, \sigma_2\) of \(E\), that under the isomorphism we see as \(\sigma_i(m)=[\vartheta(p), \mathbf{x}_i(m)]\) for some smooth maps (that we see as rows) \(\mathbf{x}_i\colon U \to \C^r\). Then, \(h(\sigma_1, \sigma_2)=\mathbf{x}_1\cdot \mathbf{x}_2^\dagger\).
+
+\begin{obs}
+    From proposition \ref{prop_bij_red_sections}, it follows that the set of hermitian fiber metrics is parametrized by sections of the bundle \(L(E)/\mathrm{U}(r)\).
+\end{obs}
+
+This is of course specific to the case of the frame bundle, but it justifies thinking about reduction of the structure group in general fiber bundles as ``metrics'' on principal fiber bundles.
+
+\section{Complex principal bundles} \label{sec_complex_principal_bundles}
+Even though we have given the definition of a principal bundle for the general case of an \(\mathcal{S}\)-Lie group acting through \(\mathcal{S}\)-morphisms on an \(\mathcal{S}\)-manifold, most of the discussion of the preceding sections was done for smooth principal bundles. Sure, every complex principal bundle is in particular a smooth principal fiber bundle, but it is worth expending some time studying complex principal bundles on their own. We will adopt the following notational convention: whenever we have a complex principal \(G\)-bundle over a complex manifold \(M\), we will use \texttt{mathcal} symbols (for example, \(\mathcal{P}\)). Then, the corresponding plain letter \(P\) will refer to the underlying smooth principal \(G\)-bundle. Moreover, whenever when we say ``complex principal bundle'' we will always assume that the structure group is a complex Lie group, and that the base space is a complex manifold (the definition does not make sense otherwise). \\
+
+The case of connections deserves some special comments. Let \(\mathcal{P}(M,G)\) be a holomorphic principal \(G\)-bundle, and let \(A\) be a connection on the underlying smooth manifold, which we specify by giving its associated one-form. From appendix \ref{appendix_lie}, we know that the Lie algebra of every complex Lie group is naturally a complex Lie algebra, but when seeing the connection on the underlying smooth principal bundle, we see it as \(A \in \Omega^1_\R(P;\mathfrak{g}^\R)\). Here, \(\mathfrak{g}^\R\) denotes the underlying real Lie algebra. However, since \(\mathfrak{g}^\R=\mathfrak{g}\) as sets, we can extend the connection one form to \(T_\C P\) by complex bilinearity, i.e. \(A(X \otimes \lambda):=\lambda \cdot A(X)\) for \(X \in \Gamma(P;T_\C P)\). Under some abuse of notation, we will keep the same letter \(A\) to denote the complexified connection. Then, we can simply write \(A\in \Omega_\C(\mathcal{P}; \mathfrak{g})\). Observe that the conditions 1 and 2 on theorem \ref{th_connection_1_form} still apply yo the complexified form. The first property does not change because for each \(\xi \in \mathfrak{g}\), the vector field \(X_\xi\) is real (this follows from the fact that the exponential as a complex Lie group is the same as the exponential as a real Lie group). As for the second one, we have to extend \(\phi_g^*\) to act on complex differential forms by complex linearity, and since \(\Ad{g^{-1}}\) is complex-linear (see remark \ref{section_complex_lie_group}), the right-hand side is holomorphic as well, and the equality still holds.
+
+\Definition{\textbf{Almost complex \(G\)-structure}}{Let \(P(M,G)\) be a smooth principal \(G\)-bundle, where \(G\) is a complex Lie group, and \(M\) is a complex manifold. An \textit{almost complex \(G\)-structure} is an almost complex structure on the smooth manifold \(P\) such that 
+\begin{enumerate}
+    \item \(\diff\pi \circ J=J_M \circ \diff \pi\).
+    \item \(J_{p \cdot g}(\diff_{(p,g)} \phi(w, X)) =\diff_{(p,g)} \phi (J_p(w), (J_G)_g(X))\), for each \(p \in P, g \in G\) and \(X \in T_gG, B \in T_pP\).
+\end{enumerate} 
+\(J_M\) and \(J_G\) are the canonical almost complex structures on \(M\) and \(G\).
+}
+We say that an almost complex \(G\)-structure is integrable if it is as a usual almost complex structure in the sense of Newlander-Niremberg.
+
+\begin{obs}
+    \(\hspace{1 pt}\)
+    \begin{enumerate}
+        \item The previous definition has a very clear meaning: if \(J\) is an integrable almost complex \(G\)-structure, then, by the Newlander-Niremberg theorem \(P\) admits a complex structure turning it into a complex principal bundle. In that case, since \(M\) and \(G\) are complex manifolds, theorem \ref{th_caracterization_holomoprh_J} states that the projection and the action of \(G\) are holomorphic maps. In that case, one may show that \(P\) admits holomorphic local trivializations (see \parencite[Prop. 2.5.3]{Sandon_Chern_Correspondence}).
+        \item The second condition is equivalent to ask \(J\) to satisfy the following
+        \begin{align}
+                J_{p\cdot g} \circ \diff_{p}\phi_g & =  \diff_p \phi_g\circ J_p \label{eq2_def_almost_G_struc} \\
+                J_{p\cdot g} \circ \diff_g\phi^{(p)} & =  \diff_g\phi^{(p)} \circ (J_G)_g \label{eq_def_almost_G_struc}
+        \end{align}
+        The proof is just a straightforward application of the Leibniz rule \parencite[I Prop. 1.4]{kobayashi_vol1}
+        \begin{align*}
+        \diff_p\phi_g(J_p(w))+\diff_g\phi^{(p)}((J_G)_g(X))=J_{p\cdot g}(\diff_p\phi_g(w)) + J_{p\cdot g}(\diff_g\phi^{(p)}(X))
+        \end{align*}
+        and setting \(X\) or \(w\) equal to \(0\). Moreover, \eqref{eq_def_almost_G_struc} is equivalent to 
+        \begin{equation} \label{eq_def_almost_G_struc_simpl}
+            J_p(X_{p, \zeta})=X_{p, \ii \zeta}, \hspace{1 cm} \zeta  \in \mathfrak{g}.
+        \end{equation}
+        Indeed, \eqref{eq_def_almost_G_struc} implies \eqref{eq_def_almost_G_struc_simpl} setting \(g=e\), and the converse is a direct calculation using the fact \(\diff_g\phi^{(p)}(X)=X_{\theta(X), p}\), \(\theta\) being the Maurer-Cartan form, which commutes with \(J\).
+    \end{enumerate}
+\end{obs}
+
+Let us denote \(\mathscr{J}(P)\) the set of integrable almost complex \(G\)-structures, and \(\bar{\mathscr{J}}(P)\) the set of almost complex \(G\)-structures.
+
+\begin{obs}
+    Let \(\mathcal{P}(M,G)\) be a complex principal bundle. If we consider the curvature \(\Diff_AA\) of the underlying real smooth principal bundle, we may see it as an element of \(\Omega_\R^2\parent{P; \mathfrak{g}^\R}\). We now, however, that \(\mathfrak{g}\) has the structure of a complex Lie algebra. Hence, we may extend \(\Diff_AA\) to act on \(T_\C P\) by setting \(\Diff_A A(\lambda \otimes X, \mu \otimes Y):=\lambda \cdot \mu \cdot \Diff_A A(X,Y)\). We may then see \(\Diff_A A\in \Omega_\C^2(P; \mathfrak{g})\). Then the Whitney sum decomposition \eqref{eq_decomp_E_forms} induces a decomposition \(\Diff_A A=\Diff_A A^{(2,0)}+\Diff_A A^{(1,1)}+\Diff_A A^{(0,2)}\). Observe that \(\Diff_A A^{(0,2)}(X,Y)=\Diff_A A\parent{X^{(0,1)}, Y^{(0,1)}}\), \(\Diff_A A^{(1,1)}(X,Y)=\Diff_A A\parent{X^{(1,0)}_J,Y^{(0,1)}_J}+\Diff_A A\parent{X_J^{(0,1)}, Y_J^{(1,0)}}\) and similarly for \(\Diff_A A^{(0,2)}\). {\color{red} Observe that \(\mathfrak{g}\) and \((\mathfrak{g}^\R)^\C\) are \textit{not the same Lie algebra}. To see the complexify the curvature and the connection, we use the former.} If we see the curvature as \(F_A\), we may consider its complexification by seeing it as a form on the complex vector bundle \(\mathrm{ad}(P)\) (see proposition \ref{prop_adP_is_bundle}). 
+\end{obs}
+
+\section{The Chern-Singer correspodence} \label{section_Chern_Singer_correspondence}
+The Chern-Singer correspondence can be seen as a generalization of the Chern correspondence we studied in section \ref{sec_Chern_correspond}. Recall that there, we saw that there was a bijection between the set of connections of type \((1,1)\) on a complex vector bundle and the set of integrable Dolbeault operators. Here, we shall see that, for principal bundles over reductive complex Lie groups, we can find a bijection between the set of integrable almost complex \(G\)-structures, \(\mathscr{J}(P)\) and the set of connections on a reduction of the principal bundle to a compact subgroup \(K\) such that \(G=K^\C\). This is section is mostly based on the thorough exposition given in \parencite{Sandon_Chern_Correspondence}. \\
+
+Having said that, let \(P_G:=P(M,G)\) be a principal \(G\)-bundle over a complex manifold, and let its structure group \(G\) be a complex reductive Lie group. From appendix \ref{appendix_lie}, we know that \(G\) is the complexification of a compact real Lie group \(K\), i.e. \(G=K^\C\). Fix a reduction \(P_K\) of the structure group to \(K\). We fix that data for the remainder of the section. Recall that we can see the reduction \(P_K\) as an embedded submanifold of \(P_G\). Hence, \(TP_K\) is a subbundle of \(TP_G\) \parencite[Example 10.33-(c)]{lee_introSM}.
+
+\Theorem{\textbf{Chern-Singer correspondence I}}{The map \(\mathsf{CS}\colon \bar{\mathscr{J}}(P_G) \to \mathscr{A}(P_K), J \mapsto A_J\), where \(A_J\) denotes the connection corresponding to the distribution \(H^J_pP_K:= T_pP_K \cap J_p(T_pP_K), \  p \in P_K\) is a bijection. \label{th_Chern_correspondence_I}}
+\begin{proof}
+    Let \(J \in \bar{\mathscr{J}}(P_G)\), and let us show first that the assignment \(p \mapsto H^J_pP_K\) is a smooth distribution, and that it satisfies properties 1 and 2 of definition \ref{def_connection_subbundle}. Note that \(H^J_pP_K \cap V_pP_K=\corch{0}\). Indeed, an element of the intersection is on the vertical subbundle, hence it is \(X_\zeta\) for some \(\zeta \in \mathfrak{k}\). Then, by \eqref{eq_def_almost_G_struc}
+    \[
+    J_p(X_{p,\zeta})= J_{p\cdot e}\parent{\diff_e\phi^{(g)}(\zeta)}=\diff_e\phi^{(p)}(J_\mathfrak{g}(\zeta)) =\diff_e\phi^{(g)}(\ii \zeta) =X_{p, \ii \zeta}.
+    \]
+    Moreover, since \(X_{p, \zeta} \in H^J_p P_K\), it follows that \(X_{p, \zeta}\in J_p(T_pP_K)\), therefore, \(J(X_{p, \zeta})\in J_p^2(T_pP_K)=T_pP_K\). Using the fact that \(\diff_e\phi^{(p)}\colon \mathfrak{g}\to V_pP_G\) is an isomorphism which restricts to an isomorphism \(\mathfrak{k}\to V_pP_K\), it follows that \(\zeta \in \mathfrak{k} \cap \ii \mathfrak{k}=\corch{0}\). Finally, since \(T_pP_K+J_u(T_pP_K)=T_pP_G\), (\(\dim_\R M\) is the dimension of \(M\) as a real manifold, and we used the fact that \(\dim_\R G=2\cdot \dim K\), see appendix \ref{appendix_lie}) 
+    \begin{equation} \label{eq_dim_horiz}
+        \begin{split}
+        \dim (H^J_pP_K) &= \dim(T_pP_K \cap J_p(T_uP_K)) = \dim(T_pP_K) + \dim(J_p(T_pP_K))-\dim(T_pP_K+J_u(T_pP_K)) \\
+        & =\dim_\R M + \dim K+ \dim_\R M+\dim K- \dim G +\dim_\R M =\dim _\R M 
+        \end{split}
+    \end{equation} 
+    so \(\dim (H^J_pP_K \oplus V_pP_K)=\dim H^J_pP_K+\dim G=\dim T_pP_K\) and the sum covers the whole tangent bundle. Finally, \(\diff_p\phi_k(H^J_pP_K)\subset H^J_{p\cdot k}P_K\) (we need only check it for \(k \in K\)) and since the dimensions are equal, we have the equality. Indeed, choose, \(w\in T_pP_K \cap J_p(T_pK)\). We may write \(w=J_p(w')\) for some \(w'\in T_pP_K\). Then, by \eqref{eq2_def_almost_G_struc}, we have
+    \[
+    \diff_p\phi_k(J_p(w'))=J_{p\cdot k}(\diff_p\phi_k(w'))\in J_{p\cdot k}(T_{p\cdot k}P_K)\cap T_{p\cdot k}P_K
+    \]
+    where we used that \(\diff_p\phi_k(w')\in T_{p\cdot k}P_k\) because the action of \(G\) restricts to the action of \(K\) on \(P_K\).
+    Smoothness is somewhat tedious to proof, the key idea is to use a local frame of \(TP_K\) to obtain one of \(H^JP_K\) and then apply the local frame criterion for subbundles (lemma \ref{lemma_local_frame_crit}). We refer the reader to \parencite[Th. 3.1.1]{Sandon_Chern_Correspondence} for the details. \\
+
+    Let us now construct the inverse image. From proposition \ref{prop_induced_connection_homom} and remark \ref{obs_induced_connection_homom}, we know that every connection \(A \in \mathscr{A}(P_K)\) induces a connection on the original bundle \(P_G\). Let us still denote by \(A\) de induced connection. We define an almost complex \(G\)-structure \(J^A\) on \(P_G\) as follows. For \(p \in P\) and \(w \in T_pP\), the connection \(A\) induces a decomposition \(w=w^V+w^H\). Then, for some \(\zeta \in \mathfrak{g}\), we have \(w^V=X_{p, \zeta}\). Define
+    \begin{equation} \label{eq_def_J_A}
+    J^A_p(w):=X_{p, \ii \zeta} + \big((J_{M})_{\pi(p)}(\diff_p \pi(w)) \big)^{\mathbf{HL}}_p.
+    \end{equation}
+    Observe that \(J_A\) is an almost complex \(G\)-structure. The fact that \((J^A)^2=-\mathrm{id}\) is clear from the fact that \eqref{eq_def_J_A} already gives us the decomposition of \(J^A(w)\) as a sum of a vertical and horizontal vector. Hence, 
+    \begin{align*}
+    J^A_p(J^A_p(w)) & =X_{ -\zeta,p}+ \parent{(J_M)_{\pi(p)}\parent{\diff_p\pi\parent{\parent{(J_{M})_{\pi(p)}(\diff_p \pi(w)) }_p^{\mathbf{HL}}}}}^{\mathbf{HL}}_p \\
+    &= -X_{\zeta,p}-\diff_p\pi(w)^{\mathbf{HL}}_p=w^V+w^H=w.
+    \end{align*}
+    Now, \(\diff\pi\circ J=J_M \circ \diff\pi\) and \eqref{eq_def_almost_G_struc_simpl} are obvious. To check \eqref{eq2_def_almost_G_struc}, let \(w\in T_pP\). Let \(w^V=X_{\zeta, p}\), and observe that \(\diff_p\phi(w)^V=\diff_p\phi(w^V+w^H)^V=\diff_p\phi_g(w^V)^V\) (horizontal vectors are mapped to horizontal vectors by \(\diff_p\phi_g\) by definition). Moreover, by lemma \ref{lemma_prop_connection}
+    \begin{equation} \label{eq_CS_vert}
+    \diff_p\phi(X_{\zeta, p})=\diff_p\phi(w^V)=\diff_p\phi_g\parent{X_{\zeta,p}}=X_{\Ad{g^{-1}}(\zeta), p\cdot g},
+    \end{equation}
+    which is again vertical. Thus,
+    \begin{align*}
+        J_{p\cdot g}(\diff_p\phi_g(w)) & = X_{\ii \Ad{g^{-1}}(\zeta), p} + \big((J_{M})_{\pi(p)}(\diff_p \pi(w)) \big)^{\mathbf{HL}}_{p\cdot g} \\
+        & \overset{{\color{red}(6)}}{=} \diff_p\phi_g(X_{\ii \zeta, p})+\diff_p\phi_g \parent{\big((J_{M})_{\pi(p)}(\diff_p \pi(w)) \big)^{\mathbf{HL}}_{p}} \\
+        & = \diff_p\phi_g(J_p(w)),
+    \end{align*}
+    where we used in \({\color{red}(6)}\) equation \eqref{eq_CS_vert} but with \(\ii \zeta\) and lemma \ref{lemma_horizontal_lift}. \\
+
+    Finally, observe that these constructions are inverses of each other. Let us see first that \(A=A_{J^A}\). This amounts to checking whether \(H^A_p P_K\) and \(T_pP_K \cap J_p^A(T_pP_K)=H^{J^A}_pP_K\) coincide for each \(p \in P_K\). Choose \(X \in H^A_pP_K\subset T_pP_K\), then \(X^V=0\), and 
+    \[
+    X=J^A_p\parent{-\parent{(J_M)_{\pi(p)}(\diff_p\pi(X))}^{\mathbf{HL}}} \in J_p^A(H_p^AP_K)\subset J_p^A(T_pP_K).
+    \]
+    Hence, \(X \in T_pP_K \cap J_p^A(T_pP_K)\). Thus, \(H^A_p P_K \subset H^{J^A}_pP_K\) and since they have the same dimension (the calculation of equation \eqref{eq_dim_horiz} applies to both sides), they are equal. \\
+
+    Reciprocally, consider \(J \in \bar{\mathscr{J}}(P_G)\). Let \(A_J:=\mathsf{CS}(J)\). Let us see that \(J^{A_J}=J\). Both are linear and coincide on vertical vectors (\(J_p(X_{p,\zeta})=X_{p, \ii \zeta}\) follows from applying \eqref{eq_def_almost_G_struc} to \(\zeta\)). Since both are linear as well, it suffices to check that they coincide when applied to horizontal vectors (with respect to \(A_J\)). Hence, if \(w \in H_p^AP_K\), we have 
+    \begin{equation} \label{eq_prueba_CS_1}
+    \diff_p\pi(J_p(w))=(J_M)_{\pi(p)}(\diff_p\pi(w)). 
+    \end{equation}
+    Moreover, \(J_p(w)\) is horizontal (observe that \(H^J_pP_K= T_pP_K\cap J_p(T_pP_K)\)), so considering the horizontal lift of \eqref{eq_def_almost_G_struc} we get
+    \[
+    J^{A_J}(w)=\big((J_{M})_{\pi(p)}(\diff_p \pi(w)) \big)^{\mathbf{HL}}=J_p(w).
+    \]
+\end{proof}
+
+Just as we found in the vector bundle case, it turns out that \((1,1)\)-connections are precisely those that induce integrable almost complex \(G\)-structures.
+
+\Theorem{\textbf{Chern-Singer correspondence, II}}{The map \(\mathsf{CS}\) restricts to a bijection \(\mathsf{CS}|_{\mathscr{J}(P_G)}\colon\mathscr{J}(P_G)\to \mathscr{A}^{(1,1)}(P_K)\). \label{th_Chern_Singer_correspondence_2}}
+For the proof of this result we will diverge from \parencite{Sandon_Chern_Correspondence}. We will instead make use of the following lemma, which is taken from \parencite{teleman_Newlander_Niremberg}.
+
+\Lemma{}{Let \(A \in \mathscr{A}(P_K)\) be a connection, and let \(J=\mathsf{CS}^{-1}(A) \in \bar{\mathscr{J}}(P_G)\). Then, \(J\) is integrable (that is, \(J \in \mathscr{J}(P_G)\)) if and only if the two form  \label{lemma_Newlander_Niremberg_prin_bundles}
+\begin{equation} \label{eq_newlander_principal_bundle}
+\begin{array}{cccc}
+\mathfrak{f}_J\colon & \Gamma(P_G; T_\C P_G) \times \Gamma(P_G; T_\C P_G) & \longrightarrow & \mathscr{C}^\infty(P_G; \mathfrak{g}) \\
+& (X,Y) & \mapsto & -A\parent{\big[X_J^{(0,1)}, Y_J^{(0,1)}\big]}
+\end{array}
+\end{equation}
+vanishes identically. 
+}
+The notation \(X_J^{(0,1)}\) means the \((0,1)\)-component with respect to the Whitney sum decomposition that \(J\) induces on \(T_\C P_G\) (see \eqref{decomp_T_CM}, even though there it is stated for complex manifolds the decomposition only requires an almost complex structure \parencite[Lemma 1.60]{lee_introCM}). Moreover, the connection one-form \(A\) in \eqref{eq_newlander_principal_bundle} should be unsderstood as the extension of \(A\) to \(P_G\) (as in {\color{red} referencia}), which we still denote \(A\).
+\begin{proof}
+    This is a consequence of the classical Newlander-Niremberg theorem. Recall from appendix \ref{appendix_almost_complex_structure} that the Newlander-Niremberg theorem implies that the integrability condition is equivalent to the condition \(\big[T^{(0,1)}P_G, T^{(0,1)}P_G\big]\subset T^{(0,1)}P_G\). Thus, we are led to check that the condition \(\mathfrak{f}_J\) is equivalent to the condition that for every pair of complex vector fields \(X,Y\), we have \(\big[X_J^{(0,1)}, Y_J^{(0,1)}\big] \in T^{(0,1)}P_G\). It will follow immediately from showing \(T^{(0,1)}P_G=\ker A\).
+\end{proof}
+
+\Lemma{}{Let \(P(M,G)\) be a principal bundle. Then, for any pair of horizontal vector fields, \(X,Y \in \Gamma(P; T_\C P)\), we have \label{lemma_rel_DAA}
+\[
+\Diff_AA(X,Y)=-A([X,Y]).
+\]}
+\begin{proof}
+    First, for a \(\mathfrak{g}\)-valued one form and a vector field, we define \(X(\omega \otimes \xi):=X(\omega)\cdot \xi\). Now, \(\color{red}(/)\) follows from the corresponding identity for usual one-forms (see \parencite[Prop. 14.29]{lee_introSM}), and \(\color{red}(8)\) from the fact that \(A(X)=0\) for horizontal vector fields: 
+    \begin{align*}
+    \Diff_A A(X,Y) & = (\diff A)^H(X,Y)=\diff A(X,Y) \overset{{\color{red}(7)}}{=}X(A(Y))-Y(A(X))-A([X,Y]) \overset{{\color{red}(8)}}{=}-A([X,Y]).
+    \end{align*}
+\end{proof}
+
+Observe that, in the context of lemma \ref{lemma_Newlander_Niremberg_prin_bundles}, \(J\) preserves horizontal vector fields. More precisely, the complexification of \(TP_G=H^AP_G \oplus VP_G\) yields a decomposition \(T_\C P_G =H^A_\C P_G \oplus V_\C P_G\) which allows us to extend the notion of horizontal and vertical vector fields to the corresponding complexification. Moreover, the isomorphism \(P \times \mathfrak{g} \cong VP\) extends to \(P_G \times \mathfrak{g}^\C\cong V_\C P_G\). Now, if \(Y \in \Gamma(P_G; H^A_\C P_G)\) i.e. \(Y\) is horizontal, then so is \(JY\) (this follows from the definition of \(J\), equation \eqref{eq_def_J_A} and the fact that we see now \(J\) as the complexified map). We can now proof the desired result. Moreover, observe that, from the froom of the previous lemma, it follows that \(T^{(0,1)}P_G\) is \(G\)-invariant. Indeed, for any \(Y \in T^{(0,1)}P_G\), \(A(\diff\phi_g(Y))=\Ad{g^{-1}} (A(Y))=0\).
+
+\begin{proof}[\textit{Proof of theorem} \ref{th_Chern_Singer_correspondence_2}]
+    By the previous lemma, we have to check that \(\mathfrak{f}_J \equiv 0\). If either \(X\) or \(Y\) are vertical vector fields, then \(\mathfrak{f}_J(X,Y)=0\), so we may restrict to the case where they are both horizontal. Indeed, for any \(\zeta \in \mathfrak{g}^\C\) and any vector field \(Y\), the vector field \(\big[X_{\zeta}, Y_J^{(0,1)}\big]\) is of type \((0,1)\). This follows from the fact that \(T^{(0,1)}P_G\subset T_\C P_G\) is \(G\)-invariant, and \(\big[X_{\zeta}, Y_J^{(0,1)}\big]=\mathcal{L}_{X_\zeta}\parent{Y_J^{(1,0)}}\). Invariance under the \(G\)-action means that the latter is of type \((0,1)\). Finally, since \(A\) is a form of type \((1,0)\), \(\mathfrak{f}_J(X,Y)\) vanishes if either \(X\) or \(Y\) are vertical. {\color{red} revisar }\\
+    
+    Once we show that \(\mathfrak{f}_J\) restricted to horizontal vector fields coincides with \(F_A^{(0,2)}\) we will be finished (recall from lemma \ref{lemma_curv_horiz} that the curvature is a horizontal two-form). Hence, from proposition \ref{almost_compl_decom} it follows that for all \(Z,Y \in \Gamma(P_G; T_\C P_G)\)
+    \begin{equation} \label{eq_CS_II_1}
+        \begin{split}
+        -A\parent{\big[Z_J^{(0,1)}, Y_J^{(0,1)}\big]}  =& -\frac{1}{4}\cdot A\parent{[Z+\ii J Z, Y+\ii J Y ]} \\ 
+        = & -\frac{1}{4}\cdot A([Z,Y])+\frac{1}{4}\cdot A([Z,Y]) - \frac{\mathrm{i}}{4}\cdot A([Z,JY]) - \frac{\mathrm{i}}{4} \cdot A([JZ, Y]).
+        \end{split}
+    \end{equation}
+    Similarly, for all \(Z, Y \in \Gamma(P_G; T_\C P_G)\)
+    \begin{equation} \label{eq_CS_II_2}
+        \begin{split}
+        \Diff_A^{(0,2)}(Z,Y) & = \Diff_A\parent{Z_J^{(0,1)}, Y_J^{(0,1)}}= \frac{1}{4}\cdot \Diff_A(Z+\ii J Z,Y+\ii JY) \\
+        & = \frac{1}{4} \cdot \Diff_A(Z,Y)-\frac{1}{4} \cdot \Diff_A(JZ, JY) +\frac{\mathrm{i}}{4}\cdot \Diff_A(Z, JY) + \frac{\mathrm{i}}{4}\cdot \Diff_A(JZ, Y).
+        \end{split}
+    \end{equation}
+    Finally, by lemma \ref{lemma_rel_DAA} for horizontal vector fields, \(\Diff_A([X,Y])=-A([X,Y])\), which applied to each component of \eqref{eq_CS_II_1} and \eqref{eq_CS_II_2} when the vector fields are horizontal yields the desired result. We have used thet fact that \(\Diff_AA^{(0,2)}=0\) if and only if \(F_A^{(0,2)}=0\). 
+\end{proof}
+
+This proposition (together with the background we have from vector bundle theory) motivate the following definition: given an integrable almost complex \(G\)-structure on \(P_G\), the connection induced on \(P_G\) after extending \(\mathsf{CS}^{-1}(J)\) to \(P_G\) is called the \textit{Chern connection} associated to \(J\). \\
+
+Finally, we will comment without proof how quotients by the gauge group play a role in the correspondence. That is, we briefly present a generalization to the bijection \eqref{eq_moduli_Chern_correspondence}. We refer to \parencite{Sandon_Chern_Correspondence} and references therein for further details. Again, we do not intend to give these spaces further structure for now (that is, we do not study moduli spaces), so we will not complete any space with respect to any Sobolev norm. Let \(\mathscr{G}^\C=\Gamma(M; P_G \times_ GG)\) and \(\mathscr{G}=\Gamma(M; P_K\times_K K)\) the gauge groups associated to both bundles (see example \ref{ex_group_adjoint_bundle} and theorem \ref{equivalences_gauge_group}). Observe that, the fibers of \(P_G \times_GG\) are isomorphic to \(G=K^\C\), it seems reasonable to say that \(\Gamma(M; P_G \times_ GG)\) is a complexification of \(\Gamma(P_K \times_K K)\), hence the notation.\\
+
+We may see \(\mathscr{G}\) as a subgroup of \(\mathscr{G^\C}\). Moreover, there is a right action of \(\mathscr{G}\) on \(\mathscr{A}(P_K)\) given by pullback \(\mathscr{G}\times\mathscr{A}(P_K) \to \mathscr{A}(P_K), (A, \phi) \mapsto (\phi^{-1})^*A\). A straightforward computation shows that the pullback of a connection one-form is a connection one-form \parencite[Th. 3.2.5]{bleecker2013gauge}. For an explicit expression, suppose that \(\phi(p)=p \cdot \tau(p)\) (c.f. \ref{equivalences_gauge_group}). Then, (see \parencite[Th. 3.2.14]{bleecker2013gauge})
+\begin{equation} \label{eq_explicit_action_gauge_group}
+((\phi^{-1})^*A)_p=\Ad{\tau(p)}\circ A_p+\diff_{\tau(p)^{-1}} L_{\tau(p)} \circ \diff_p \tau^{-1}.
+\end{equation}
+The previous expression is sometimes written as \(\phi^*A =\Ad{\tau^{-1}}\circ A + \diff\tau^{-1}\tau\). The second summand can also be written as \((\tau^{-1})^*\theta\), where \(\theta\) is the \textit{Maurer-Cartan} form. Hence, the action is equivalently written as
+\begin{equation} \label{eq_def_action_connection_gauge_group}
+(\phi^{-1})^*A=\Ad{\tau^{-1}}(A) + (\tau^{-1})^*\theta.
+\end{equation}
+
+This action leaves \(\mathscr{A}^{(1,1)}(P_K)\) invariant. On the other hand, there is a right action of \(\mathscr{G}^\C\) on \(\bar{\mathscr{J}}(P_G)\) given by \(\bar{\mathscr{J}}(P_G) \times \mathscr{G}^\C \to \bar{\mathscr{J}}(P_G), (J, \varphi) \mapsto \varphi(J)\), where 
+\[
+\varphi(J) := (\diff \varphi)^{-1} \circ J \circ \diff \varphi.
+\]
+This action leaves \(\mathscr{J}(P_G)\) invariant. Moreover, via the Chern-Singer correspondence (version I, theorem \ref{th_Chern_correspondence_I}), we get an action of \(\mathscr{G}^\C\) on \(\mathscr{A}(P_K)\) given by \((A, \varphi) \mapsto A_{\varphi(J_A)}\), which extends the original \(\mathscr{G}\)-action. \\
+
+Now, to almost complex integrable \(G\)-structures in the same \(\mathscr{G}^\C\)-orbit induce isomorphic complex principal bundle structures on \(P_G\). Thus, the quotient \(\mathscr{J}(P_G)/\mathscr{G}^\C\) can be seen as the set of essentially different holomorphic structures on the bundle \(P_G\). Now, the Chern-Singer correspondence (version II, theorem \ref{th_Chern_Singer_correspondence_2}) establishes that there is a bijection
+\begin{equation} \label{CS_corresp_quot}
+\frac{\mathscr{J}(P_G)}{\mathscr{G}^\C} \leftrightarrow \frac{\mathscr{A}^{(1,1)}(P_K)}{\mathscr{G}^\C},
+\end{equation}
+the right-hand side being the set of complex principal bundle structures on \(P_G\).

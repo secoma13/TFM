@@ -1,0 +1,1064 @@
+\chapter{Finite-dimensional Kempf-Ness theorem} \label{chapter_kempf_Ness}
+The aim of this chapter is to provide a very brief account of the Kempf-Ness' theorem. The motivation behind including this chapter is the fact that the Hitchin-Kobayashi correspondence, treated in chapter \ref{chapter_HK_correspondence} can be seen as an infinite-dimensional version of this theorem. It is important to remark that all of the results of chapter \ref{chapter_HK_correspondence} can be stated and proved without ever mentioning moment maps. However, the framework of moment maps and symplectic reduction proves to be very useful, because, together with the results we are about to expose in this chapter, it motivates the correspondence, and hints at a lot of correct results. \\
+
+In this chapter we will assume basic knowledge of symplectic geometry, Lie theory, and basic projective algebraic geometry. We will recall some basic concepts, but most results here will be stated without proof. Good references on this topics are \parencite{da2001lectures}, \parencite{hoskins} and \parencite{hilgert2011structure}.
+
+
+\section{Symplectic geometry}
+
+Recall that, given a real vector space \(V\), a \textit{(linear) symplectic form} is a skew-aymmetric bilinear map \(\Omega\colon V \times V \to \R\) such that the induced map \(\Omega^\flat \colon  V \to V^*\) given by 
+\begin{equation} \label{isomorph_sympl_form}
+\begin{array}{ccccccc} 
+    \Omega^\flat \colon & V & \longrightarrow & V^* & &  \\
+    & v & \mapsto & \Omega^\flat(v) \colon & V & \longrightarrow & \R\\
+    & & & & u & \mapsto & \Omega(v,u)
+\end{array}
+\end{equation}
+is a vector space isomorphism. We say that the pair \((V, \Omega)\) is a symplectic vector space. Observe that, for finite-dimensional spaces, is suffices to check that 
+\[
+\corch{0}=\ker \Omega^\flat=\corch{v \in V: \Omega(v,u)=0 \ \ \forall \ u \in V}
+\]
+
+Symplectic manifolds are smooth manifolds that are equipped with an extra structure: a symplectic form. A symplectic form is a 2-form such that, when restricted to the tangent space at each point, it defines a symplectic skew symmetric bilinear map. To make sense of this, we will start by briefly studying symplectic vector spaces and linear symplectic forms. \\
+
+% \Theorem{}{Let \(V\) be a real vector space and \(\Omega\colon V \times V \to \R\) a skew-symmetric bilinear form. There exists a basis \(\mathcal{B}:=\corch{u_1, \ldots u_k, e_1, \ldots e_n, f_1, \ldots f_n}\) satisfying \label{th_sympl_basis}
+% \begin{enumerate}
+%     \item \(\Omega(u_i, v)=0\) for every \(v \in V\) and \(1 \leq i \leq k\)
+%     \item \(\Omega(e_i, e_j) = \Omega(f_i, f_j)=0\) for \(1 \leq i,j \leq n\)
+%     \item \(\Omega(e_i, f_j)=\gls{delta}\) for \(1 \leq i,j \leq n\).
+% \end{enumerate} 
+% }
+% \begin{proof}
+%     See \parencite[Th. 1.1]{da2001lectures}.
+% \end{proof}
+% This result is some kind on analogous to the Gram-Schmidt theorem. Indeed, it provides a basis in which the matrix of the bilinear form takes a particularly simple form: 
+% \[
+% \begin{pmatrix}
+%     0 & 0 & 0 \\
+%     0 & 0 & I_n \\
+%     0 & -I_n & 0
+% \end{pmatrix}.
+% \]
+% Just as inner products do, if \(\Omega\) is a skew-symmetric form, then it induces a linear map from \(V\) to \(\gls{Vdual}\). Indeed, just define
+% \begin{equation} \label{isomorph_sympl_form}
+% \begin{array}{ccccccc} 
+%     \Omega^\flat \colon & V & \longrightarrow & V^* & &  \\
+%     & v & \mapsto & \Omega^\flat(v) \colon & V & \longrightarrow & \R\\
+%     & & & & u & \mapsto & \Omega(v,u).
+% \end{array}
+% \end{equation}
+% The fact that \(\Omega\) is bilinear implies that \(\tilde{\Omega}\) is a linear map. Observe that the construction above does not use the fact that \(\Omega\) is skew-symmetric; it works for any bilinear map.
+
+% \Definition{}{Let \(V\) be a vector space and \(\Omega\) be a skew-symmetric bilinear form. We say that it is symplectic if \(\tilde{\Omega}\colon V \to V^*\) is an isomorphism. In that case, we say that the pair \((V, \Omega)\) is a symplectic vector space.\index{Symplectic!vector space}}
+% \begin{obs} \label{dim_sympl_v_spaces}
+%     Since we are working, for the time being, with finite-dimensional vector spaces, \(\dim V=\dim V^*\), and therefore, \(\tilde{\Omega}\) is an isomorphism if and only if it is injective. This amounts to checking whether
+%     \[
+%     \corch{0} = \ker \tilde\Omega = \corch{v \in V: \Omega(v,u)=0 \ \ \forall \ u \in V}.
+%     \]
+%     In this particular case, the basis of theorem \ref{th_sympl_basis} is \(\mathcal{B}=\corch{e_1, \ldots e_n, f_1, \ldots f_n}\). That is, the matrix of \(\Omega\) is non-singular, and the form is non-degenerate. Observe that this implies that \(V\) has basis with \(2n\) elements, i.e. it is even dimensional. As we will shortly see, this will be a major restriction that manifolds must obey to have the chance to be symplectic.
+% \end{obs}
+% The previous remark also gives a very nice way to check whether a vector space is symplectic: if it admits a basis such that the matrix of \(\Omega\) in that basis is
+% \begin{equation} \label{matrix_symplectic_form}
+% \begin{pmatrix}
+%     0 & I_n \\
+%     -I_n& 0
+% \end{pmatrix},
+% \end{equation}
+% then \(\Omega\) is automatically symplectic. \\
+
+The definition of symplectic manifold then arises naturally by asking for each tangent space to be a symplectic vector space, and in a such a way that the corresponding symplectic forms vary smoothly.
+\Definition{\textbf{Symplectic manifold}}{A symplectic manifold is a pair \((M, \omega)\), where \(M\) is a smooth manifold, and \(\omega \in \Omega^2(M)\) is a symplectic form. That is, a closed (\(\diff \omega =0 \)) 2-form such that 
+\[
+\omega_p\colon T_pM \times T_pM \to \R
+\]
+is a linear symplectic form. \index{Symplectic!manifold} \index{Symplectic!form}
+}
+This definition is quite similar to the definition of a riemannian manifold (at least in spirit). Indeed, a symplectic manifold is a smooth manifold such that every tangent space is equipped with a skew-symmetric bilinear form that varies smoothly. This idea is quite similar to the definition of a riemannian manifold, where the role of \(\omega\) is played by the metric. Nonetheless, the symplectic structure turns out to be far more restrictive than the riemannian one, as we shall see. Observe that every symplectic vector space must have even-dimension (see \parencite[Th. 1.1]{da2001lectures}), hence every symplectic manifold is even-dimensional.
+
+% \begin{obs}
+%     Since smooth manifolds satisfy \(\dim M= \dim T_pM\), remark \ref{dim_sympl_v_spaces} implies that the dimension of every symplectic manifold is always even. This is an example of a restriction that does not arise in riemannian geometry.
+% \end{obs}
+
+\begin{example}\label{ex_R2n_sympl_manifold}
+    \(M=\R^{2n}\) endowed with the symplectic form given by 
+    \[
+    \omega_0:= \sum_{i=1}^n \diff x^i \wedge \diff y^i, 
+    \]
+    is a symplectic manifold. Here \((x^1, \ldots x^n, y^1, \ldots y^n)\) are the usual coordinates on \(\R^{2n}\). In particular, \(\C^n\equiv \R^{2n}\) is a symplectic manifold.
+\end{example}
+
+% \begin{example} \label{ex_R2n_sympl_manifold}
+%     The first example of symplectic manifold that one may think of is \(M=\R^{2n}\) equipped with the \(2\)-form 
+%     \[
+%     \omega_0:= \sum_{i=1}^\infty \diff x^i \wedge \diff y^i, 
+%     \]
+%     where \(\R^{2n}\) is given the smooth structure defined by the identity map \(\mathrm{id}=(x^1, \ldots x^n, y^1, \ldots y^n)\). Clearly, \(\omega_0 \in \Omega^2(\R^{2n})\) and \(\diff \omega_0=0\) (just recall that \(\diff^2=0\) and that \(\diff\) is an antiderivation). Moreover, \((\omega_0)_p\) is symplectic for every \(p \in \R^{2n}\). Indeed, just consider the basis
+%     \[
+%     \mathcal{B}_p:=\biggl\{ \basecoord{x^1}{p}, \ldots \basecoord{x^n}{p}, \basecoord{y^1}{p}, \ldots \basecoord{y^n}{p} \biggr\},
+%     \]
+%     and observe that
+%     \begin{equation} \nonumber
+%         (\omega_0)_p \parent{\basecoord{x^i}{p}, \basecoord{x^j}{p}}=(\omega_0)_p\parent{\basecoord{y^k}{p}, \basecoord{y^l}{p}}=0 \hspace{1 cm} \text{and} \hspace{1 cm} (\omega_0)_p\parent{\basecoord{x^i}{p}, \basecoord{y^j}{p}}=\delta_{ij},
+%     \end{equation}
+%     so the matrix of \((\omega_0)_p\) with respect to \(\mathcal{B}_p\) is \ref{matrix_symplectic_form} for every \(p \in \R^{2n}\), and thus \(\omega_0\) is a symplectic form. We say that \(\omega_0\) is the \textit{standard symplectic structure}\index{Symplectic!standard structure on \(\R^{2n}\)} on \(\R^{2n}\).
+% \end{example}
+
+\Definition{\textbf{Symplectomorphism}}{Let \((M_1, \omega_1)\) and \((M_2, \omega_2)\) be two symplectic manifolds. We say that a diffeomorphism (resp. local diffeomorphism) \(\varphi\colon M_1 \to M_2\) is a \textit{symplectomorphism}\index{Symplectomorphism} (resp. \textit{local symplectomorphism}\index{Symplectomorphism!local}) if \(\varphi^*\omega_2=\omega_1\).}
+
+Example \ref{ex_R2n_sympl_manifold} may seem trivial, but it turns out that the symplectic structure is so rigid that every symplectic manifold looks locally like \(\R^{2n}\) with its standard symplectic structure. To be more precise, every symplectic manifold is locally symplectomorphic to \(\R^{2n}\) endowed with its standard symplectic structure. That is the content of Darboux's theorem, which basically states that given any symplectic manifold \((M, \omega)\) we may always find local coordinates in which the symplectic form \(\omega\) is expressed as a wedge product of the exterior differentials of the coordinate functions.
+
+\Theorem{\textbf{Darboux}}{Let \((M, \omega)\) be a symplectic manifold. For any point \(p \in M\), there are coordinates \((x^1, \ldots x^n, y^1, \ldots y^n)\) defined on an open neighborhood of \(p\) such that
+\[
+\omega=\sum_{i=1}^n \diff x^i\wedge \diff y^i.
+\]
+}
+\begin{proof}
+    See \parencite[Prop. 22.13]{lee_introSM}.
+\end{proof}
+These coordinates are called \textit{Darboux coordinates} or \textit{canonical coordinates}. 
+
+\begin{example} \label{ex_Fubini_Study}
+    A non-trivial example of symplectic manifold is the complex projective space \(\CP^n\). One way to endow it with a symplectic structure is theorem \ref{Th_Marsden_Meyer_Weinstein} bellow. Another option is to do it directly by defining a symplectic form. This is called the \textit{Fubini-Study form} (see \parencite[Ex. 8.14]{lee_introCM}). In particular, for any embedded submanifold \(X \subset \CP^n\), the pullback through the inclusion \(\imath \colon X \hookrightarrow \CP^n\) induces a closed two-form \(\imath^*\omega\in \Omega_\R^2(X)\) which turns out to be symplectic. The latter is not true in general: not every embedded submanifold of a symplectic manifold is symplectic, but it is true in this case because \(\CP^n\) is actually Kähler (see appendix \ref{appendix_Kahler}). Consider the holomorphic coordinates of \(\CP^n \) given by the affine open covering \(\corch{U_i}_{i=0}^n\), where \(U_i=\corch{[z_0:z_1:\ldots :z_n]: z_i \neq 0}\). Recall that we have holomorphic coordinates 
+    \[
+    \varphi_i\colon U_i \to \C^n, [z_0:\ldots :z_i: \ldots z_n] \mapsto \parent{\frac{z_0}{z_i}, \ldots \frac{\hat{z_i}}{z_i}, \ldots \frac{z_n}{z_i}},
+    \]
+    where the hat means that the corresponding term is missing. Writting \(w^j\) the projection of \(\varphi_i\) onto the \(j\)-th coordinate, the coordinate expression of the Fubini-Study form is
+    \begin{equation} \label{def_Fubini_Study}
+    \omega_{\mathrm{FS}}=\sum_{j,k=1}^n \parent{\frac{\delta_{jk} \cdot (1+||w||^2)-\bar{w}^j \cdot w^k}{(1+||w||^2)^2}} \cdot \diff w^j \wedge \diff \bar{w}^k .
+    \end{equation}
+\end{example}
+
+% \begin{example}
+%    We shall finish the section with two examples. 
+%     \begin{enumerate}
+%         \item Let us first see a non-trivial example of a symplectic manifold: \(\S^2\). Indeed, if we see \(\S^2\) embedded in \(\R^3\), and \(\imath\colon \S^2 \to \R^3\) is the inclusion, then \(\diff_p i(T_p\S^2)=\corch{p}^\perp\). A simplectic form is then given by \(\omega_p(u,v)=\langle p, u \times v \rangle\), where \(\times\) is the usual cross product. This example also shows that Darboux's theorem does not admit a global form, i.e. not every symplectic manifold is \textit{globally} symplectomorphic to \(\R^{2n}\). See \parencite[Page 6]{da2001lectures} for more details.
+%         \item We have seen that only even-dimensional manifolds can be symplectic, however, that condition is not sufficient. Indeed, \(\S^4\) is even-dimensional but does not admit a symplectic form. We know from de Rham cohomology that \(H^2_{\mathrm{dR}}(\S^4)=\corch{0}\). If \(\S^4\) admitted a symplectic structure, then \(\diff \omega=0\) would imply that \(\omega=\diff \alpha\) for some \(\alpha \in \Omega^1(\S^4)\). Observe that \(\S^4\) is compact, and \(\omega \wedge \omega \) is a non-zero volume form (see \parencite[Page 14]{da2001lectures}), however, Stoke's theorem implies
+%         \[
+%         \mathrm{Vol}(\S^4)=\int_{\S^4} \omega \wedge \omega = \int_{\S^4} \diff(\alpha \wedge \omega)=\int_{\partial \S^4} \alpha \wedge \omega = 0,
+%         \]
+%         which is impossible (volume forms define a Borel measure on the manifold). 
+%     \end{enumerate}
+% \end{example}
+
+
+% \subsection{Hamiltonian vector fields and actions}
+% The non-degeneracy of the symplectic form, and the fact that for every manifold \(M\) its tangent bundle \(TM\) has a canonical symplectic form, makes symplectic geometry a very natural language to express classical mechanics on. To a great extent, the success of symplectic geometry in the modeling of classical mechanics is due to the existence of Hamiltonian vector fields. For every smooth map \(f \in \mathscr{C}^\infty(M;\R)\), there is a unique vector field \(X_f\) satisfying
+% \[
+% i_{X_f}\omega=\diff f.
+% \]
+% To get ahead of ourselves, this is due to the fact that \(\omega\) defines a vector bundle isomorphism (see chapter 2 on vector bundles) between \(TM\) and \(T^*M\) (this is quite similar to the "raising and lowering indices" one has in riemannian geometry). The vector field \(X_f\) is called the \textit{Hamiltonian vector field} of \(f\). In Darboux coordinates, the Hamiltonian vector field associated to a smooth map can be written as
+% \[
+% X_f=\sum_{i=1}^n \parent{\derpar{f}{y^i}\cdot \basevect{x^i}-\derpar{f}{x^i}\cdot \basevect{y^i}}.
+% \]
+
+% \Definition{}{Let \((M, \omega)\) be a symplectic manifold. A vector field \(X\) is said to be
+% \begin{enumerate}
+%     \item \textit{Hamiltonian} (or \textit{globally hamiltonian})\index{Vector field!Hamiltonian} if there is a smooth map \(f\) such that \(X=X_f\)
+%     \item \textit{symplectic}\index{Vector field!symplectic} if \(\omega\) is invariant under the flow of \(X\), i.e. \((\varphi_t^X)^*\omega=\omega\), where \(\varphi^X_t\) is the flow of \(X\). 
+% \end{enumerate}
+% }
+
+% Back to the realm of mechanics, a \textit{Hamiltonian system}\index{Hamiltonian!system} is a pair consisting on a symplectic manifold \((M, \omega)\), and a smooth map \(H \in \mathscr{C}^\infty(M;\R)\) (in physics it usually coincides with the energy of the system under study). We write \((M, \omega, H)\) to denote a Hamiltonian system. \(H\) is called the \textit{Hamiltonian} of the system, and the flow of its associated vector field \(X_H\) is called its \textit{Hamiltonian flow}. The integral curves of \(X_H\) are called the trajectories or orbits of the system. 
+
+% \Lemma{}{Let \((M, \omega)\) be a symplectic manifold. If \(X \in \mathfrak{X}(M)\) is Hamiltonian, then it is also symplectic. \label{lemma_Ham_implies_sympl}}
+% \begin{proof}
+%     Let \(f \in \mathscr{C}^\infty(M)\) be the Hamiltonian function of \(X\). Recall that a smooth covariant tensor field is invariant under the flow of a vector field if an only if its Lie derivative in the direction of the vector field is zero (see \parencite[Th. 12.37]{lee_introSM}). Thus, using Cartan's magic formula \parencite[Prop. 14.35]{lee_introSM}, we find
+%     \[
+%     \mathcal{L}_{X_H} \omega = i_{X_H} \diff \omega + \diff(i_{X_H}\omega)=\diff^2 f=0.
+%     \]
+% \end{proof}
+
+% % When our symplectic manifold is described by a Hamiltonian system, it can be shown (using physical arguments) that the trajectories of the particles of the systems are given by the integral curves of \(X_H\). This leads to the Hamilton's equations.
+
+% % \Theorem{\textbf{Hamilton's equations}}{Let \((M, \omega, H)\) be a Hamiltonian system, and fix some Dardoux coordinates \((q^1, \ldots , q^n, p_1, \ldots p_n)\) defined on an open set \(U \subset M\). A curve \(\gamma\colon I \to M\) such that \(\gamma(I)\subset U\) is an integral curve of \(X_H\) if and only if 
+% % \[
+% % \frac{\diff (q^i\circ \gamma)}{\diff t}(t)=\derpar{H}{p_i}(\gamma(t)) \hspace{2 cm}
+% % \frac{\diff (p_i \circ \gamma)}{\diff t}(t) = -\derpar{H}{q^i}(\gamma(t)).
+% % \]
+% % }
+% % \begin{proof}
+% %     Observe that \(X_H=\sum_{i=1}^n \parent{\derpar{H}{p_i}\cdot \basevect{q^i}-\derpar{H}{q^i}\cdot \basevect{p_i}}\), and 
+% %     \(\dot \gamma=\sum_{i=1}^n \frac{\diff(q^i \circ \gamma)}{\diff t}\cdot \derpar{}{q^i}+\frac{\diff(p_i \circ \gamma)}{\diff t}\cdot \derpar{}{p_i}\). Since we must have \(\dot\gamma(t)=X_{H, \gamma(t)}\), we just set the coefficients of the vectors to be equal.
+% % \end{proof}
+% % In the physics literature, the curve is always omitted, and the equations are simply written as 
+% % \[
+% % \dot{q}^i = \derpar{H}{p_i} \hspace{2 cm}
+% % \dot{p}^i =-\derpar{H}{q^i}.
+% % \]
+
+% Hamiltonian vector fields allow us to define an analogue to the Lie bracket of vector fields, but for smooth functions on \(M\).
+% \Definition{\textbf{Poisson bracket}}{Let \((M, \omega)\) be a symplectic manifold, and let \(f,g \in \mathscr{C}^\infty(M;\R)\). We define their \textit{Poisson bracket}\index{Poisson bracket} as any of the following equivalent expressions
+% \[
+% \corch{f,g}:=\omega(X_f, X_g)=\diff f(X_g)=\diff g(X_f).
+% \]
+% }
+% The fact that these definitions are equivalent is clear. For instance, \(\omega(X_f, X_g)=i_{X_f}\omega(X_g)=\diff f(X_g)\) applying the definition of Hamiltonian vector field of a function. Observe that in Darboux coordinates \((x^1, \ldots x^n, y^1, \ldots y^n)\), we have
+% \begin{equation} \nonumber
+%     \begin{split}
+%         \corch{f,g}& = \omega(X_f, X_g)=\sum_{i=1}^n \parent{\diff x^i \wedge \diff y^i}\parent{\sum_{k=1}^n \parent{\derpar{f}{y^k}\cdot \basevect{x^k}-\derpar{f}{x^k}\cdot \basevect{y^k}},\sum_{j=1}^n \parent{\derpar{g}{y^j}\cdot \basevect{x^j}-\derpar{g}{x^j}\cdot \basevect{y^j}}} \\
+%         & = \sum_{i=1}^n \parent{\derpar{f}{x^i}\cdot \derpar{g}{y^i}-\derpar{f}{y^i}\cdot \derpar{g}{x^i}}.
+%     \end{split}    
+% \end{equation}
+% As we show in the following proposition, the Poisson bracket endows \(\mathscr{C}^\infty(M;\R)\) with the structure of an infinite-dimensional Lie algebra. 
+% \Proposition{}{Let \((M, \omega)\) be a symplectic manifold, then \(\corch{\cdot, \cdot }\) satisfies
+% \begin{enumerate}
+%     \item\(\R\)-bilinearity; that is, for every \(f_1,f_2,f,g_2,g_2,g \in \mathscr{C}^\infty(M;\R)\) and \(\lambda, \mu \in \R\), 
+%     \[
+%         \corch{\lambda f_1+\mu f_2,g}=\lambda \corch{f_1, g} + \mu\corch{f_2,g} \hspace{1 cm}\text{and} \hspace{1 cm}
+%         \corch{f, \lambda g_1+\mu g_2}=\lambda\corch{f,g_1}+\mu \corch{f,g_2}. 
+%     \]
+%     \item Antisymmetry; that is \(\corch{f,g}=-\corch{g,f}\) for every \(f,g \in \mathscr{C}^\infty(M;\R)\).
+%     \item Jacobi-indentity; that is, for every \(f,g,h \in \mathscr{C}^\infty(M;\R)\).
+%     \[
+%     \corch{\corch{f,g},h}+\corch{\corch{h,f},g}+\corch{\corch{g,h},f}=0
+%     \]
+%     \item \(X_{\corch{f,g}}=-[X_f, X_g]\).
+% \end{enumerate}
+% }
+% \begin{proof}
+%     Properties \(1\) and \(2\) are immediate from the coordinate expression in Darboux coordinates. The third property follows from expanding each bracket again in Darboux coordinates and checking that every term vanishes. To see \(4\), by uniqueness of the Hamiltonian vector field associated to a smooth function, it is enough to show that \(\omega(X_{\corch{f,g}}, Y)=\omega(-[X_f, X_g], Y)\) for every \(Y \in \mathfrak{X}(M)\). Observe that \(\omega(X_{\corch{f,g}}, Y)=(\diff \corch{f,g})(Y)=Y\corch{f,g}=Y(\diff f(X_g))=YX_gf\). Moreover, since every Hamiltonian vector field is symplectic (see lemma \ref{lemma_Ham_implies_sympl}),
+%     \begin{equation} \label{Prop_poisson_bracket_eq1}
+%         \begin{split}
+%             0 & = (\mathcal{L}_{X_g}\omega) \parent{X_f, Y}=X_g(\omega(X_f,Y))-\omega([X_g,X_f],Y)-\omega(X_f, [X_g,Y]).           
+%         \end{split}
+%     \end{equation}
+%     Where we used \parencite[Cor. 12.33]{lee_introSM} in the second equality. However, \(X_g(\omega(X_f,Y))=X_gYf\), and \(\omega(X_f,[X_g,Y])=\diff f[X_g,Y]=[X_g,Y]f=X_gYf-YX_gf\). Thus, \ref{Prop_poisson_bracket_eq1} simplifies to
+%     \[
+%     0=X_gYf-X_gYf+\omega(X_{\corch{f,g}},Y)+\omega([X_f,X_g], Y) \ \  \Rightarrow \ \ \omega(X_{\corch{f,g}}, Y)=\omega(-[X_f, X_g], Y),
+%     \]
+%     as we wanted to see.
+% \end{proof}
+% A very important consequence of the last statement of the previous proposition is that the set of Hamiltonian vector fields on a symplectic manifold is a subalgebra of the Lie algebra of vector fields (with the Lie bracket operation). By uniqueness, it is obvious that \(X_{\lambda f+\mu g}=\lambda X_f+\mu X_g\), which implies that Hamiltonian vector fields form a vector subspace. Moreover, \([X_f, X_g]=-X_{\corch{f,g}}=X_{-{\corch{f,g}}}=X_{\corch{g,f}}\), so the Lie bracket of two Hamiltonian vector fields is again Hamiltonian.
+
+\subsection{Symplectic reduction} \label{sec_symplectic_reduction}
+Symplectic reduction is a technique whose origin is found in the formalization of mechanics in the context of symplectic geometry. Symplectic geometry provides an ideal framework to study classical mechanics. Briefly, when studying systems with (holonomic) constrains, we describe them using the cotangent bundle of some smooth manifold, \(T^*M\). It turns out that every cotangent bundle is canonically endowed with a symplectic structure (see \parencite[Ch. 2]{da2001lectures}). Sometimes, the system under study has some kind of symmetry, which is modelled through the action of a Lie group \(G\). Under some assumptions, this action can be used to build a quotient out of \(M\) whose dimension is lower, but which still encodes all the physical information of the system. This is called \textit{symplectic reduction}\index{Symplectic!reduction}. Of course, although much of the motivation arises from physics, the theory of reduction can still be presented in a completely abstract setting, which we do bellow. \\
+
+The first ingredient we need is a way to take quotients in the category of smooth manifolds. Observe that quotients are always well-defined in the category of topological spaces, i.e. there is a canonical quotient topology. However, things are quite different in the category of smooth manifolds. When a group acts on a smooth manifold, the quotient space endowed with the quotient topology may not be a topological manifold (for example, it may fail to be Hausdorff), let alone a smooth manifold. However, if we ask some conditions to the action, we can overcome these limitations. \\
+
+Let \(G\) be a Lie group, and \(M\) be a smooth manifold, and suppose that \(G\) acts on \(M\) through the left (right actions are handled analogously). We say that the action is \textit{smooth}\index{action!smooth} if the map \(\phi\colon G \times M \to M, (g,p) \mapsto g \cdot p\) is smooth. Equivalently, the action is smooth if for every \(g \in G\), the maps \(\phi_g\colon M \to M, p \mapsto g \cdot p\) are smooth. Moreover, we say that the action is \textit{proper}\index{action!proper} if the map \(G \times M \to M \times M, (g,m)\mapsto (g\cdot m, m)\) is a proper map.  \\
+
+As we will work extensively with actions of Lie groups on smooth manifolds, let us fix some notation. When a Lie group acts on a smooth manifold, we will denote, unless otherwise stated, the action map by \(\phi(g,p)\) or simply \(g \cdot p\) for left actions (for right actions we will use \(p \cdot g\)). We will also denote \(\phi_g\colon M \to M, p \mapsto \phi(g,p)\) for \(g \in G\), and \(\phi^{(p)}\colon G \to M, g \mapsto \phi(g,p)\) for \(p \in P\). Both of them are smooth under the assumption that the action is smooth.
+
+\Proposition{}{Let \(G\) be a Lie group that acts smoothly and properly on a smooth manifold \(M\). Then, the quotient map is an open map, and the quotient space is Hausdorff.}
+\begin{proof}
+    See \parencite[Lemma 21.2 and Prop. 21.4]{lee_introSM}.
+\end{proof}
+
+This allows to prove a key result for the theory of symplectic reduction: the quotient manifold theorem.
+
+\Theorem{\textbf{Quotient manifold theorem}}{Let \(G\) be a Lie group acting smoothly, freely and properly on a smooth manifold \(M\). Then, the orbit space \(M/G\) is a topological manifold of dimension equal to \(\dim M - \dim G\). Moreover, it admits a unique smooth structure such that the topological quotient map \(q\colon M \to M/G\) is a surjective smooth submersion. \label{quot_manifold_theorem}}
+\begin{proof}
+    See \parencite[Th. 21.10]{lee_introSM}.
+\end{proof}
+
+The second ingredient needed to understand symplectic reduction are moment maps, but before diving into the definition, let us recall some facts about representations of Lie groups and Lie algebras. Let \(G\) be a Lie group with lie algebra \(\mathfrak{g}\). Recall that the \textit{adjoint representation}\index{Representation!adjoint} is the Lie group representation \(G \to \mathrm{GL}(\mathfrak{g})\) given by \(\Ad{g}:=(C_g)_*\), where \(C_g\colon G \to G, h \mapsto ghg^{-1}\) is the conjugation map\index{Conjugation map}. That is, for each \(\xi \in \mathfrak{g}\) \(\Ad{g}\xi\in \mathfrak{g}\) is the unique vector field \(C_g\)-related to \(\xi\). If we see the Lie algebra as \(T_eG\), then \(\Ad{g}=\diff_e C_g\). On the other hand, let 
+\begin{equation} \label{eq_def_pairing_lie_alg}
+\begin{array}{cccc}
+    (\cdot, \cdot)\colon & \mathfrak{g}^* \times \mathfrak{g} & \longrightarrow & \R \\
+    & (\varphi, \xi) & \mapsto & \varphi(\xi)
+\end{array}
+\end{equation}
+be the pairing induced by the dual (as a vector space) of the Lie algebra. We define the \textit{coadjoint representation}\index{Representation!coadjoint} \(\mathrm{Ad}^*\colon G \to \mathrm{GL}(\mathfrak{g}^*), g \mapsto \Ad{g}^*\), where \(\Ad{g}^*\) is given by 
+\[
+(\Ad{g}^*(\varphi), \xi):=(\varphi, \Ad{g^{-1}}(\xi)).
+\]
+The definition using \(\Ad{g^{-1}}\) instead of \(\Ad{g}\) ensures that we actually get a representation. \\
+
+Finally, let us introduce some notation:
+\begin{enumerate}
+    \item Consider a Lie group \(G\) that acts smoothly on a smooth manifold \(M\). Let \(\xi \in \mathfrak{g}\). We define the \textit{infinitesimal generator of the one parameter subgroup}\label{infinitesimal generator} \(\exp(t\xi)\), also called \textit{Killing vector field} generated by \(\xi \in \mathfrak{g}\) is given by the vector field
+    \begin{equation} \label{def_hat_X}
+    X_{\xi, p}:=\left. \frac{\diff}{\diff t} \right|_{t=0} p \cdot \exp(t\xi) = \diff _ e\phi^{(p)}(\xi).
+    \end{equation}
+    \item Let \(\mu\colon M \to \mathfrak{g}^*\) be a smooth map. For each \(\xi \in \mathfrak{g}\), we set \(\mu^\xi\colon M \to \R, p \mapsto (\mu(p), \xi)\).
+    We also say that the vector \(X_{\xi, p}\) is the infinitesimal action of \(\xi\) on \(p\).
+    \item When a Lie group \(G\) acts on a symplectic manifold \((M, \omega)\), we say that the action is symplectic, or that \(G\) \textit{acts by symplectomorphisms}, if \(\phi_g\) is a symplectimorphism for every \(g \in G\). In that case, the action defines group homomorphism \(G \to \mathrm{Diff}(M)\), whose image lies in \(\mathrm{Sympl}(M, \omega)\) (the groups of diffeomorphisms and symplectomorphisms respectively). \\
+\end{enumerate}
+
+\Definition{}{Let \((M, \omega)\) be a symplectic manifold, and let \(G\) be a Lie group that acts smoothly, freely and properly by symplectmorphisms on \(M\). The action is said to be \textit{Hamiltonian}\index{Hamiltonian action} if there exists a smooth map, called \textit{moment map}\index{Moment map} \(\mu\colon M \to \mathfrak{g}^*\) satisfying: \\
+
+\begin{minipage}{0.72\textwidth}
+\begin{enumerate}
+    \item \(\diff \mu^\xi=i_{X_\xi} \omega\) for all \(X \in \mathfrak{g}\),
+    \item \(\mu\) is equivariant with respect to the action and coadjoint representation. That is, for every \(g \in G\), we have \(\mu \circ \phi_g=\Ad g^*\circ \mu\).
+\end{enumerate}
+\end{minipage}
+\begin{minipage}{0.27\textwidth}
+        \centering
+        \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+            M \arrow[r, "{\displaystyle \phi_g}"] \arrow[d, "{\displaystyle \mu}", ']  \& M \arrow[d, "{\displaystyle \mu}"]  \\
+            \mathfrak{g}^*  \arrow[r, "\mathrm{Ad}_g^*"] \& \mathfrak{g}^*   
+        \end{tikzcd}
+\end{minipage}
+The quadruple \((M, \omega, G, \mu)\) is called a \textit{Hamiltonian space} or \textit{Hamiltonian \(G\)-space}\index{Hamiltonian space}.
+}
+
+The first condition of the definition is equivalent to the following \(  ( \diff_p\mu(v), \xi)=\omega_p(X_{\xi, p}, v)\) for all \(p \in M\), \(v \in T_pM\) and \(X \in \mathfrak{g}\). Moment maps may or may not exist for a symplectic action. However, if they exist, they are unique up to \(\mathfrak{g}^*\) constant factor. {\color{red} revisar} 
+ 
+\begin{obs}
+    The fact that \(\mu\) is called a moment map is due to the fact that it can be seen as a generalization of both the linear and angular momentums. Perhaps more specifically, if we consider \(\R^6\) as a symplectic manifold, thinking of it as describing the unconstrained movement of a point-particle in \(3\)-dimensional euclidean space, then the first \(3\) coordinates should describe position, and the last \(3\) should describe linear momentum. After identifying \(\R^3\) to its Lie algebra (and with its dual via the pairing given by the euclidean inner product), a suitable moment map is the projection to the last \(3\) coordinates, which represents linear momentum. Here, \(\R^3\) is the Lie group acting on the \(\R^3\) by translating the first coordinates. Similarly, if we let \(\mathrm{O}(3)\) act on \(\R^6\) by rotating the first and second triplets of coordinates on their own, a suitable moment map is \(\mu(\bm{x}, \bm{p})=\bm{x} \times \bm{p}\), which is angular momentum.
+\end{obs}
+
+We are finally ready to state the main result in the theory of finite-dimensional symplectic reduction.
+
+\Theorem{\textbf{Masden-meyer-Weinstein}}{
+    Let \((M, \omega, G, \mu)\) be a Hamiltonian \(G\)-space. Then, \(M_{\mathrm{red}}:=\mu^{-1}(0)/G\) is a symplectic manifold, whose symplectic form \(\omega_{\mathrm{red}}\) satisfies
+    \[
+    i^*\omega=q^*\omega_{\mathrm{red}},
+    \]
+    where \(i\colon \mu^{-1}(0) \hookrightarrow M\) is the inclusion, and \(q\colon \mu^{-1}(0)\to \mu^{-1}(0)/G\) the quotient map. \label{Th_Marsden_Meyer_Weinstein}
+}
+We will not give a detailed proof here because chapter \ref{Chapter_inf_dim_sympl_red} gives a proof of the theorem for Banach manifolds, which can be easily adapted (in fact, simplified) to the finite-dimensional case. A direct proof for the finite-dimensional case can be found in \parencite[Part. IX]{da2001lectures}, however, it is worth to make some comments on the result. Firstly, \(\mu^{-1}(0)\) is stable under the \(G\)-action. That is, if \(p \in \mu^{-1}(0)\), then \(G \cdot p \in \mu^{-1}(0)\). Indeed, 
+\begin{equation} \label{eq_mu_invariant_G_action}
+\mu(g \cdot p)=\Ad{g^{-1}}^* \circ \mu(p)=\Ad{g^{-1}}^*(0)=0.
+\end{equation}
+Moreover, \(0 \in \mathfrak{g}^*\) is a regular value of the smooth map \(\mu\), which shows that \(\mu^{-1}(0) \subset M\) is an embedded submanifold. It can be shown that \(\dim \mu^{-1}(0)=\dim M - \dim G\), and \(T_p\mu^{-1}(0)=\ker (\diff_p\mu) \subset T_pM\). What is more, \(G \cdot p\) is an embedded submanifold of \(\mu^{-1}(0)\) for all \(p \in \mu^{-1}(0)\), and the tangent spaces of all the manifolds involved relate as follows:
+\[
+T_{q(p)} M_{\mathrm{red}} \cong T_p\mu^{-1}(0)/T_p(G \cdot p).
+\]
+
+% \begin{example}
+%     Symplectic reduction can be used to endow complex projective space \(\CP^n\), with the structure of a symplectic manifold. Briefly, consider the action of \(\S^1\) on \(\C^{n+1}\) given by 
+%     \[
+%     \begin{array}{cccc}
+%         \S^1 \times \C^{n+1} & \longrightarrow & \C^{n+1} \\
+%         (e^{it}, (z_1, \ldots z_{n+1})) & \mapsto & (e^{it}z_1, \ldots e^{it}z_{n+1}).
+%     \end{array}
+%     \]
+%     This action is clearly smooth, and can be shown to be free and proper. A moment map is given by
+%     \[
+%     \mu(z_1,\ldots z_n) = -\frac{1}{2} \cdot \parent{|z_1|^2+\ldots |z_{n+1}|^2-1},
+%     \]
+%     where we used the isomorphisms \(\mathfrak{g} \cong T_1\S^1\cong \R\), and \(\R^* \cong \R\) to see \(\mu\) as an \(\R\)-valued map. Observe that \(\mu^{-1}(0) \cong \S^{2n+1}\). On the other hand, \(\C^{n+1} \cong \R^{2n+2}\) (as smooth manifolds), and the latter is a symplectic manifold (see example \ref{ex_R2n_sympl_manifold}). By theorem \ref{Th_Marsden_Meyer_Weinstein}, we deduce that \(\S^{2n+1}/\S^1\) is a symplectic manifold as well, but this manifold is diffeomorphic to \(\CP^n\). Indeed, let \(i \colon \S^{2n+1} \hookrightarrow \C^{n+1}\) the inclusion map, and \(\pi\colon \C^{n+1} \setminus \corch{0} \to \CP^n\) the usual projection. Let \(f:=\pi \circ i\colon \S^{2n+1} \to \CP^n\), which is a surjective smooth submersion. The equivalence relation induced by \(f\) on \(\S^{2n+1}\) is precisely the one given by the action of \(\S^1\). Let \(\tilde{\pi}\colon \S^{2n+1} \to \S^{2n+1}/\S^1\) the surjective smooth submersion given by theorem \ref{quot_manifold_theorem}. By \parencite[Th. 4.31]{lee_introSM} there is a diffeomorphism making the following diagram commutative.
+
+%     \begin{center}
+%     \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+%             \& \S^{2n+1} \arrow[dr, "{\displaystyle \tilde{\pi}}"] \arrow[dl, "{\displaystyle f}",'] \&  \\
+%         \CP^{n} \arrow[rr, "{\displaystyle F}"] \& \& \S^{2n+1}/\S^{1}.    
+%     \end{tikzcd} 
+%     \end{center}
+%     So we may define a symplectic form on \(\CP^n\) by \(\omega_{FS}=F^*\omega_{\mathrm{red}}\). 
+% \end{example}
+
+\section{Geometric invariant theory}
+{\color{violet}
+Kempf-Ness' theorem relates GIT (geometric invariant theory) to symplectic geometry; two braches of geometry that seem completely unrelated at first glance, but end up being intertwined. GIT is the theory developed by David Mumford in is book \parencite{mumford1994geometric} which basically provides the framework needed to define quotients is algebraic geometry. We will not follow his approach, because he develops his theory in the language of schemes, and that is a level of generality beyond what we need. A good reference for GIT that requires less abstraction is \parencite{hoskins}. We will follow this source, and specially \parencite{szekelyhidi2014introduction}. Our objetive for this section is to give a brief account of projective GIT theory that requires minimal previous knowledge. We choose this style of exposition because the Kempf-Ness theorem, or rather, seeking an infinite-dimensional generalization, is what motivates the Hitchin-Kobayashi correspondence.\\
+
+Defining an appropriate concept of quotient in algebraic geometry turns out not to be as straightforward as it is in other categories, such as topological spaces, where quotients always exist and are defined as set of orbits. The problem with algebraic varieties (we will focus on affine and projective varieties) is that group actions will produce orbit sets that cannot be given the structure of an algebraic variety in a reasonable way. To overcome this difficulty, we have to give up the idea that quotients should always be orbit spaces, and look at more abstract definitions. This is seen in the following example (this is worked out for affine varieties, but it will illustrate our point).
+
+\begin{example} \label{example_G_m_acting_A2}
+    Consider the action of $\C^*$ on $\C^2$ given by
+    \[
+         \C^* \times \C^2 \longrightarrow  \C^2, \ \  ((t,t^{-1}),(x,y)) \mapsto  (tx, t^{-1}y).
+    \]
+    It is easy to see that the orbits of this action are:
+    \begin{enumerate}
+        \item Hyperbolas $XY=\alpha, \alpha \in \C^*$.
+        \item The punctured $x$ and $y$ axis, that is, the axis minus the origin. 
+        \item The origin.
+    \end{enumerate}
+    The punctured axis are not closed, since the origin is in their Zariski-closures. When taking quotients in any category, it is reasonable to ask the quotient map to be a morphism in the corresponding category. Hence, we would like to see \(\C^2/\C^*\) as an affine algebraic variety (the zero set of a family of polynomials) in such a way that \(q\colon \C^2 \to \C^2/\C^*\) was a morphism of affine varieties. In particular, continuous. However, points in algebraic varieties are always closed, so $\C^2/\C^*$ cannot have the structure of an algebraic variety. Let us more precise. We would like \(\C^2/\C^*=\corch{[(0,0)], [(1,0)], [(0,1)], [(1, \alpha)]: \alpha \in \C^*}\) to be an affine variety. If \(q\) was continuous, we would have
+    \[
+    [(0,0)]=q\big( (0,0)\big) \in q \parent{ \overline{x\ \mathrm{axis}\setminus \corch{(0,0)} }} \subset \overline{q\parent{x \ \mathrm{axis} \setminus \corch{(0,0)} }}= \overline{[(1,0)]}.
+    \]
+    Hence, \([(0,1)]\) is not a closed point, but points in affine varieties are closed.
+\end{example}
+
+The key idea that one should get from the previous example is that equivalence classes are not good quotients in algebraic geometry. \\
+
+Recall from basic projective algebraic geometry that we define a projective variety as the zero set of a family of homogeneous polynomials, i.e. \(X=V(F_1, \ldots F_r) \subset \CP^{n}\) where \(F_i\in \C[X_0, \ldots X_n]\) is homogeneous. If we ask \(X\) to be irreducible, then \(I(X):=\corch{F \in \C[X_0, \ldots X_n]: F(x)=0 \ \ \forall \ x \in X}\) is prime. Then, we define the \textit{homogeneous coordinate ring}
+\[
+R(X):=\C[X_0, \ldots X_n]/I(X),
+\]
+which is a graded ring graded by degree. Every finitely generated graded \(C\)-algebra that can be generated by elements of degree one gives rise to a projective variety as follows: first, choose such a set of generators \(r_0, \ldots r_n\in R\), and consider the \(\C\)-algebra homomorphism given by \(\varphi\colon \C[X_0, \ldots X_n]\to R, X_i \to r_i\). Let \(I:=\ker \varphi\). Then, by the first isomorphism theorem we have \(R\cong \C[X_0, \ldots X_n]/I\), and we define \(\mathrm{Proj}(R):=V(I)=\corch{x\in \CP^n: F(x)=0 \ \ \forall \ F \in I}\). This is a projective variety. The choice of generators is irrelevant as different choices yield isomorphic varieties and, in fact, if we see these varieties as subsets of \(\CP^n\) with the induced topology obtained from the usual quotient topology on complex projective space, different realizations of the same algebra are homeomorphic. \\
+
+Consider now a complex reductive group \(G\) (we refer the reader to appendix \ref{appendix_lie} for the relevant notions), and suppose that \(G\) acts on a projective variety through a representation \(\rho\colon G \to \mathrm{GL}(n+1, \C)\). Formally, the action is given by \(g\cdot [v]:=[\rho(g)(v)]\) where \([\cdot]\) denotes the equivalence class in complex projective space. Equivalently, \(G\) acts through a representation in the affine cone associated to \(X\). We call these actions \textit{linear}. This induces an action of \(G\) on \(\C[X_0, \ldots X_n]\) given by
+\[
+G \times \C[X_0, \ldots X_n] \longrightarrow \C[X_0, \ldots X_n], \ g\cdot (F(X)) \to F(g^{-1}(X)).
+\]
+By a theorem of Nagata \parencite{nagata1963invariants}, the ring  \(R(X)^G:=\corch{F\in \C[X_0, \ldots X_n]: g\cdot F=F } \) is finitely generated, and one may show that there is an algebra 
+\[
+\tilde{R}(X)^G=\bigoplus_{k \ge 0} R(X)^G_{dk}
+\]
+for some \(d \geq 0\) that is generated by elements of degree \(d\). Changing the grading to make degree \(d\) the new degree one, \(\tilde{R}(X)^G\) is generated by degree one elements. Here, \(R(X)^G_k\) is the degree \(k\) piece defined by the grading.
+
+\Definition{\textbf{Projective GIT quotient}}{Let \(G\) be a complex reductive group that acts linearly on a projective variety \(X \subset \CP^n\). The GIT quotient is the projective variety \(X/\!\!/G:=\Proj\parent{\tilde{R}(X)^G}\).}
+
+The double bar notation is used to emphasize that this is generaly not a usual quotient in the sense of equivalence classes for an action. Right now it is quite unclear why we choose to name this a quotient, or what the geometric meaning of this set is, so we will try to answer those questions. To answer the first one, choose \(F_0, \ldots F_n\) degree one generators of \(\tilde{R}(X)^G\), and define a ``map''
+\begin{equation} \label{eq_def_quot_proj}
+\varphi\colon X \dashrightarrow \CP^n, \ x \mapsto [F_0(x): \ldots : F_n(x)].
+\end{equation}
+This is well-defined only points \(x \in X\) that do not annihilate all generators, i.e. there is at least one element in \(\tilde{R}(X)^G\) that does not vanish on \(x\). The fact that it is well-defined follows from the fact that all the polynomials have the same degree.  Observe that the image of \(\varphi\) is precisely \(X/\!\!/G\). This follows from the definition of \(\Proj\) and the fact that 
+\[
+\Proj \parent{\tilde{R}(X)^G}=\corch{x \in \CP^n: Q(x)=0 \ \ \forall \ Q \ \ \text{such that} \ \  Q(F_0, \ldots F_n)=0}.
+\]
+
+\Definition{}{Let \(G\) be a complex reductive group that acts linearly on a complex projective variety \(X \subset \CP^n\). \label{def_stability_fin_dim_KempfNess}
+\begin{enumerate}
+    \item A point \(x \in X\) is \textit{semistable} if there is \(F \in \tilde{R}(X)^G\) such that \(F(x)\neq 0\). 
+    \item A point \(x \in X\) is \textit{stable} if the orbit \(G\cdot x\) is closed in \(X^{ss}\) and the stabilizer \(G_x\) if finite. 
+    \item A point \(x \in X\) is \textit{polystable} if the orbit \(G \cdot x\) is closed in \(X^{ss}\). 
+\end{enumerate}
+Else, we say that \(x\) is \textit{unstable}. The sets of stable, semistable and polystable points are denoted, respectively, \(X^s, X^{ss}\) and \(X^{ps}\).
+}
+
+It is now appropriate to introduce the following definition.
+
+\Definition{\textbf{Categorical quotient}}{Let $X$ be a projective variety, and $G$ be a complex reductive group acting linearly on $X$. A \textit{categorical quotient}\index{Quotient!categorical} for the action $G$ is a pair $(\varphi, Y)$, where $Y$ is another variety, and $\varphi \colon X \to Y$ is a $G$-invariant morphism of varieties such that the following universal property is satisfied: \\
+
+\begin{minipage}{0.7 \textwidth}
+    For every other $G$-invariant morphism $f\colon X \to Z$ there exist a unique morphism $h \colon Y \to Z$ such that the following diagram is commutative. Making some abuse of notation, it is common to say that $\varphi$ is the quotient. \label{def_categorical_quotient}
+\end{minipage}
+\begin{minipage}{0.25\textwidth}
+    \begin{center}
+    \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+            X \arrow[r, "f"] \arrow[d, "\varphi", '] \& Z  \\
+            Y \arrow[ru, "h", '] \& 
+        \end{tikzcd}
+    \end{center}
+\end{minipage} }
+
+Then:
+\begin{enumerate}
+    \item \(\varphi\colon X^{ss} \to X /\!\!/G\) is a categorial quotient for the restricted action (in fact a good quotient, see \parencite[Prop. 4.8]{hoskins}). This justifies calling \(\varphi\) a quotient.
+    \item The quotient \(X /\!\!/G\) parametrizes orbits for which there is at least one non-vanishing element of \(\tilde{R}(X)^G\).
+    \item \(\varphi\) identifies orbits that cannot be distinguished by elements of \(\tilde{R}(X)^G\). Observe in \eqref{eq_def_quot_proj} that \(\varphi\) maps points in the same orbit to the same point, but it may map points in different orbits to the same orbit as well.
+    \item \(X^s\) and \(X^{ss}\) are open subsets of \(X\).
+    \item The quotient \(X /\!\!/G\) is the quotient (in the sense of equivalence classes) of \(X^{ss}\) by the equivalence relation that identifies \(x_1\) and \(x_2\) if and only if \(\overline{G \cdot x_1}\cap \overline{G\cdot x_2} \cap X^{ss}\neq \emptyset\). More rigorously, the letter is equivalent to \(\varphi(x_1)=\varphi(x_2)\), see \parencite[Th. 4.11]{hoskins}.
+    \item The restriction of the action to \(X^s\) yields what is called a \textit{geometric quotient}, i.e. a quotient that is indeed a set of equivalence classes.
+\end{enumerate}
+
+The different definitions of stability are now clear from a geometric, but in practice it is quite difficult to decide whether a point is stable, semistable, polystable or unstable. To do so, we have the Hilbert-Mumford criterion. First, by a one parameter subgroup we mean a nontrivial group homomorphism \(\C^* \to G\). \\
+
+Let \(\lambda\colon \C^* \to G\) be a one-parameter subgroup, where \(G\) is a complex reductive Lie group acting linearly on a projective manifold \(X\). For any \(x\in X\) the \textit{weight} \(w(x, \lambda)\) is defined as follows: first, let \(y:=\lim_{t \to 0} \lambda(t)\cdot x\). By the limit here we mean the equivalence class of the limit of any representative of the point, that is, the limit is taken in \(\C^n\), and one can show that it always exists. Then, \(y\) is fixed by \(\lambda\), so there exists an integer \(w=w(x,\lambda)\) such that \(\lambda(t)\cdot \hat{y}=t^{-w} \hat{y}\) where \(\hat{Y}\) is any representative \(y\) (see \parencite[Sec. 5.2]{hoskins}).
+
+\Theorem{\textbf{The Hilbert-Mumford criterion}}{Let \(G\) be a complex reductive group that acts linearly on a projective variety \(X\subset \CP^n\).
+\begin{enumerate}
+    \item \(x \in X^{ss}\) (resp. \(X^s\)) if and only if \(w(x, \lambda)\geq 0\) (resp. \(w(x, \lambda)>0\)) for all one-parameter subgroups.
+    \item \(x \in X^{ps}\) if and only if \(w(x, \lambda)> 0\) for all one-parameter subgroups \(\lambda\) for which \(\lim_{t \to 0}\lambda(t)\cdot x \notin G\cdot x\).
+\end{enumerate}
+}
+\begin{proof}
+    See \parencite[Th. 2.1]{mumford1994geometric}.
+\end{proof}
+
+Finally, \parencite[Lemma 4.16]{hoskins} states that for every \(x \in X^{ss}\), the set \(\overline{G\cdot x}\) contains a unique polystable orbit. This result, together with point 5 above implies that the quotient \(X /\!\!/G\) can be thought of as parametrizing polystable orbits. That is, there is a bijection \(X /\!\!/G \leftrightarrow X^{ps}/G\), the latter being the usual set of equivalence classes. This uses the fact \parencite[Cor. 2.39]{hoskins} that the preimage of any point through \(\varphi\) contains a unique closed orbit.
+
+
+%Finally, even though we are going to need techniques from algebraic geometry, and thus we will make some use of the Zariski topology, most of the time we will work with the standard topology (either on subsets of \(\C^n\) or of \(\CP^n\) with the induced topology).
+
+}
+% \subsection{Algebraic groups}
+% When we consider quotients by group actions in the category of smooth manifolds, we ask the groups to have a smooth manifold structure, that is, we work with Lie groups. When working with the category of affine and projective varieties, we also ask for our groups to have some extra structure: we ask them to be algebraic groups. The definitions we are about to recall can be given over an arbitrary field, but since we will always work over \(\C\), we fix that as our reference field.\\
+
+% Let us briefly recall some concepts from algebraic geometry, a detailed discussion of everything introduced here can be found in \parencite{harris1992algebraic}. Consider the $n$-dimensional affine space over $\C$, $\A^n_\C=\C^n$, and recall that an affine variety is defined as the loccus of zeroes of finitely many polynomials $f_1, \ldots f_m \in \C[X_1, \ldots X_n]$ If $I:=\langle f_1, \ldots f_m\rangle$, we define $V(I)=V(f_1, \ldots f_m):=\corch{p \in \A_\C^n:f(p)=0 \ \  \forall \ f \in I}$. We briefly recall as well the definition of regular function. Let $X \subset \A_\C^n$ be an affine variety, and $U \subset X$ be an open subset (in the Zariski topology). A function $f \colon U \to k$ is regular at a point $p \in U$ if there are polynomial functions in the \textit{(affine) coordinate ring}\index{Coordinate ring! affine} $\bar h, \bar g \in A(X):=\C[X_1, \ldots X_n]/I(X)$ such that $p \in D_X(\bar g):= \corch{p \in \A_\C^n: \bar{g}(p) \neq 0} \subset U$, and $x$ has an open neighbourhood $V \subset U \cap D_X(\bar g)$ such that $\varphi|_V=\bar h / \bar g$. Recall that $A(X)$ can be regarded as the set of $\C$-valued polynomial functions defined on $X$ (we identify polynomials that coincide on $X$ even if they are globally different). \\
+
+% We will denote the set of regular functions on an open set $U$ of an affine variety $X$ by $\mathcal{O}_X(U)$. This set has the structure of a $\C$-algebra when addition of regular maps and product by elements of $\C$ are defined pointwise. In particular, $\mathcal{O}_X(X)$ is the $\C$-algebra of regular functions in $X$. With this in mind, we can define morphisms between affine varieties. Recall as well that, for affine varieties, there are $\C$-algebra isomorphisms $A(X) \cong \mathcal{O}_X(X)$ and $A(X)_f \cong \mathcal{O}_X(D_X(\bar f))$, where \(A(X)_f\) is the \textit{localization}. Let us recall the definition of morphism of varieties. Let $X \subset \A_\C^n$ and $Y \subset \A_\C^m$ be two affine varieties. A map $\psi:X \to Y$ is a \textit{morphism of affine varieties}\index{Morphism of varieties} if it is continuous with respect to the Zariski topologies and for every open set $V \subset Y$ and regular function $f\colon V \to k$, the function $f\circ \varphi \colon \varphi^{-1}(V) \to k$ is regular. We say that \(\psi\) is an \textit{isomorphism of affine varieties} if there is another morphism \(\phi\colon Y \to X\) satisfying \(\psi \circ \phi=\mathrm{id}_Y\) and \(\phi \circ \psi=\mathrm{id}_X\). Equivalently, a morphism of affine varieties \(X \subset \A_\C^n, Y \subset \A_\C^m\) is a map \(\varphi\colon X \to \A_\C^m\) given by an \(m\)-tuple of regular functions and satisfying \(\varphi(X)\subset Y\). In particular, maps consisting of \(m\)-tuples of polynomials functions are morphisms (see \parencite[Page 21]{harris1992algebraic}).\\
+
+% To an affine variety we may assign a finitely generated \(\C\)-algebra $A(X)$. However, since all finitely generated $\C$-algebras are (isomorphic to) quotients of $\C[X_1, \ldots X_n]$ by ideals, we may reverse the process by assigning an affine variety to a finitely generated \(\C\)-algebra. Indeed, let $A$ be a finitely generated \(\C\)-algebra, and let $a_1, \ldots a_n$ be a set of generators. We may define a \(\C\)-algebra homomorphism $\varphi\colon \C[X_1, \ldots X_n] \to A, X_i \mapsto a_i$. This is clearly surjective, and by defining $I:=\ker \varphi$, the first isomorphism theorem implies that there is an isomorphism $\C[X_1, \ldots X_n]/I \to A$. Then $\operatorname{Spec}A=\operatorname{Spec} (\C[X_1, \ldots X_n]/I)$ can be identified with the affine variety $V(I)$. With this identification, maximal ideals of $A$ correspond to points in $V(I)$, and prime, non-maximal ideals correspond to irreducible affine subsets $Y \subset X$. Beware, the meaning we are giving to the notation \(\Spec\) is not the standard one. \(\Spec A\) usually is the set of prime ideals of the ring \(A\), endowed with a suitable Zariski topology. Nonetheless, for us, \(\Spec A\) will always be an affine variety (when dealing with these sets as schemes it is still true that every \(\Spec A\) can be embedded as an affine set on some affine space).
+
+% \begin{obs} \label{obs_affine_sets_standar_top}
+%     We will restrict ourselves to working with affine and projective varieties that are embedded in some affine or projective space, so we will not need to develop the theory of abstract algebraic varieties. As shown in the previous paragraph, we are identifying \(\Spec(A)\) with an embedded affine variety \(V(I)\). However, the definition we just gave depends on the generators \(a_1, \ldots a_n\) of the algebra \(A\), and we would like \(\Spec(A)\) to define an affine variety unambiguously. With the definition we gave, this is not possible, because an algebra may have several finite sets of generators (even with different cardinalities). This is, however, not a problem, because choosing another set of generators simply produces isomorphic affine varieties and, what is more, these varieties are homeomorphic when endowed with the subspace topology induced by their embedding in complex affine space. Indeed, let \(A\) be a \(k\)-algebra generated by \(\corch{a_1, \ldots a_n}\) and \(\corch{a'_1,\ldots a_m'}\), and let \(\varphi\colon \C[X_1, \ldots X_n] \to A, X_i \mapsto a_i\) and \(\varphi'\colon \C[X_1, \ldots X_m] \to A, X_j \mapsto a'_j\). According to the comments above, \(\Spec A\) could be defined either as \(V(I) \subset \A_\C^n\) or \(V(I') \subset \A_\C^m\), where \(I=\ker\varphi\) and \(I'=\ker \varphi'\). Since polynomial rings over a field are noetherian, we may suppose \(I=(f_1,\ldots f_r)\) and \(I'=(g_1, \ldots g_s)\). Now, since we have two sets of generators of the algebra \(A\), there are polynomials \(P_1, \ldots P_m \in \C[X_1, \ldots X_n]\) and \(Q_1, \ldots Q_n \in \C[X_1, \ldots X_n]\) satisfying \(a_i=P_i(a_1', \ldots a'_m)\) for \(1\leq i \leq n\) and \(a'_j=Q_j(a_1, \ldots a_n)\) for \(1 \leq j \leq m\). Define 
+%     \[
+%     \begin{array}{cccc}
+%         \Psi\colon& \A_\C^n & \longrightarrow & \A_\C^m \\
+%         & \bm{x}:=(x_1, \ldots x_n) & \mapsto &(Q_1(\bm x), \ldots Q_n(\bm{x})).
+%     \end{array}
+%     \]
+%     Observe that \(\Psi(V(I))\subset V(I')\). Indeed, since \(I'=(g_1, \ldots g_s)=\ker \varphi'\), we have (\(\bm{a}=(a_1, \ldots a_n)\))
+%     \[
+%     0=g_k(a_1', \ldots a_m')=g_k(Q_1(\bm{a}), \ldots Q_n(\bm{a})),
+%     \]
+%     so \(g_k(Q_1, \ldots Q_n)\in I\). Thus, if \(\bm{x} \in V(I)\), then \(g_k(\Psi(\bm{x}))=g_k(Q_1(\bm{x}), \ldots Q_n(\bm{x}))=0\), and \(\Psi(\bm{x})\in V(I')\). Defining \(\Phi\colon \A_\C^m \to \A_\C^n, \bm{y} \mapsto (P_1(\bm{y}), \ldots P_n(\bm{y}))\), and with an analogous proof, \(\Phi(V(I')) \subset V(I)\). Moreover, \(\Psi \circ \Phi=\mathrm{id}_{V(I)}\) and \(\Phi\circ \Psi=\mathrm{id}_{V(I')}\). Let us check the first equality, for instance. Observe that \(P_l(Q_1(X_1, \ldots X_n), \ldots Q_m(X_1, \ldots X_n))-X_l \in I\) because
+%     \[
+%     P_l(Q_1(\bm{a}), \ldots Q_n(\bm{a}))=P_l(a_1', \ldots a_m')=a_l.
+%     \]
+%     So, if \(\bm{x} \in V(I)\), then \(P_l(Q_1(\bm{x}), \ldots Q_n(\bm{x}))=x_l\). The other composition is analogous. Since \(\Psi\) and \(\Phi\) are polynomial functions, they define an isomorphism of varieties. Moreover, since polynomials are continuous for the standard topology, these maps define homeomorphisms between \(V(I) \subset \C^n\) and \(V(I') \subset \C^m\) with respect to the subspace topologies induced by the standard topology.
+% \end{obs}
+
+% \begin{obs} \label{morphism_between_coordinate_rings}
+% Given a morphism of affine varieties $\varphi\colon X \to Y$, we can construct a \(\C\)-algebra homomorphism between the respective coordinate rings
+% \begin{equation}\nonumber 
+% \begin{array}{cccc}
+%      \varphi^* \colon& A(Y) & \longrightarrow & A(X) \\
+%      & f & \mapsto & f \circ \varphi.
+% \end{array}
+% \end{equation}
+
+% Conversely, given a \(\C\)-algebra homomorphism $\psi\colon A \to B$ between finitely generated \(\C\)-algebras, we can define a morphism of affine varieties $\tilde \psi\colon \operatorname{Spec} B \to \operatorname{Spec} A$. To be more precise, if $A$ and $B$ are finitely generated \(\C\)-algebras, $\operatorname{Spec} A$ and $\operatorname{Spec} B$ can be identified with affine sets $X$ and $Y$, whose coordinate rings are \(A\) and \(B\), and whose points are in bijection with the maximal ideals of $A$ and $B$ respectively (for each $p \in X$, we write $\mathfrak{m}_p$ the corresponding point, see \parencite[I Th. 2.2]{hartshorne1977algebraic}). Then, the morphism of affine sets $\hat{\psi}\colon Y \to X$ is given by $\hat{\psi}(p)=q$ if and only if $\psi^{-1}(\mathfrak{m}_p)=\mathfrak{m}_q$. Since for finitely generated \(\C\)-algebras, the inverse of a maximal ideal is again a maximal ideal, this is a well-defined map.
+% \end{obs}
+
+% This allows us to define affine algebraic groups.
+
+% \Definition{\textbf{Affine algebraic group}}{An \textit{affine algebraic group}\index{Algebraic group, affine} over a field \(\C\) is an affine variety which has a group structure such that the maps $m \colon G \times G \to G, (g,h) \mapsto g\cdot h$ and $i \colon G \to G, g \mapsto g^{-1}$ are morphisms of affine varieties. \label{def_affine_algebraic_group}}
+
+% Clearly, this definition mimics that of a Lie group; we just swap smooth manifold for affine variety, and in each case, we ask for the group operations to define morphisms in the relevant category: smooth maps for Lie groups, and morphisms of affine varieties in the case of affine groups. 
+% % Observe that we are considering a product of affine varieties: $G \times G$. Contrary to what happens in the category of schemes, where the usual cartesian product is not the appropriate categorical product, for affine varieties the cartesian product does indeed produce an affine variety. Indeed, if $X \subset \A_\C^n, Y \subset \A_\C^m$ are affine varieties, then there are polynomials $f_1, \ldots f_r \in \C[X_1 \ldots X_n]$ and $g_1, \ldots g_l \in \C[Y_1, \ldots Y_m]$ such that $X=V(f_1, \ldots f_r)$ and $Y=V(g_1, \ldots g_l)$. Define $\tilde{f}_i \in \C[X_1, \ldots X_n, Y_1,\ldots Y_m]$ by
+% % \[
+% % \tilde{f}_i(X_1, \ldots X_n, Y_1, \ldots Y_m):=f_i(X_1, \ldots X_n),
+% % \]
+% % and define $\tilde{g}_j$ analogously. Then, $X\times Y \subset \A_\C^n \times \A_\C^m=\A_\C^{n+m}$ is defined by
+% % \[
+% % X \times Y=V(\tilde{f}_1, \ldots \tilde{f}_r, \tilde{g}_1, \ldots \tilde{g}_l).
+% % \]
+
+% % \begin{obs}
+% %     It is worth mentioning that taking products has a lot of subtleties, even in the simplest case of affine varieties. It is true that the product of affine varieties is again an affine variety. However, if we consider the topologies, it is \textit{not true} that the Zariski topology on $X \times Y$ is the product topology. Consider for example $\A_\C^1$. Closed sets in $\A_\C^1$ are the whole line, and finite collections of points. As sets, it is true that $\A_\C^1 \times \A_\C^1=\A_\C^2$. However, the product topology lacks a lot of closed sets. For example $V(X-Y)$ is closed in $\A_\C^2$, but is complement is not open in the product topology.
+% % \end{obs}
+
+% \begin{example}
+%     \(\mathrm{GL}(n,\C)\) is an algebraic group. Indeed, we may see it immersed in \(\A_\C^{n^2+1}\) as the set 
+%     \[
+%     \mathrm{GL}(n,\C) \equiv \corch{(A,t) \in \A_\C^{n^2+1}: \det A \cdot t=1},
+%     \]
+%     where we embed a matrix by placing its entries as a long vector. The condition \(\det A \cdot t-1=0\) is a polynomial in the entries of \(\A_\C^{n^2+1}\), so \(\mathrm{GL}(n,\C)\) is Zariski-closed. Moreover, if $A,B \in \mathrm{GL}(n,\C)$, then $A \cdot B$ has entries that are polynomials in the entries of $A$ and $B$, thus defining a morphism of varieties. With respect to the inverse, Carmer's rule implies that the entries of the inverse matrix seen in \(\A_\C^{n^2}\) satisfy
+%     \[
+%      \det A\cdot (A^{-1})_{ij}=(-1)^{i+j} \det M_{ij},
+%     \]
+%     where $M_{ij}$ is the submatrix obtained by removing the $i$-th row and $j$-th column, which is again a polynomial. There is a classical result by Borel \parencite[I.1 Prop. 1.10]{borel2012linear} that states that every affine algebraic group as in definition \ref{def_affine_algebraic_group} is isomorphic as a group and as an algebraic variety to a closed subgroup of \(\mathrm{GL}(n, k)\), so from now on, we will only consider linear algebraic groups. 
+%     %  $\mathrm{GL}(n,k)$, the set of $n\times n$ invertible matrices is an algebraic group. Indeed, $\mathrm{GL}(n,k)$ can be thought of as a subset $\A_\C^{n^2}$, which is open for the Zariski topology, as the determinant of a matrix is defined by a polynomial on its entries. Moreover, if $A,B \in \mathrm{GL}(n,k)$, then $A \cdot B$ has entries that are polynomials in the entries of $A$ and $B$, thus defining a morphism of varieties. Similarly, Cramer's rule imply that
+%     % \[
+%     % (A^{-1})_{ij}=(-1)^{i+j} \frac{\det M_{ij}}{\det A},
+%     % \]
+%     % where $M_{ij}$ is the submatrix obtained by removing the $i$th row and $j$th column. Clearly, this is a quotient of polynomials in the entries of $A$ and $B$.
+% \end{example}
+
+% % Affine algebraic groups are sometimes called \textit{linear algebraic groups}. To be more precise, every affine algebraic groups is isomorphic to a linear algebraic group, that is, a Zariski closed subset of $\mathrm{GL}(n,k)$ which is also a subgroup. Observe as well that $\mathrm{GL}(n,k)$ can be made an affine variety, when identified with the following subset of $\A_\C^{n^2+1}$
+% % \[
+% % \corch{(A,t) \in \A_\C^{n^2+1}: \det A \cdot t=1}.
+% % \]
+% % From now on, we will only consider linear algebraic groups.
+% \begin{example}
+%     Some examples of linear algebraic groups are $\mathrm{GL}(n,\C)$ itself, $\mathrm{SL}(n,\C)$ and $\mathrm{O}(n,\C)$. For another example, we define the \textit{multiplicative group}\index{Multiplicative group} as follows. Consider the affine variety $C:=V(XY-1) \subset \A_\C^2$, and the product and inverse defined as follows
+%         \[
+%         \begin{array}{cccc}
+%             m\colon & C \times C & \longrightarrow & C \\
+%              & ((x,y),(x',y')) & \mapsto &(xx', yy')
+%         \end{array} \hspace{1 cm}
+%         \begin{array}{cccc}
+%              i \colon & C & \longrightarrow & C \\
+%              & (x,y) & \mapsto & (x^{-1}, y^{-1}).
+%         \end{array}
+%         \]
+%         These are clearly well-defined, and are regular maps. The group is called multiplicative group because it is group-isomorphic to the group $(\C^*, \cdot)$. We denote it by \(\mathbb{G}_m\).
+%     % \begin{enumerate}
+%         % \item $\A_\C^1$ endowed with the sum: $\A_\C^1 \times \A_\C^1 \to \A_\C^1, (a,b) \mapsto a+b$ and $i\colon \A_\C^1\to \A_\C^1, a\mapsto -a$ is an algebraic group called the \textit{addition group}\index{Addition group} and it is usually denoted $\mathbb{G}_a$.
+%         % \item We define the \textit{multiplicative group}\index{Multiplicative group} as follows. Consider the affine variety $C:=V(XY-1) \subset \A_\C^2$, and the product and inverse defined as follows
+%         % \[
+%         % \begin{array}{cccc}
+%         %     m\colon & C \times C & \longrightarrow & C \\
+%         %      & ((x,y),(x',y')) & \mapsto &(xx', yy')
+%         % \end{array} \hspace{1 cm}
+%         % \begin{array}{cccc}
+%         %      i \colon & C & \longrightarrow & C \\
+%         %      & (x,y) & \mapsto & (x^{-1}, y^{-1}).
+%         % \end{array}
+%         % \]
+%         % These are clearly well-defined, and are regular maps. The group is called multiplicative group because it is group-isomorphic to the group $(k^*, \cdot)$.
+%     % \end{enumerate}
+% \end{example}
+
+% \Definition{\textbf{Algebraic action}}{ Let $G$ be an affine algebraic group. An \textit{algebraic action} is a group action $\sigma \colon G \times X \to X$ that is also a morphism of affine varieties.}
+
+% So far, there does not seem to be any problem with considering quotients the same way as we do in topology. The following example will shed some light on the problems we may encounter if we follow that naïve approach.
+
+% \begin{example} \label{example_G_m_acting_A2}
+%     Consider the action of $\mathbb{G}_m$ on $\A_\C^2$ given by
+%     \[
+%     \begin{array}{ccc}
+%          \mathbb{G}_m \times \A_\C^2 & \longrightarrow & \A_\C^2  \\
+%           ((t,t^{-1}),(x,y))& \mapsto & (tx, t^{-1}y).
+%     \end{array}
+%     \]
+%     It is easy to see that the orbits of this action are:
+%     \begin{enumerate}
+%         \item Hyperbolas $V(XY-\alpha), \alpha \in k$.
+%         \item The punctured $x$ and $y$ axis, that is, the axis minus the origin. 
+%         \item The origin.
+%     \end{enumerate}
+%     The punctured axis are not closed, since the origin is in their Zariski-closures. The orbit $\mathbb{G}_m \cdot (0,0)$ lies in the Zariski-closure of both $\mathbb{G}_m \cdot (1,0)$ and $\mathbb{G}_m \cdot (0,1)$. If we insisted in taking $\A_\C^2/{\mathbb{G}_m}$ as a quotient, we would find that the point corresponding to the orbit $\mathbb{G}_m \cdot (0,0)$ is in the closure of the points corresponding to $\mathbb{G}_m \cdot (1,0)$ and $\mathbb{G}_m\cdot(0,1)$. However, points in algebraic varieties are always closed, so $\A_\C^2/\mathbb{G}_m$ cannot have the structure of an algebraic variety. Let us more precise. We would like \(\A_\C^2/\mathbb{G}_m=\corch{[(0,0)], [(1,0)], [(0,1)], [(1, \alpha)]: \alpha \in k^*}\) to be an affine variety. Moreover, it is quite reasonable to ask our quotient maps \(q\colon \A_\C^2 \to \A_\C^2/\mathbb{G}_m\) to be continuous (we would actually want for them to be morphisms). If that were the case, we would have
+%     \[
+%     [(0,0)]=q\big( (0,0)\big) \in q \parent{ \overline{V(\A_\C^2) \setminus \corch{(0,0)} }} \subset \overline{q\parent{V(\A_\C^2) \setminus \corch{(0,0)} }}= \overline{[(0,1)]}.
+%     \]
+%     However, as we pointed out above, points are always closed in affine varieties.
+% \end{example}
+
+% Having seen that the naïve approach does not work, we are going to define a new notion of quotient. Given a map between two sets \(f\colon X \to Y\) such that \(X\) is acted upon by a group \(G\), we say that \(f\) is \(G\)\textit{-invariant}\index{$G$-invariant map} if \(f(g \cdot x)=f(x)\) for all \(g \in G, x\in X\).
+
+% \Definition{\textbf{Categorical quotient}}{Let $X$ be an affine set, and $G$ be a linear algebraic group acting algebraically on $X$. A \textit{categorical quotient}\index{Quotient!categorical} for the action $G$ is a pair $(\varphi, Y)$, where $Y$ is another variety, and $\varphi \colon X \to Y$ is a $G$-invariant morphism of varieties such that the following universal property is satisfied: \\
+
+% \begin{minipage}{0.7 \textwidth}
+%     For every other $G$-invariant morphism $f\colon X \to Z$ there exist a unique morphism $h \colon Y \to Z$ such that the following diagram is commutative. Making some abuse of notation, it is common to say that $\varphi$ is the quotient. \label{def_categorical_quotient}
+% \end{minipage}
+% \begin{minipage}{0.25\textwidth}
+%     \begin{center}
+%     \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+%             X \arrow[r, "f"] \arrow[d, "\varphi", '] \& Z  \\
+%             Y \arrow[ru, "h", '] \& 
+%         \end{tikzcd}
+%     \end{center}
+% \end{minipage} }
+% By definition, categorical quotients are continuous and constant on \(G\)-orbits, so in particular, they are constant on the \textit{closure} of \(G\)-orbits. Indeed, $\varphi(\overline{G \cdot x}) \subset \overline{\varphi(G \cdot x)}$, the latter being the closure of a point, which is closed in the Zariski topology. Hence, a categorical quotient is an orbit space only if the action of $G$ on $X$ is closed, i.e. all the orbits $G \cdot x$ are closed. Moreover, the fact that we defined categorical quotients through a universal property means that, if a categorical quotient exists, then it is unique up to isomorphism. \\
+
+% Let $G$ be a linear algebraic group over \(\C\), acting on an affine set $X$. The action defines a natural action of the \(\C\)-algebra of regular functions $\mathcal{O}_X(X)$ as follows
+% \[
+% g \cdot f(x):=f(g^{-1} \cdot x).
+% \]
+% % Observe that multiplying the argument of $f$ by $g^{-1}$ instead of $g$ ensures that we really obtain an action. Indeed,
+% % \[
+% % h \cdot (g\cdot f)(x)=(g \cdot f)(h^{-1}\cdot x)=f(g^{-1} h^{-1}\cdot x)=f((hg)^{-1}\cdot x)=\big((hg)\cdot f\big)(x).
+% % \]
+% The set of invariant functions under this action \(\mathcal{O}_X(X)^G:=\corch{f \in \mathcal{O}_X(X): g \cdot f=f \ \ \forall \ g \in G}\) is a subalgebra of $\mathcal{O}_X(X)$. Of course, the same construction may be done for the \(\C\)-algebra of regular functions on any open \(G\)-invariant set $U \subset X$, i.e. $\mathcal{O}_X(U)$. We are going to use this construction to give a new notion of quotient, which we will call \textit{good quotient} to distinguish it from the one given in definition \ref{def_categorical_quotient}.
+
+% \Definition{\textbf{Good quotient}}{\label{def_good_quotient}
+%     Let $G$ be a linear algebraic group over \(\C\) that acts over an affine set $X \subset \A_\C^n$. A morphism of affine sets, $\varphi \colon X \to Y$ is a \textit{good quotient}\index{Quotient!good} for the action if
+%     \begin{enumerate}
+%         \item $\varphi$ is constant on orbits.
+%         \item $\varphi$ is surjective.
+%         \item If $U \subset Y$, the morphism of \(\C\)-algebras given by $\varphi^*\colon \mathcal{O}_Y(U) \to \mathcal{O}_X(\varphi^{-1}(U)), f \mapsto f \circ \varphi$, defines an isomorphism onto $\mathcal{O}_X(\varphi^{-1}(U))^G.$
+%         \item If $W \subset X$ is a $G$-invariant closed subset of $X$, then its image $\varphi(W)$ is closed in $Y$.
+%         \item If $W_1, W_2$ are disjoint $G$-invariant closed subsets, then $\varphi(W_1)$ and $\varphi(W_2)$ are disjoint.
+%         \item $\varphi$ is affine, that is, the preimage of every open set is an affine variety.
+%     \end{enumerate}
+%     Moreover, if the preimage of each point is a single orbit, then we say that $\varphi$ is a \textit{geometric quotient}\index{Quotient!geometric}.}
+
+% \begin{obs}
+%         \(\hspace{1 pt}\)
+%     \begin{enumerate}
+%         % \item Statement $3$ makes sense in the definition above. Indeed, since $\varphi$ is $G$-invariant, $(g\cdot \varphi^*f)(x)=f(\varphi(g \cdot x))=f(\varphi(x))=\varphi^*f(x)$ for every $g \in G, x \in X$. Moreover, this condition means that the sheaf of regular functions in \(Y\) is (isomorphic) the image sheaf of \(G\)-invariant regular functions in \(X\). That is, \(\mathcal{O}_Y=\varphi_*(\mathcal{O}_X)\).
+%         \item Geometric quotients are the usual orbit spaces. Indeed, the last condition implies that each point in the quotient corresponds to a unique orbit.
+%         \item If \(\varphi \colon X \to Y\) is a good quotient, it is also a topological quotient, that is \(Y\) has the quotient topology. Indeed, \(\varphi\) is a topological quotient if and only if for every closed set \(C \subset Y\), \(\varphi^{-1}(C)\) is closed in \(X\). Since \(\varphi\) is continuous by definition, the preimage of every closed set is closed. For the converse, suppose that \(\varphi^{-1}(C)\) is closed. The set is \(G\)-invariant (because so is \(\varphi\)), so by conditions 2 and 4 of the definition, \(\varphi(\varphi^{-1}(C))=C\). 
+%     \end{enumerate}
+% \end{obs}
+
+% \Proposition{}{ If $\varphi \colon X \to Y$ is a good quotient for the action of $G$ on $X$, then it is a categorical quotient.}
+% \begin{proof}
+%     See \parencite[Prop. 2.38]{hoskins}.
+% \end{proof}
+% \begin{corollary}
+%     Let $\varphi\colon X \to Y$ be a good quotient. Then
+%     \begin{enumerate}
+%         \item $\overline{G\cdot x_1} \cap \overline{G \cdot x_2}\neq \emptyset$ if and only if $\varphi(x_1)=\varphi(x_2)$.
+%         \item For each $y \in Y$, $\varphi^{-1}(y)$ contains a unique closed orbit. If the action is closed, then $\varphi$ is a geometric quotient.
+%     \end{enumerate}
+% \end{corollary}
+% \begin{proof}
+%     See \parencite[cOR. 2.39]{hoskins}
+%     % For the first claim, note that $\varphi$ is continuous and constant on orbits. Since $\varphi$ is also $G$-invariant, we have $\varphi(\overline{G \cdot x_i}) \subset \overline{\varphi(G \cdot x_i)}=\varphi(x_i),$ for $i=1,2$. Thus, $\varphi(\overline{G \cdot x_i})=\varphi(x_i)$. If the closures meet, the images must coincide, and reciprocally, if the closures do not meet, part \(5\) of definition \ref{def_good_quotient} implies that the images are different. For the second claim, suppose that $\varphi^{-1}(y)$ contained two different closed orbits $G \cdot x_1$ and $G \cdot x_2$. Since orbits are either equal or disjoint, but they cannot be disjoint due to part \(1\) of this corollary, they must coincide. If the action is closed, every orbit is closed, and the preimage of each point is one single orbit.
+% \end{proof}
+
+% This corollary shows that good quotients may still have some of the issues we commented before. For example, we still have the problem that the closure of one orbit may be contained in the closure of another one, and in that case, the quotient does not separate them. If the quotient is geometric, we do not have that problem.
+
+% % \begin{corollary}
+% %     If $\varphi \colon X \to Y$ is a good (resp. geometric) quotient, then for every open set $U \subset Y$, the restriction $\varphi|_{\varphi^{-1}(U)} \colon \varphi^{-1}(U) \to U$ is also a good (resp. geometric) quotient for the action of $G$ on $\varphi^{-1}(U)$.
+% % \end{corollary}
+
+% % This corollary is very important because it will allow us to build new quotients by restriction of existing ones. More specifically, we will see that sometimes it is not possible to obtain geometric quotient for the action of a specific group. Nonetheless, we may restrict a good quotient to an open set to get a geometric quotient.
+
+% \subsection{Affine Geometric invariant theory}
+
+% This section will treat the most basic setting: a linear algebraic group that acts on an affine set $X$. Under the isomorphism \(\mathcal{O}_X(X)\cong A(X)\), the action of $G$ on $X$ induces an action on $A(X)$ given by $(g \cdot f)(x):=f(g^{-1}\cdot x)$, which allows us to define the subalgebra of $G$-invariant regular functions
+% \[
+% A(X)^G:=\corch{f \in A(X): g \cdot f=f \ \ \forall \ g\in G}.
+% \]
+% This is clearly a subalgebra of $A(X)$, but it need not be finitely generated. In the cases where it is, it can be identified with an affine set. We then have a $\C$-algebra homomorphism given by the inclusion $i \colon A(X)^G \hookrightarrow A(X)$, which induces a morphism $\varphi \colon \operatorname{Spec}A(X) \to \operatorname{Spec}A(X)^G$ (see remark \ref{morphism_between_coordinate_rings}). In this favorable case, theorem \ref{th_affine_GIT} (see bellow) provides the appropriate GIT quotient. Therefore, the affine case reduces to study when the $G$-invariant subalgebra is finitely generated. This is actually Hilbert's 14th problem, and the general answer is negative. However, for a special kind of groups, called reductive groups, $A(X)^G$ is always finitely generated (see section \ref{appendix_reductive_Lie_groups} for the relevant definitions).
+
+% % \Theorem{}{Let $G$ be an affine algebraic group acting algebraically on $X$. Suppose that $A(X)$ is finitely generated. Then, $\varphi \colon X \to Y:=\operatorname{Spec}A(X)^G$ is a categorical quotient.}
+% % \begin{proof}
+% %     We have to check that $\varphi$ satisfies the universal property. Let $i \colon A(X)^G \hookrightarrow A(X)$ be the inclusion, and let $f \colon \operatorname{Spec} A(X) \to Z$ be a morphism to another affine set. We define $h \colon \operatorname{Spec} A(X)^G \to Z$ by $h(q)=f(p)$ if $\varphi(p)=q$. Moreover, {\color{red} this defines a morphism of affine sets}, and uniqueness follows from the fact that $h$ must satisfy $h(\varphi(p))=f(p)$.
+% % \end{proof}
+% % \begin{obs}
+% %     The definitions of good and geometric quotients are local. Therefore, if \(\varphi \colon X \to Y\) is \(G\)-invariant, and we have a cover of \(Y\) by open sets \(U_i\) such that \(\varphi|_{\varphi^{-1}(U_i)}:\varphi^{-1}(U_i) \to U_i\) are all good (or geometric) quotients, then so is \(\varphi\).
+% % \end{obs}
+
+% %  \Definition{\textbf{Reductive group}}{A linear algebraic group $G$ is called \textit{reductive} if every finite representation $\rho \colon G \to \mathrm{GL}(n,k)$ decomposes as a sum of irreducible representations.}
+%  \begin{example} \label{examples_reductive_groups}
+%     Every finite group is reductive, so quotients by finite groups are always possible. Moreover, $\mathrm{GL}(n,\C)$, \(\mathrm{O}(n,\C), \ \mathrm{SO}(n,\C), \ \mathrm{Sp}(n,\C)\) and every semisimple group are reductive. The multiplicative group \(\mathbb{G}_m\) is also reductive. 
+% \end{example}
+
+% And as anticipated before, we have the following result by Nagata.
+
+% \Theorem{\textbf{Nagata}}{\label{th_nagata} Let $G$ be reductive linear algebraic group acting algebraically on an affine set $X$. Then, $A(X)^G$ is finitely generated.}
+% \begin{proof}
+%     This is a fairly classical result. The original proof given by Nagata can be found in his article \parencite{nagata1963invariants}.
+% \end{proof}
+
+% Nagata's theorem implies that we can define \(\Spec A(X)^G\) and it is an affine set.
+
+% \Theorem{}{Let $G$ be a reductive affine group acting algebraically on an affine variety $X$. Then, the morphism \(\varphi\colon X \to X//G:= \Spec A(X)^G\) induced by the inclusion map \(i\colon A(X)\) is a good quotient, and $X//G$ is an affine variety. Moreover, if the action is closed, the $\varphi$ is a geometric quotient. \label{th_affine_GIT}}
+% \begin{proof}
+%     See \parencite[Th. 3.14]{hoskins}.
+% \end{proof}
+% Under the previous hypotheses, the \textit{affine GIT quotient}\index{Quotient!Affine GIT} for the action of $G$ on $X$ is the morphism $\varphi\colon X \to X // G$. The double slash symbol $//$ is used in the quotient as a reminder that the quotient is not usually an orbit space.  
+
+% % \begin{example} Getting back to example \ref{example_G_m_acting_A2} consider the action of $\mathbb{G}_m$ on $\A_\C^2$ given by $(t,t^{-1})\cdot (x,y)=(tx, t^{-1}y)$. In this case, $A(X)=\C[X,Y]$ and $A(X)^G \cong \C[Z]$ (finitely generated, as expected). To show this last isomorphism, observe that $A(X)^G$ is the set of polynomials $f \in \C[X,Y]$ such that $f(tX, t^{-1}Y)=f(X,Y)$ for every $t \in k^*$. Only the polynomials of the form $\sum_{i=1}^n (XY)^i$ can satisfy that property. Indeed, polynomials in $XY$ are clearly $\mathbb{G}_m$-invariant. Moreover, if $f(X,Y)=\sum_{i,j} a_{ij}X^iY^j$ (finite sum) is $\mathbb{G}_m$-invariant, we may consider 
+% %     \[
+% %     Q(t):=\sum_{ij}a_{ij} t^{i-j} X^iY^j \in (\C[X,Y])(t).
+% %     \]
+% % Since $Q(t)$ must be equal to $Q(1)$, all the factors multiplying $t^{i-j}$ for $i \neq j$ must be zero, and thus $f$ has the anticipated form. Then, $\C[Z]\to A(X)^G, Z \to XY$ defines an isomorphism of k-algebras. The quotient is thus $\operatorname{Spec}A(X)^G \cong \operatorname{Spec}\C[Z]$, which is identified with $\A_\C^1$. The quotient map is given by $\varphi \colon \A_\C^2 \to \A_\C^1, (x,y) \mapsto xy$. Indeed, the inclusion is $\C[Z] \to \C[X,Y],P(Z) \to P(XY)$, and $\varphi(a,b)=a\cdot b$ if and only if $i^{-1}(\mathfrak{m}_{(a,b)})=\mathfrak{m}_{a\cdot b}$. However, due to Hilbert's Nullstelenstazt, we know that $\mathfrak{m}_{(a,b)}=(X-a, Y-b)$ and $\mathfrak{m}_{a\cdot b}=(Z-a\cdot b)$. Finally, observe that $XY-a \cdot b=Y(X-a)+a(Y-b)$ so it is in $(X-a, Y-b)$. This implies that $(Z-a\cdot b) \subset i^{-1}((X-a, Y-b))$ and since both ideals are maximal, the result follows. $\varphi$ is a good quotient by the previous proposition, but it is not a geometric quotient, since the origin and both punctured axis are mapped to $0 \in \A_\C^1$. Observe that the remaining orbits, hyperbolas $\corch{(x,y) \in \A_\C^2: xy = \alpha}$ are mapped to $\alpha$ as expected. 
+% %     % \item Consider now the action of a finite group $G$ on an affine set $X$. In that case, we obtain a geometric because orbits are closed. Indeed, for each $x \in X$, the orbit is $G\cdot x=\corch{g \cdot x: g \in G}$, which is closed because it is finite (points are closed in the Zariski topology).
+
+% % \end{example}
+
+% % As we have discussed, reductive groups do not induce closed actions in general, so we do not obtain a geometric quotient. However, for general actions, it happens that there is an open set of $X$ such that the action of $G$ restricts to an action on the open set, and the induced quotient is a geometric quotient.
+
+% % \Definition{\textbf{Stable point}}{Let $G$ be a reductive group that acts on an affine set $X$. We say that a point $x \in X$ is \textit{stable} if $G \cdot x$ is closed and $\dim G_x=0$. We denote the set of stable points by $X^s.$ }
+
+% % In the previous definition, one can show that for any $x \in X$, $G_x$ is closed in $G$, thus it is a variety, and it makes sense to compute its dimension. The fact that it is zero-dimensional means that $G_x$ is a finite set. Moreover, the orbit-stabilizer theorem allows us to show that $\dim G=\dim G\cdot x+\dim G_x$, thus a point is stable if and only if $\dim G=\dim G\cdot x$.
+
+% % \begin{prop} \label{geo_quo_affine}
+% %     Let $G$ be a reductive group that acts algebraically on an affine set $X$, and let $\varphi\colon X \to Y$ be the associated quotient. Then, $Y^s:=\varphi(X^s)$ is an open subset of $Y$, and $X^s$ is also open and equal to $\varphi^{-1}(Y^s)$. Moreover, $\varphi\colon X^s \to Y^s$ is a geometric quotient.
+% % \end{prop}
+
+% % \begin{example}
+% %     We consider once again our example for the action of $\mathbb{G}_m$ on $\A_\C^2$. Closed orbits are hyperbolas and the origin. For $(x,y) \in\A_\C^2$ such that $xy \neq 0$, the stabilizer is the unit element. For $(0,0)$, the stabilizer is the whole group. Hence, 
+% %     \[
+% %     X^s=\corch{(x,y) \in \A_\C^2: xy \neq 0}.
+% %     \]
+% %     This set is indeed open, since it is the complementary of $V(XY)$. Moreover, $\varphi(X^s)=\A_\C^1 \setminus \corch{0}$, which is again closed. The quotient $\varphi|_{X^s}\colon X^s \to Y^s$ is now geometric, since each $\alpha \in Y^s=k^*$ (as sets) is the image of the (unique) orbit $\corch{(x,y) \in \A_\C^2: xy=\alpha}.$
+% % \end{example}
+
+% \subsection{Projective GIT quotients}
+% So far, we have just worked with affine varieties, but everything can be generalized to projective varieties, and in fact, we will need to work in this more general setting to state the Kempf-Ness theorem. Once again, we will have a reductive group acting on a projective variety, and we will try to use the affine GIT theory to define a projective GIT. The quotient will be constructed on an open subvariety $X^{ss}$ of $X$ (that is, a quasiprojective variety contained in \(X\)). \\
+
+% As a brief review of projective algebraic geometry, given \(F_1, \ldots F_r \in \C[X_0, \ldots X_n]\) homogeneous polynomials, the \textit{projective variety}\index{Variety!projective} they generate is the set \(V(F_1, \ldots F_m)=\corch{p \in \CP^n: F_k(p)=0 \ \ 1 \leq k \leq m}\). A \textit{quasi-projective variety}\index{Variety!quasi-projective} is an open subset of a projective variety. Given a projective variety \(X\), \(I(X)\) as the homogeneous ideal generated by all homogeneous polynomials vanishing at \(X\). If \(X\ \subset \CP^n\) is a projective variety, then we denote \(S(X):=\C[X_0, \ldots X_n]/I(X)\) its \textit{(projective) coordinate ring}\index{Coordinate ring!projective}, it is a graded ring. Indeed, the grading of \(\C[X_0, \ldots X_n]\) induces a grading on \(S(X)\) given by
+% \[
+% \frac{\C[X_0, \ldots X_n]}{I(X)}= \bigoplus_{l \geq 0} \frac{\C[X_0, \ldots X_n]_l}{I(X)_l}.
+% \]
+% For any graded ring, we write \(R_+:=\oplus_{l>0} R_l\), where \(R_l\) is the homogeneous part of degree $l$ of \(R\). We briefly recall the notion of affine cone over a projective set. Let $X \subset \CP^n$ be a projective set. The associated \textit{affine cone}\index{Affine cone} is defined as
+% \[
+% \tilde{X}:=\corch{0} \cup \corch{(x_0, \ldots x_n) \in \A_\C^{n+1}: [x_0: \ldots :x_n] \in X}.
+% \]
+% Of course, the affine cone over the whole projective space is just $\A_\C^{n+1}$. We have \(I(X)=I(\tilde{X})\), and thus \(S(X)=A(\tilde{X})\). \\
+
+% Recall as well that if $X \subset \CP^n$ is a projective variety, and $U \subset X$ is an open set, a function $f: U \to k$ is said to be regular at a point $p \in U$ if there exists an open set $V$ and two homogeneous polynomials of the same degree, $F,G$, such that $V \subset D_X(\bar G)$ and $f|_V=\bar F/\bar G$. Once again, we denote $\mathcal{O}_X(U)$ the set of all regular functions on the open set $U$, and defining addition and multiplication by elements of \(\C\) pointwise, $\mathcal{O}_X(U)$ has the structure of a \(\C\)-algebra. Finally, given two projective quasi-varieties \(X\subset \CP^n\) and \(Y \subset \CP^m\), a map \(\varphi\colon X \to Y\) is a \textit{quasi-projective morphism}\index{Morphism!quasi-projective} if for every point \(x \in X\), and some affine piece \(U_i:=\corch{[x_0: \ldots :x_m] \in \CP^m: x_i \neq 0}\) containing \(\varphi(x)\), there exist a neighborhood \(U\) of \(x\) such that \(\varphi(U) \subset U_i\), and \(\varphi|_U \colon U \to U_i\) is an \(n\)-tuple of regular functions (see \parencite[Page 47]{shafarevich2013basic}). \\
+
+% As we did for the affine case, there is way to assign a projective set to a finitely generated, graded, \textit{reduced}\index{Ring, reduced} (meaning no non-zero nilpotents) \(k\)-algebra. Indeed, let \(R=\oplus_{l\geq 0} R_l\) be such an algebra, and suppose that \(R\) can be generated by a set of elements \textit{of the same degree} (there is a workaround if this is not possible which uses weighted projective spaces, but we will concern ourselves with the easier case). Then, if \(r_0, \ldots r_n\) are the generators, we may define a surjective graded \(k\)-algebra homomorphism (it respects the grading)
+% \[
+% \begin{array}{ccc}
+%     \C[X_0, \ldots X_n] & \longrightarrow & R \\
+%     X_i & \mapsto & r_i.
+% \end{array}
+% \]
+% Let \(I:=\ker \varphi\), it is homogeneous because we chose generators of the same degree, then, by the first isomorphism theorem, we have \(\C[X_0, \ldots X_n]/I \cong R\), and we can identify \(\operatorname{Proj}(R)\equiv V(I) \subset \CP^n\). Again, since we will only work with embedded projective varieties this if different to the usual meaning of \(\operatorname{Proj} (R)\) as the set of homogeneous prime ideals of \(R\) bot containing \(R_+\), endowed with the Zariski topology. Again, choosing different sets of generators results in isomorphic projective varieties, and again, if \(k=\C\), then a similar procedure to the one we gave for the affine case, in we endow those varieties with the subspace topology inherited from the projective space they are embedded in, they are homeomorphic.\\
+% % The identification works differently now, because the only homogeneous maximal ideal is the irrelevant ideal \(\mathfrak{M}=(X_0, \ldots X_n)\), which does not correspond to any point. Points now correspond to homogeneous prime ideals for which there is not any other homogeneous prime ideal between then and \(\mathfrak{M}\). As we did for the affine case, when we identify \(\operatorname{Proj} R\)  with a projective set \(X\), the ideal corresponding to a point \(p \in X\) will be denoted \(\mathfrak{m}_p\).
+
+% \begin{obs}
+%     The coordinate ring of a projective set not only depends on the isomorphism class, but also on the concrete embedding on \(\CP^n\). This implies that isomorphic projective varieties may have non-isomorphic homogeneous coordinate rings.
+% \end{obs}
+
+% % Another important difference between affine and projective sets is that the ring of regular functions for projective sets isomorphic to the base field \(k\). In other words, the only regular functions defined on the whole set are constants.
+
+% \Definition{\textbf{Rational map}}{Let \(X\) be an irreducible projective variety, and \(Y\) another projective variety. A \textit{rational map}\index{Rational map} \(\varphi\colon X \dashrightarrow Y \) is defined to be an equivalence class of pairs \((U, \gamma)\), where $U \subset X$ is a dense open set, and \(\gamma\colon U \to Y \) is a morphism of projective varieties, where two such pairs \((U, \gamma), (V, \eta)\) are said to be equal if \(\gamma|_{U \cap V}=\eta|_{U \cap V}\). If $X$ is not reduced and has irreducible components \(X_1, \ldots X_r\), then a rational map is an \(r\)-uple of rational maps. }
+
+% So, even though rational maps are \textit{not maps at all}, we may think of them as maps defined on some dense open set of \(X\).
+
+% \begin{obs}
+%     Let us see more precisely why a rational map can be thought of as a map defined on a dense open set of \(X\). Take all the pairs \((V_\eta, \eta)\) of the equivalence class, and define \(\mathcal{U}:=\cup V_\eta\). Now, for each \(p \in \mathcal{U}\), the element \(\varphi(p):=\eta(p)\) if \(p \in V_\eta\) is well-defined. Indeed, if we chose any other element of the equivalence class, \((W, \zeta)\), then \(V \cap W \neq \emptyset\) (it contains \(p\)), and therefore, by the definition of the equivalence relation, \(\zeta(p)=\eta(p)\). Thus, we can think of the rational as a map defined on the dense open subset \(\mathcal{U}\).
+% \end{obs}
+
+% Thus, suppose that \(S \hookrightarrow R\) is an inclusion of finitely generated reduced \(k\)-algebras. This induces a rational map \(\varphi\colon \operatorname{Proj}R:=X  \dashrightarrow  \operatorname{Proj} S:=Y \) which is undefined on the \textit{nullcone}\index{Nullcone}:
+% \[
+% N_S(X):=\corch{x \in X: f(x)=0 \ \ \forall f \in S_+}.
+% \]
+
+% More precisely, if \(R\cong \C[X_0, \ldots X_n]/I\) and \(S \cong \C[Y_0, \ldots Y_m]/J\), then \(X\) and \(Y\) are identified with \(V(I) \subset \CP^n\) and \(V(J) \subset \CP^m\), then points of \(X\) and \(Y\) correspond to the homogeneous prime ideals of \(R\) and \(S\) not containing \(R_+\) and \(S_+\) respectively (see \parencite[Th. 3.4]{hartshorne1977algebraic}). Now, \(\varphi(p)=q\) if and only if \(\mathfrak{m}_q=\mathfrak{m}_p \cap S\), where \(\mathfrak{m}_p\) and \(\mathfrak{m}_q\) are the homogeneous prime ideals corresponding to \(p\) and \(q\) respectively\footnote{In fact, \(\mathfrak{m}_p\) is the ideal of homogeneous polynomials vanishing at \(p\).}. The previous map will not be well-defined for those points where \(\mathfrak{m}_p \subset S_+\), i.e. \(f(p)=0\) for every \(f \in S_+\). \\
+% % \[
+% % \begin{array}{cccc}
+% %     \varphi\colon & \operatorname{Proj}R:=X & \dashrightarrow & \operatorname{Proj} S:=Y \\
+% %     & \mathfrak{p} & \mapsto & \mathfrak{p} \cap S
+% % \end{array}
+% %  \]
+% % \(\varphi(p)=q\) if and only if $\mathfrak{m}_q=\mathfrak{m}_p \cap S$. In this situation, $\mathfrak{m}_p$ is the ideal of homogeneous polynomials vanishing at \(p\), so the map will not be well-defined for those points where \(\mathfrak{m}_p \subset S_+\), i.e. \(f(p)=0\) for every \(f \in S_+\). Hence, the null cone may also be written as
+% % \[
+% % N_S(X):=\corch{x \in X: f(x)=0 \ \ \forall f \in S_+}.
+% % \]
+
+% \begin{obs}
+%     \(\hspace{1 pt}\)
+%     \begin{enumerate}
+%         \item Observe that \(\varphi\) is a well-defined morphism on the complement of the null cone \(X \setminus N_S(X)\). This is a general property of rational maps; they define morphism in the open set where they make sense.
+%         \item The definition of the rational map \(\varphi\) induced by the inclusion may seem arbitrary, but it is quite natural if we actually see \(\Proj\) as the set of prime homogeneous ideals of \(R\) not containing \(R_+\).
+%         \item Let \(X \subset \CP^n\) be a projective set, and \(R \subset S(X)\) be a graded subalgebra (in particular, elements of \(R\) are equivalence classes of the quotient). Observe that for an equivalence class \(f+I(X)\), it always makes sense to ask if \(f(x)=0\) for \textit{a specific point} \(x \in X\). 
+%     \end{enumerate}    
+% \end{obs}
+
+% % \begin{obs}  \label{obs_quot_proj}  
+% %     Note the following:
+% %     \begin{enumerate}
+% %         \item \(Y=\cup_{f\in S_+} D_Y(\bar f)\) and \(\varphi^{-1}(D_Y(\bar f))=D_X(\bar f)\).
+% %         \item \(A(D_Y(\bar f)) \cong (S_f)_0\), where \((S_f)_0\) is the homogeneous zero piece of the graded algebra obtained by localizing \(S\) at \(f\).
+% %     \end{enumerate}
+% % \end{obs}
+
+% \Definition{}{Let $G$ be a reductive linear group and $X \subset \CP^n$ be a projective set. An action of $G$ on $X$ is \textit{linear} if $G$ acts via a homomorphism $G \to \mathrm{GL}(n+1,k)$.}
+
+% So basically, the action is given by \(g \cdot [v]:=[g \cdot v]\) for \(v \in k^{n+1}\). Observe that this is well-defined. Indeed, if \(\rho\colon G \to \mathrm{GL}(n+1, k)\) is the corresponding homomorphism, then \(g \cdot [\lambda v]=[\rho(g)\big( \lambda v \big)]=[\lambda \rho(g) v] = [\rho(g) v]=g \cdot [v]\). Of course, for the previous definition to make sense, we must ask for \(g \cdot X=X\) for all \(g \in G\). In particular, this means that \(G\) acts (via a representation) on the affine cone \(\tilde{X}\) (and also on the affine cone of \(\CP^n\), but this is just \(\A_\C^n\) and \(G\) obviously acts on \(\A_\C^{n+1}\) if its action is linear). \\
+
+% Now, recalling what we saw about linear actions of reductive groups on affine sets, \(G\) also acts on \(A(\tilde{X})=S(X)\). Thus, we may define \(S(X)^G:=A(\tilde{X})^G\), which is a homogeneous subalgebra of the graded algebra \(A(\tilde{X})\) (linear actions preserve the grading). Now, by Nagata's theorem (theorem \ref{th_nagata}), \(S(X)^G\) is a finitely generated \(k\)-algebra, and we can consider the associated projective variety \(\operatorname{Proj}(S(X)^G)\). Observe that \(S(X)^G\) is reduced because \(A(\tilde{X})\) is always reduced (\(I(\tilde{X})\) is always radical). \\
+
+% % \begin{obs}
+% %     Since \(S(X)=A(\tilde{X})\), we can see the action on \(A(\tilde{X})\) (which is the ring of regular functions on the affine cone). Now, \(S(X)^G=A(\tilde{X})^G\) is automatically well defined, and finitely generated by Nagata's theorem. This is important because to identify \(\operatorname{Proj} S(X)^G\) with a projective set we use that \(S(X)^G\) is a finitely generated \(k\)-algebra.
+% % \end{obs}
+
+% We have an inclusion $S(X)^G \hookrightarrow S(X)$, which defines a rational map as above
+% \[
+% \varphi \colon X \to X//G 
+% \]
+% which is undefined on the \textit{nullcone}
+% \[
+% N_{S(X)^G}(X):=\corch{x \in X: f(x)=0 \ \ \forall \ f \in S(X)_+^G:=S(X)^G \cap S(X)_+}.
+% \]
+% Observe that \(N_{S(X)^G}(X)\) is closed in \(X\). Indeed, \(N_S^G(X)=V_X(S(X)^G)\).
+
+% \Definition{\textbf{Semistable loccus}}{\label{def_X^ss}
+%     In the above conditions, we define the \textit{semistable loccus}\index{Semistable loccus} $X^{ss}:=X-N_{R^G}(X).$ We also define the \textit{projective GIT quotient}\index{Quotient!Projective, GIT} for the linear action of $G$ on $X \subset \CP^n$ as the morphism $\varphi \colon X^{ss} \to X//G$.}
+
+% Observe that the action of $G$ to $X$ restricts to an action on $X^{ss}$ by setting $G \times X^{ss} \to X^{ss}, (g,x) \mapsto g\cdot x$. To check that this is indeed well-defined, we must check that for every $x \in X^{ss}$, $g\cdot x$ is an element of $X^{ss}$ as well. However, this is clear because if $f \in S_+(X)^G$, in particular $f$ is $G$-invariant, and therefore, $f(g\cdot x)=f(x) \neq 0$. 
+
+% \begin{obs}
+%     All the definitions we gave of good quotient and geometric quotient admit a trivial generalization to projective sets by simply replacing \textit{affine variety} and \textit{morphism of affine varieties} by \textit{projective variety} and \textit{morphism of projective varieties} in each appearance.
+% \end{obs}
+
+% \Proposition{}{The projective GIT quotient \(X//G\) for a linear action of a reductive group $G$ on a projective variety $X \subset \CP^n$ is a good quotient for the action of $G$ on $X^{ss}$.}
+% \begin{proof}
+%     A proof can be found in \parencite[Prop. 4.8]{hoskins}. The main idea is to cover \(X^{ss}\) by open affine sets, and use affine GIT theory on those to get good quotients that are then glued together to produce a good quotient of \(X\).
+%     % The basic idea is to glue good affine quotients (of course, one should show that if we glue some good affine quotients, we obtain a map that satisfies the definition of good quotient but for projective sets), and use remark \ref{obs_quot_proj}. Let \(\varphi \colon X^{ss} \to X//G=Y\) be the map defined above. Basically, for \(f \in S(X)_+^G\), we may show that
+%     % \[
+%     % A(D_Y(\bar f)) \cong (S(X)^G_f)_0 = ((S(X)_f)_0)^G = A(D_X(\bar f))^G,
+%     % \]
+%     % where the \(0\) subscript indicates the \(0\)-degree homogeneous piece of the graded algebra (\(S(X)^G_f\) is the localization of the ring). The idea is that \(D_X(\bar f)\) and \(D_Y(\bar f)\) are affine varieties, and \(\varphi\) can be restricted to \(\varphi_f\colon D_X(\bar f) \to D_y(\bar f)\). Now, one just has to glue all this affine morphisms to get a good projective quotient. Observe that \(X//G=Y\) is a projective variety, which is covered by the sets \(D_Y(\bar f)\).
+% \end{proof}
+
+% % With the results we obtained for the affine case in mind, it seems reasonable to try to replicate them, and look for an open subset of \(X^{ss}\) such that the restriction of the action of \(G\) to this quotient defines a geometric quotient. To achieve that, we either want to be able to restrict the action to $X^s$ in such a manner that its orbits become closed, or at least, we want the action to be closed on some affine open $G$-invariant subsets that cover $X^s$. With this idea in mind, we define the concept of stability.
+
+% % \Definition{}{Let $G$ be a linear reductive group, acting linearly on a projective set $X \subset \CP^n$. Then, a point $x \in X$ is
+% %     \begin{enumerate}
+% %         \item \textit{semistable} if there is a $G$-invariant homogeneous polynomial $f \in S(X)_+^G$ such that $f(x) \neq 0$.
+% %         \item \textit{stable} if $\dim G_x=0$ and there is a $G$-invariant homogeneous polynomial $f \in S(X)_+^G$ such that $x \in D_X(\bar f)$ and the action of $G$ on $D_X(\bar f)$ is closed.
+% %         \item \textit{unstable} if it is not semistable.
+% %     \end{enumerate}}
+
+% % Once again, the fact that $f$ is $G$-invariant guarantees that the action of $G$ can be restricted to an action on $D_X(\bar f)$. Observe that if a point is stable, then it is semistable (by definition of $D_X(\bar f)$). Observe as well that the set of all semistable points is the set $X^{ss}$ defined in definition \ref{def_X^ss}. We will denote $X^s$ the set of stable points, which is open in $X$, for it is the complement of the null cone. 
+
+% % Having said that, the analogous result to propositions \ref{geo_quo_affine} and \ref{good_quo_affine} is the following theorem.
+
+% % \Theorem{}{\label{th_quo_proj}
+% %     For a linear action o a reductive group $G$ on a projective set $X \subset \CP^n$, we have
+% %     \begin{enumerate}
+% %         \item The GIT quotient $\varphi \colon X^{ss} \to Y:=X//G$ is a good quotient and a categorical quotient. Moreover, $Y$ is a projective variety.
+% %         \item $\overline{G\cdot x_1} \cap \overline{G \cdot x_2} \cap X^{ss}=\emptyset$ if and only if $\varphi(x_1)=\varphi(x_2)$.
+% %         \item There is an open subset $Y^s\subset Y$ such that $\varphi^{-1}(Y^s)=X^s$ and $\varphi \colon X^s \to Y^s$ is a geometric quotient.
+% %     \end{enumerate}}
+% % \begin{example}
+% %     Consider the action of $\mathbb{G}_m$ on \(\CP^n\) given by \(t \cdot [x_0: x_1: \ldots :x_n]:=[t^{-1}x_0: tx_1: \ldots tx_n]\). Then $\mathbb{G}_m$ acts linearly on \(\CP^n\). In this case, \(S(X)=\C[X_0, \ldots X_n]\), and a polynomials is \(\mathbb{G}_m\)-invariant, if and only if it belongs to \(\C[X_0X_1, \ldots X_0X_n]\), which is isomorphic to \(\C[Y_0, \ldots Y_{n-1}]\). Therefore,
+% %     \[
+% %     \CP^n // \mathbb{G}_m \cong \operatorname{Proj}(\C[Y_0, \ldots Y_{n-1}]) = \CP^{n-1}.
+% %     \]
+% %     The rational map is given explicitly {\color{red}show} by
+% %     \[
+% %     \begin{array}{cccc}
+% %         \varphi\colon & \CP^n & \longrightarrow & \CP^{n-1} \\
+% %         & \left[x_0: x_1 \ldots :x_n\right] & \mapsto & \left[x_0x_1: x_0x_2: \ldots :x_0x_n\right],
+% %     \end{array}
+% %     \]
+% %     and so the null cone is
+% %     \[
+% %     N_{S}(\CP^n)=\corch{[x_0:x_1: \ldots :x_n] \in \CP^n: x_0 = 0 \text{ or } (x_1, \ldots x_n) = (0, \ldots 0)}.
+% %     \]
+% %     Thus, the set of semistable points is \(\CP^n\setminus N_S(\CP^n)=\corch{[x_0: \ldots x_n] \in \CP^n: x_0\neq 0} \cap \corch{[x_0: \ldots :x_n]: (x_1, \ldots x_n) \neq (0, \ldots 0)}\), which we may write equivalently as
+% %     \[
+% %     (\CP^n)^{ss} =\corch{[1:x_1: \ldots : x_n]: (x_1, \ldots x_n) \neq (0, \ldots 0)} \cong \A_\C^n \setminus \corch{0}. 
+% %     \]
+% %     Finally, $\varphi\colon \A_\C^n \setminus \corch{0} \to \CP^{n-1}$ is just the usual quotient map that identifies lines through the origin. In this case, \(\varphi\) is a good quotient (this is just a consequence of theorem \ref{th_quo_proj}), but it is also a geometric quotient, because the preimage of each point is a single orbit.
+% % \end{example}
+
+% % Determining which points are stable and semistable is usually a difficult task, because it is necessary to have a good description of the \(G\)-invariant graded \(k\)-algebra (in that case, calculating its \(\operatorname{Proj}\) tends to be easier). However, finding those generators is usually pretty hard.
+
+% % The previous theorem does not ensure that the good quotient will be geometric, but there is a way to 
+% We finish the section with a definition needed to make sense of Kempf-Ness' theorem.
+% \Definition{\textbf{Polystable point}}{A semistable point $x \in X$ is said to be \textit{polystable} if its orbit is closed in $X^{ss}$. We say two semistable points are $S$-equivalent if their orbit's closures meet in $X^{ss}$. We denote $X^{ps}$ the set of polystable points.}
+
+% The set of polystable points is useful because we can consider its quotient by the reductive group, and it {\color{red}will be} a geometric quotient, which is in bijection to the GIT quotient.
+
+% \Proposition{}{Let $G$ be a reductive group acting linearly on a projective set $X \subset  \CP^n$. Then, if \(x,x' \in X^{ss}\), we have \(\varphi(x)=\varphi(x')\) if and only if \(x\) and \(x'\) are \(S\)-equivalent. Moreover, there is a bijection of sets
+%     \[
+%     X//G \cong X^{ps}/G.
+%     \]}
+% In general, we have inclusions $X^s \subset X^{ps} \subset X^{ss}$
+
+\subsection{The Kempf-Ness theorem}
+We refer the reader to appendix \ref{appendix_lie} for the basics on complex Lie groups and complexifications of real compact Lie groups. As we recall in the appendix, complex reductive Lie groups are characterized precisely by the fact that they are complexifications of compact real Lie groups. \\
+% Before stating the theorem, we need to introduce some concepts. Firstly, a complex Lie group $G$ is a group equipped with the structure of a complex manifold, such that the product and inverse maps are holomorphic maps. This is, of course, the reasonable generalization of the definition of real Lie group. Given a real Lie group \(\C\), it can be shown that there is a unique (up to isomorphism) complex Lie group in which \(\C\) is embedded, and that satisfies a universal property. 
+
+% \Definition{\textbf{Complexification of a Lie group}}{ Let \(\C\) be a real Lie group. A \textit{complexification} of \(\C\) is complex Lie group, denoted $K_\C$, together with an injective Lie group homomorphism (a smooth group homomorphism) $\imath\colon K \to K_\C$ satisfying the following universal property:
+
+% \begin{minipage}{0.65 \textwidth}
+%      For every complex Lie group $H$, and every Lie group homomorphism $\rho\colon K \to H$, there exists a unique holomorphic Lie group homomorphism $\rho_\C\colon K_\C \to H$ such that $\rho=\rho_\C \circ \imath$. That is, the following diagram is commutative
+% \end{minipage}
+% \begin{minipage}{0.3 \textwidth}
+%         \begin{center}
+%     \begin{tikzcd}[row sep=normal, column sep=normal,  ampersand replacement=\&]
+%         K \arrow[d, "\imath", '] \arrow[r, "\rho"] \& H \\
+%         K_C \arrow[ur, "\rho_\C", '] \& 
+%     \end{tikzcd}
+%     \end{center}
+% \end{minipage}}
+
+% The fact that $\imath\colon K \to K_\C$ is injective allows us to consider \(\C\) as a subgroup of $K_\C$. In terms of Lie algebras, one can show that the Lie algebra of $G:=K_\C$ is the complexification (as a real vector space) of the Lie algebra of \(\C\), i.e. $\mathfrak{g}\cong \mathfrak{K} \otimes _\R \C \cong \mathfrak{K} \oplus i\mathfrak{K}$. It is a fact {\color{red} añadir referencia} that the complexification of a compact real Lie group is a reductive complex group. \\
+
+We have defined a projective set $X \subset \CP^n$ as the zero set of a collection of homogeneous polynomials. Observe that $\CP^n$ is also a complex manifold (in the sense of complex differential geometry), and we may ask if projective sets can be equipped with a complex smooth structure such that they become embedded complex submanifolds of $\CP^n$. It turns out that for this to be true, we have to impose some extra conditions on the polynomials defining $X$. If $X=V(I)$, where $I=(F_1, \ldots F_r)$ is a radical ideal, and 
+\begin{equation} \label{eq_def_Jac}
+\operatorname{Jac}(F_1, \ldots F_r)(z)=
+\begin{pmatrix}
+\derpar{F_1}{X_0}(z) & \derpar{F_1}{X_1}(z) & \ldots & \derpar{F_1}{X_n}(z) \\
+\derpar{F_2}{X_0}(z) & \derpar{F_2}{X_1}(z) & \ldots & \derpar{F_2}{X_n}(z) \\
+\vdots & \vdots & \ddots & \vdots \\
+\derpar{F_r}{X_0}(z) & \derpar{F_r}{X_1}(z) & \ldots & \derpar{F_r}{X_n}(z)
+\end{pmatrix}
+\end{equation}
+has constant rank for every $z \in X$, then it is a complex manifold. Observe that this condition is well-defined and does not depend on the representative we choose for $z$. Indeed, choosing another representative \(\lambda z\) yields a matrix obtained from \eqref{eq_def_Jac} by multiplying each row by a power of \(\lambda\), which does not change the rank. We may then show that if $s=\mathrm{rank}(\operatorname{Jac}(F_1, \ldots F_r))$, and $d:=n-s$, then $X$ is a complex manifold of complex dimension $\mathrm{dim}_\C(X)=d$ (see \parencite[Prop. 5.42]{munoz2020geometry}) \\
+
+Suppose now that \(\mathrm{U}(n+1)\) acts on \(\CP^{n}\) through 
+\[
+\mathrm{U}(n+1) \times \CP^n \to \CP^m, (A, [z]) \mapsto [A\cdot z].
+\]
+One can the show that, with respect to the Fubini-Study metric, the action is simplectic, and in fact Hamiltonian. The moment map is given by \(\tilde\mu \colon \CP^n \to \mathfrak{u}(n+1)^*, [z] \mapsto \mu([z]) \) and
+\begin{equation} \label{eq_mu_tilde}
+    \langle \tilde\mu([z]), A\rangle :=\frac{\mathrm{Tr}(z^\dagger \cdot A \cdot z)}{2 \ii \cdot (z^\dagger \cdot z)} \hspace{1 cm} A \in \mathfrak{u}(n+1)
+\end{equation}
+where \(z^\dagger\) is the transpose conjugate \parencite[Ex. 8.10]{hoskins}.  \\
+
+More generally, consider a reductive complex group \(G=K^\C\) for some maximal compact subgroup. Suppose that $G$ acts on a smooth projective set $X \subset \CP^n$ via a representation $\rho \colon G \to \mathrm{GL}(n+1,\C)$. Restricting the action, there is also an action of \(K\) on \(\CP^n\). We want to relate the GIT quotient with the symplectic quotient given by the Marsden-Weinstein-Meyer theorem. Thus, we take a smooth complex variety \(X \subset \CP^n\), which is also a complex manifold, and therefore a symplectic manifold (the symplectic form is the pullback of the Fubini-Study form, see the comments in example \ref{def_Fubini_Study}). On the one hand, we may form the GIT quotient \(X//G\), and on the other, if the restricted action of \(K\) was symplectic, we could consider the symplectic quotient. Using Weyl's unitary trick, we may choose coordinates appropriately, such that the representation is unitary \(\rho \colon K \to \mathrm{U}(n+1)\) (see ). In that case, the action of \(\C\) on both \(X\) and \(\CP^n\) is symplectic, and actually hamiltonian. A moment map may be given as follows: consider \(\diff_{e_K}\rho\colon \mathfrak{k}\to \mathfrak{u}(n+1)\). The dual map is \((\diff_{e_k}\rho)^*\colon \mathfrak{u}(n+1)^* \to \mathfrak{k}^*\). Hence, we can define \(\mu:=(\diff_{e_K}\rho)^*\circ \tilde{\mu}\), where \(\tilde{\mu}\) is given in \eqref{eq_mu_tilde}. Explicitly,
+\[
+\langle \mu([z]), B\rangle :=\frac{\mathrm{Tr}(z^\dagger \cdot \diff_{e_K}\rho(B)\cdot z)}{2\ii \ (z^\dagger \cdot z)}.
+\]
+
+Now that both the symplectic and the GIT quotients make sense, their relation is given by the Kempf-Ness theorem.
+\Theorem{\textbf{Kempf-Ness}}{\label{th_kempf_Ness}
+    Let $G=K^\C$ be a complex reductive group acting linearly on a smooth complex projective variety, $X \subset \CP^n$. Suppose that its maximal compact subgroup \(\C\) is connected and acts symplectically on $X$, and let $\mu\colon X \to \mathfrak{k}^*$ be the associated moment map. Then
+    \begin{enumerate}
+        \item $G\mu^{-1}(0)=X^{ps}$.
+        \item If $x \in X$ is polystable, then its orbit $G \cdot x$ meets $\mu^{-1}(0)$ in a single \(K\)-orbit, i.e. \(K \cdot x \cap \mu^{-1}(0)\) is contained in a single $G$-orbit.
+        \item $x \in X$ is semistable if and only if its orbit's closure $\overline{G \cdot x}$ meets $\mu^{-1}(0)$.
+    \end{enumerate}}
+
+Observe that point 1 means that polystable points contain a zero of the moment map on their orbit.
+
+\begin{corollary}
+    In the above conditions, the inclusion $\mu^{-1}(0) \subset X^{ss}$ induces a homeomorphism
+    \[
+    \mu^{-1}(0)/K \to X /\!\!/ G.
+    \]
+\end{corollary}
+Equivalently, we have a homeomorphism \(\mu^{-1}(0)/K\cong X^{ps}/G\). We should remark that to speak about a homeomorphism, we see \(X /\!\!/G\) endowed with the subspace topology it inherits from the usual topology of \(\CP^n\).
+
+
+
+
+% \section{The Fubini-Study metric}
+% {\color{red} Avisar de que hermitian metric puede referirse a \(g\) o a \(h\) según diferentes autores.} 
+% We devote this section to showing how \(\CP^n\) can be endowed with the structure of a Kähler manifold. Since embedded submanifolds can be given the structure of a Kähler manifold as well, this will provide us with a lot of examples of Kähler manifolds. \\
+
+% Let us comment briefly first the case of \(\C^n\). Seen as a smooth manifold, \(\C^n\) is just \(\R^{2n}\), and using the standard holomorphic coordinates, \(z^j=x^j+\ii y^j\), we have the usual euclidean metric (which we extend by complex bilinearity to act on complex vector fields):
+% \begin{equation} \label{g_Cn_coord}
+% g=\sum_{j=1}^n \parent{ \diff x^j \otimes \diff x^j + \diff y^j\otimes \diff y^j}=\frac{1}{2}\sum_{j=1}^n \parent{\diff z^j \otimes \diff \bar{z}^j+\diff \bar{z}^j \otimes \diff z^j},
+% \end{equation}
+% where we used the relations
+% \[
+% \diff x^j = \frac{1}{2}\cdot  \parent{\diff z^j+\diff \bar{z}^j} \hspace{1 cm} 
+% \diff y^j = \frac{1}{2\ii} \cdot \parent{\diff z^j - \diff \bar{z}^j}
+% \]
+% to obtain the second expression. The almost complex structure on \(\C^n\) is given by
+% \[
+% J \parent{\basevect{x^j}}=\basevect{y^j} \ \ \ \mathrm{y} \ \ \ J\parent{\basevect{y^j}}=-\basevect{x^j}.
+% \]
+% The frame given by \(\left\{ \basevect{x^1}, \ldots \basevect{x^n}, \basevect{y^1}, \ldots \basevect{y^n} \right\}\) is obviosly orthonormal with respect to \(g\), so \(J\) is an orthogonal map. This implies \parencite[Prop. 8.4]{lee_introCM} that defining \(\omega(X, Y):=g(JX, Y)\), and \(h:=g-\ii \omega\), \(h\) is an hermitian fiber metric on \(T_J\C^n\) (which is canonically isomorphic to \(\C^n\) with its usual complex structure). Observe that \(h\) is just the usual complex hermitian product given by
+% \(h(z,w)=\sum_{j=1}^n z^j \cdot \bar{w}^j\). Indeed,
+% \[
+% \omega\parent{\basevect{x^j}, \basevect{x^k}}=g\parent{J\parent{\basevect{x^j}}, \basevect{x^k}}=g\parent{\basevect{y^j}, \basevect{x^k}}=0
+% \] 
+% and analogously
+% \begin{equation} \label{omega_coord}
+% \omega\parent{\basevect{x^j}, \basevect{x^k}}=-\omega\parent{\basevect{y^j}, \basevect{x^k}}=\delta_{jk}, \hspace{0.5 cm}
+% \omega\parent{\basevect{y^j}, \basevect{y^k}}=0.
+% \end{equation}
+% Therefore, we can write \(\omega\) is coordinates as follows
+% \[
+% \omega=\sum_{j=1}^n \diff x^j \wedge \diff y^j = \frac{\ii}{2} \cdot \sum_{j=1}^n \diff z^j \wedge \diff \bar{z}^j.
+% \]
+% Now, take any two complex vectors \(t, w \in \C^n\). Under the isomorphism \(\C^n \cong T_\C\C^n\), they can be identified with
+% \[
+% \mathrm{Re}(t^j) \basevect{x^j} + \mathrm{Im}(t^j) \basevect{y^j}, \hspace{0.5 cm}
+% \mathrm{Re}(w^k) \basevect{x^k} + \mathrm{Im}(w^k) \basevect{y^k}.
+% \]
+% Therefore, \ref{g_Cn_coord} and \ref{omega_coord} imply
+% \begin{equation} \nonumber
+%     \begin{split}
+%         h(t,w) = & \ g(t,w) - \ii \omega(t,w) \\
+%          = & \mathrm{Re}(t^j) \Ree{w^k}g \parent{\basevect{x^j}, \basevect{x^k}} + \Ree{t^j}\Imm{w^k} g \parent{\basevect{x^j}, \basevect{y^k}} \\
+%          & + \Imm{t^j} \Ree{w^k} g \parent{\basevect{y^j}, \basevect{x^k}} + \Imm{t^j} \Imm{w^k} g \parent{\basevect{y^j}, \basevect{y^k}} \\
+%         & -\ii \bigg(\mathrm{Re}(t^j) \Ree{w^k}\omega \parent{\basevect{x^j}, \basevect{x^k}} + \Ree{t^j}\Imm{w^k} \omega \parent{\basevect{x^j}, \basevect{y^k}} \\
+%         &  + \Imm{t^j} \Ree{w^k} \omega \parent{\basevect{y^j}, \basevect{x^k}} + \Imm{t^j} \Imm{w^k} \omega \parent{\basevect{y^j}, \basevect{y^k}}\bigg) \\
+%          = &\parent{\Ree{t^j}\Imm{w^j}+\Imm{T^j}\Ree{w^j}} + \ii \parent{\Imm{t^j}\Ree{w^j}-\Ree{t^j}\Imm{w^j}} \\
+%          = &\sum_{j=1}^n t^j \bar{w}^j.
+%     \end{split}
+% \end{equation}
+% Finally, note that \(\omega\) is clearly closed (it is, in fact, the standard symplectic form on \(\R^{2n}\)), and tehrefore, \(g\) is a Kähler metric. We just showed that \(\C^n\) is a Kähler manifold, which is not a very surprising result, but it is always worth to apply the theory first to a somewhat trivial case, to make sure that everything works fine. \\
+
+% We are now ready to jump to \(\CP^n\). The usual hermitian metric on \(\CP^n\) is called the \textit{Fubini-Study metric}\index{Fubini-Study metric} after the italian mathematician Guido Fubini, and the german manthematician Eduard Study. As we stated before, our goal is to endow \(\CP^n\) with a Kähler metric. To do so, we will define the fundamental \(2\)-form first. Recall that \(\CP^n\) is covered by affine charts as follows. We define \(U_i :=\corch{[z_0: \ldots :z_n] \in \CP^n: z_i \neq 0}\). This is a well-defined open set in \(\CP^n\), and we define a chart on this open set as
+% \[
+% \begin{array}{cccc}
+%     \varphi_i \colon & U_i & \longrightarrow & \C^n \\
+%     & [z_0: \ldots : z_n] & \mapsto & {\displaystyle\parent{\frac{z_0}{z_i}, \ldots \hat{\frac{z_i}{z_i}}, \ldots \frac{z_n}{z_j}} }
+% \end{array}
+% \]
+% where \(\hat{\color{white}.}\) denotes that the corresponding coordinate is missing. Its inverse is given by \(\varphi_i^{-1}(z_0, \ldots \hat{z}_i, \ldots z_n)=[z_0: \ldots :z_{i-1}:1: \ldots z_n]\). We are going to define \(\omega\) on each open set \(U_i\), and we will see that two definitions coincide con \(U_i \cap U_j\). This will define \(\omega\) globally. We thus define on \(U_i\)
+% \[
+% \omega|_{U_i}:=\frac{\ii}{2} \partial \barpartial \big(\log (1+|\varphi_i|^2)\big).
+% \]
+% That is, \(\omega|_{U_i}([z_0:\ldots :z_n])=\ii/2 \ \partial \barpartial \log(|z_0/z_i|^2+\ldots + |z_n/z_i|^2)\). Now, take another open set \(U_j\), and suppose \(i<j\) (if \(i>j\), the same reasoning holds swapping \(i\) and \(j\)). Let us check that \(\ii/2 \ \partial \barpartial\log\big(1+|\varphi_i|^2\big)=\ii/2 \ \partial \barpartial \log \big(1+ |\varphi_j|^2\big) \) in \(U_i\cap U_j\). Observe that for \(z \in U_i \cap U_j\)
+% \begin{equation} \nonumber
+%     \begin{split}
+%     1+|\varphi_i(z)|^2& =1+|z_0|^2+\ldots+|\hat{z}_i|^2+\ldots +|z_n|^2=\frac{1}{|z_i|^2} \cdot \parent{\sum_{k=0}^n|z_k|^2} \\
+%     & =\frac{|z_j|^2}{|z_i|^2} \cdot \frac{1}{|z_j|^2 }\cdot \parent{\sum_{k=0}^n|z_k|^2} \\
+%     & = \frac{|z_j|^2}{|z_i|^2} \cdot (1+|\varphi_j(z)|^2).
+%     \end{split}
+% \end{equation}
+% Therefore, there is an holomorphic map \(f\) (which is just \(\pi_j\varphi \varphi_i\)) such that \(1+|\varphi_i|^2=|f|^2\cdot (1+|\varphi_j|^2)\). This implies 
+% \begin{equation} \nonumber
+%     \begin{split}
+%     \partial\barpartial \log \big(1+|\varphi_i|^2\big) & =\partial\barpartial\log\big(|f|^2\cdot (1+|\varphi_j|^2) \big)=\partial \barpartial \parent{\log |f|^2+\log(1+|\varphi_j|^2)} = \partial \barpartial \log |f|^2+\partial \barpartial \log(1+|\varphi_j|^2).
+%     \end{split}
+% \end{equation}
+% Furthermore, 
+% \[
+% \partial \barpartial \log |f|^2=\partial \barpartial \log (f\bar f)=\partial \barpartial \log f + \partial \barpartial \log \bar f=0.
+% \]
+% Indeed, \(\log f\) is holomorphic because it is the composition of two holomophic maps, thus \(\barpartial \log f=0\). Moreover, \(\partial\barpartial=-\barpartial\partial\), and \(\log \bar f=\overline{\log f}\), which is antiholomorphic (this is true regardless of the branch of the logarithm we choose). Finally, \(\partial \overline{\log f}=0\). Putting all together, \(\omega\) is a well-defined \(2\)-form on \(\CP^n\). Since its coordinate expression in any \(U_i\) is defined by apllying \(\partial \barpartial\) to an holomorphic map, it follows that \(\omega \in \Omega_\C^{(1,1)}(\CP^n)\), as one would expect for a fundamental \(2\)-form. It is also closed, because \(\diff \omega = (\partial+\barpartial) \omega=\partial\omega + \barpartial \omega=0\). Since the condition of being closed is local, it can be checked on any chart. In particular, taking an affine chart 
+% ~\((U_i, \varphi_i)\), we have \(\partial\omega = \ii/2 \cdot  \partial \partial \barpartial \log (1+|\varphi_i|^2)=0\) because \(\partial \partial=0\). Similarly, \(\barpartial \omega = \ii/2 \cdot \barpartial\partial \barpartial \log(1+|\varphi_i|^2)=-\ii/2 \cdot \partial \barpartial\barpartial \log(1+|\varphi_i|^2)=0 \) using now that \(\barpartial \barpartial = 0\). \\
+
+% For the shake of completitude, let us obtain the coordinate expression for \(\omega\) on some affine chart. COnsider the chart \((U_i, \varphi_i)\), and by setting \(z_i=1\), which can obvioulsy be done in \(U_i\), write \(\varphi_i=(z_0, \ldots, \hat{z}_i, \ldots  ,z_n)\). We then have
+% \begin{equation} \label{coord_omegaFS_Ui}
+%     \begin{split}
+%         \omega& = \frac{\ii}{2} \cdot \partial \barpartial \log \parent{1+\sum_{j\neq i}|z_j|^2} = \frac{\ii}{2} \cdot \partial \parent{\frac{\barpartial\parent{\sum_{j \neq i}|z_j|^2+1}}{1+\sum_{l\neq i}|z^l|^2}} = \frac{\ii}{2} \cdot\partial  \parent{\frac{\sum_{i\neq j } z^j \diff \bar{z}^j}{1+\sum_{l\neq i}|z^l|^2}} \\
+%         & = \frac{\ii}{2} \sum_{j \neq i}\sum_{k\neq i}\derpar{}{z^k} \parent{\frac{z^j}{1+\sum_{l \neq i}|z^l|^2}} \diff z^k \wedge \diff \bar{z}^j \\
+%         & = \frac{\ii}{2} \cdot \parent{\frac{\sum_{j \neq i} \sum_{k \neq i}\delta_k^j\cdot (1+\sum_{l \neq i}|z^l|^2)-z^j\bar{z}^k}{(1+\sum_{l \neq i}|z^l|^2)^2}} \diff z^k \wedge \diff \bar{z}^j \\
+%         & = \frac{\ii}{2} \cdot \frac{\sum_{j \neq i} (1+\sum_{l \neq i}|z^l|^2) \  \diff z^j \wedge \diff \bar{z}^j - \sum_{k,j \neq i} z^j \bar{z}^k \ \diff z^k \wedge \diff \bar{z}^j}{(1+\sum_{l \neq i}|z^l|^2)^2}.
+%     \end{split}
+% \end{equation}
+% The corresponding Kähler metric is given by \(g(\cdot, \cdot):=\omega(J\cdot, \cdot)\). We may express the hermitian metric in holomorphic metric as follows {\color{red} mencionar el convenio para el producto simétrico}
+% \[
+% g=2g_{j \bar k} \ \diff z^j \ \diff \bar{z}^k, 
+% \]
+% where juxtaposition denotes the symmetric product of tensors, and \(g_{j\bar k}=g(\partial_j, \partial_{\bar k})\). Using the equation \ref{coord_omegaFS_Ui}, we may compute those coefficients
+% \[
+% g(\partial_j, \partial_{\bar k})=\omega(J\partial_j, \partial_{\bar k})=\omega(\ii \partial_j, \partial_{\bar k}) = \ii  \omega(\partial_j, \partial_k) = \ii \cdot \frac{\ii}{2} \cdot \parent{\frac{\delta_{jk}}{1+\sum_{l \neq i}|z^l|^2}+\frac{\bar z^jz^k}{(1+\sum_{l \neq i}|z^l|^2)^2}}.
+% \]
+% Finally, we may express the hermitian metric in affine coordinates as
+% \[
+% g=\parent{\frac{\delta_{jk}}{1+\sum_{l \neq i}|z^l|^2}+\frac{\bar z^jz^k}{(1+\sum_{l \neq i}|z^l|^2)^2}} \ \diff z^j \  \diff \bar z^k.
+% \]
+% We have thus shown that \(\CP^n\) is a Kähler manifold. Moreover, any embedded submanifold \(M \subset \CP^n\) (in particular, zero sets of homogeneous polynomials) are Kähler manifolds, with hermitian metric and fundamental \(2\)-form given by \(i^*\omega\) and \(i^*g\) respectively (\(i\colon M \hookrightarrow \CP^n\) is the inclusion).
+
+
